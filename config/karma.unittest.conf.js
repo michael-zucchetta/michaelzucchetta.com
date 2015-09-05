@@ -5,6 +5,7 @@ module.exports = function(config) {
 		frameworks: ['jasmine', 'requirejs'],
 		files: [
 			{pattern: 'tests/unit/*Spec.js', included: false},
+			{pattern: 'example/*.js', included: false},
 			{pattern: 'src/js/**/*.js', included: false},
 			{pattern: 'lib/**/*.js', included: false},
 			'src/js/initialisation/requirejs-bootstrap-test.js'

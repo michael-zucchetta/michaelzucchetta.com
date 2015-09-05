@@ -1,5 +1,5 @@
-define(['routeProvider'], function(){
-	var app = angular.module('common', ['routeProvider']);
+define(['angularRoute'], function(){
+	var app = angular.module('common', ['ngRoute']);
 	app.run([function(){
 	
 	}]);

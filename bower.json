@@ -4,6 +4,8 @@
 	"dependencies": {
 		"jquery": "*",
 		"angularjs": "*",
+		"angular-mocks": "*",
+		"angular-route": "*",
 		"requirejs": "*"
 	},
 	"private": true

@@ -4,3 +4,18 @@
 	// start test run, once Require.js is done
 	callback: window.__karma__.start
 });
+requirejs (
+        [
+	        'angular',
+		        'angularRoute',
+			        'premain',
+				        'main',
+					        'jQuery'
+						        // Load our app module and pass it to our definition function
+							        ],
+								        function(angular, angularRoute, app){
+									                console.log(app);
+											        }
+												);
+					'src/js/initialisation/require/post-requirejs-bootstrap'
+

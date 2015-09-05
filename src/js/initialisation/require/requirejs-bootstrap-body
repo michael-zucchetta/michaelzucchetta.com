@@ -1,7 +1,9 @@
 	paths: {
-		angular: 'lib/angularjs/angular.min',
-		angularRoute: 'iib/angularjs/angular-route.min',
-		jQuery: 'lib/jquery/jquery.min',
+		angular: '../../lib/angularjs/angular.min',
+		angularMocks: '../../lib/angular-mocks/angular-mocks',
+		angularRoute: '../../lib/angular-route/angular-route.min',
+		jQuery: '../../lib/jquery/dist/jquery.min',
+		init: 'initialisation'
 	},
 	shim: {
 		'angular' : {
@@ -11,4 +13,17 @@
 			deps: ['angular'],
 			exports: 'angularRoute'
 		},
+		'angularMocks': {
+			deps: ['angular'],
+			exports: 'angularMocks'
+		},
+		'premain': {
+			deps: ['angularRoute'],
+			exports: 'premain'
+		},
+		'main': {
+			deps: ['angularRoute'],
+			exports: 'main'
+		}
+
 	}

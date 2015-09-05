@@ -23,7 +23,7 @@ module.exports = function(grunt) {
 				src: [
 					'src/js/initialisation/require/pre-requirejs-bootstrap',
 					'src/js/initialisation/require/requirejs-bootstrap-body',
-					'src/js/initialisation/require/post-requirejs-bootstrap',
+					'src/js/initialisation/require/post-requirejs-bootstrap'
 				],
 				dest: 'src/js/initialisation/requirejs-bootstrap.js'
 			},
@@ -32,7 +32,7 @@ module.exports = function(grunt) {
 				src: [
 					'src/js/initialisation/require/pre-requirejs-bootstrap-test',
 					'src/js/initialisation/require/requirejs-bootstrap-body',
-					'src/js/initialisation/require/post-requirejs-bootstrap-test',
+					'src/js/initialisation/require/post-requirejs-bootstrap-test'
 				],
 				dest: 'src/js/initialisation/requirejs-bootstrap-test.js'
 			}
