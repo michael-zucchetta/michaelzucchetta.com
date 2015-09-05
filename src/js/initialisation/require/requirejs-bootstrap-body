@@ -3,6 +3,9 @@
 		angularMocks: '../../lib/angular-mocks/angular-mocks',
 		angularRoute: '../../lib/angular-route/angular-route.min',
 		jQuery: '../../lib/jquery/dist/jquery.min',
+		SampleCtrl: '../../example/SampleCtrl',
+		premain: 'initialisation/premain',
+		main: 'initialisation/main',
 		init: 'initialisation'
 	},
 	shim: {

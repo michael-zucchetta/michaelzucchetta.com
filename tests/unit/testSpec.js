@@ -1,4 +1,4 @@
-define(['init/premain', 'angular', 'angularMocks'], function(app) {
+define(['premain', 'angular', 'angularMocks', 'SampleCtrl'], function(app) {
 
 	beforeEach(module('common'));
 
@@ -12,7 +12,10 @@ define(['init/premain', 'angular', 'angularMocks'], function(app) {
 	describe('describe', function() {
 		it("it test", function() {
 			console.log('test log');
-			expect(true).toBe(true);
+			var $scope = {};
+			var ctrl = $controller('SampleCtrl', { $scope: $scope });
+			console.log($scope.sum(2,2));
+			expect($scope.sum(2,2)).toBe(4);
 		});
 	});
 

@@ -1,6 +1,6 @@
 define(['premain'], function(app) {
 
-	app.controller('SimpleCtrl', [
+	app.controller('SampleCtrl', [
 		'$scope',
 		function($scope) {
 			$scope.sum = function(n1, n2) {
@@ -10,6 +10,6 @@ define(['premain'], function(app) {
 				return n1 + n2;
 			};
 		}
-	);
+	]);
 
 });
