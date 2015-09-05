@@ -1,2 +1,1 @@
-# requirejs-angular-empty-project
-AngularJS, RequireJS, jQuery, Sass, NodeJS, grunt pre-configured
+Vanilla Project to be cloned and reused (I am not a fan of scaffolding tools)

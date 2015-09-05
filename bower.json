@@ -1,0 +1,10 @@
+{
+	"name": "karma-testing",
+	"description": "",
+	"dependencies": {
+		"jquery": "*",
+		"angularjs": "*",
+		"requirejs": "*"
+	},
+	"private": true
+}

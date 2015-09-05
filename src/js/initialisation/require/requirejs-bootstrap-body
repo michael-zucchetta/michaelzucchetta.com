@@ -1,0 +1,14 @@
+	paths: {
+		angular: 'lib/angularjs/angular.min',
+		angularRoute: 'iib/angularjs/angular-route.min',
+		jQuery: 'lib/jquery/jquery.min',
+	},
+	shim: {
+		'angular' : {
+			exports : 'angular'
+		},
+		'angularRoute': {
+			deps: ['angular'],
+			exports: 'angularRoute'
+		},
+	}
