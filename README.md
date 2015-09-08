@@ -6,3 +6,4 @@ npm install -g karma-cli
 npm install -g protractor
 npm install -g grunt
 npm install -g grunt-cli
+

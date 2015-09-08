@@ -22,7 +22,9 @@ module.exports = function(grunt) {
 			"require": {
 				src: [
 					'src/js/initialisation/require/pre-requirejs-bootstrap',
-					'src/js/initialisation/require/requirejs-bootstrap-body',
+					'src/js/initialisation/require/requirejs-bootstrap-body-1',
+					'src/files.json',
+					'src/js/initialisation/require/requirejs-bootstrap-body-2',
 					'src/js/initialisation/require/post-requirejs-bootstrap'
 				],
 				dest: 'src/js/initialisation/requirejs-bootstrap.js'
@@ -31,10 +33,38 @@ module.exports = function(grunt) {
 				// karma needs a slightly differenc configuration because it serves files on /base, so two files are built with the same dependecies
 				src: [
 					'src/js/initialisation/require/pre-requirejs-bootstrap-test',
-					'src/js/initialisation/require/requirejs-bootstrap-body',
+					'src/js/initialisation/require/requirejs-bootstrap-body-1',
+					'src/files.json',
+					'src/js/initialisation/require/requirejs-bootstrap-body-2',
 					'src/js/initialisation/require/post-requirejs-bootstrap-test'
 				],
 				dest: 'src/js/initialisation/requirejs-bootstrap-test.js'
+			}
+		},
+		tree: {
+			options: {
+			},
+			js: {
+				options: {
+					type: ['js'],
+					format: true
+				},
+				files: [
+					{
+						src: 'src/js',
+						dest: 'src/files.json'
+					}
+				]
+			}
+		},
+		jsbeautifier: {
+			files: ['src/js/initialisation/requirejs-bootstrap.js', 'src/js/initialisation/requirejs-bootstrap-test.js']
+		},
+		coffee: {
+			compile: {
+				files: {
+					'src/js/example/result.js': 'src/js/example/source.coffee', // 1:1 compile 
+				}
 			}
 		},
 		'karma': {
@@ -44,14 +74,21 @@ module.exports = function(grunt) {
 		}
 	});
 
-	// Load the plugin that provides the "uglify" task.
 	grunt.loadNpmTasks('grunt-npm-install');
+	grunt.loadNpmTasks('grunt-tree');
 	grunt.loadNpmTasks('grunt-bower-install-simple');
+	grunt.loadNpmTasks('grunt-jsbeautifier');
 	grunt.loadNpmTasks('grunt-contrib-concat');
+	grunt.loadNpmTasks('grunt-contrib-coffee');
 	grunt.loadNpmTasks('grunt-karma');
+	grunt.registerTask('bower-install', ["bower-install-simple"]);
 	
-	grunt.registerTask("bower-install", ["bower-install-simple"]);
-	
-	
-	grunt.registerTask("default", ["npm-install", "bower-install", "concat", "karma"]);
+	grunt.registerTask('build-requirejs', function() {
+		var dependencies = grunt.file.read('src/files.json');
+		dependencies = dependencies.substring(1, dependencies.length - 1).replace(/\.js/g, "");
+		console.log("created dependencies files for requirejs!");
+		grunt.file.write('src/files.json', dependencies);
+	});
+
+	grunt.registerTask("default", ["npm-install", "bower-install", "tree", "build-requirejs", "concat", "jsbeautifier", "coffee", "karma"]);
 }
