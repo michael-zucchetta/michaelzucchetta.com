@@ -1,6 +1,6 @@
 Vanilla Project to be cloned and reused (I am not a fan of scaffolding tools).
 
-Install npm and do the following:
+Install npm and do the following (as they are used in package):
 
 - npm install -g karma
 - npm install -g karma-cli
