@@ -111,12 +111,17 @@ module.exports = function(grunt) {
 		watch: {
 			coffee: {
 				files: ['src/js/**/*.coffee'],
-				tasks: 'coffee'
+				tasks: 'newer:coffee'
 			},
 			sass: {
 				files: ['src/css/**/*.scss'],
-				task: 'sass'
+				task: 'newer:sass'
 			}
+			//,
+			//jshint: {
+			//	files: ['dest/js/**/*.js'],
+			//	task: 'jshint'
+			//}
 		}
 	});
 	//Loading before the others
@@ -131,6 +136,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-jsbeautifier');
 	grunt.loadNpmTasks('grunt-karma');
+	grunt.loadNpmTasks('grunt-newer');
 	grunt.loadNpmTasks('grunt-tree');
 	
 	grunt.registerTask('bower-install', ["bower-install-simple"]);
@@ -142,6 +148,8 @@ module.exports = function(grunt) {
 		grunt.file.write(filesPath, dependencies);
 	});
 
-	grunt.registerTask("default", ["npm-install", "bower-install", "tree", "coffee", "build-requirejs", "concat", "jsbeautifier", "copy", "sass", "jshint", "karma", "watch"]);
+	grunt.registerTask("default", ["npm-install", "bower-install", "tree", "coffee", "build-requirejs", "concat", "jsbeautifier", "copy", "sass", "jshint"]);
+	grunt.registerTask("test", ["default", "karma"]);
+	grunt.registerTask("dev", ["default", "watch"]);
 
 }
