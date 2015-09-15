@@ -6,16 +6,14 @@
 });
 requirejs (
         [
-	        'angular',
-		        'angularRoute',
-			        'premain',
-				        'main',
-					        'jQuery'
-						        // Load our app module and pass it to our definition function
-							        ],
-								        function(angular, angularRoute, app){
-									                console.log(app);
-											        }
-												);
-					'src/js/initialisation/require/post-requirejs-bootstrap'
-
+		'angular',
+		'angularRoute',
+		'premain',
+		'main',
+		'jQuery'
+		// Load our app module and pass it to our definition function
+	],
+	function(angular, angularRoute, app){
+		console.log(app);
+	}
+);

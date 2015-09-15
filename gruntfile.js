@@ -67,7 +67,15 @@ module.exports = function(grunt) {
 			}
 		},
 		jsbeautifier: {
-			files: ['src/js/initialisation/requirejs-bootstrap.js', 'src/js/initialisation/requirejs-bootstrap-test.js']
+			files: ['src/js/initialisation/requirejs-bootstrap.js', 'src/js/initialisation/requirejs-bootstrap-test.js'],
+			options: {
+				js: {
+					preserveNewlines: false
+				}
+			}
+		},
+		jshint: {
+			all: ['dest/**/*.js']
 		},
 		coffee: {
 			glob_to_multiple: {
@@ -111,16 +119,18 @@ module.exports = function(grunt) {
 			}
 		}
 	});
-
+	//Loading before the others
+	grunt.loadNpmTasks('grunt-npm-install');
+	
 	grunt.loadNpmTasks('grunt-bower-install-simple');
 	grunt.loadNpmTasks('grunt-contrib-coffee');
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-copy');
+	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-sass');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-jsbeautifier');
 	grunt.loadNpmTasks('grunt-karma');
-	grunt.loadNpmTasks('grunt-npm-install');
 	grunt.loadNpmTasks('grunt-tree');
 	
 	grunt.registerTask('bower-install', ["bower-install-simple"]);
@@ -132,6 +142,6 @@ module.exports = function(grunt) {
 		grunt.file.write(filesPath, dependencies);
 	});
 
-	grunt.registerTask("default", ["npm-install", "bower-install", "tree", "coffee", "build-requirejs", "concat", "jsbeautifier", "copy", "sass", "karma", "watch"]);
+	grunt.registerTask("default", ["npm-install", "bower-install", "tree", "coffee", "build-requirejs", "concat", "jsbeautifier", "copy", "sass", "jshint", "karma", "watch"]);
 
 }
