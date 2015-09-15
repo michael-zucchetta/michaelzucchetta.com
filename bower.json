@@ -6,7 +6,7 @@
 		"angularjs": "*",
 		"angular-mocks": "*",
 		"angular-route": "*",
-		"boostrap": "*",
+		"bootstrap": "*",
 		"requirejs": "*"
 	},
 	"private": true
