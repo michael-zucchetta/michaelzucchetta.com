@@ -78,13 +78,24 @@ module.exports = function(grunt) {
 			all: ['dest/**/*.js']
 		},
 		coffee: {
-			glob_to_multiple: {
+			compile_with_maps: {
 				options: {
 					 sourceMap: true
 				},
 				src:  ['**/*.coffee'],
 				cwd: 'src/js',
 				dest: 'dest/js',
+				ext: '.js',
+				expand: true,
+				flatten: false
+			},
+			compile_tests_with_maps: {
+				options: {
+					 sourceMap: true
+				},
+				src:  ['**/*.coffee'],
+				cwd: 'src/tests',
+				dest: 'tests/',
 				ext: '.js',
 				expand: true,
 				flatten: false
@@ -110,7 +121,7 @@ module.exports = function(grunt) {
 		},
 		watch: {
 			coffee: {
-				files: ['src/js/**/*.coffee'],
+				files: ['src/**/*.coffee'],
 				tasks: 'newer:coffee'
 			},
 			sass: {

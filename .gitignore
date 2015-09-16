@@ -28,3 +28,4 @@ tests/units.html
 src/js/example/result.js
 dest/**/*
 .sass-cache/
+tests/**/*
