@@ -1,6 +1,6 @@
 {
 	"name": "vanilla-project",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"license" : "GPL-3.0",
 	"description": "Project with RequireJS, AngularJS, Sass, NodeJS configured",
 	"repository" :
@@ -17,6 +17,7 @@
 	},
 	"author": "Michael Zucchetta",
 	"devDependencies": {
+		"chromedriver": "^2.19.0",
 		"express": "^4.13.3",
 		"grunt-bower-install-simple": "^1.1.4",
 		"grunt-contrib-concat": "^0.5.1",
@@ -38,6 +39,7 @@
 		"karma-jasmine": "^0.3.6",
 		"karma-htmlfile-reporter": "^0.2.2",
 		"karma-requirejs": "^0.2.2",
-		"protractor": "2.2.0"
+		"protractor": "^2.2.0",
+		"selenium-standalone": "^4.6.0"
 	}
 }

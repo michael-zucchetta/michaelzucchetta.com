@@ -82,9 +82,9 @@ module.exports = function(grunt) {
 				options: {
 					 sourceMap: true
 				},
-				src:  ['**/*.coffee'],
-				cwd: 'src/js',
-				dest: 'dest/js',
+				src:  ['**/*.coffee', '!tests/**'],
+				cwd: 'src/',
+				dest: 'dest/',
 				ext: '.js',
 				expand: true,
 				flatten: false
@@ -101,9 +101,14 @@ module.exports = function(grunt) {
 				flatten: false
 			}
 		},
-		'karma': {
+		karma: {
 			unit: {
 				configFile: 'config/karma.unittest.conf.js'
+			}
+		},
+		protractor: {
+			e2e: {
+				configFile: 'config/protractor.e2e.conf.js'
 			}
 		},
 		sass: {
@@ -127,12 +132,11 @@ module.exports = function(grunt) {
 			sass: {
 				files: ['src/css/**/*.scss'],
 				task: 'newer:sass'
+			},
+			jshint: {
+				files: ['dest/js/**/*.js'],
+				task: 'newer:jshint'
 			}
-			//,
-			//jshint: {
-			//	files: ['dest/js/**/*.js'],
-			//	task: 'jshint'
-			//}
 		}
 	});
 	//Loading before the others
@@ -148,6 +152,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-jsbeautifier');
 	grunt.loadNpmTasks('grunt-karma');
 	grunt.loadNpmTasks('grunt-newer');
+	grunt.loadNpmTasks('grunt-protractor-runner');
 	grunt.loadNpmTasks('grunt-tree');
 	
 	grunt.registerTask('bower-install', ["bower-install-simple"]);

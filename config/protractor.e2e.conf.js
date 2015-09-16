@@ -1,6 +1,6 @@
 exports.config = {
 	// location of the Selenium JAR file and chromedriver, use these if you installed protractor locally
-	// chromeDriver: '../node_modules/protractor/selenium/chromedriver',
+	chromeDriver: '../node_modules/protractor/chromedriver',
 
 	// location of your E2E test specs
 	specs: [
