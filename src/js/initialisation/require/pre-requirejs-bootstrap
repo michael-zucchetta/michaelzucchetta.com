@@ -1,2 +1,2 @@
 requirejs.config({
-	baseUrl: "/dest/js",
+	baseUrl: "/",

@@ -43,10 +43,16 @@ module.exports = function(grunt) {
 			}
 		},
 		copy: {
-				files: {
+				js: {
 					expand: true,
 					cwd: 'src/',
-					src: '**/*js',
+					src: '**/*.js',
+					dest: 'dest/'
+				},
+				html: {
+					expand: true,
+					cwd: 'src/',
+					src: '**/*.html',
 					dest: 'dest/'
 				}
 		},
@@ -60,7 +66,7 @@ module.exports = function(grunt) {
 				},
 				files: [
 					{
-						src: 'dest/js',
+						src: 'dest/',
 						dest: filesPath
 					}
 				]
@@ -132,6 +138,10 @@ module.exports = function(grunt) {
 			sass: {
 				files: ['src/css/**/*.scss'],
 				task: 'newer:sass'
+			},
+			copy_html: {
+				files: ['src/**/*.html'],
+				tasks: ['newer:copy:html']			
 			},
 			jshint: {
 				files: ['dest/js/**/*.js'],

@@ -20,8 +20,6 @@ node_modules/**/**/build/Makefile
 .*~
 src/js/initialisation/requirejs-bootstrap.js
 src/js/initialisation/requirejs-bootstrap-test.js
-src/js/initialisation/require/requirejs-bootstrap-body-1
-src/js/initialisation/require/requirejs-bootstrap-body-2
 src/files.json
 npm-debug.log
 tests/units.html

@@ -1,12 +1,12 @@
 {
-	"name": "vanilla-project",
-	"version": "0.0.2",
+	"name": "michaelzucchetta.com",
+	"version": "0.0.1",
 	"license" : "GPL-3.0",
-	"description": "Project with RequireJS, AngularJS, Sass, NodeJS configured",
+	"description": "Personal web site with RequireJS, AngularJS, Sass, NodeJS configured",
 	"repository" :
 	{ 
 		"type" : "git",
-		"url" : "https://github.com/michael-zucchetta/requirejs-angular-empty-project/"
+		"url" : "https://github.com/michael-zucchetta/michaelzucchetta.com"
 	},
 	"main": "index.js",
 	"scripts": {
@@ -39,6 +39,7 @@
 		"karma-jasmine": "^0.3.6",
 		"karma-htmlfile-reporter": "^0.2.2",
 		"karma-requirejs": "^0.2.2",
+		"mime": "^1.3.4",
 		"protractor": "^2.2.0",
 		"selenium-standalone": "^4.6.0"
 	}

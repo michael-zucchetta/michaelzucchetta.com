@@ -1,0 +1,23 @@
+	},
+	shim: {
+		'angular' : {
+			exports : 'angular'
+		},
+		'angularRoute': {
+			deps: ['angular'],
+			exports: 'angularRoute'
+		},
+		'angularMocks': {
+			deps: ['angular'],
+			exports: 'angularMocks'
+		},
+		'premain': {
+			deps: ['angularRoute'],
+			exports: 'premain'
+		},
+		'main': {
+			deps: ['angularRoute'],
+			exports: 'main'
+		}
+
+	}
