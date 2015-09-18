@@ -10,7 +10,8 @@ requirejs (
 		'angularRoute',
 		'premain',
 		'main',
-		'jQuery'
+		'jQuery',
+		'InitCtrl'
 		// Load our app module and pass it to our definition function
 	],
 	function(angular, angularRoute, app){
