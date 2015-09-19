@@ -1,0 +1,38 @@
+@import "compass/css3";
+html {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	height: 100%;
+}
+
+
+.website-container {
+
+	.website-content {
+		background-color: #FAFAFA;
+		height: 90%;
+		@include border-radius(10px);
+		@include box-shadow(20px);
+		position: relative;
+	}
+
+	@media only screen and (min-width: 992px) {
+		padding: 40px;
+	}
+	
+	@media only screen and (max-width: 992px) {
+		padding: 15px;
+
+	}
+
+	.website-title {
+		height: 10%;
+	}
+
+	height: 100%;
+	font-family: courier;
+	background-color: black;
+}

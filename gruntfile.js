@@ -120,6 +120,7 @@ module.exports = function(grunt) {
 		sass: {
 			dist: {
 				options: {
+					compass: true
 				},
 				files: [{
 					expand: true,
@@ -135,9 +136,9 @@ module.exports = function(grunt) {
 				files: ['src/**/*.coffee'],
 				tasks: 'newer:coffee'
 			},
-			sass: {
+			sass_watch: {
 				files: ['src/css/**/*.scss'],
-				task: 'newer:sass'
+				tasks: ['newer:sass:dist']
 			},
 			copy_html: {
 				files: ['src/**/*.html'],
