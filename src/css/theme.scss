@@ -15,14 +15,97 @@ body {
 		background-color: #FAFAFA;
 		height: 90%;
 		@include border-radius(10px);
-		@include box-shadow(20px);
+		@include box-shadow(inset 0 0 20px #000000);
 		position: relative;
+		@include animation(go-in 1.2s ease-out);
+
+		@-webkit-keyframes go-in {
+			0% {
+				-webkit-transform:translateY(-100%);
+			}
+			5% {
+				-webkit-transform:translateY(-100%);
+			}
+			15% {
+				-webkit-transform:translateY(0);
+				padding: 4px auto;
+			}
+			20% {
+				-webkit-transform:translateY(-80%);
+			}
+			25% {
+				-webkit-transform:translateY(0%);
+				padding: 4px auto;
+			}
+			30% {
+				-webkit-transform:translateY(-70%);
+			}
+			35% {
+				-webkit-transform:translateY(0%);
+				padding: 5px auto;
+			}
+			40% {
+				-webkit-transform:translateY(-60%);
+			}
+			45% {
+				-webkit-transform:translateY(0%);
+				padding: 5px auto;
+			}
+			50% {
+				-webkit-transform:translateY(-50%);
+			}
+			55% {
+				-webkit-transform:translateY(0%);
+				padding: 6px auto;
+			}
+			60% {
+				-webkit-transform:translateY(-30%);
+			}
+			65% {
+				-webkit-transform:translateY(0%);
+				padding: 6px auto;
+			}
+			70% {
+				-webkit-transform:translateY(-15%);
+			}
+			75% {
+				-webkit-transform:translateY(0);
+				padding: 8px auto;
+
+			}
+			80% {
+				-webkit-transform:translateY(-10%);
+
+			}
+			85% {
+				-webkit-transform:translateY(0);
+
+				padding: 8px auto;
+
+			}
+			90% {
+				-webkit-transform:translateY(-5%);
+
+			}
+			95% {
+				-webkit-transform:translateY(0);
+
+				padding: 10px;
+
+			}
+			100% {
+				-webkit-transform:translateY(0);
+
+				padding: 10px;
+
+			}
+		}
 	}
 
 	@media only screen and (min-width: 992px) {
 		padding: 40px;
 	}
-	
+
 	@media only screen and (max-width: 992px) {
 		padding: 15px;
 
