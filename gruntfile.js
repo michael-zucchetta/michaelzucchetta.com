@@ -107,6 +107,9 @@ module.exports = function(grunt) {
 				flatten: false
 			}
 		},
+		clean: {
+			js: ["dest/**/*js"]
+		},
 		karma: {
 			unit: {
 				configFile: 'config/karma.unittest.conf.js'
@@ -157,6 +160,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-coffee');
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-copy');
+	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-sass');
 	grunt.loadNpmTasks('grunt-contrib-watch');
@@ -175,7 +179,7 @@ module.exports = function(grunt) {
 		grunt.file.write(filesPath, dependencies);
 	});
 
-	grunt.registerTask("default", ["npm-install", "bower-install", "tree", "coffee", "build-requirejs", "concat", "jsbeautifier", "copy", "sass", "jshint"]);
+	grunt.registerTask("default", ["npm-install", "bower-install", /*"clean",*/ "tree", "coffee", "build-requirejs", "concat", "jsbeautifier", "copy", "sass", "jshint"]);
 	grunt.registerTask("test", ["default", "karma"]);
 	grunt.registerTask("dev", ["default", "watch"]);
 
