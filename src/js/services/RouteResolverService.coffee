@@ -3,19 +3,19 @@ define ['angularRoute'], () ->
 		@$get = () -> 
 			return this
 
-		@routeConfig = () ->
-			viewsConfig = "/views/"
-			controllersDirectory = "/js/controllers/"
+		@routeConfig = do () ->
+			viewsDirectory = "/views/"
+			controllersDirectory = "/js/ctrl/"
 
 			setBaseDirectories = (viewsDir, controllersDir) ->
 				viewsDirectory = viewsDir
 				controllersDirectory = controllersDir
 				return
 
-			getViewsDirectory =>
+			getViewsDirectory = () ->
 				return viewsDirectory
 			
-			getControllersDirectory =>
+			getControllersDirectory = () ->
 				return controllersDirectory
 			
 			setBaseDirectories: setBaseDirectories,
@@ -23,14 +23,15 @@ define ['angularRoute'], () ->
 			getViewsDirectory: getViewsDirectory
 
 
-		@route = (routeConfig) ->
-			resolve = (baseName, path, source) ->
+		@route = do (routeConfig = @routeConfig) ->
+			resolve = (baseName, path, secure) ->
 				if !path
 					path = ''
-				nonCamelToeBaseName = baseName.replace /([a-z])([A-Z])/g, '$1-$2'
-				routeDef.controller = {
+				nonCamelToeBaseName = baseName.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()
+				routeDef = {
 					controller: baseName + 'Ctrl',
-					secure: secure || false
+					secure: secure || false,
+					templateUrl: routeConfig.getViewsDirectory() + path + nonCamelToeBaseName + '.html';
 				}
 				
 				routeDef.resolve = {
@@ -39,17 +40,15 @@ define ['angularRoute'], () ->
 						return resolveDependencies($q, $rootScope, dependencies)
 					]
 				}
-
 				return routeDef
 			resolveDependencies = ($q, $rootScope, dependencies) ->
 				deferred = $q.defer
-				require dependencies, () =>
+				require dependencies, () ->
 					deferred.resolve()
 					$rootScope.apply()
 					return
 				return deferred.promise
 			resolve: resolve
-		@route @routeConfig
 		return
 	servicesApp = angular.module 'RouteResolverServices', []
 
