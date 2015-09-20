@@ -18,3 +18,9 @@
 	-o-animation: $options;
 	animation: $options;
 }
+
+@mixin transform($options) {
+	-ms-transform: $options;
+	-webkit-transform: $options;
+	transform: $options;
+}
