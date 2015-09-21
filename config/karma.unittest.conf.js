@@ -4,12 +4,12 @@ module.exports = function(config) {
 		basePath: '../',
 		frameworks: ['jasmine', 'requirejs'],
 		files: [
+			{pattern: 'lib/**/*.js', included: false},
 			{pattern: 'tests/**/**/*Spec.js', included: false},
 			{pattern: 'tests/**/**/*Spec.js.map', included: false},
 			{pattern: 'dest/**/*.js', included: false},
 			{pattern: 'src/**/*.coffee', included: false},
 			{pattern: 'dest/**/*.map', included: false},
-			{pattern: 'lib/**/*.js', included: false},
 			{pattern: 'lib/**/*.map', included: false},
 			'dest/js/initialisation/requirejs-bootstrap-test.js'
 		],

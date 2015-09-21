@@ -3,8 +3,8 @@ define ['RouteResolverService'], () ->
 	app = angular.module 'RouteProvider', ['RouteResolverServices', 'ngRoute']
 
 	app.config ['$routeProvider', 'RouteResolverService', '$controllerProvider',
-		'$compileProvider', '$filterProvider', '$provide', ($routeProvider, 
-		routeResolverProvider, $controllerProvider, $compileProvider, $filterProvider, $provide) ->
+		'$compileProvider', '$filterProvider', '$provide', ($routeProvider,
+		RouteResolverService, $controllerProvider, $compileProvider, $filterProvider, $provide) ->
 		
 			#Change default views and controllers directory using the following:
 			#routeResolverProvider.routeConfig.setBaseDirectories('/app/views', '/app/controllers');
@@ -18,7 +18,7 @@ define ['RouteResolverService'], () ->
 			}
 
 			#Define routes - controllers will be loaded dynamically
-			route = routeResolverProvider.route
+			route = RouteResolverService.route
 			$routeProvider
 				.when('/functionalities/7', route.resolve('AboutMe') )
 				.when('/functionalities/:id', route.resolve('Base64'))

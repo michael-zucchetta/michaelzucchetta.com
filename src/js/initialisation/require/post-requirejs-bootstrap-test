@@ -8,8 +8,10 @@ requirejs (
         [
 		'angular',
 		'angularRoute',
+		'angularMocks',
 		'premain',
 		'main',
+		'RouteProvider',
 		'jQuery',
 		'InitCtrl'
 		// Load our app module and pass it to our definition function

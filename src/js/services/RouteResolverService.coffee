@@ -50,7 +50,7 @@ define ['angularRoute'], () ->
 				return deferred.promise
 			resolve: resolve
 		return
-	servicesApp = angular.module 'RouteResolverServices', []
+	servicesApp = angular.module 'RouteResolverServices', ['ngRoute']
 
 	#Must be a provider since it will be injected into module.config()
 	servicesApp.provider 'RouteResolverService', routeResolver

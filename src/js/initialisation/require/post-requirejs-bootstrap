@@ -7,7 +7,8 @@ requirejs (
 	'premain',
 	'main',
 	'jQuery',
-	'InitCtrl'
+	'InitCtrl',
+	'RouteProvider'
 	// Load our app module and pass it to our definition function
 	],
 	function(angular, angularRoute, app){

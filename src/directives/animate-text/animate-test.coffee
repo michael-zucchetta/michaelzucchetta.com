@@ -1,0 +1,2 @@
+define 'premain', (app) ->
+	return	
