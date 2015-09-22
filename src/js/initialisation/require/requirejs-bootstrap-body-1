@@ -1,5 +1,5 @@
 	paths: {
 		"angular": "../lib/angularjs/angular.min",
-		"angularMocks": "../lib/angular-mocks/angular-mocks",
 		"angularRoute": "../lib/angular-route/angular-route.min",
+		"angularMocks": "../lib/angular-mocks/angular-mocks",
 		"jQuery": "../lib/jquery/dist/jquery.min",
