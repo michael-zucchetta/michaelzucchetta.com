@@ -1,8 +1,13 @@
 // Import necessary for using the mixin function
 @import "compass/css3";
 // Variables common among the application
-@import "variables";
+@import "css/variables";
 
 // Background CSSs
-@import "theme";
+@import "css/theme";
+
+
+
+// Directives
+@import "directives/animate-text/animate-text";
 

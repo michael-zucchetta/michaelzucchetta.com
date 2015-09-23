@@ -1,4 +1,4 @@
-define ['premain', 'angular', 'SampleCtrl'], (app) ->
+define ['premain', 'angularMocks', 'SampleCtrl'], (app) ->
 	$controller = null
 
 	describe 'describe', () ->

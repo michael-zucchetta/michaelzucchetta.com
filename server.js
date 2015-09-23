@@ -4,7 +4,7 @@ var express = require('express'),
 	mime = require("mime");
 var app = express();
 
-var basePath = "/dest";
+var basePath = "/dist";
 var port = process.env.PORT || 8000;
 
 var httpServer = http.createServer(function(request, response) {

@@ -1,2 +1,0 @@
-define 'premain', (app) ->
-	return	

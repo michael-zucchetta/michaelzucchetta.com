@@ -24,6 +24,6 @@ src/files.json
 npm-debug.log
 tests/units.html
 src/js/example/result.js
-dest/**/*
+dist/**/*
 .sass-cache/
 tests/**/*

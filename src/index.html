@@ -6,10 +6,9 @@
 	</head>
 	<body ng-controller="InitCtrl" ng-init="init()">
 		<div class="website-container">
-			<div class="website-title">
+			<div class="website-title col-xs-4 col-md-4 pull-right" animate-text="michaelzucchetta.com">
 			</div>
 			<div class="website-content col-xs-12 col-md-12">
-				test: {{2+3}}
 				<div ng-view></div>
 			</div>
 		</div>
@@ -17,5 +16,6 @@
 		<script type="text/javascript" src="/lib/requirejs/require.js" data-main="/js/initialisation/requirejs-bootstrap"></script>
 		<link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css"></link>
 		<link rel="stylesheet" href="/css/theme.css"></link>
+		<link rel="stylesheet" href="/directives/animate-text/animate-text.css"></link>
 	</body>
 </html>

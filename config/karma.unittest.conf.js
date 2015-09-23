@@ -7,11 +7,11 @@ module.exports = function(config) {
 			{pattern: 'lib/**/*.js', included: false},
 			{pattern: 'tests/**/**/*Spec.js', included: false},
 			{pattern: 'tests/**/**/*Spec.js.map', included: false},
-			{pattern: 'dest/**/*.js', included: false},
+			{pattern: 'dist/**/*.js', included: false},
 			{pattern: 'src/**/*.coffee', included: false},
-			{pattern: 'dest/**/*.map', included: false},
+			{pattern: 'dist/**/*.map', included: false},
 			{pattern: 'lib/**/*.map', included: false},
-			'dest/js/initialisation/requirejs-bootstrap-test.js'
+			'dist/js/initialisation/requirejs-bootstrap-test.js'
 		],
 		// list of files to exclude
 		exclude: [

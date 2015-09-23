@@ -1,4 +1,4 @@
-var filesPath = "dest/files.json";
+var filesPath = "dist/files.json";
 module.exports = function(grunt) {
 
 	// Project configuration.
@@ -47,13 +47,13 @@ module.exports = function(grunt) {
 					expand: true,
 					cwd: 'src/',
 					src: '**/*.js',
-					dest: 'dest/'
+					dest: 'dist/'
 				},
 				html: {
 					expand: true,
 					cwd: 'src/',
 					src: '**/*.html',
-					dest: 'dest/'
+					dest: 'dist/'
 				}
 		},
 		tree: {
@@ -66,7 +66,7 @@ module.exports = function(grunt) {
 				},
 				files: [
 					{
-						src: 'dest/',
+						src: 'dist/',
 						dest: filesPath
 					}
 				]
@@ -81,7 +81,7 @@ module.exports = function(grunt) {
 			}
 		},
 		jshint: {
-			all: ['dest/**/*.js']
+			all: ['dist/**/*.js']
 		},
 		coffee: {
 			compile_with_maps: {
@@ -90,7 +90,7 @@ module.exports = function(grunt) {
 				},
 				src:  ['**/*.coffee', '!tests/**'],
 				cwd: 'src/',
-				dest: 'dest/',
+				dest: 'dist/',
 				ext: '.js',
 				expand: true,
 				flatten: false
@@ -108,7 +108,7 @@ module.exports = function(grunt) {
 			}
 		},
 		clean: {
-			js: ["dest/**/*js"]
+			js: ["dist/**/*js"]
 		},
 		karma: {
 			unit: {
@@ -121,7 +121,7 @@ module.exports = function(grunt) {
 			}
 		},
 		sass: {
-			dist: {
+			dest: {
 				options: {
 					compass: true
 				},
@@ -129,7 +129,7 @@ module.exports = function(grunt) {
 					expand: true,
 					cwd: 'src/',
 					src: ['**/*.scss'],
-					dest: 'dest/',
+					dest: 'dist/',
 					ext: '.css'
 				}]
 			}
@@ -137,19 +137,31 @@ module.exports = function(grunt) {
 		watch: {
 			coffee: {
 				files: ['src/**/*.coffee'],
-				tasks: 'newer:coffee'
+				tasks: 'newer:coffee',
+				options: {
+					event: ['changed', 'added', 'deleted']
+				},
 			},
 			sass_watch: {
-				files: ['src/css/**/*.scss'],
-				tasks: ['newer:sass:dist']
+				files: ['src/**/*.scss'],
+				tasks: ['newer:sass:dest'],
+				options: {
+					event: ['changed', 'added', 'deleted']
+				}
 			},
 			copy_html: {
 				files: ['src/**/*.html'],
-				tasks: ['newer:copy:html']			
+				tasks: ['newer:copy:html'],			
+				options: {
+					event: ['changed', 'added', 'deleted']
+				}
 			},
 			jshint: {
-				files: ['dest/js/**/*.js'],
-				task: 'newer:jshint'
+				files: ['dist/js/**/*.js'],
+				task: 'newer:jshint',
+				options: {
+					event: ['changed', 'added', 'deleted']
+				}
 			}
 		}
 	});
@@ -166,8 +178,8 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-jsbeautifier');
 	grunt.loadNpmTasks('grunt-karma');
-	grunt.loadNpmTasks('grunt-newer');
-	grunt.loadNpmTasks('grunt-protractor-runner');
+grunt.loadNpmTasks('grunt-newer');
+grunt.loadNpmTasks('grunt-protractor-runner');
 	grunt.loadNpmTasks('grunt-tree');
 	
 	grunt.registerTask('bower-install', ["bower-install-simple"]);
