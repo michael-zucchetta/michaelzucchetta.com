@@ -5,7 +5,7 @@ define ['angularRoute'], () ->
 
 		@routeConfig = do () ->
 			viewsDirectory = "/views/"
-			controllersDirectory = "/js/ctrl/"
+			controllersDirectory = "/jss/ctrl/"
 
 			setBaseDirectories = (viewsDir, controllersDir) ->
 				viewsDirectory = viewsDir

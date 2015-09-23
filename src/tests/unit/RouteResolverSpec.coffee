@@ -24,24 +24,32 @@ define [routeResolverService, routeProvider, 'angularRoute', 'angularMocks'], ()
 			module 'RouteResolverServices'
 			module 'RouteProvider'
 			return
-		beforeEach inject (_$location_, _$route_, _$rootScope_, _$httpBackend_) ->
+		beforeEach inject (_$location_, _$route_, _$httpBackend_) ->
 			location = _$location_
 			route = _$route_
-			rootScope = _$rootScope_
 			httpBackend = _$httpBackend_
 			return
 		beforeEach () ->
 			httpBackend.expect 'GET', "/views/about-me.html"
 				.respond 200
+			return
+		beforeEach () ->
 			httpBackend.expect 'GET', "/js/ctrl/AboutMeCtrl.js"
 				.respond 200
 			return
+		
+		requestPath = '/functionalities/7'
 		#Can't mix module and injector$injector = angular.module 'RouteProvider'
-		it 'should load the login page on successful load of /login', () ->
-			location.path '/functionalities/7'
-			rootScope.$digest()
-			console.log(route)
+		it 'should resolve "AboutMeCtrl" controller requesting ' + requestPath, () ->
+			location.path requestPath
+			expect(route.routes[requestPath].controller).toBe("AboutMeCtrl")
 			return
+		
+		it 'should download  "/views/about-me.html" templateUrl requesting ' + requestPath, () ->
+			location.path requestPath
+			expect(route.routes[requestPath].templateUrl).toBe("/views/about-me.html")
+			return
+
 		return
 	return
 return
