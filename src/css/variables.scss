@@ -12,15 +12,50 @@
 	-moz-box-shadow: $radius;
 }
 
-@mixin animation($options) {
+/*@mixin animation($options) {
 	-webkit-animation: $options;
 	-moz-animation: $options;
 	-o-animation: $options;
 	animation: $options;
-}
+}*/
 
 @mixin transform($options) {
 	-ms-transform: $options;
 	-webkit-transform: $options;
 	transform: $options;
+}
+
+@mixin animation($animate...) {
+	$max: length($animate);
+	$animations: '';
+
+	@for $i from 1 through $max {
+		$animations: #{$animations + nth($animate, $i)};
+
+		@if $i < $max {
+			$animations: #{$animations + ", "};
+		}
+	}
+	-webkit-animation: $animations;
+	-moz-animation:    $animations;
+	-o-animation:      $animations;
+	animation:         $animations;
+}
+
+@mixin keyframes($animationName) {
+@-webkit-keyframes #{$animationName} {
+		@content;
+	}
+	
+	@-moz-keyframes #{$animationName} {
+		@content;
+	}
+	
+	@-o-keyframes #{$animationName} {
+		@content;
+	}
+	
+	@keyframes #{$animationName} {
+		@content;
+	}
 }
