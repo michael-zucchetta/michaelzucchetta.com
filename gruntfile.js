@@ -54,6 +54,12 @@ module.exports = function(grunt) {
 					cwd: 'src/',
 					src: '**/*.html',
 					dest: 'dist/'
+				},
+				json: {
+					expand: true,
+					cwd: 'src/',
+					src: '**/*.json',
+					dest: 'dist/'
 				}
 		},
 		tree: {
@@ -149,6 +155,13 @@ module.exports = function(grunt) {
 					event: ['changed', 'added', 'deleted']
 				}
 			},
+			json_html: {
+				files: ['src/**/*.json'],
+				tasks: ['newer:copy:json'],			
+				options: {
+					event: ['changed', 'added', 'deleted']
+				}
+			},
 			copy_html: {
 				files: ['src/**/*.html'],
 				tasks: ['newer:copy:html'],			
@@ -178,8 +191,8 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-jsbeautifier');
 	grunt.loadNpmTasks('grunt-karma');
-grunt.loadNpmTasks('grunt-newer');
-grunt.loadNpmTasks('grunt-protractor-runner');
+	grunt.loadNpmTasks('grunt-newer');
+	grunt.loadNpmTasks('grunt-protractor-runner');
 	grunt.loadNpmTasks('grunt-tree');
 	
 	grunt.registerTask('bower-install', ["bower-install-simple"]);

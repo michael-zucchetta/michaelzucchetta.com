@@ -6,6 +6,7 @@
 		"angularjs": "*",
 		"angular-mocks": "*",
 		"angular-route": "*",
+		"angular-resource": "*",
 		"bootstrap": "*",
 		"requirejs": "*",
 		"underscore": "*"

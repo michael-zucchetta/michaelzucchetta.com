@@ -1,0 +1,23 @@
+[
+	{
+		"class": "linkedin",
+		"link": "https://www.linkedin.com/pub/michael-zucchetta/31/51/348",
+		"text": "Linkedin"
+	},
+	{
+		"class": "github",
+		"link": "https://github.com/michael-zucchetta",
+		"text": "Github"
+	},
+	{
+		"class": "stackoverflow",
+		"link": "http://stackoverflow.com/users/4209604/michael",
+		"text": "Stackoverflow"
+	},
+	{
+		"class": "twitter",
+		"link": "https://twitter.com/moltonier",
+		"text": "Twitter"
+	}
+
+]

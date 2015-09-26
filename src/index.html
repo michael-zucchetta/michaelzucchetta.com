@@ -18,9 +18,9 @@
 			</div>
 			<div class="notes col-xs-12 col-md-12">Michael Zucchetta - michael.zucchetta@gmail.com - +353 89 24 23 278 - Dublin, Ireland
 				<span class="links">
-					<span class="linkedin"><a target="_blank" href="https://www.linkedin.com/pub/michael-zucchetta/31/51/348">Linkedin</a></span>
-					<span class="github"><a target="_blank"href="https://github.com/michael-zucchetta">Github</a></span>
-					<span class="stackoverflow"><a target="_blank" href="http://stackoverflow.com/users/4209604/michael">Stackoverflow</a></span>
+					<span ng-repeat="link in myLinks" class="{{link.class}}">
+						<a target="_blank" ng-href="link.link" ng-bind="link.text"></a>
+					</span>
 				</span>
 			</div>
 		</div>
