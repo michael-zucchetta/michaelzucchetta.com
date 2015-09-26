@@ -6,13 +6,24 @@
 	</head>
 	<body ng-controller="InitCtrl" ng-init="init()">
 		<div class="website-container">
-			<div class="website-title col-xs-4 col-md-4 pull-right" animate-text="michaelzucchetta.com">
+			<div class="website-title col-xs-4 col-md-4" animate-text="michaelzucchetta.com">
+			</div>
+			<div class="menu-container col-xs-8 col-md-8 pull-right">
+				<span class="icon-container">
+					<span class="icon"></span>
+				</span>
 			</div>
 			<div class="website-content col-xs-12 col-md-12">
 				<div ng-view></div>
 			</div>
+			<div class="notes col-xs-12 col-md-12">Michael Zucchetta - michael.zucchetta@gmail.com - +353 89 24 23 278 - Dublin, Ireland
+				<span class="links">
+					<span class="linkedin"><a target="_blank" href="https://www.linkedin.com/pub/michael-zucchetta/31/51/348">Linkedin</a></span>
+					<span class="github"><a target="_blank"href="https://github.com/michael-zucchetta">Github</a></span>
+					<span class="stackoverflow"><a target="_blank" href="http://stackoverflow.com/users/4209604/michael">Stackoverflow</a></span>
+				</span>
+			</div>
 		</div>
-
 		<script type="text/javascript" src="/lib/requirejs/require.js" data-main="/js/initialisation/requirejs-bootstrap"></script>
 		<link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css"></link>
 		<link rel="stylesheet" href="/css/main.css"></link>

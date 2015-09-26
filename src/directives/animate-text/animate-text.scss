@@ -11,6 +11,7 @@
 		letter-spacing: 9px;
 		
 		span {
+			text-shadow: -1px 0 grey, 0 1px grey, 1px 0 grey, 0 -1px grey;
 			display: inline-block;
 			&.animated-letter {
 				@include animation(flip-flop 0.6s ease-out);

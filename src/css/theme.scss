@@ -10,6 +10,48 @@ body {
 
 
 .website-container {
+	
+	.menu-container {
+		.icon-container {
+			right: 0;
+			position: absolute;
+			top: -15px;
+			background-color: lightslategrey;
+			width: 32px;
+			height: 32px;
+			border-left: 4px solid lightslategrey;
+			border-top: 5px solid lightslategrey;
+			cursor: pointer;
+		}
+
+		.icon {
+			position: relative;
+			padding-left: 1.25em;
+			&:after, &:before, &{
+				content: "";
+				width: 25px;
+				height: 4px;
+				display: block;
+				background-color: white;
+				position: absolute;
+				left: 0;
+			}
+
+			&:before {
+				top: 10px;
+			}
+
+			&:after {
+				top: 20px;
+			}
+		}
+	}
+
+	.notes {
+		.links {
+			float: right;
+		}
+	}
 
 	.website-content {
 		background-color: #FAFAFA;
@@ -127,9 +169,11 @@ body {
 				-webkit-transform: scale(0.8) translateY(0%);
 				padding: 6px auto;
 			}
+			
 			70% {
 				-webkit-transform: scale(0.825) translateY(-15%);
 			}
+			
 			75% {
 				-webkit-transform: scale(0.85) translateY(0);
 				padding: 8px auto;
@@ -171,6 +215,10 @@ body {
 	.website-title {
 		height: 10%;
 		min-height: 45px;
+	}
+
+	.notes {
+		color: white;
 	}
 
 	height: 100%;
