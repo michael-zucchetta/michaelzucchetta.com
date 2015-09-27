@@ -3,7 +3,11 @@ define ['premain', 'BasicInfoDao', 'angularResource'], (app) ->
 		#Temporary
 		factory = {}
 		factory.getLinks = () ->
-			return $http.get '/js/mocks/links.json'
+			$http.get '/js/mocks/links.json'
+		
+		factory.getMenu = () ->
+			$http.get '/js/mocks/menu.json'
+		
 		return factory
 	]
 	return

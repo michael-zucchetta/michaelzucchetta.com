@@ -1,9 +1,15 @@
-define ['premain', 'BasicInfoDao', 'animate-text'], (app) ->
-	app.controller "InitCtrl", ['$scope', 'BasicInfoDao', ($scope, BasicInfoDao) ->
+define ['premain', 'BasicInfoDao', 'animate-text', 'UtilitiesService'], (app) ->
+	app.controller "InitCtrl", ['$scope', 'BasicInfoDao', 'UtilitiesService', ($scope, BasicInfoDao, UtilitiesService) ->
 		$scope.myLinks = []
+		$scope.menu = []
 
-		BasicInfoDao.getLinks().then (links) ->
-			$scope.myLinks = links.data
+		$scope.init = () ->
+			BasicInfoDao.getLinks().then (links) ->
+				$scope.myLinks = links.data
+				return
+			BasicInfoDao.getMenu().then (menu) ->
+				$scope.menu = UtilitiesService.initializeMenu menu.data
+				return
 			return
 		return
 		]

@@ -4,3 +4,4 @@
 		"angularResource": "../lib/angular-resource/angular-resource.min",
 		"angularMocks": "../lib/angular-mocks/angular-mocks",
 		"jQuery": "../lib/jquery/dist/jquery.min",
+		"underscore": "../lib/underscore/underscore-min",

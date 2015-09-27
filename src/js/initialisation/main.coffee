@@ -1,4 +1,4 @@
-define ['premain'], (app) -> 
+define ['premain', 'InitCtrl'], (app) -> 
 	app.config ['$routeProvider', '$locationProvider', '$controllerProvider', '$provide', '$compileProvider',
 		($routeProvider, $locationProvider, $controllerProvider, $provide, $compileProvider) ->
 		
@@ -12,7 +12,7 @@ define ['premain'], (app) ->
 
 			# Provider-based controller.
 			app.controller = (name, constructor) ->
-				$provide.register name, constructor
+				$controllerProvider.register name, constructor
 				return this
 
 			# Provider-based service.

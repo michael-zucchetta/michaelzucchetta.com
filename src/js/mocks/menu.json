@@ -1,0 +1,26 @@
+[
+	{
+		"id": 1,
+		"name": "AboutMe",
+		"title": "About Me",
+		"order": 1,
+		"parentId": null,
+		"active": true
+	},
+	{
+		"id": 2,
+		"name": "Utilities",
+		"title": "Utilities",
+		"order": 2,
+		"parentId": null,
+		"active": false
+	},
+	{
+		"id": 3,
+		"name": "PickColors",
+		"title": "Get color from image",
+		"order": 1,
+		"parentId": 2,
+		"active": true
+	}
+]
