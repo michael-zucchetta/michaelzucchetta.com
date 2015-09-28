@@ -6,6 +6,7 @@ Install npm and do the following (as they are used in package):
 - npm install -g karma
 - npm install -g karma-cli
 - npm install -g protractor
+- ./node_modules/protractor/bin/webdriver-manager update
 - npm install -g grunt
 - npm install -g grunt-cli
 - gem install compass
