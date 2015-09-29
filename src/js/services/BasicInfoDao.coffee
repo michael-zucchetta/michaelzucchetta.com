@@ -1,12 +1,12 @@
-define ['premain', 'BasicInfoDao', 'angularResource'], (app) ->
-	app.factory "BasicInfoDao", ['$http', ($http) ->
+define ['premain', 'RestProxy', 'angularResource'], (app) ->
+	app.factory "BasicInfoDao", ['RestProxy', (RestProxy) ->
 		#Temporary
 		factory = {}
 		factory.getLinks = () ->
-			$http.get '/js/mocks/links.json'
+			RestProxy.handleGetCall '/js/mocks/links.json'
 		
 		factory.getMenu = () ->
-			$http.get '/js/mocks/menu.json'
+			RestProxy.handleGetCall '/js/mocks/menu.json'
 		
 		return factory
 	]
