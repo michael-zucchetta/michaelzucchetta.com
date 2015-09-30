@@ -1,3 +1,10 @@
-.dropdown-menu {
+.dropdown-menu-container {
+	position: absolute;
 	border: 2px solid lightgrey;
+	background-color: white;
+	border-radius: 7px;
+}
+
+.hidden {
+	visibility: hidden;
 }
