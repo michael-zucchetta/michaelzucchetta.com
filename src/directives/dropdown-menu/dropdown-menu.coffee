@@ -4,12 +4,12 @@ define ['premain', 'DaoFacade'], (app) ->
 		return {
 			restrict: 'A'
 			template: (element, attrs) ->
-				element.attr("ng-click", "showMenu()")
+				element.attr("ng-click", "showHideMenu()")
 				return
 			link: (scope, element, attrs) ->
 				#Add ng-click to the element that has the directive
 				console.log element
-				scope.showMenu = () ->
+				scope.showHideMenu = () ->
 					scope.showMenu = !scope.showMenu
 					return
 
@@ -18,12 +18,13 @@ define ['premain', 'DaoFacade'], (app) ->
 					templateHtml = $ template.data
 					compiledTemplate = $compile(templateHtml)(scope)
 					element.after(compiledTemplate)
-					
+					element.removeAttr("dropdown-menu")
+					$compile(element)(scope)
 					
 					$timeout () ->
-						newLeft = $(compiledTemplate).parent().width()/2 + $(compiledTemplate).width()/2
-						newTop = $(compiledTemplate).parent().height()
-						$(compiledTemplate).css("left", -newLeft)
+						#+1 is the border of the menu
+						newTop = $(element).outerHeight()/2 + 1
+						$(compiledTemplate).css("right", 0)
 						$(compiledTemplate).css("top", newTop + 1)
 						$(compiledTemplate).css("z-index", 100)
 						return
