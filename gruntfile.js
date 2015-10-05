@@ -145,8 +145,15 @@ module.exports = function(grunt) {
 				files: ['src/**/*.coffee'],
 				tasks: 'newer:coffee',
 				options: {
-					event: ['changed', 'added', 'deleted']
-				},
+					event: ['changed', 'deleted']
+				}
+			},
+			coffee_after_creation: {
+				files: ['src/**/*.coffee'],
+				tasks: ['newer:coffee', 'build-requirejs', 'concat', 'jsbeautifier', 'newer:copy:json'],
+				options: {
+					event: ['added']
+				}
 			},
 			sass_watch: {
 				files: ['src/**/*.scss'],

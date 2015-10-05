@@ -1,12 +1,13 @@
-define ['premain', 'DaoFacade'], (app) ->
+define ['premain', 'DaoFacade', 'Constants'], (app) ->
 
-	app.directive "dropdownMenu", ['$http', '$compile', '$timeout', 'DaoFacade', ($http, $compile, $timeout, DaoFacade) ->
+	app.directive "dropdownMenu", ['$http', '$compile', '$timeout', 'DaoFacade', 'FUNCTIONS_PREFIX', ($http, $compile, $timeout, DaoFacade, FUNCTION_PREFIX) ->
 		return {
 			restrict: 'A'
 			template: (element, attrs) ->
 				element.attr("ng-click", "showHideMenu()")
 				return
 			link: (scope, element, attrs) ->
+				scope.prefix = FUNCTION_PREFIX
 				#Add ng-click to the element that has the directive
 				console.log element
 				scope.showHideMenu = () ->

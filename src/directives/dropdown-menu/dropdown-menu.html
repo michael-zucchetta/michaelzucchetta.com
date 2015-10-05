@@ -1,5 +1,6 @@
 <div class="dropdown-menu-container" ng-class="{'hidden': !showMenu}">
 	<div class="menu-item" ng-repeat="item in menuEls">
-		{{item.title}}
+		<a href="{{prefix}}/{{item.id}}" ng-if="item.active">{{item.title}}</a>
+		<span ng-if="!item.active" ng-bind="item.title"></span>
 	</div>
 </div>

@@ -24,4 +24,11 @@ define ['RouteResolverService'], (appRouteResolverServices) ->
 				.when('/functionalities/:id', route.resolve('Base64'))
 			return
 	]
+
+	app.factory ['$routeProvider', 'RouteResolverServiceProvider', 'FUNCTIONS_PREFIX', ($routeProvider, RouteResolverServiceProvider, FUNCTIONS_PREFIX) ->
+		factory = {}
+		factory.setFunctionalities = (menu) ->
+			return
+		return factory
+	]
 	return app
