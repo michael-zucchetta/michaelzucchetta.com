@@ -1,5 +1,5 @@
-define ['RouteProvider'], () ->
-	app = angular.module 'common', ['ngRoute', 'RouteProvider']
+define ['RouteProvider', 'Constants'], () ->
+	app = angular.module 'common', ['RouteProvider', 'constants']
 	app.run [() ->
 		return
 	]

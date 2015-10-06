@@ -31,7 +31,7 @@ define ['angularRoute'], () ->
 				routeDef = {
 					controller: baseName + 'Ctrl',
 					secure: secure || false,
-					templateUrl: routeConfig.getViewsDirectory() + path + nonCamelToeBaseName + '.html';
+					templateUrl: routeConfig.getViewsDirectory() + path + nonCamelToeBaseName + '.html'
 				}
 				
 				routeDef.resolve = {

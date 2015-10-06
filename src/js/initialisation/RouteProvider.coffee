@@ -1,11 +1,13 @@
-define ['RouteResolverService'], (appRouteResolverServices) ->
+define ['RouteResolverService', 'Constants'], (appRouteResolverServices) ->
 
-	app = angular.module 'RouteProvider', ['RouteResolverServices', 'ngRoute']
+	app = angular.module 'RouteProvider', ['RouteResolverServices', 'ngRoute', 'constants']
 
 	app.config ['$routeProvider', 'RouteResolverServiceProvider', '$controllerProvider',
-		'$compileProvider', '$filterProvider', '$provide', ($routeProvider,
-		RouteResolverServiceProvider, $controllerProvider, $compileProvider, $filterProvider, $provide) ->
+		'$compileProvider', '$filterProvider', '$provide', 'MENU_JSON', 'FUNCTIONS_PREFIX', ($routeProvider,
+		RouteResolverServiceProvider, $controllerProvider, $compileProvider, $filterProvider, $provide, MENU_JSON, FUNCTIONS_PREFIX) ->
 		
+			initInjector = angular.injector(['ng'])
+			$http = initInjector.get('$http')
 			#Change default views and controllers directory using the following:
 			#routeResolverProvider.routeConfig.setBaseDirectories('/app/views', '/app/controllers');
 
@@ -17,18 +19,19 @@ define ['RouteResolverService'], (appRouteResolverServices) ->
 				service: $provide.service
 			}
 
-			#Define routes - controllers will be loaded dynamically
-			route = RouteResolverServiceProvider.route
-			$routeProvider
-				.when('/functionalities/7', route.resolve('AboutMe') )
-				.when('/functionalities/:id', route.resolve('Base64'))
+			$http.get(MENU_JSON).then (response) ->
+				#Define routes - controllers will be loaded dynamically
+				route = RouteResolverServiceProvider.route
+				#$routeProvider
+				#	.when('/functionalities/7', route.resolve('AboutMe') )
+				#	.when('/functionalities/:id', route.resolve('Base64'))
+				menu = response.data
+				_.each menu, (menuItem) ->
+					$routeProvider.when(FUNCTIONS_PREFIX + '/' + menuItem.id, route.resolve(menuItem.name)) if menuItem.active is true
+					return
+				return
+			
 			return
 	]
 
-	app.factory ['$routeProvider', 'RouteResolverServiceProvider', 'FUNCTIONS_PREFIX', ($routeProvider, RouteResolverServiceProvider, FUNCTIONS_PREFIX) ->
-		factory = {}
-		factory.setFunctionalities = (menu) ->
-			return
-		return factory
-	]
 	return app

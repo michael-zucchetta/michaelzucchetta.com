@@ -42,6 +42,6 @@ define ['premain', 'InitCtrl'], (app) ->
 			return
 		]
 	angular.element().ready ->
-	angular.bootstrap document, ['common']
+		angular.bootstrap document, ['common']
 	
 	return app
