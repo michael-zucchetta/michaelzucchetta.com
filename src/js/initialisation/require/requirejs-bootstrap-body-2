@@ -11,6 +11,10 @@
 			deps: ['angular'],
 			exports: 'angularMocks'
 		},
+		'angularResource': {
+			deps: ['angular'],
+			exports: 'angularResource'
+		},
 		'premain': {
 			deps: ['angularRoute'],
 			exports: 'premain'

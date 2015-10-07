@@ -8,6 +8,7 @@ module.exports = function(config) {
 			{pattern: 'tests/**/**/*Spec.js', included: false},
 			{pattern: 'tests/**/**/*Spec.js.map', included: false},
 			{pattern: 'dist/**/*.js', included: false},
+			{pattern: 'dist/js/**/*.json', included: false},
 			{pattern: 'src/**/*.coffee', included: false},
 			{pattern: 'dist/**/*.map', included: false},
 			{pattern: 'lib/**/*.map', included: false},
@@ -18,6 +19,7 @@ module.exports = function(config) {
 		],
 
 		// test results reporter to use
+		//reporters: ['progress', 'html'],
 		reporters: ['progress', 'html'],
 	
 
@@ -54,6 +56,14 @@ module.exports = function(config) {
 		// Enable console.log printing on terminal
 		client: {
 			captureConsole: true,
-		}
+		},
+
+		plugins: [
+			'karma-jasmine',
+			'karma-html2js-preprocessor',
+			'karma-requirejs',
+			'karma-chrome-launcher',
+			'karma-firefox-launcher'
+		]
 	});
 };

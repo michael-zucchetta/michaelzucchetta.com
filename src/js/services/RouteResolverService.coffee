@@ -1,6 +1,6 @@
 define ['angularRoute'], () ->
-	routeResolver = () -> 
-		@$get = () -> 
+	routeResolver = () ->
+		@$get = () ->
 			return this
 
 		@routeConfig = do () ->

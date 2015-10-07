@@ -32,13 +32,16 @@ define [routeResolverService, routeProvider, 'angularRoute', 'angularMocks'], ()
 		beforeEach () ->
 			httpBackend.expect 'GET', "/views/about-me.html"
 				.respond 200
+		beforeEach () ->
+			httpBackend.expect 'GET', "/js/mocks/menu.json"
+				.respond 200
 			return
 		beforeEach () ->
 			httpBackend.expect 'GET', "/js/ctrl/AboutMeCtrl.js"
 				.respond 200
 			return
 		
-		requestPath = '/functionalities/7'
+		requestPath = '/functionalities/1'
 		#Can't mix module and injector$injector = angular.module 'RouteProvider'
 		it 'should resolve "AboutMeCtrl" controller requesting ' + requestPath, () ->
 			location.path requestPath
