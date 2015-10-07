@@ -27,7 +27,7 @@ define ['RouteResolverService', 'Constants'], (appRouteResolverServices) ->
 				#	.when('/functionalities/:id', route.resolve('Base64'))
 				menu = response.data
 				_.each menu, (menuItem) ->
-					$routeProvider.when(FUNCTIONS_PREFIX + '/' + menuItem.id, route.resolve(menuItem.name)) if menuItem.active is true
+					$routeProvider.when('/' + FUNCTIONS_PREFIX + '/' + menuItem.id, route.resolve(menuItem.name)) if menuItem.active is true
 					return
 				return
 			
