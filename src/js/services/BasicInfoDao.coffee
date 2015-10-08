@@ -7,9 +7,7 @@ define ['premain', 'RestProxy', 'angularResource'], (app) ->
 			RestProxy.handleGetCall '/js/mocks/links.json'
 		
 		factory.getMenu = () ->
-			RestProxy.handleGetCall('/js/mocks/menu.json').then (data) ->
-				
-				return data
+			RestProxy.handleGetCall '/js/mocks/menu.json'
 		
 		return factory
 	]

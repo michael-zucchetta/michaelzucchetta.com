@@ -1,5 +1,5 @@
 define ['premain', 'underscore'], (app) ->
-	app.factory "UtilitiesService", [() ->
+	app.factory "UtilitiesService", ['$route', 'FUNCTIONS_PREFIX', ($route, FUNCTIONS_PREFIX) ->
 		factory = {}
 		
 		factory.initializeMenu = (rawMenu) ->
@@ -16,6 +16,14 @@ define ['premain', 'underscore'], (app) ->
 					menu[element.parentId].children.push element
 				return
 			return menu
+
+		factory.setRouteDinamically = (menu) ->
+			route = $route.route
+			_.every menu, (menuItem) ->
+				$route.when('/' + FUNCTIONS_PREFIX + '/' + menuItem.id, route.resolve(menuItem.name)) if menuItem.active is true
+				return false
+			$route.reload()
+			return
 
 		return factory
 	]

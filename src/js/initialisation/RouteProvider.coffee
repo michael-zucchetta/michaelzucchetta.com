@@ -3,11 +3,9 @@ define ['RouteResolverService', 'Constants'], (appRouteResolverServices) ->
 	app = angular.module 'RouteProvider', ['RouteResolverServices', 'ngRoute', 'constants']
 
 	app.config ['$routeProvider', 'RouteResolverServiceProvider', '$controllerProvider',
-		'$compileProvider', '$filterProvider', '$provide', 'MENU_JSON', 'FUNCTIONS_PREFIX', ($routeProvider,
-		RouteResolverServiceProvider, $controllerProvider, $compileProvider, $filterProvider, $provide, MENU_JSON, FUNCTIONS_PREFIX) ->
+		'$compileProvider', '$filterProvider', '$provide', ($routeProvider,
+		RouteResolverServiceProvider, $controllerProvider, $compileProvider, $filterProvider, $provide) ->
 		
-			initInjector = angular.injector(['ng'])
-			$http = initInjector.get('$http')
 			#Change default views and controllers directory using the following:
 			#routeResolverProvider.routeConfig.setBaseDirectories('/app/views', '/app/controllers');
 
@@ -19,17 +17,17 @@ define ['RouteResolverService', 'Constants'], (appRouteResolverServices) ->
 				service: $provide.service
 			}
 
-			$http.get(MENU_JSON).then (response) ->
-				#Define routes - controllers will be loaded dynamically
-				route = RouteResolverServiceProvider.route
-				#$routeProvider
-				#	.when('/functionalities/7', route.resolve('AboutMe') )
-				#	.when('/functionalities/:id', route.resolve('Base64'))
-				menu = response.data
-				_.each menu, (menuItem) ->
-					$routeProvider.when('/' + FUNCTIONS_PREFIX + '/' + menuItem.id, route.resolve(menuItem.name)) if menuItem.active is true
-					return
-				return
+			routeDecorator = ($delegate) ->
+				$route = $delegate
+				$route.route =  RouteResolverServiceProvider.route
+				# I allow routes to be defined after the application has been
+				# bootstrapped. These go into a shared "routes" collection.
+				$route.when = (path, route) ->
+					$routeProvider.when(path, route)
+					return this
+				return $route
+			
+			$provide.decorator( "$route", routeDecorator )
 			
 			return
 	]

@@ -3,9 +3,10 @@ define ['premain', 'BasicInfoDao', 'UtilitiesService'], (app) ->
 		factory = {}
 
 		factory.getMenu = () ->
-			return BasicInfoDao.getMenu().then (response) ->
-				return UtilitiesService.initializeMenu(response)
+			return BasicInfoDao.getMenu().then (menu) ->
+				UtilitiesService.setRouteDinamically(menu)
+				return UtilitiesService.initializeMenu(menu)
 
-		factory
+		return factory
 	]
 	return
