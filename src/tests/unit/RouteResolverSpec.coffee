@@ -1,8 +1,8 @@
 routeResolverService = 'RouteResolverService'
 routeProvider = 'RouteProvider'
 define [routeResolverService, routeProvider, 'angularRoute', 'angularMocks'], () ->
-	location = route = rootScope = httpBackend = null
-	jasmine.getJSONFixtures().fixturesPath = "/base/dist/"
+	location = route = rootScope = httpBackend = UtilitiesService = null
+	jasmine.getJSONFixtures().fixturesPath = "/base/dist/js/mocks/"
 	describe 'RouteResolverService resolving names to objects', () ->
 		beforeEach () ->
 			module('RouteResolverServices')
@@ -23,16 +23,20 @@ define [routeResolverService, routeProvider, 'angularRoute', 'angularMocks'], ()
 		beforeEach () ->
 			module 'RouteResolverServices'
 			module 'RouteProvider'
-			inject (_$location_, _$route_, _$httpBackend_) ->
+			module 'common'
+			inject (_$location_, _$route_, _$httpBackend_, _UtilitiesService_) ->
 				location = _$location_
 				route = _$route_
 				httpBackend = _$httpBackend_
+				UtilitiesService = _UtilitiesService_
+				return
+			#Set dynamic routes from mock
+			UtilitiesService.setRouteDinamically getJSONFixture("menu.json")
 			httpBackend.expect 'GET', "/views/about-me.html"
-				.respond 200
-			httpBackend.expect 'GET', "/js/mocks/menu.json"
 				.respond 200
 			httpBackend.expect 'GET', "/js/ctrl/AboutMeCtrl.js"
 				.respond 200
+			
 			return
 		
 		requestPath = '/functionalities/1'

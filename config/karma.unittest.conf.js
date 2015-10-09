@@ -2,7 +2,7 @@ module.exports = function(config) {
 	config.set({
 		//Neded for avoiding absolute Path
 		basePath: '../',
-		frameworks: ['jasmine', 'requirejs'],
+		frameworks: ['jasmine-jquery', 'jasmine', 'requirejs'],
 		files: [
 			{pattern: 'lib/**/*.js', included: false},
 			{pattern: 'tests/**/**/*Spec.js', included: false},
@@ -60,6 +60,7 @@ module.exports = function(config) {
 
 		plugins: [
 			'karma-jasmine',
+			'karma-jasmine-jquery',
 			'karma-html2js-preprocessor',
 			'karma-requirejs',
 			'karma-chrome-launcher',
