@@ -114,7 +114,7 @@ module.exports = function(grunt) {
 			}
 		},
 		clean: {
-			js: ["dist/**/*js"]
+			js: ["dist/**/*.js"]
 		},
 		karma: {
 			unit: {
