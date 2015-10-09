@@ -9,6 +9,7 @@ Install npm and do the following (as they are used in package):
 - ./node_modules/protractor/bin/webdriver-manager update
 - npm install -g grunt
 - npm install -g grunt-cli
+- gem install sass
 - gem install compass
 
 Then:
