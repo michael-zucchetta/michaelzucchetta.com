@@ -25,3 +25,4 @@ src/js/example/result.js
 dist/**/*
 .sass-cache/
 tests/**/*
+karma_html/**/*

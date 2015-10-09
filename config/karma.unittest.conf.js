@@ -19,7 +19,6 @@ module.exports = function(config) {
 		],
 
 		// test results reporter to use
-		//reporters: ['progress', 'html'],
 		reporters: ['progress', 'html'],
 	
 
@@ -28,7 +27,8 @@ module.exports = function(config) {
 			outputFile: 'tests/units.html',
 			// Optional 
 			pageTitle: 'Unit Tests',
-			subPageTitle: 'A sample project description'
+			subPageTitle: 'A sample project description',
+			focusOnFailures: true
 		},
 
 		// web server port
@@ -59,9 +59,9 @@ module.exports = function(config) {
 		},
 
 		plugins: [
+			'karma-html-reporter',
 			'karma-jasmine',
 			'karma-jasmine-jquery',
-			'karma-html2js-preprocessor',
 			'karma-requirejs',
 			'karma-chrome-launcher',
 			'karma-firefox-launcher'
