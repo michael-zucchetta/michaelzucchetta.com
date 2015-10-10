@@ -31,7 +31,7 @@
     "grunt-newer": "^1.1.1",
     "grunt-npm-install": "*",
     "grunt-protractor-runner": "^2.1.0",
-    "grunt-tree": "^0.4.7",
+    "grunt-tree": "0.4.6",
     "jasmine-jquery": "^2.1.1",
     "karma": "^0.13.9",
     "karma-chrome-launcher": "^0.2.0",

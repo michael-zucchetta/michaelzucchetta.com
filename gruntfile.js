@@ -64,15 +64,15 @@ module.exports = function(grunt) {
 		},
 		tree: {
 			options: {
+				format: true
 			},
 			js: {
 				options: {
-					type: ['js'],
-					format: true
+					type: ['js']
 				},
 				files: [
 					{
-						src: 'dist/',
+						src: ['dist/'],
 						dest: filesPath
 					}
 				]
