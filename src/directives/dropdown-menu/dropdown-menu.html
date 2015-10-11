@@ -2,5 +2,10 @@
 	<div class="menu-item" ng-repeat="item in menuEls">
 		<a href="{{'#/' + prefix + '/' + item.id}}" ng-if="item.active">{{item.title}}</a>
 		<span ng-if="!item.active" ng-bind="item.title"></span>
+		<div 
+			class="submenu-item"
+			ng-repeat="subItem in item.children">
+			<a href="{{'#/' + prefix + '/' + subItem.id}}">{{subItem.title}}</a>
+		</div>
 	</div>
 </div>

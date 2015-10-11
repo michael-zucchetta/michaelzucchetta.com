@@ -18,7 +18,7 @@
 	{
 		"id": 3,
 		"name": "PickColors",
-		"title": "Get color from image",
+		"title": "Pick color from image",
 		"order": 1,
 		"parentId": 2,
 		"active": true

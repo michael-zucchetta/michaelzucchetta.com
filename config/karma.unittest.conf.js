@@ -5,8 +5,8 @@ module.exports = function(config) {
 		frameworks: ['jasmine-jquery', 'jasmine', 'requirejs'],
 		files: [
 			{pattern: 'lib/**/*.js', included: false},
-			{pattern: 'tests/**/**/*Spec.js', included: false},
-			{pattern: 'tests/**/**/*Spec.js.map', included: false},
+			{pattern: 'tests/**/unit/*Spec.js', included: false},
+			{pattern: 'tests/**/unit/*Spec.js.map', included: false},
 			{pattern: 'dist/**/*.js', included: false},
 			{pattern: 'dist/js/**/*.json', included: false},
 			{pattern: 'src/**/*.coffee', included: false},

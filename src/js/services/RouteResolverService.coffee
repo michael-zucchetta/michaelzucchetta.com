@@ -41,11 +41,12 @@ define ['angularRoute'], () ->
 					]
 				}
 				return routeDef
+			
 			resolveDependencies = ($q, $rootScope, dependencies) ->
-				deferred = $q.defer
+				deferred = $q.defer()
 				require dependencies, () ->
 					deferred.resolve()
-					$rootScope.apply()
+					$rootScope.$apply()
 					return
 				return deferred.promise
 			resolve: resolve

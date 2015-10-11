@@ -19,9 +19,9 @@ define ['premain', 'underscore'], (app) ->
 
 		factory.setRouteDinamically = (menu) ->
 			route = $route.route
-			_.every menu, (menuItem) ->
+			_.each menu, (menuItem) ->
 				$route.when('/' + FUNCTIONS_PREFIX + '/' + menuItem.id, route.resolve(menuItem.name)) if menuItem.active is true
-				return false
+				return
 			$route.reload()
 			return
 

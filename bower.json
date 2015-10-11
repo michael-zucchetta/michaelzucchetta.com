@@ -7,6 +7,7 @@
 		"angular-mocks": "*",
 		"angular-route": "*",
 		"angular-resource": "*",
+		"ng-file-upload": "*",
 		"bootstrap": "*",
 		"requirejs": "*",
 		"underscore": "*"
