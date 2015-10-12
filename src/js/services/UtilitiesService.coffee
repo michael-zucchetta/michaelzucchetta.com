@@ -24,6 +24,7 @@ define ['premain', 'underscore'], (app) ->
 				return
 			$route.reload()
 			return
+		
 
 		return factory
 	]
