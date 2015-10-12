@@ -3,6 +3,7 @@
 		"angularRoute": "../lib/angular-route/angular-route.min",
 		"angularResource": "../lib/angular-resource/angular-resource.min",
 		"angularMocks": "../lib/angular-mocks/angular-mocks",
+		"angularCss": "../lib/angular-css/angular-css.min",
 		"ngFileUpload": "../lib/ng-file-upload/ng-file-upload.min",
 		"jQuery": "../lib/jquery/dist/jquery.min",
 		"underscore": "../lib/underscore/underscore-min",

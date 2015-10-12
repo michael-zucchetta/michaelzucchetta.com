@@ -1,4 +1,4 @@
-define ['angularRoute'], () ->
+define ['angularRoute', 'angularCss'], () ->
 	routeResolver = () ->
 		@$get = () ->
 			return this
@@ -6,10 +6,12 @@ define ['angularRoute'], () ->
 		@routeConfig = do () ->
 			viewsDirectory = "/views/"
 			controllersDirectory = "/js/ctrl/"
+			cssDirectory = "/css/"
 
-			setBaseDirectories = (viewsDir, controllersDir) ->
+			setBaseDirectories = (viewsDir, controllersDir, cssDirectory) ->
 				viewsDirectory = viewsDir
 				controllersDirectory = controllersDir
+				cssDirectory = cssDirectory
 				return
 
 			getViewsDirectory = () ->
@@ -18,10 +20,13 @@ define ['angularRoute'], () ->
 			getControllersDirectory = () ->
 				return controllersDirectory
 			
+			getCSSDirectory = () ->
+				return cssDirectory
+
 			setBaseDirectories: setBaseDirectories,
 			getControllersDirectory: getControllersDirectory,
-			getViewsDirectory: getViewsDirectory
-
+			getViewsDirectory: getViewsDirectory,
+			getCSSDirectory: getCSSDirectory
 
 		@route = do (routeConfig = @routeConfig) ->
 			resolve = (baseName, path, secure) ->
@@ -31,12 +36,13 @@ define ['angularRoute'], () ->
 				routeDef = {
 					controller: baseName + 'Ctrl',
 					secure: secure || false,
-					templateUrl: routeConfig.getViewsDirectory() + path + nonCamelToeBaseName + '.html'
+					templateUrl: routeConfig.getViewsDirectory() + path + nonCamelToeBaseName + '.html',
+					css: routeConfig.getCSSDirectory() + path + nonCamelToeBaseName + '.css'
 				}
 				
 				routeDef.resolve = {
 					load: ['$q', '$rootScope', ($q, $rootScope) ->
-						dependencies = [routeConfig.getControllersDirectory() + path + baseName + "Ctrl.js"]
+						dependencies = [routeConfig.getControllersDirectory() + path + baseName + 'Ctrl.js']
 						return resolveDependencies($q, $rootScope, dependencies)
 					]
 				}
@@ -51,7 +57,7 @@ define ['angularRoute'], () ->
 				return deferred.promise
 			resolve: resolve
 		return
-	servicesApp = angular.module 'RouteResolverServices', ['ngRoute']
+	servicesApp = angular.module 'RouteResolverServices', ['ngRoute', 'door3.css']
 
 	#Must be a provider since it will be injected into module.config()
 	servicesApp.provider 'RouteResolverService', routeResolver

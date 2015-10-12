@@ -1,10 +1,12 @@
-define ['premain', 'ngFileUpload'], (app) ->
+define ['premain'], (app) ->
 	app.controller "PickColorsCtrl", ['$scope', ($scope) =>
 
-		$scope.uploadPicture = () ->
-			console.log $scope.image
+		$scope.uploadPicture = ($files) ->
+			console.log $files
 			
 			return
+		
+		$scope.loadPicLabel = "Load picture:"
 
 		return
 	]

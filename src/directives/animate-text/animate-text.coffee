@@ -5,6 +5,7 @@ define ['premain', 'jQuery'], (app, $) ->
 		scope:
 			dataText: '@animateText'
 		templateUrl: '/directives/animate-text/animate-text.html'
+		css: '/directives/animate-text/animate-text.css'
 		link: (scope, element, attrs) ->
 			scope.letters = []
 			scope.lettersBuffer = scope.dataText.split ''
