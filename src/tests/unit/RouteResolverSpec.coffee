@@ -7,7 +7,8 @@ define [routeResolverService, routeProvider, 'angularRoute', 'angularMocks'], ()
 		beforeEach () ->
 			module('RouteResolverServices')
 			return
-		$injectorModule = angular.injector [ 'RouteResolverServices' ]
+		#ng and ngMock modules are necessary for mocking rootElement, because angular-css is using rootElement and here it is using location, and if you use location before rootElement, it is necessary to mock it
+		$injectorModule = angular.injector [ 'ng', 'ngMock', 'RouteResolverServices' ]
 		routeResolver = $injectorModule.get routeResolverService
 		console.log "Route Provider " +  routeResolver.route.resolve('AboutMe')
 		resolved = routeResolver.route.resolve('AboutMe')
