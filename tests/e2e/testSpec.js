@@ -7,6 +7,16 @@ describe("sample test", function() {
 	
 	it('go', function() {
 		browser.get(websiteUrl);
+		browser.waitForAngular().then(function(){
+			var menu = element(by.className('icon-container'))
+			menu.click();
+			return browser.wait(function() {
+				element.all(by.css('.submenu-item')).get(0).click();
+				return browser.wait(function() {
+					
+				});	
+			});
+		});
 	});
 
 });
