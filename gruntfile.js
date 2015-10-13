@@ -155,6 +155,13 @@ module.exports = function(grunt) {
 					event: ['added']
 				}
 			},
+			coffee_test: {
+				files: ['src/tests/*.coffee'],
+				tasks: ['newer:compile_tests_with_maps'],
+				options: {
+					event: ['added', 'changed']
+				}
+			},
 			sass_watch: {
 				files: ['src/**/*.scss'],
 				tasks: ['newer:sass:dest'],

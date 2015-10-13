@@ -12,7 +12,6 @@ define ['premain'], (app) ->
 				response.status && deferred.resolve(data(response)) || deferred.reject data(response)
 			deferred.promise
 
-
 		factory.getCall = () ->
 			$http.get
 

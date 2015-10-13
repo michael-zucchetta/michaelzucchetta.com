@@ -7,14 +7,15 @@ describe("sample test", function() {
 	
 	it('go', function() {
 		browser.get(websiteUrl);
-		browser.waitForAngular().then(function(){
+		return browser.waitForAngular().then(function(){
 			var menu = element(by.className('icon-container'))
 			menu.click();
-			return browser.wait(function() {
-				element.all(by.css('.submenu-item')).get(0).click();
-				return browser.wait(function() {
-					
-				});	
+			//pick-colors
+			element.all(by.css('.submenu-item')).get(0).click();
+			return browser.waitForAngular().then(function() {
+				return element.all(by.css('.pick-colors')).then(function(items) {
+					return expect(items.length).toBe(1);
+				});
 			});
 		});
 	});
