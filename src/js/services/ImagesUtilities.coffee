@@ -14,6 +14,9 @@ define ['premain', 'FilesUtilities'], (app) ->
 			image.src = hash
 			return image
 
+		factory.fromRgbToHex = (point) ->
+			'#' + point.r.toString(16) + point.g.toString(16) + point.b.toString(16)
+
 		return factory
 	]
 

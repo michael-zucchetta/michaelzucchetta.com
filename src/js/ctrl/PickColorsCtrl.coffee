@@ -1,5 +1,5 @@
 define ['premain', 'Canvas', 'ImagesUtilities'], (app, Canvas) ->
-	app.controller "PickColorsCtrl", ['$scope', 'ImagesUtilities', ($scope, ImagesUtilities) ->
+	app.controller "PickColorsCtrl", ['$scope', '$timeout', 'ImagesUtilities', ($scope, $timeout, ImagesUtilities) ->
 
 		canvas = null
 
@@ -15,7 +15,11 @@ define ['premain', 'Canvas', 'ImagesUtilities'], (app, Canvas) ->
 		$scope.loadPicLabel = "Load picture:"
 
 		$scope.clickCanvas = ($event) ->
-			console.log $event
+			$scope.pixelValue = canvas.getPixelValue($event.offsetY, $event.offsetX)
+			$scope.pixelHexValue = ImagesUtilities.fromRgbToHex($scope.pixelValue)
+			$timeout () ->
+				document.getElementById('result-color').value = $scope.pixelHexValue
+				return
 			return
 
 		return

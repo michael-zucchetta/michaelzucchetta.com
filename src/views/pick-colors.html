@@ -3,5 +3,10 @@
 	<button type="file" ngf-select="uploadPicture($files)" accept="image/*">
 		Upload picture
 	</button>
+	<span class="result-value" ng-if="pixelValue">
+		Selected value: r: {{pixelValue.r}} g: {{pixelValue.g}} b: {{pixelValue.b}}
+		Hex value: {{pixelHexValue}}
+		<input id="result-color" type="color" readonly/>
+	</span>
 	<canvas id="uploaded-picture" ng-click="clickCanvas($event)"></canvas>
 </div>
