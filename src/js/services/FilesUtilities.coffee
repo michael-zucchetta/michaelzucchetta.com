@@ -23,13 +23,6 @@ define ['premain'], (app) ->
 			dataURL.replace(/^data:image\/(png|jpg);base64,/, "")
 			return
 
-		factory.initCanvasWithImg = (canvas, img) ->
-			canvas.width = img.width
-			canvas.height = img.height
-			ctx = canvas.getContext "2d"
-			ctx.drawImage(img, 0, 0)
-			return
-
 		return factory
 	]
 	return
