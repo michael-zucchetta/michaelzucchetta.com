@@ -22,6 +22,12 @@ define ['premain', 'Canvas', 'ImagesUtilities'], (app, Canvas) ->
 				return
 			return
 
+		$scope.zoomCanvas = ($event) ->
+			console.log $event
+			if $event.keyCode === 122 then
+				
+			return
+
 		return
 	]
 	return

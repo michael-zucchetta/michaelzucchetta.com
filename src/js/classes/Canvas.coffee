@@ -25,4 +25,11 @@ define [], () ->
 				b: @_pixels.data[offset + 2]
 				opacity: @_pixels.data[offset + 3]
 			}
+		#zoom by a factor of 2 and use a cursor as center of the zoomed canvas
+		zoomCanvas: (cursor) ->
+			newX = cursor.x - @width/2
+			newY = cursor.y - @height/2
+			@_ctx.scale(2, 2)
+			@_ctx.translate(newX, newY)
+			return
 	return Canvas

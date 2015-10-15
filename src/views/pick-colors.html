@@ -8,5 +8,5 @@
 		Hex value: {{pixelHexValue}}
 		<input id="result-color" type="color" readonly/>
 	</span>
-	<canvas id="uploaded-picture" ng-click="clickCanvas($event)"></canvas>
+	<canvas id="uploaded-picture" tabindex="1" ng-click="clickCanvas($event)" ng-keypress="zoomCanvas($event)"></canvas>
 </div>
