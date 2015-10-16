@@ -14,9 +14,15 @@ define ['premain', 'FilesUtilities'], (app) ->
 			image.src = hash
 			return image
 
-		factory.fromRgbToHex = (point) ->
-			'#' + point.r.toString(16) + point.g.toString(16) + point.b.toString(16)
+		factory.floatOpacity = (opacity) ->
+			opacity/255
 
+		calculateVal = (val, opacity) ->
+			(val*opacity)?.toString(16)
+
+		factory.fromRgbToHex = (point) ->
+			opacity = factory.floatOpacity(point.opacity)
+			'#' + calculateVal(point.r, opacity) + calculateVal(point.g, opacity) + calculateVal(point.b, opacity)
 		return factory
 	]
 
