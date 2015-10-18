@@ -9,10 +9,10 @@ define [], () ->
 				
 				_self._mouseX = event.pageX - $(_self._canvas).offset().left
 				_self._mouseY = event.pageY - $(_self._canvas).offset().top
-				return	
+				return
 		pixInterval = 4
 		initCanvasWithImg: (img) ->
-			@_img = img;
+			@_img = img
 			@width = @_img.width*@_scale
 			@height = @_img.height*@_scale
 			@_canvas.width = @width
