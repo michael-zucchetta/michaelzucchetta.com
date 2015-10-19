@@ -11,7 +11,7 @@ describe 'e2e test for pick colors', () ->
 			menu = element(By.className('icon-container'))
 			menu.click()
 			browser.sleep(100)
-			console.log   element.all(By.css('.submenu-item a')).get(0)
+			#console.log   element.all(By.css('.submenu-item a')).get(0)
 			element.all(By.css('.submenu-item a')).get(0).click()
 			browser.waitForAngular().then callback
 		return
@@ -19,23 +19,23 @@ describe 'e2e test for pick colors', () ->
 	it 'opens page', () ->
 		loadPage () ->
 			element.all(By.css('.pick-colors')).then (items) ->
-				console.log items.length
-				browser.pause()
+				console.log "ITEMS", items.length
 				expect(items.length).toBe(1)
-			return
 		return
 	it 'load image', () ->
 		loadPage () ->
-			myInputFile = $('#load-pic')
-			expect(myInputFile.length).toBe(1)
-			myInputFile = myImputFile?[0]
+			myInputFile = element(By.id('load-pic'))
+			expect(myInputFile).toBeTruthy()
 			path = require 'path'
 			imgUpload = "./sample-image.jpg"
 			absolutePath = path.resolve(__dirname, imgUpload)
-			$(myInputFile).sendKeys(absolutePath)
+			console.log "PATH", absolutePath, myInputFile.sendKeys
+			#browser.actions().sendKeys(protractor.Key.ENTER).perform();
+			myInputFile.click()
+			myInputFile.sendKeys(absolutePath)
+			sleep(1000)
 			#waits
 			browser.pause()
-			#myInputFile.click()
 			return
 		return
 return

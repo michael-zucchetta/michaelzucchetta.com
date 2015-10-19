@@ -60,6 +60,12 @@ module.exports = function(grunt) {
 					cwd: 'src/',
 					src: '**/*.json',
 					dest: 'dist/'
+				},
+				img_tests: {
+					expand: true,
+					cwd: 'src/tests',
+					src: ['**/*.jpg', '**/*.png', '**/*.jpeg'],
+					dest: 'tests/'
 				}
 		},
 		tree: {

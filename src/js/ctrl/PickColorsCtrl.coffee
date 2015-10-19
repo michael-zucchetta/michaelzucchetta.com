@@ -3,9 +3,9 @@ define ['premain', 'Canvas', 'ImagesUtilities'], (app, Canvas) ->
 
 		canvas = null
 
-		$scope.uploadPicture = ($files) ->
-			return if !$files
-			file = $files[0]
+		$scope.uploadPicture = () ->
+			return if !$scope.imageFile
+			file = $scope.imageFile
 			canvas = new Canvas('uploaded-picture')
 			ImagesUtilities.loadImage file, (img) ->
 				canvas.loadImage(img)

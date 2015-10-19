@@ -1,8 +1,7 @@
 <div class="pick-colors">
 	{{loadPicLabel}}
-	<button id="load-pic" type="file" ngf-select="uploadPicture($files)" accept="image/*">
-		Upload picture
-	</button>
+	Upload picture:
+	<input id="load-pic" type="file" ngf-select ng-model="imageFile" ng-change="uploadPicture()" accept="image/*"/>
 	<span class="result-value" ng-if="pixelValue">
 		Selected value: r: {{pixelValue.r}} g: {{pixelValue.g}} b: {{pixelValue.b}} opacity: {{pixelValue.opacity}}
 		Hex value: {{pixelHexValue}}
