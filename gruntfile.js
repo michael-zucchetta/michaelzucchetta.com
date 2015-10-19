@@ -161,6 +161,13 @@ module.exports = function(grunt) {
 					event: ['added']
 				}
 			},
+			sass_after_creation: {
+				files: ['src/**/*.sass'],
+				tasks: ['newer:sass:dest'],
+				options: {
+					event: ['added']
+				}
+			},
 			coffee_test: {
 				files: ['src/tests/*.coffee'],
 				tasks: ['newer:compile_tests_with_maps'],
@@ -172,7 +179,7 @@ module.exports = function(grunt) {
 				files: ['src/**/*.scss'],
 				tasks: ['newer:sass:dest'],
 				options: {
-					event: ['changed', 'added', 'deleted']
+					event: ['changed', 'deleted']
 				}
 			},
 			json_html: {
