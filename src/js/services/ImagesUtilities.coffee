@@ -28,9 +28,12 @@ define ['premain', 'FilesUtilities'], (app) ->
 			opacity/255
 
 		calculateVal = (val, opacity) ->
-			hexVal = (val*opacity)?.toString(16)
-			hexVal = '0' + hexVal if hexVal.length is 1
-			return
+			hexVal = (val*opacity).toString(16) if (val*opacity)
+			hexVal = switch
+				when hexVal is undefined then '00'
+				when hexVal.length is 1 then '0' + hexVal
+				else hexVal
+			return hexVal
 
 		factory.fromRgbToHex = (point) ->
 			opacity = factory.floatOpacity(point.opacity)

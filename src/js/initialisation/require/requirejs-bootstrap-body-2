@@ -15,6 +15,11 @@
 			deps: ['angular'],
 			exports: 'angularResource'
 		},
+		//Needed for karma
+		'angularCss': {
+			deps: ['angular'],
+			exports: 'angularCss'
+		},
 		'premain': {
 			deps: ['angularRoute'],
 			exports: 'premain'
