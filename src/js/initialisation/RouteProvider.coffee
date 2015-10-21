@@ -20,8 +20,13 @@ define ['RouteResolverService', 'Constants'], (appRouteResolverServices) ->
 			routeDecorator = ($delegate) ->
 				$route = $delegate
 				$route.route =  RouteResolverServiceProvider.route
+				#default view
+				$routeProvider.when('/home.html', {
+					templateUrl: 'home.html'
+				}).otherwise('home.html')
 				# I allow routes to be defined after the application has been
 				# bootstrapped. These go into a shared "routes" collection.
+				
 				$route.when = (path, route) ->
 					$routeProvider.when(path, route)
 					return this

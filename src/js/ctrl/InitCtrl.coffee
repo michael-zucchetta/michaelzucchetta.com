@@ -1,5 +1,6 @@
 define ['premain', 'BasicInfoDao', 'animate-text', 'dropdown-menu'], (app) ->
-	app.controller "InitCtrl", ['$scope', 'BasicInfoDao', ($scope, BasicInfoDao) ->
+	app.controller "InitCtrl", ['$scope', 'BasicInfoDao',
+	($scope, BasicInfoDao) ->
 		$scope.myLinks = []
 		$scope.menu = []
 
