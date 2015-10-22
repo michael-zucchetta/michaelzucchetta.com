@@ -25,7 +25,7 @@ define ['premain', 'DaoFacade', 'Constants'], (app) ->
 					
 					$timeout () ->
 						#+1 is the border of the menu
-						newTop = $(element).outerHeight()/2 + 1
+						newTop = $(element).outerHeight() + 1
 						$(compiledTemplate).css("right", 0)
 						$(compiledTemplate).css("top", newTop + 1)
 						$(compiledTemplate).css("z-index", 100)

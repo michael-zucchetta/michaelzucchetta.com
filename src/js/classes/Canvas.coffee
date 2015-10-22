@@ -6,6 +6,7 @@ define [], () ->
 			@_ctx = @_canvas.getContext "2d"
 			_self = this
 			@resizeCanvas = () ->
+				#to be removed, it should not stay here
 				siblingsHeight = 0
 				canvasParent = _self._canvas.parentNode
 				siblingsEls = $(_self._canvas).siblings()
@@ -13,7 +14,7 @@ define [], () ->
 					siblingsHeight += el.clientHeight
 				#To be checked
 				_self.width =  _self._canvas.width = canvasParent.clientWidth
-				_self.height = _self._canvas.height = canvasParent.clientHeight - siblingsHeight
+				_self.height = _self._canvas.height = canvasParent.clientHeight - siblingsHeight - 50
 				if _self._scale is 1 and (_self._img.width > _self.width or _self._img.height > _self.height)
 					# first resize, so first interaction
 					scaleX = _self.width/_self._img.width
@@ -29,8 +30,8 @@ define [], () ->
 		pixInterval = 4
 		initCanvasWithImg: (img) ->
 			@_img = img
-			@width = @_img.width*@_scale
-			@height = @_img.height*@_scale
+			@width = @_img.width
+			@height = @_img.height
 			@_canvas.width = @width
 			@_canvas.height = @height
 			@resizeCanvas()

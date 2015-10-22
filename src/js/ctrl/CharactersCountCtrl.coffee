@@ -3,7 +3,7 @@ define ['premain'], (app) ->
 		#load file in word/txt/html
 		$scope.countCharsAndWords = () ->
 			$scope.charactersCount = $scope.analysedText.length
-			$scope.wordsCount = $scope.analysedText.split(" ")?.length		
+			$scope.wordsCount = $scope.analysedText.split(" ").length		
 			return
 		return
 		]
