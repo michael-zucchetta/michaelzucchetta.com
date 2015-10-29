@@ -1,5 +1,7 @@
 define [], () ->
 	class Canvas
+		#class variables
+		pixInterval = 4
 		constructor: (@canvasId) ->
 			@_canvas = document.getElementById(@canvasId)
 			@_scale = 1
@@ -24,10 +26,22 @@ define [], () ->
 				return
 			window.addEventListener 'resize', @resizeCanvas, false
 			document.addEventListener 'mousemove', (event) ->
-				_self._mouseX = event.pageX - $(_self._canvas).offset().left
-				_self._mouseY = event.pageY - $(_self._canvas).offset().top
+				_self._mouseX = (event.pageX - $(_self._canvas).offset().left)
+				_self._mouseY = (event.pageY - $(_self._canvas).offset().top)
 				return
-		pixInterval = 4
+		drawCanvas: (canvas) ->
+			@_ctx.clearRect(0, 0, @width, @height)
+			@_ctx.save()
+			@_ctx.drawImage(canvas, 0, 0)
+			@_ctx.restore()
+			return
+		getCanvas: () ->
+			@_canvas
+		getScale: () ->
+			@_scale
+		setScale: (scale) ->
+			@_scale = scale
+			return
 		initCanvasWithImg: (img) ->
 			@_img = img
 			@width = @_img.width
@@ -51,7 +65,7 @@ define [], () ->
 			@_ctx.drawImage(@_img, 0, 0)
 			@_pixels = @_ctx.getImageData(0, 0, @width*@_scale, @height*@_scale)
 			@_ctx.restore()
-			return
+		
 		getPixelValue: (y, x) ->
 			offset = y*pixInterval*@_pixels.width + x*pixInterval
 			return {
@@ -69,5 +83,4 @@ define [], () ->
 				_self._scale *= 2
 				_self._ctx.translate(-newX, -newY)
 				return
-			return
 	return Canvas
