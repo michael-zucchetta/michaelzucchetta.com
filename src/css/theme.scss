@@ -1,6 +1,8 @@
 @import "compass/css3";
 html {
 	height: 100%;
+	/*overflow hidden prevents scroll on non scrollable pages in iOS*/
+	overflow: hidden;
 }
 
 body {
@@ -227,5 +229,5 @@ body {
 
 	height: 100%;
 	font-family: courier;
-	background-color: black;
+	background-color: #313131;
 }

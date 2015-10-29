@@ -70,4 +70,7 @@
 	user-select: none;
 }
 
+@mixin mask-image-gradient($orientation, $color1, $color2) {
+	-webkit-mask-image: -webkit-linear-gradient($orientation, $color1, $color2);
+}
 $menu-color: #eeeeee;

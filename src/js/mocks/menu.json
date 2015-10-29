@@ -30,5 +30,21 @@
 		"order": 2,
 		"parentId": 2,
 		"active": true
+	},
+	{
+		"id": 5,
+		"name": "Experiments",
+		"title": "Experiments",
+		"order": 3,
+		"parentId": null,
+		"active": false
+	},
+	{
+		"id": 6,
+		"name": "ImageFilters",
+		"title": "Image Filters",
+		"order": 1,
+		"parentId": 5,
+		"active": true
 	}
 ]

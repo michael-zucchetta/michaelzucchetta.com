@@ -1,18 +1,20 @@
 <div class="pick-colors">
 	<div class="header">
-		<label class="title">{{loadPicLabel}}</label>
+		<label class="title col-xs-12 col-md-12">{{loadPicLabel}}</label>
 		
 		<div class="form-container">
-			<div class="input-pic col-xs-12 col-md-6">
+			<div class="input-pic col-xs-12 col-md-4">
 				Upload picture:
 				<input id="load-pic" type="file" ngf-select ng-model="imageFile" ng-change="uploadPicture()" accept="image/*"/>
 			</div>
-			<div class="result-pic col-xs-12 col-md-6">
+			<div class="result-pic col-xs-12 col-md-8">
 				<span class="result-value" ng-if="pixelValue">
-					Selected value: r: {{pixelValue.r}} g: {{pixelValue.g}} b: {{pixelValue.b}} opacity: {{pixelValue.opacity}}
-					Hex value: {{pixelHexValue}}
-					Result: <input id="result-color" type="color" disabled/>
-					Result with opacity applied: <span ></span>
+					<div>Selected value: r: {{pixelValue.r}} g: {{pixelValue.g}} b: {{pixelValue.b}} opacity: {{pixelValue.opacity}}</div>
+					<div>
+						Hex value: {{pixelHexValue}}
+						| Result: <input id="result-color" type="color" disabled/>
+						Result with opacity applied: <span ></span>
+					</div>
 				</span>
 			</div>
 		</div>

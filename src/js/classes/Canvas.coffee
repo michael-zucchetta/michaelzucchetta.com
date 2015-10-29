@@ -44,7 +44,7 @@ define [], () ->
 
 			return
 		drawImage: (action) ->
-			@_ctx.clearRect(0, 0, @width*@_scale, @height*@_scale)
+			@_ctx.clearRect(0, 0, @width, @height)
 			@_ctx.save()
 			action?()
 			@_ctx.scale(@_scale, @_scale)
