@@ -36,6 +36,5 @@ var httpServer = http.createServer(function(request, response) {
 	response.writeHead(code, mime.lookup(requestedPath));
 	response.end("");
 });
-
 httpServer.listen(port);
 console.log("Initialisation on port: " + port);

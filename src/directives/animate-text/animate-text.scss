@@ -23,32 +23,48 @@
 				@include keyframes(flip-flop) {
 					0% {
 						@include transform(rotateX(180deg) translateY(-200%));
-						text-shadow: rgb(0, 0, 0) 0px 0px 0px;
 					}
 					
 					5% {
 						@include transform(rotateX(150deg) translateY(-160%));
-						text-shadow: rgb(40, 40, 40) 1px 1px 1px;
 					}
 					
 					10% {
 						@include transform(rotateX(120deg)  translateY(-120%));
-						text-shadow: rgb(80, 80, 80) 1.8px 1.8px 1.8px;
 					}
 					
 					15% {
 						@include transform(rotateX(90deg)  translateY(-80%));
-						text-shadow: rgb(120, 120, 120) 2.6px 2.6px 2.6px;
 					}
 					
 					20% {
 						@include transform(rotateX(60deg)  translateY(-40%));
-						text-shadow: rgb(160, 160, 160) 3.4px 3.4px 3.4px;
 					}
 					
 					25% {
 						@include transform(rotateX(30deg));
-						text-shadow: rgb(160, 160, 160) 4px 4px 4px;
+						text-shadow: rgb(0, 0, 0) 0px 0px 0px;
+					}
+					30% {
+						text-shadow: rgb(40, 40, 40) 1px 1px 1px;
+					}
+					40% {
+						text-shadow: rgb(80, 80, 80) 1.8px 1.8px 1.8px;
+					}
+					50% {
+						text-shadow: rgb(120, 120, 120) 2.6px 2.6px 2.6px;
+					}
+					60% {
+						text-shadow: rgb(160, 160, 160) 3.4px 3.4px 3.4px;
+					}
+					70% {
+						text-shadow: rgb(200, 200, 200) 4.4px 4.4px 4.4px;
+					}
+					80% {
+						text-shadow: rgb(240, 240, 240) 5.4px 5.4px 5.4px;
+					}
+					90% {
+						text-shadow: rgb(255, 255, 255) 6.4px 6.4px 6.4px;
 					}
 				}
 

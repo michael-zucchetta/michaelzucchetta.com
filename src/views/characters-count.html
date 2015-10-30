@@ -2,5 +2,7 @@
 	<label>Characters count</label>
 	<span>Characters count: {{charactersCount || 0}}</span>
 	<span>Words count: {{wordsCount || 0}}</span>
-	<textarea ng-model="analysedText" ng-change="countCharsAndWords()"></textarea>
+	<div class="textarea-container">
+		<textarea ng-model="analysedText" ng-change="countCharsAndWords()"></textarea>
+	</div>
 </div>
