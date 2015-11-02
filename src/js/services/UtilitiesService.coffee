@@ -1,5 +1,5 @@
 define ['premain', 'lodash'], (app) ->
-	app.factory "UtilitiesService", ['$route', 'FUNCTIONS_PREFIX', ($route, FUNCTIONS_PREFIX) ->
+	app.factory "UtilitiesService", ['$route', 'FUNCTIONS_PREFIX', 'DEFAULT_PAGE', ($route, FUNCTIONS_PREFIX, DEFAULT_PAGE) ->
 		factory = {}
 		
 		factory.initializeMenu = (rawMenu) ->
@@ -22,6 +22,7 @@ define ['premain', 'lodash'], (app) ->
 			_.each menu, (menuItem) ->
 				$route.when('/' + FUNCTIONS_PREFIX + '/' + menuItem.id, route.resolve(menuItem.name)) if menuItem.active is true
 				return
+			$route.otherwise(DEFAULT_PAGE)
 			$route.reload()
 			return
 	

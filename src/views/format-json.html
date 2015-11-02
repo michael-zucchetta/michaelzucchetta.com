@@ -1,4 +1,9 @@
 <div class="format-json">
 	<div>Format json</div>
-	<textarea ng-model="unformattedJson"></textarea>
+	<div class="commands">
+		<span ng-click="unformatJson()">Unformat<span>
+	</div>
+	<div class="json-input-container col-xs-12 col-md-6" >
+		<textarea id="json-input" ng-model="unformattedJson"></textarea>
+	</div>
 </div>
