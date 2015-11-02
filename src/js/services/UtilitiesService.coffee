@@ -1,4 +1,4 @@
-define ['premain', 'underscore'], (app) ->
+define ['premain', 'lodash'], (app) ->
 	app.factory "UtilitiesService", ['$route', 'FUNCTIONS_PREFIX', ($route, FUNCTIONS_PREFIX) ->
 		factory = {}
 		
