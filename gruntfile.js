@@ -231,7 +231,7 @@ module.exports = function(grunt) {
 		grunt.file.write(filesPath, dependencies);
 	});
 
-	grunt.registerTask("default", ["npm-install", "bower-install", /*"clean",*/ "tree", "coffee", "build-requirejs", "concat", "jsbeautifier", "copy", "sass", "jshint"]);
+	grunt.registerTask("default", [/*"npm-install", "bower-install", "clean",*/ "tree", "coffee", "build-requirejs", "concat", "jsbeautifier", "copy", "sass", "jshint"]);
 	grunt.registerTask("test", ["default", "karma"]);
 	grunt.registerTask("dev", ["default", "watch"]);
 

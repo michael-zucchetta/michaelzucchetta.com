@@ -1,10 +1,26 @@
 .format-json {
 
 	.json-input-container {
+		overflow: hidden;
+		height: 100%;
+		font-size: 13px;
 		#json-input {
 			resize: none;
-			width: 100%;
-			height: 100%;
+			width: 8px;
+			//text-indent: -1em;
+			height: 16px;
+			position: absolute;
+		    	overflow: hidden;
+			outline: none;
+			border: 0;
+			padding: 0 1px;
+			margin: 0 -1px;
+			white-space: pre;
+			word-wrap: normal;
 		}
+		#json-input-display {
+			min-height: 304px;		
+		}
+
 	}
 }

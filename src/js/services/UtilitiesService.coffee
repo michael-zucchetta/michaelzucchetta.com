@@ -1,5 +1,5 @@
-define ['premain', 'lodash'], (app) ->
-	app.factory "UtilitiesService", ['$route', 'FUNCTIONS_PREFIX', 'DEFAULT_PAGE', ($route, FUNCTIONS_PREFIX, DEFAULT_PAGE) ->
+define ['premain', 'lodash', 'StringUtils'], (app) ->
+	app.factory "UtilitiesService", ['$route', 'StringUtils', 'FUNCTIONS_PREFIX', 'DEFAULT_PAGE', ($route, StringUtils, FUNCTIONS_PREFIX, DEFAULT_PAGE) ->
 		factory = {}
 		
 		factory.initializeMenu = (rawMenu) ->
@@ -26,6 +26,12 @@ define ['premain', 'lodash'], (app) ->
 			$route.reload()
 			return
 	
+		factory.removeFormattationFromString = (string) ->
+			newString = StringUtils.removeTabs(string)
+			newString = StringUtils.removeSpaces(newString)
+			newString = StringUtils.removeNewLines(newString)
+			newString = StringUtils.removeEscapes(newString)
+			return newString
 
 
 		return factory
