@@ -7,16 +7,21 @@ define ['premain', 'UtilitiesService'], (app) ->
 			return
 		
 		$scope.initFormatJson = () ->
-			#To be moved to a directive
+			#To be moved to a directive and refactored
 			height = 304
-			lineHeight = 16
+			cellHeight = 16
+			cellWidth = 8
+			width = $('#json-input-display').outerWidth()
+			cellNumber = width/cellWidth
 			$('.json-input-container').click ($event) ->
-				x = $event.offsetX
-				y = $event.offsetY
+				# x/cellWidth I obtain the partial cell position, with round I get the cell number 
+				x = Math.ceil($event.offsetX/cellWidth + 1)*cellWidth
+				y = Math.round($event.offsetY/cellHeight)*cellHeight
 				$('#json-input').css({
 					left: x,
 					top: y
 				})
+				$('#json-input').focus()
 				return
 			return
 		$(document).ready () ->
