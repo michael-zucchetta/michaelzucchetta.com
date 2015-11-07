@@ -1,5 +1,5 @@
 define ['premain'], (app) ->
-	app.directive 'jsonEditor', [() ->
+	app.directive 'jsonEditor', ['$sce', ($sce) ->
 		restrict: 'E'
 		scope: 
 			jsonText: '='
@@ -55,7 +55,10 @@ define ['premain'], (app) ->
 				if( key isnt 8 && key isnt 46 )
 					textarea.css('left', "+=" + cellWidth)
 					if (editorStatusMatrix[cellY].isNew) 
-						scope.jsonHtml = "<div id='cell"+cellY+cellX + "'>" + String.fromCharCode(key) + "</div>"
+						scope.jsonHtml = $sce.trustAsHtml("<div id='cell" + cellY + "'>" + String.fromCharCode(key) + "</div>")
+						editorStatusMatrix[cellY].isNew = false
+					else
+						$("#cell"+cellY).text($("#cell"+cellY).text() + String.fromCharCode(key))
 					cellX++
 					
 				return
