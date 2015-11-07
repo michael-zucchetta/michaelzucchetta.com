@@ -51,24 +51,38 @@ define ['premain'], (app) ->
 				textarea.focus()
 
 			textarea.keypress ($event) ->
+				cell = $("#cell"+cellY)
 				key = event.keyCode || event.charCode
-				if( key isnt 8 && key isnt 46 )
+				#not del key and not newline
+				if (key isnt 8 and key isnt 46 and key isnt 13)
 					textarea.css('left', "+=" + cellWidth)
 					if (editorStatusMatrix[cellY].isNew) 
 						scope.jsonHtml = $sce.trustAsHtml("<div id='cell" + cellY + "'>" + String.fromCharCode(key) + "</div>")
 						editorStatusMatrix[cellY].isNew = false
 					else
-						$("#cell"+cellY).text($("#cell"+cellY).text() + String.fromCharCode(key))
+						cell.text(cell.text() + String.fromCharCode(key))
 					cellX++
-					
+				if (key is 13)
+					#13 is newline
+					textarea.css('top', "+=" + cellHeight)	
+					cellY++
 				return
 
 			textarea.keyup ($event) ->
+				cell = $("#cell"+cellY)
 				key = event.keyCode || event.charCode
 				if( key is 8 or key is 46 )
 					#backspace case
-					textarea.css('left', "-=" + cellWidth)	
-					cellX--
+					removedChars = cell.text().replace scope.json, ''
+					newLinesNum = _.countBy(removedChars, (char) ->
+						return char is '\n'
+					);
+					cellY -= newLinesNum.true
+					textarea.css('top', "-=" + cellHeight*newLinesNum.true)
+					#the .false are the non newline chars
+					textarea.css('left', "-=" + cellWidth*newLinesNum.false)
+					cellX -= newLinesNum.false
+					cell.text( cell.text().substring(cell.text().length - removedChars.length, cell.text().length) )
 
 			$(document).ready () ->
 				scope.initJsonEditor()
