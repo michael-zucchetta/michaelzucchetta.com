@@ -39,11 +39,16 @@ define ['premain'], (app) ->
 				tmpX = $event.offsetX/cellWidth
 				tmpX = (tmpX + 1) is cellNumber? tmpX : tmpX + 1
 				cellX = Math.ceil($event.offsetX/cellWidth + 1)
-				x = cellX*cellWidth
 				tmpY = $event.offsetY/cellHeight
 				tmpY = if tmpY > 1 then tmpY - 1 else tmpY
 				cellY = Math.round(tmpY)
 				y = cellY*cellHeight
+				cell = $('#cell'+cellY)
+				if cell.length 
+					if cell.text().length < cellX
+						cellX = cell.text().length
+				else cellX = 0
+				x = cellX*cellWidth
 				textarea.css({
 					left: x,
 					top: y
@@ -77,12 +82,17 @@ define ['premain'], (app) ->
 					newLinesNum = _.countBy(removedChars, (char) ->
 						return char is '\n'
 					);
-					cellY -= newLinesNum.true
+					cellY -= newLinesNum.true if newLinesNum.true
 					textarea.css('top', "-=" + cellHeight*newLinesNum.true)
 					#the .false are the non newline chars
 					textarea.css('left', "-=" + cellWidth*newLinesNum.false)
 					cellX -= newLinesNum.false
-					cell.text( cell.text().substring(cell.text().length - removedChars.length, cell.text().length) )
+					if cellX < 0
+						#if it is going out of the screen
+						cellX = 0
+						#textarea.css('left', '0px')
+					#concatenate two strings: one from zero to the cursor's position and then from the cursor's position to the end of the string
+					cell.text( cell.text().substring(0, cellX) + cell.text().substring(cellX + removedChars.length,  cell.text().length) )
 
 			$(document).ready () ->
 				scope.initJsonEditor()

@@ -16,12 +16,13 @@
 			margin: 0 -1px;
 			white-space: pre;
 			word-wrap: normal;
-			background-color: wheat;
+			background-color: transparent;
+			//background-color: wheat;
 		}
 		#json-display {
 			min-height: 304px;
 		}
 
 	}
-
+	position: relative;
 }
