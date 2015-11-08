@@ -1,5 +1,10 @@
 <div class="json-editor json-input-container" >
 	<b id="cursor"></b>
 	<textarea id="json-input" ng-model="json"></textarea>
-	<div id="json-display" ng-bind-html="jsonHtml"></div>
+	<!-- jquery appends the data here -->
+	<div id="json-display">
+		<div class="editor-row" ng-repeat="row in editorStatusMatrix" ng-if="row.id" id="{{row.id}}"ng-bind="row.string">
+		
+		</div>
+	</div>
 </div>
