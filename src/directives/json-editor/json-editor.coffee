@@ -1,14 +1,14 @@
 define ['premain'], (app) ->
 	app.directive 'jsonEditor', ['$sce', '$timeout', ($sce, $timeout) ->
 		restrict: 'E'
-		scope: 
+		scope:
 			jsonText: '='
 		templateUrl: '/directives/json-editor/json-editor.html'
 		css: '/directives/json-editor/json-editor.css'
 		link: (scope, element, attrs) ->
 			display = $('#json-display')
 			textarea = $('#json-input')
-			container = $('.json-input-container')	
+			container = $('.json-input-container')
 
 			editorWidth = null
 			#momentarily mocked
@@ -45,7 +45,7 @@ define ['premain'], (app) ->
 				cellY = Math.round(tmpY)
 				y = cellY*cellHeight
 				cellText = scope.editorStatusMatrix[cellY].string
-				if cellText 
+				if cellText
 					if cellText.length < cellX
 						cellX = cellText.length
 					textarea.val cellText
@@ -56,6 +56,7 @@ define ['premain'], (app) ->
 					top: y
 				})
 				textarea.focus()
+				return
 
 			textarea.keypress ($event) ->
 				cell = $("#cell"+cellY)
@@ -65,18 +66,17 @@ define ['premain'], (app) ->
 				if (key isnt 8 and key isnt 46 and key isnt 13)
 					textarea.css('left', "+=" + cellWidth)
 					scope.editorStatusMatrix[cellY][cellX] = newChar
-					if (scope.editorStatusMatrix[cellY].isNew) 
-						#scope.editorStatusMatrix[cellY].htmlRow = $sce.trustAsHtml("<div id='cell" + cellY + "'>" + newChar + "</div>")
+					if (scope.editorStatusMatrix[cellY].isNew)
 					
-						scope.editorStatusMatrix[cellY].string = newChar;
+						scope.editorStatusMatrix[cellY].string = newChar
 						scope.editorStatusMatrix[cellY].isNew = false
 					else
-						scope.editorStatusMatrix[cellY].string += newChar;
+						scope.editorStatusMatrix[cellY].string += newChar
 						
 					cellX++
 				if (key is 13)
 					#13 is newline
-					textarea.css('top', "+=" + cellHeight)	
+					textarea.css('top', "+=" + cellHeight)
 					textarea.css('left', '0px')
 					
 					textarea.val('')
@@ -87,23 +87,26 @@ define ['premain'], (app) ->
 			textarea.keyup ($event) ->
 				cellText = scope.editorStatusMatrix[cellY].string
 				key = event.keyCode || event.charCode
-				if( key is 8 or key is 46 )
-					#backspace case
-					removedChars = cellText.replace  scope.json, ''
-					newLinesNum = _.countBy(removedChars, (char) ->
-						return char is '\n'
-					);
-					cellY -= newLinesNum.true if newLinesNum.true
-					textarea.css('top', "-=" + cellHeight*newLinesNum.true)
-					#the .false are the non newline chars
-					textarea.css('left', "-=" + cellWidth*newLinesNum.false)
-					cellX -= newLinesNum.false
-					if cellX < 0
-						#if it is going out of the screen
-						cellX = 0
-						#textarea.css('left', '0px')
-					#concatenate two strings: one from zero to the cursor's position and then from the cursor's position to the end of the string
-					scope.editorStatusMatrix[cellY].string = scope.json 
+				if( key isnt 8 and key isnt 46 )
+					return
+				#backspace case
+				removedChars = cellText.replace  scope.json, ''
+				newLinesNum = _.countBy removedChars, (char) ->
+					return char is '\n'
+				
+				cellY -= newLinesNum.true if newLinesNum.true
+				textarea.css('top', "-=" + cellHeight*newLinesNum.true)
+				#the .false are the non newline chars
+				textarea.css('left', "-=" + cellWidth*newLinesNum.false)
+				cellX -= newLinesNum.false
+				if cellX < 0
+					#if it is going out of the screen
+					cellX = 0
+					#textarea.css('left', '0px')
+				#concatenate two strings: one from zero to the cursor's position and then from the cursor's position to the end of the string
+				scope.editorStatusMatrix[cellY].string = scope.json
+				return
+
 			$(document).ready () ->
 				scope.initJsonEditor()
 				return
