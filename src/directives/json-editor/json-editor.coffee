@@ -1,5 +1,5 @@
 define ['premain'], (app) ->
-	app.directive 'jsonEditor', ['$sce', '$timeout', ($sce, $timeout) ->
+	app.directive 'jsonEditor', ['$sce', '$timeout', '$interval', ($sce, $timeout, $interval) ->
 		restrict: 'E'
 		scope:
 			jsonText: '='
@@ -38,10 +38,10 @@ define ['premain'], (app) ->
 			container.click ($event) ->
 				# x/cellWidth I obtain the partial cell position, with round I get the cell number
 				tmpX = $event.offsetX/cellWidth
-				tmpX = (tmpX + 1) is cellNumber? tmpX : tmpX + 1
-				cellX = Math.ceil($event.offsetX/cellWidth + 1)
+				#tmpX = (tmpX + 1) is cellNumber? tmpX : tmpX + 1
+				cellX = Math.round($event.offsetX/cellWidth)
 				tmpY = $event.offsetY/cellHeight
-				tmpY = if tmpY > 1 then tmpY - 1 else tmpY
+				#tmpY = if tmpY > 1 then tmpY - 1 else tmpY
 				cellY = Math.round(tmpY)
 				y = cellY*cellHeight
 				cellText = scope.editorStatusMatrix[cellY].string
@@ -65,13 +65,14 @@ define ['premain'], (app) ->
 				#not del key and not newline
 				if (key isnt 8 and key isnt 46 and key isnt 13)
 					textarea.css('left', "+=" + cellWidth)
-					scope.editorStatusMatrix[cellY][cellX] = newChar
+					#TBD scope.editorStatusMatrix[cellY][cellX] = newChar
 					if (scope.editorStatusMatrix[cellY].isNew)
 					
 						scope.editorStatusMatrix[cellY].string = newChar
 						scope.editorStatusMatrix[cellY].isNew = false
 					else
-						scope.editorStatusMatrix[cellY].string += newChar
+						tmpString = scope.editorStatusMatrix[cellY].string
+						scope.editorStatusMatrix[cellY].string = tmpString.substring(0, cellX) + newChar + tmpString.substring(cellX, tmpString.length)
 						
 					cellX++
 				if (key is 13)
@@ -85,30 +86,41 @@ define ['premain'], (app) ->
 				return
 
 			textarea.keyup ($event) ->
-				cellText = scope.editorStatusMatrix[cellY].string
-				key = event.keyCode || event.charCode
-				if( key isnt 8 and key isnt 46 )
-					return
-				#backspace case
-				removedChars = cellText.replace  scope.json, ''
-				newLinesNum = _.countBy removedChars, (char) ->
-					return char is '\n'
+				$timeout () ->
+					cellText = scope.editorStatusMatrix[cellY].string
+					key = $event.keyCode || $event.charCode
+					if( key isnt 8 and key isnt 46 )
+						return
+					#backspace case
+					removedCharsNumber = cellText.length -  scope.json.length
+					removedChars = cellText.substring(cellX - removedCharsNumber, cellX)
+					newLinesNum = _.countBy removedChars, (char) ->
+						return char is '\n'
+					#concatenate two strings: one from zero to the cursor's position and then from the cursor's position to the end of the string
+					scope.editorStatusMatrix[cellY].string = scope.json = cellText.substring(0, cellX - removedCharsNumber) + cellText.substring(cellX, cellText.length)
 				
-				cellY -= newLinesNum.true if newLinesNum.true
-				textarea.css('top', "-=" + cellHeight*newLinesNum.true)
-				#the .false are the non newline chars
-				textarea.css('left', "-=" + cellWidth*newLinesNum.false)
-				cellX -= newLinesNum.false
-				if cellX < 0
-					#if it is going out of the screen
-					cellX = 0
-					#textarea.css('left', '0px')
-				#concatenate two strings: one from zero to the cursor's position and then from the cursor's position to the end of the string
-				scope.editorStatusMatrix[cellY].string = scope.json
+					cellY -= newLinesNum.true if newLinesNum.true
+					textarea.css('top', "-=" + cellHeight*newLinesNum.true)
+					#the .false are the non newline chars
+					textarea.css('left', "-=" + cellWidth*newLinesNum.false)
+					cellX -= newLinesNum.false
+					if cellX < 0
+						#if it is going out of the screen
+						cellX = 0
+						#textarea.css('left', '0px')
+					return
 				return
 
-			$(document).ready () ->
+			scope.initCursor = (cursorId) ->
+				
+				$interval( () ->
+					scope.hideCursor = !scope.hideCursor
+				, 500)
+
+			angular.element(document).ready () ->
 				scope.initJsonEditor()
+				scope.initCursor('cursor')
+				
 				return
 
 			return

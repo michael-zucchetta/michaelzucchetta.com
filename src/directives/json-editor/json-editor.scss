@@ -28,5 +28,18 @@
 		}
 
 	}
+	#cursor {
+		font-size: 12px;
+		background-color: black;
+		color: black;
+		position: relative;
+		opacity: 0.5;
+		height: 14px;
+		width: 1px;
+		position: absolute;
+		display: inline-block;
+		margin-top: 2px;
+	}
+	
 	position: relative;
 }
