@@ -18,13 +18,22 @@
 			white-space: pre;
 			word-wrap: normal;
 			background-color: transparent;
-			//background-color: wheat;
+			color: transparent;
 		}
 		#json-display {
-			min-height: 304px;
-			.editor-row {
-				height: $json-editor-row-height;
+			min-height: 314px;
+			display: flex;
+			.editor-line-numbers {
+				width: 14%;
 			}
+			.editor-table {
+				width: 85%;
+				position: relative;
+				.editor-row {
+					height: $json-editor-row-height;
+				}
+			}
+
 		}
 
 	}

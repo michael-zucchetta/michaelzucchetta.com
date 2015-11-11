@@ -20,6 +20,10 @@ define ['premain'], (app) ->
 			scope.editorStatusMatrix = null
 			cellX = 0
 			cellY = 0
+			scope.carelPos = {
+				left: 0,
+				top: 0
+			}
 
 			scope.initJsonEditor = () ->
 				editorWidth = display.outerWidth()
@@ -34,7 +38,7 @@ define ['premain'], (app) ->
 					return
 				return
 	
-			#To be moved to a class?			
+			#To be moved to a class?		
 			container.click ($event) ->
 				# x/cellWidth I obtain the partial cell position, with round I get the cell number
 				tmpX = $event.offsetX/cellWidth
@@ -51,10 +55,8 @@ define ['premain'], (app) ->
 					textarea.val cellText
 				else cellX = 0
 				x = cellX*cellWidth
-				textarea.css({
-					left: x,
-					top: y
-				})
+				scope.carelPos.left = x
+				scope.carelPos.top = y
 				textarea.focus()
 				return
 
@@ -64,7 +66,7 @@ define ['premain'], (app) ->
 				newChar = String.fromCharCode(key)
 				#not del key and not newline
 				if (key isnt 8 and key isnt 46 and key isnt 13)
-					textarea.css('left', "+=" + cellWidth)
+					scope.carelPos.left += cellWidth
 					#TBD scope.editorStatusMatrix[cellY][cellX] = newChar
 					if (scope.editorStatusMatrix[cellY].isNew)
 					
@@ -77,8 +79,8 @@ define ['premain'], (app) ->
 					cellX++
 				if (key is 13)
 					#13 is newline
-					textarea.css('top', "+=" + cellHeight)
-					textarea.css('left', '0px')
+					scope.carelPos.left = 0
+					scope.carelPos.top += cellHeight
 					
 					textarea.val('')
 					scope.json = ""
@@ -100,14 +102,13 @@ define ['premain'], (app) ->
 					scope.editorStatusMatrix[cellY].string = scope.json = cellText.substring(0, cellX - removedCharsNumber) + cellText.substring(cellX, cellText.length)
 				
 					cellY -= newLinesNum.true if newLinesNum.true
-					textarea.css('top', "-=" + cellHeight*newLinesNum.true)
+					scope.carelPos.top -= cellHeight*newLinesNum.true
 					#the .false are the non newline chars
-					textarea.css('left', "-=" + cellWidth*newLinesNum.false)
+					scope.carelPos.left += cellWidth*newLinesNum.false
 					cellX -= newLinesNum.false
 					if cellX < 0
 						#if it is going out of the screen
 						cellX = 0
-						#textarea.css('left', '0px')
 					return
 				return
 
@@ -115,6 +116,7 @@ define ['premain'], (app) ->
 				
 				$interval( () ->
 					scope.hideCursor = !scope.hideCursor
+					return
 				, 500)
 
 			angular.element(document).ready () ->

@@ -1,10 +1,13 @@
 <div class="json-editor json-input-container" >
-	<b id="cursor" ng-hide="hideCursor"></b>
-	<textarea id="json-input" ng-model="json"></textarea>
+	<textarea id="json-input" ng-model="json" ng-style="carelPos"></textarea>
 	<!-- jquery appends the data here -->
 	<div id="json-display">
-		<div class="editor-row" ng-repeat="row in editorStatusMatrix" ng-if="row.id" id="{{row.id}}"ng-bind="row.string">
-		
+		<div class="editor-line-numbers">
+		</div>
+		<div class="editor-table">
+			<b id="cursor" ng-hide="hideCursor" ng-style="carelPos"></b>
+			<div class="editor-row" ng-repeat="row in editorStatusMatrix" ng-if="row.id" id="{{row.id}}"ng-bind="row.string">
+			</div>
 		</div>
 	</div>
 </div>
