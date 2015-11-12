@@ -6,7 +6,7 @@ define ['premain', 'DaoFacade', 'Constants'], (app) ->
 			template: (element, attrs) ->
 				element.attr("ng-click", "showHideMenu()")
 				return
-			css: '/directives/dropdown-menu/dropdown-menu.css',
+			css: '/directives/dropdown-menu/dropdown-menu.css'
 			link: (scope, element, attrs) ->
 				scope.prefix = FUNCTION_PREFIX
 				#Add ng-click to the element that has the directive

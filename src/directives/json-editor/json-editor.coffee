@@ -39,12 +39,12 @@ define ['premain'], (app) ->
 				return
 	
 			#To be moved to a class?		
-			container.click ($event) ->
+			scope.clickEditor = ($event) ->
 				# x/cellWidth I obtain the partial cell position, with round I get the cell number
 				tmpX = $event.offsetX/cellWidth
 				#tmpX = (tmpX + 1) is cellNumber? tmpX : tmpX + 1
 				cellX = Math.round($event.offsetX/cellWidth)
-				tmpY = $event.offsetY/cellHeight
+				tmpY = ($event.target.offsetTop + $event.offsetY)/cellHeight
 				#tmpY = if tmpY > 1 then tmpY - 1 else tmpY
 				cellY = Math.round(tmpY)
 				y = cellY*cellHeight
@@ -60,7 +60,7 @@ define ['premain'], (app) ->
 				textarea.focus()
 				return
 
-			textarea.keypress ($event) ->
+			scope.insertCharacter = ($event) ->
 				cell = $("#cell"+cellY)
 				key = event.keyCode || event.charCode
 				newChar = String.fromCharCode(key)
@@ -87,7 +87,8 @@ define ['premain'], (app) ->
 					cellY++
 				return
 
-			textarea.keyup ($event) ->
+			scope.deleteCharacter = ($event) ->
+				#needed to capture delete key
 				$timeout () ->
 					cellText = scope.editorStatusMatrix[cellY].string
 					key = $event.keyCode || $event.charCode
@@ -113,7 +114,6 @@ define ['premain'], (app) ->
 				return
 
 			scope.initCursor = (cursorId) ->
-				
 				$interval( () ->
 					scope.hideCursor = !scope.hideCursor
 					return
