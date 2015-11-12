@@ -75,13 +75,11 @@ define ['premain'], (app) ->
 					else
 						tmpString = scope.editorStatusMatrix[cellY].string
 						scope.editorStatusMatrix[cellY].string = tmpString.substring(0, cellX) + newChar + tmpString.substring(cellX, tmpString.length)
-						
 					cellX++
 				if (key is 13)
 					#13 is newline
 					scope.carelPos.left = 0
 					scope.carelPos.top += cellHeight
-					
 					textarea.val('')
 					scope.json = ""
 					cellY++
@@ -99,13 +97,18 @@ define ['premain'], (app) ->
 					removedChars = cellText.substring(cellX - removedCharsNumber, cellX)
 					newLinesNum = _.countBy removedChars, (char) ->
 						return char is '\n'
-					#concatenate two strings: one from zero to the cursor's position and then from the cursor's position to the end of the string
-					scope.editorStatusMatrix[cellY].string = scope.json = cellText.substring(0, cellX - removedCharsNumber) + cellText.substring(cellX, cellText.length)
+					
+					if (scope.editorStatusMatrix[cellY].string - removedCharsNumber) <= 0
+						scope.editorStatusMatrix[cellY].string = ""
+						scope.editorStatusMatrix[cellY].isNew = true
+					else
+						#concatenate two strings: one from zero to the cursor's position and then from the cursor's position to the end of the string
+						scope.editorStatusMatrix[cellY].string = scope.json = cellText.substring(0, cellX - removedCharsNumber) + cellText.substring(cellX, cellText.length)
 				
 					cellY -= newLinesNum.true if newLinesNum.true
 					scope.carelPos.top -= cellHeight*newLinesNum.true
 					#the .false are the non newline chars
-					scope.carelPos.left += cellWidth*newLinesNum.false
+					scope.carelPos.left -= cellWidth*newLinesNum.false
 					cellX -= newLinesNum.false
 					if cellX < 0
 						#if it is going out of the screen
