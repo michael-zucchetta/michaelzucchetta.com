@@ -34,6 +34,46 @@ define ['TextEditor', 'jQuery'], (TextEditor) ->
 			expect(editor.editorWidth).toBe(editorWidth)
 			expect(editor.editorHeight).toBe(editorHeight)
 			return
+		
+		mockedClick =
+			offsetX: 202
+			offsetY: 4
+			target:
+				offsetTop: 50
+		
+		mockedPosition =
+			cellX: 25
+			cellY: 3
+
+		mockedCoordinates =
+			x: 200
+			y: 48
+
+		it "empty text, so cellX is zero", () ->
+			editor.clickEditor(mockedClick)
+			expect(editor.cellX).toBe(0)
+			return
+
+		it "click on the editor with non empty string", () ->
+			#set editor text
+			mockedString = "abcdefghjklmnopqrstuwyxz123"
+			editor.statusMatrix[mockedPosition.cellY].string = mockedString
+			
+			editor.clickEditor(mockedClick)
+			expect(editor.cellX).toBe(mockedPosition.cellX)
+			expect(editor.cellY).toBe(mockedPosition.cellY)
+
+			expect(editor.carelPos.left).toBe(mockedCoordinates.x)
+			expect(editor.carelPos.top).toBe(mockedCoordinates.y)
+
+			expect( editor.getCellLetter(mockedPosition.cellY, mockedPosition.cellX) ).toBe mockedString[mockedPosition.cellX]
+			return
+
+		#reset editor
+		editor.initEditor()
+
+		it "test characters insertion", () ->
+			return
 
 		return
 	
