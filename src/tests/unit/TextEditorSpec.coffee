@@ -73,6 +73,13 @@ define ['TextEditor', 'jQuery'], (TextEditor) ->
 		editor.initEditor()
 
 		it "test characters insertion", () ->
+			#charCodeAt returns the keyCode for a char
+			charEvent =
+				keyCode: "a".charCodeAt(0)
+			editor.insertChar(charEvent)
+			expect(editor.textValue.length).toBe(1)
+			editor.insertChar(charEvent)
+			expect(editor.textValue).toBe("aa")
 			return
 
 		return

@@ -1,4 +1,4 @@
-define ['premain'], (app) ->
+define ['premain', 'TextEditor'], (app, TextEditor) ->
 	app.directive 'jsonEditor', ['$sce', '$timeout', '$interval', ($sce, $timeout, $interval) ->
 		restrict: 'E'
 		scope:
@@ -9,60 +9,12 @@ define ['premain'], (app) ->
 			display = $('#json-display')
 			textarea = $('#json-input')
 			container = $('.json-input-container')
-
-			editorWidth = null
-			#momentarily mocked
-			editorHeight = 416
-			colsNumber = null
-			rowsNumber = null
-			cellWidth = 8
-			cellHeight = 16
-			scope.editorStatusMatrix = null
-			cellX = 0
-			cellY = 0
-			scope.carelPos = {
-				left: 0,
-				top: 0
-			}
-
-			scope.initJsonEditor = () ->
-				editorWidth = display.outerWidth()
-				colsNumber = Math.round(editorWidth/cellWidth)
-				rowsNumber = Math.round(editorHeight/cellHeight)
-				scope.editorStatusMatrix = new Array(rowsNumber)
-				_.each scope.editorStatusMatrix, (el, $index) ->
-					#inside the each loop, the new object is an undefined variable and does not maintain the reference
-					el = scope.editorStatusMatrix[$index] = new Array(colsNumber)
-					el.isNew = true
-					el.id = "cell"+$index
-					return
-				return
-	
-			#To be moved to a class?		
-			scope.clickEditor = ($event) ->
-				# x/cellWidth I obtain the partial cell position, with round I get the cell number
-				tmpX = $event.offsetX/cellWidth
-				#tmpX = (tmpX + 1) is cellNumber? tmpX : tmpX + 1
-				cellX = Math.round($event.offsetX/cellWidth)
-				tmpY = ($event.target.offsetTop + $event.offsetY)/cellHeight
-				#tmpY = if tmpY > 1 then tmpY - 1 else tmpY
-				cellY = Math.round(tmpY)
-				y = cellY*cellHeight
-				cellText = scope.editorStatusMatrix[cellY].string
-				if cellText
-					if cellText.length < cellX
-						cellX = cellText.length
-					textarea.val cellText
-				else cellX = 0
-				x = cellX*cellWidth
-				scope.carelPos.left = x
-				scope.carelPos.top = y
-				textarea.focus()
-				return
+			
+			scope.editor = new TextEditor('#json-display', '#json-input', '.json-input-container', 'cell')
 
 			scope.insertCharacter = ($event) ->
 				cell = $("#cell"+cellY)
-				key = event.keyCode || event.charCode
+				key = $event.keyCode || $event.charCode
 				newChar = String.fromCharCode(key)
 				#not del key and not newline
 				if (key isnt 8 and key isnt 46 and key isnt 13)
@@ -123,7 +75,7 @@ define ['premain'], (app) ->
 				, 500)
 
 			angular.element(document).ready () ->
-				scope.initJsonEditor()
+				scope.editor.initEditor()
 				scope.initCursor('cursor')
 				
 				return

@@ -1,7 +1,11 @@
 define ['lodash', 'jQuery'], () ->
 	class TextEditor
 		constructor: (@displayQuery, @textareaQuery, @containerQuery, @rowSuffix) ->
+			#row suffix is the name of the single row class, such as cell
 			#html elements
+			## display is where the text is displayed
+			## textarea is the textarea itself (not visible)
+			## container is the container
 			@display = $(@displayQuery)
 			@textarea = $(@textareaQuery)
 			@container = $(@containerQuery)
@@ -13,6 +17,7 @@ define ['lodash', 'jQuery'], () ->
 			@colsNumber = null
 			@rowsNumber = null
 			@statusMatrix = null
+			@textValue = ""
 			@cellX = 0
 			@cellY = 0
 			@carelPos =
@@ -59,25 +64,26 @@ define ['lodash', 'jQuery'], () ->
 			@textarea.focus()
 			return
 
-		insertChar = ($event) ->
-			key = event.keyCode || event.charCode
+		insertChar: ($event) ->
+			key = $event.keyCode || $event.charCode
 			newChar = String.fromCharCode(key)
 			#not del and not newline
 			if (key isnt 8 and key isnt 46 and key isnt 13)
-				scope.carelPos.left += cellWidth
-				if (scope.editorStatusMatrix[cellY].isNew)
-					scope.editorStatusMatrix[cellY].string = newChar
-					scope.editorStatusMatrix[cellY].isNew = false
+				@carelPos.left += @cellWidth
+				if (@statusMatrix[@cellY].isNew)
+					@textValue = @statusMatrix[@cellY].string = newChar
+					@statusMatrix[@cellY].isNew = false
 				else
-					tmpString = scope.editorStatusMatrix[cellY].string
-					scope.editorStatusMatrix[cellY].string = tmpString.substring(0, cellX) + newChar + tmpString.substring(cellX, tmpString.length)
-				cellX++
+					tmpString = @statusMatrix[@cellY].string
+					@statusMatrix[@cellY].string = tmpString.substring(0, @cellX) + newChar + tmpString.substring(@cellX, tmpString.length)
+					@textValue += newChar
+				@cellX++
 			if (key is 13)
 				#key 13 is a newline
-				scope.carelPos.left = 0
-				scope.carelPos.top += cellHeight
-				textarea.val('')
-				scope.json = ""
-				cellY++
+				@carelPos.left = 0
+				@carelPos.top += cellHeight
+				@textarea.val('')
+				@textValue = ""
+				@cellY++
 			return
 	return TextEditor
