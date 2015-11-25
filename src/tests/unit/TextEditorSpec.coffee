@@ -95,6 +95,11 @@ define ['TextEditor', 'jQuery'], (TextEditor) ->
 
 			editor.insertChar(newCharEvent)
 			expect(editor.cellY).toBe(1)
+			
+			editor.insertChar(newCharEvent)
+			editor.insertChar(newCharEvent)
+			editor.insertChar(newCharEvent)
+			expect(editor.cellY).toBe(4)
 			return
 
 		return
