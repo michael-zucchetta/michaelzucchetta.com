@@ -1,21 +1,29 @@
 define ['TextEditor', 'jQuery'], (TextEditor) ->
 	editorWidth = 800
 	editorHeight = 416
+	editor = null
+	display = null
+	textarea = null
+	container = null
 
-	container = document.createElement "div"
-	textarea = document.createElement "textarea"
-	display = document.createElement "div"
+	initTextEditorSpec = (nth) ->
+		container = document.createElement "div"
+		textarea = document.createElement "textarea"
+		display = document.createElement "div"
 
-	container.className = "containerClass"
-	textarea.id = "textareaId"
-	display.id = "displayId"
+		container.className = "containerClass" + nth
+		textarea.id = "textareaId" + nth
+		display.id = "displayId" + nth
 
-	document.body.appendChild(container)
-	display.appendChild(textarea)
-	container.appendChild(display)
+		document.body.appendChild(container)
+		display.appendChild(textarea)
+		container.appendChild(display)
+		editor = new TextEditor("#displayId" + nth, "#textareaId" + nth, ".containerClass" + nth, "cell"+nth)
+
+		return
 
 	describe "Test TextEditor class", () ->
-		editor = new TextEditor("#displayId", "#textareaId", ".containerClass", "cell")
+		initTextEditorSpec(1)
 		it "are the html elements initialized?", () ->
 			expect(editor.display).toBeTruthy()
 			expect(editor.textarea).toBeTruthy()
@@ -69,10 +77,11 @@ define ['TextEditor', 'jQuery'], (TextEditor) ->
 			expect( editor.getCellLetter(mockedPosition.cellY, mockedPosition.cellX) ).toBe mockedString[mockedPosition.cellX]
 			return
 
-		#reset editor
-		editor.initEditor()
 
 		it "test characters insertion", () ->
+			#reset editor
+			initTextEditorSpec(2)
+			editor.initEditor()
 			#charCodeAt returns the keyCode for a char
 			charEvent =
 				keyCode: "a".charCodeAt(0)
@@ -80,6 +89,12 @@ define ['TextEditor', 'jQuery'], (TextEditor) ->
 			expect(editor.textValue.length).toBe(1)
 			editor.insertChar(charEvent)
 			expect(editor.textValue).toBe("aa")
+			
+			newCharEvent =
+				keyCode: 13
+
+			editor.insertChar(newCharEvent)
+			expect(editor.cellY).toBe(1)
 			return
 
 		return

@@ -81,7 +81,7 @@ define ['lodash', 'jQuery'], () ->
 			if (key is 13)
 				#key 13 is a newline
 				@carelPos.left = 0
-				@carelPos.top += cellHeight
+				@carelPos.top += @cellHeight
 				@textarea.val('')
 				@textValue = ""
 				@cellY++
