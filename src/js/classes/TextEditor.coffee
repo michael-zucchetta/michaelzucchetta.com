@@ -35,6 +35,7 @@ define ['lodash', 'jQuery'], () ->
 				#inside the each loop, the new object is an undefined variable and does not maintain the reference
 				el = _self.statusMatrix[$index] = new Array(_self.colsNumber)
 				el.isNew = true
+				el.string = ""
 				el.id = _self.rowSuffix + $index
 				return
 			return
@@ -86,4 +87,31 @@ define ['lodash', 'jQuery'], () ->
 				@textValue = ""
 				@cellY++
 			return
+
+		deleteChar: ($event) ->
+			console.log "keydown triggered"
+			#needed to capture the "delete key"
+			cellText = @statusMatrix[@cellY].string
+			key = $event.keyCode || $event.charCode
+			if (key isnt 8 and key isnt 46)
+				return
+			#then it's a backspace case
+
+			if (@statusMatrix[@cellY].string - 1) < 0
+				@statusMatrix[@cellY].string = ""
+				@statusMatrix[@cellY].isNew = true
+				@cellY--
+				@carelPos.top -= @cellHeight
+			else
+				#concatenate two strings: one from zero to the cursor's position and then from the cursor's position to the end of the string
+				@statusMatrix[@cellY].string = @textValue = cellText.substring(0, @cellX - 1) + cellText.substring(@cellX, cellText.length)
+				
+				@carelPos.left -= @cellWidth
+				@cellX--
+				if @cellX < 0
+					#if it is going out of the screen
+					@cellX = 0
+				return
+			return	
+
 	return TextEditor

@@ -1,10 +1,17 @@
 define ['TextEditor', 'jQuery'], (TextEditor) ->
 	editorWidth = 800
 	editorHeight = 416
+	cellWidth = 8
+	cellHeight = 16
+
 	editor = null
 	display = null
 	textarea = null
 	container = null
+
+	charEvent = null
+	newCharEvent = null
+	charEventDel = null
 
 	initTextEditorSpec = (nth) ->
 		container = document.createElement "div"
@@ -19,6 +26,14 @@ define ['TextEditor', 'jQuery'], (TextEditor) ->
 		display.appendChild(textarea)
 		container.appendChild(display)
 		editor = new TextEditor("#displayId" + nth, "#textareaId" + nth, ".containerClass" + nth, "cell"+nth)
+		charEvent =
+			keyCode: "a".charCodeAt(0)
+		#13 is new char
+		newCharEvent =
+			keyCode: 13
+		#46 (or 8) is the deletion char
+		charEventDel =
+			keyCode: 46
 
 		return
 
@@ -83,25 +98,53 @@ define ['TextEditor', 'jQuery'], (TextEditor) ->
 			initTextEditorSpec(2)
 			editor.initEditor()
 			#charCodeAt returns the keyCode for a char
-			charEvent =
-				keyCode: "a".charCodeAt(0)
 			editor.insertChar(charEvent)
 			expect(editor.textValue.length).toBe(1)
 			editor.insertChar(charEvent)
 			expect(editor.textValue).toBe("aa")
+			expect(editor.statusMatrix[0].isNew).toBe(false)		
+			expect(editor.statusMatrix[0].string).toBe("aa")		
+			expect(editor.carelPos.left).toBe(cellWidth*2)
+			expect(editor.carelPos.top).toBe(0)
 			
-			newCharEvent =
-				keyCode: 13
 
+			#new chars
 			editor.insertChar(newCharEvent)
 			expect(editor.cellY).toBe(1)
+			expect(editor.carelPos.left).toBe(0)
+			expect(editor.carelPos.top).toBe(cellHeight*1)
 			
 			editor.insertChar(newCharEvent)
 			editor.insertChar(newCharEvent)
 			editor.insertChar(newCharEvent)
 			expect(editor.cellY).toBe(4)
-			return
+			expect(editor.carelPos.top).toBe(cellHeight*4)
 
+			return
+		
+		it "test characters insertion", () ->
+			#reset editor
+			initTextEditorSpec(3)
+			editor.initEditor()
+			
+			editor.insertChar(charEvent)
+			charEvent.keyCode = "b".charCodeAt(0)
+			editor.insertChar(charEvent)
+			charEvent.keyCode = "c".charCodeAt(0)
+			editor.insertChar(charEvent)
+			charEvent.keyCode = "d".charCodeAt(0)
+			editor.insertChar(charEvent)
+			#46 is the deletion char
+			editor.textValue = editor.textValue.substring(0, 3)
+			editor.deleteChar(charEventDel)
+			expect(editor.cellX).toBe(3)
+			expect(editor.carelPos.left).toBe(3*cellWidth)
+
+			editor.insertChar(newCharEvent)
+			expect(editor.cellY).toBe(1)
+			editor.deleteChar(charEventDel)
+			expect(editor.cellY).toBe(0)
+			return
 		return
 	
 	return
