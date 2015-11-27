@@ -18,7 +18,9 @@ define ['premain', 'TextEditor'], (app, TextEditor) ->
 				return
 
 			scope.deleteCharacter = ($event) ->
-				scope.editor.deleteChar($event)
+				$timeout () ->
+					scope.editor.deleteChar($event)
+					return
 				return
 
 			scope.initCursor = (cursorId) ->
@@ -28,10 +30,9 @@ define ['premain', 'TextEditor'], (app, TextEditor) ->
 				, 500)
 
 			angular.element(document).ready () ->
-				$timeout(() ->
-					scope.editor.initEditor()
-					scope.initCursor('cursor')
-				)
+				scope.editor.initEditor()
+				scope.initCursor('cursor')
+				textarea.focus()
 				return
 
 			return

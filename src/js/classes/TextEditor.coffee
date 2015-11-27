@@ -85,7 +85,15 @@ define ['lodash', 'jQuery'], () ->
 				@carelPos.top += @cellHeight
 				@textarea.val('')
 				@textValue = ""
+				@cellX = 0
 				@cellY++
+			return
+
+		moveRows = () ->
+			i = @cellY
+			while i < @rowsNumber.length
+				@statusMatrix[@cellY].string = @statusMatrix[@cellY + 1].string
+			@statusMatrix[i].string = ""
 			return
 
 		deleteChar: ($event) ->
@@ -96,12 +104,14 @@ define ['lodash', 'jQuery'], () ->
 			if (key isnt 8 and key isnt 46)
 				return
 			#then it's a backspace case
-
 			if (@statusMatrix[@cellY].string - 1) < 0
 				@statusMatrix[@cellY].string = ""
 				@statusMatrix[@cellY].isNew = true
 				@cellY--
 				@carelPos.top -= @cellHeight
+				@cellX = @statusMatrix[@cellY].string.length
+				@textValue = @statusMatrix[@cellY].string
+				@carelPos.left = @cellWidth*@cellX
 			else
 				#concatenate two strings: one from zero to the cursor's position and then from the cursor's position to the end of the string
 				@statusMatrix[@cellY].string = @textValue = cellText.substring(0, @cellX - 1) + cellText.substring(@cellX, cellText.length)

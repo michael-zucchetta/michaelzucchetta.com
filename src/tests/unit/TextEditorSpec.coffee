@@ -118,6 +118,7 @@ define ['TextEditor', 'jQuery'], (TextEditor) ->
 			editor.insertChar(newCharEvent)
 			editor.insertChar(newCharEvent)
 			expect(editor.cellY).toBe(4)
+			expect(editor.cellX).toBe(0)
 			expect(editor.carelPos.top).toBe(cellHeight*4)
 
 			return
@@ -140,11 +141,18 @@ define ['TextEditor', 'jQuery'], (TextEditor) ->
 			expect(editor.cellX).toBe(3)
 			expect(editor.carelPos.left).toBe(3*cellWidth)
 
+			return
+		
+		it "new line and deletion", () ->
 			editor.insertChar(newCharEvent)
 			expect(editor.cellY).toBe(1)
 			editor.deleteChar(charEventDel)
 			expect(editor.cellY).toBe(0)
+			expect(editor.textValue).toBe(editor.statusMatrix[editor.cellY].string)
+			expect(editor.cellX).toBe(3)
+			expect(editor.carelPos.left).toBe(3*cellWidth)
 			return
+
 		return
 	
 	return
