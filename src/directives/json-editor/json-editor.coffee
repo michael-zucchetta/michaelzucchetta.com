@@ -30,7 +30,10 @@ define ['premain', 'TextEditor'], (app, TextEditor) ->
 				, 500)
 
 			angular.element(document).ready () ->
-				scope.editor.initEditor()
+				$timeout () ->
+					scope.editor.initEditor()
+					return
+				, 100
 				scope.initCursor('cursor')
 				textarea.focus()
 				return
