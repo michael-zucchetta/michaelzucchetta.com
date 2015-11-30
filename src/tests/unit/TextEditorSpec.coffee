@@ -12,6 +12,19 @@ define ['TextEditor', 'jQuery'], (TextEditor) ->
 	charEvent = null
 	newCharEvent = null
 	charEventDel = null
+	leftArrowEvent = null
+	uselessCharEvent = null
+
+	setInitialStrings = (strings) ->
+		_.each strings, (string, index) ->
+			editor.statusMatrix[index].isNew = false
+			editor.statusMatrix[index].string = string
+			return
+		editor.cellY = strings.length - 1
+		editor.cellX = strings[strings.length - 1].length
+		editor.carelPos.left = editor.cellX*cellWidth
+		editor.carelPos.top = editor.cellY*cellHeight
+		return
 
 	initTextEditorSpec = (nth) ->
 		container = document.createElement "div"
@@ -34,6 +47,13 @@ define ['TextEditor', 'jQuery'], (TextEditor) ->
 		#46 (or 8) is the deletion char
 		charEventDel =
 			keyCode: 46
+		
+		#37 is the left arrow key
+		leftArrowEvent =
+			keyCode: 37
+		
+		uselessCharEvent =
+			keyCode: 99
 
 		return
 
@@ -122,7 +142,7 @@ define ['TextEditor', 'jQuery'], (TextEditor) ->
 			expect(editor.carelPos.top).toBe(cellHeight*4)
 
 			return
-		
+		carelXPos = 0
 		it "test characters insertion", () ->
 			#reset editor
 			initTextEditorSpec(3)
@@ -131,15 +151,19 @@ define ['TextEditor', 'jQuery'], (TextEditor) ->
 			editor.insertChar(charEvent)
 			charEvent.keyCode = "b".charCodeAt(0)
 			editor.insertChar(charEvent)
+			carelXPos++
 			charEvent.keyCode = "c".charCodeAt(0)
 			editor.insertChar(charEvent)
+			carelXPos++
 			charEvent.keyCode = "d".charCodeAt(0)
 			editor.insertChar(charEvent)
+			carelXPos++
+			
 			#46 is the deletion char
-			editor.textValue = editor.textValue.substring(0, 3)
+			editor.textValue = editor.textValue.substring(0, carelXPos)
 			editor.deleteChar(charEventDel)
-			expect(editor.cellX).toBe(3)
-			expect(editor.carelPos.left).toBe(3*cellWidth)
+			expect(editor.cellX).toBe(carelXPos)
+			expect(editor.carelPos.left).toBe(carelXPos*cellWidth)
 
 			return
 		
@@ -149,10 +173,44 @@ define ['TextEditor', 'jQuery'], (TextEditor) ->
 			editor.deleteChar(charEventDel)
 			expect(editor.cellY).toBe(0)
 			expect(editor.textValue).toBe(editor.statusMatrix[editor.cellY].string)
-			expect(editor.cellX).toBe(3)
-			expect(editor.carelPos.left).toBe(3*cellWidth)
+			expect(editor.cellX).toBe(carelXPos)
+			expect(editor.carelPos.left).toBe(carelXPos*cellWidth)
 			return
 
+
+		it "use directional arrows", () ->
+			#reset editor
+			initTextEditorSpec(4)
+			editor.initEditor()
+			setInitialStrings(['test', 'abc'])
+			editor.moveArrow(uselessCharEvent)
+			carelXPos = 3
+			#2
+			editor.moveArrow(leftArrowEvent)
+			carelXPos--
+			expect(editor.cellX).toBe(carelXPos)
+			expect(editor.carelPos.left).toBe(carelXPos*cellWidth)
+			
+			#1
+			editor.moveArrow(leftArrowEvent)
+			carelXPos--
+			expect(editor.cellX).toBe(carelXPos)
+			expect(editor.carelPos.left).toBe(cellWidth)
+
+			#0
+			editor.moveArrow(leftArrowEvent)
+			carelXPos--
+			expect(editor.cellX).toBe(0)
+			expect(editor.carelPos.left).toBe(0)
+			
+			#-1
+			editor.deleteChar(leftArrowEvent)
+			carelXPos--
+			expect(editor.cellY).toBe(0)
+			expect(editor.carelPos.left).toBe(4)
+			
+			return
+		
 		return
 	
 	return

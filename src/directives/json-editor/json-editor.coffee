@@ -17,9 +17,9 @@ define ['premain', 'TextEditor'], (app, TextEditor) ->
 				scope.jsonText = scope.editor.textValue
 				return
 
-			scope.deleteCharacter = ($event) ->
+			scope.handleKeyDown = ($event) ->
 				$timeout () ->
-					scope.editor.deleteChar($event)
+					scope.editor.handleKeyDown($event)
 					return
 				return
 
