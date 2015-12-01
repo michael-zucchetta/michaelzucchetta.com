@@ -18,7 +18,6 @@ define ['premain', 'RegexUtils'], (app) ->
 			newString = string.replace(RegexUtils.backslashes, '')
 			return newString
 
-
 		return factory
 		]
 	return

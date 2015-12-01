@@ -1,6 +1,5 @@
 var filesPath = "dist/files.json";
 module.exports = function(grunt) {
-
 	// Project configuration.
 	grunt.initConfig({
 		'bower-install-simple': {

@@ -66,7 +66,7 @@ define ['lodash', 'jQuery'], () ->
 			return
 
 		insertChar: ($event) ->
-			key = $event.keyCode || $event.charCode
+			key = getKeyFromEvent($event)
 			newChar = String.fromCharCode(key)
 			#not del and not newline
 			if (key isnt 8 and key isnt 46 and key isnt 13)
@@ -96,11 +96,10 @@ define ['lodash', 'jQuery'], () ->
 			@statusMatrix[i].string = ""
 			return
 
-		deleteChar: ($event) ->
-			console.log "keydown triggered"
+		deleteChar: ($event, key) ->
 			#needed to capture the "delete key"
 			cellText = @statusMatrix[@cellY].string
-			key = $event.keyCode || $event.charCode
+			#to be refactored
 			if (key isnt 8 and key isnt 46)
 				return
 			#then it's a backspace case
@@ -123,5 +122,42 @@ define ['lodash', 'jQuery'], () ->
 					@cellX = 0
 				return
 			return	
+
+		moveArrow: ($event, key) ->
+			done = false
+			deltaY = null
+			deltaX = null
+			switch key
+				#left
+				when 37 then deltaX = -1
+				#up
+				when 38 then deltaY = -1
+				#right
+				when 39 then deltaX = 1
+				#down
+				when 40 then deltaY = 1
+				else return
+			if (@cellX + deltaX) < 0
+				deltaY = -1
+			if (@cellX + deltaX) >= 0
+				@cellX += deltaX
+				@carelPos.left += @cellWidth*deltaX
+				done = true
+			if (@cellY + deltaY) >= 0 && !done
+				@cellY += deltaY
+				@carelPos.left = @statusMatrix[@cellY].string.length
+			
+			return
+
+		getKeyFromEvent = (event) ->
+			key = event.keyCode || event.charCode
+			return key
+
+		handleKeyDown: ($event) ->
+			key = getKeyFromEvent($event)
+			if key in [37, 38, 39, 40]
+				@moveArrow($event, key)
+			else @deleteChar($event, key)
+			return
 
 	return TextEditor
