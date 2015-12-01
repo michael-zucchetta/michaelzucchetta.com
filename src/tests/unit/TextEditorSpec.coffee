@@ -4,6 +4,10 @@ define ['TextEditor', 'jQuery'], (TextEditor) ->
 	cellWidth = 8
 	cellHeight = 16
 
+	delKey = 46
+	leftKey = 37
+	rightKey = 39
+
 	editor = null
 	display = null
 	textarea = null
@@ -13,6 +17,7 @@ define ['TextEditor', 'jQuery'], (TextEditor) ->
 	newCharEvent = null
 	charEventDel = null
 	leftArrowEvent = null
+	rightArrowEvent = null
 	uselessCharEvent = null
 
 	setInitialStrings = (strings) ->
@@ -46,11 +51,15 @@ define ['TextEditor', 'jQuery'], (TextEditor) ->
 			keyCode: 13
 		#46 (or 8) is the deletion char
 		charEventDel =
-			keyCode: 46
+			keyCode: delKey
 		
 		#37 is the left arrow key
 		leftArrowEvent =
-			keyCode: 37
+			keyCode: leftKey
+		
+		#39 is the right arrow key
+		rightArrowEvent =
+			keyCode: rightKey
 		
 		uselessCharEvent =
 			keyCode: 99
@@ -122,8 +131,8 @@ define ['TextEditor', 'jQuery'], (TextEditor) ->
 			expect(editor.textValue.length).toBe(1)
 			editor.insertChar(charEvent)
 			expect(editor.textValue).toBe("aa")
-			expect(editor.statusMatrix[0].isNew).toBe(false)		
-			expect(editor.statusMatrix[0].string).toBe("aa")		
+			expect(editor.statusMatrix[0].isNew).toBe(false)
+			expect(editor.statusMatrix[0].string).toBe("aa")
 			expect(editor.carelPos.left).toBe(cellWidth*2)
 			expect(editor.carelPos.top).toBe(0)
 			
@@ -149,6 +158,7 @@ define ['TextEditor', 'jQuery'], (TextEditor) ->
 			editor.initEditor()
 			
 			editor.insertChar(charEvent)
+			carelXPos++
 			charEvent.keyCode = "b".charCodeAt(0)
 			editor.insertChar(charEvent)
 			carelXPos++
@@ -160,8 +170,9 @@ define ['TextEditor', 'jQuery'], (TextEditor) ->
 			carelXPos++
 			
 			#46 is the deletion char
+			carelXPos--
 			editor.textValue = editor.textValue.substring(0, carelXPos)
-			editor.deleteChar(charEventDel)
+			editor.deleteChar(charEventDel, delKey)
 			expect(editor.cellX).toBe(carelXPos)
 			expect(editor.carelPos.left).toBe(carelXPos*cellWidth)
 
@@ -169,9 +180,9 @@ define ['TextEditor', 'jQuery'], (TextEditor) ->
 		
 		it "new line and deletion", () ->
 			editor.insertChar(newCharEvent)
-			expect(editor.cellY).toBe(1)
-			editor.deleteChar(charEventDel)
-			expect(editor.cellY).toBe(0)
+			expect(editor.cellY).toEqual(1, "cellY value was not changed when a new char was inserted")
+			editor.deleteChar(charEventDel, delKey)
+			expect(editor.cellY).toEqual(0, "cellY was not decreased after char deletion")
 			expect(editor.textValue).toBe(editor.statusMatrix[editor.cellY].string)
 			expect(editor.cellX).toBe(carelXPos)
 			expect(editor.carelPos.left).toBe(carelXPos*cellWidth)
@@ -186,29 +197,35 @@ define ['TextEditor', 'jQuery'], (TextEditor) ->
 			editor.moveArrow(uselessCharEvent)
 			carelXPos = 3
 			#2
-			editor.moveArrow(leftArrowEvent)
+			editor.moveArrow(leftArrowEvent, leftKey)
 			carelXPos--
 			expect(editor.cellX).toBe(carelXPos)
 			expect(editor.carelPos.left).toBe(carelXPos*cellWidth)
 			
 			#1
-			editor.moveArrow(leftArrowEvent)
+			editor.moveArrow(leftArrowEvent, leftKey)
 			carelXPos--
 			expect(editor.cellX).toBe(carelXPos)
 			expect(editor.carelPos.left).toBe(cellWidth)
 
 			#0
-			editor.moveArrow(leftArrowEvent)
+			editor.moveArrow(leftArrowEvent, leftKey)
 			carelXPos--
 			expect(editor.cellX).toBe(0)
 			expect(editor.carelPos.left).toBe(0)
 			
 			#-1
-			editor.deleteChar(leftArrowEvent)
+			editor.moveArrow(leftArrowEvent, leftKey)
 			carelXPos--
-			expect(editor.cellY).toBe(0)
-			expect(editor.carelPos.left).toBe(4)
-			
+			expect(editor.cellY).toEqual(0, "cellY has not changed after left key has been pressed")
+			expect(editor.cellX).toEqual(4, "cellX has not changed after left key has been pressed and brought back to the upper line")
+			expect(editor.carelPos.left).toEqual(4*cellWidth, "carelPos.left has changed after left key")
+			expect(editor.carelPos.top).toEqual(0, "carelPos.top has not changed after it has gone up")
+
+			#right key
+			editor.handleKeyDown(rightArrowEvent)
+			carelXPos++
+			expect(editor.cellY).toEqual(1, "cellY has not increased after right key has been pressed")
 			return
 		
 		return

@@ -121,7 +121,7 @@ define ['lodash', 'jQuery'], () ->
 					#if it is going out of the screen
 					@cellX = 0
 				return
-			return	
+			return
 
 		moveArrow: ($event, key) ->
 			done = false
@@ -139,14 +139,20 @@ define ['lodash', 'jQuery'], () ->
 				else return
 			if (@cellX + deltaX) < 0
 				deltaY = -1
-			if (@cellX + deltaX) >= 0
+			if (@cellX + deltaX) >= @statusMatrix[@cellY].string.length
+				deltaY = 1
+			else if (@cellX + deltaX) >= 0
 				@cellX += deltaX
 				@carelPos.left += @cellWidth*deltaX
 				done = true
 			if (@cellY + deltaY) >= 0 && !done
 				@cellY += deltaY
-				@carelPos.left = @statusMatrix[@cellY].string.length
-			
+				if (deltaY < 0)
+					@cellX = @statusMatrix[@cellY].string.length
+				else
+					@cellX = 0
+				@carelPos.left = @cellX*@cellWidth
+				@carelPos.top = @cellY*@cellHeight
 			return
 
 		getKeyFromEvent = (event) ->
