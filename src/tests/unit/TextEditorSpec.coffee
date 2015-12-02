@@ -5,8 +5,11 @@ define ['TextEditor', 'jQuery'], (TextEditor) ->
 	cellHeight = 16
 
 	delKey = 46
+
 	leftKey = 37
+	upKey = 38
 	rightKey = 39
+	downKey = 40
 
 	editor = null
 	display = null
@@ -16,8 +19,13 @@ define ['TextEditor', 'jQuery'], (TextEditor) ->
 	charEvent = null
 	newCharEvent = null
 	charEventDel = null
+	
+	#move events
 	leftArrowEvent = null
 	rightArrowEvent = null
+	downArrowEvent = null
+	upArrowEvent = null
+
 	uselessCharEvent = null
 
 	setInitialStrings = (strings) ->
@@ -40,6 +48,10 @@ define ['TextEditor', 'jQuery'], (TextEditor) ->
 		textarea.id = "textareaId" + nth
 		display.id = "displayId" + nth
 
+		container.style.height = editorHeight + "px"
+		textarea.style.height = editorHeight + "px"
+		display.style.height = editorHeight + "px"
+
 		document.body.appendChild(container)
 		display.appendChild(textarea)
 		container.appendChild(display)
@@ -57,9 +69,17 @@ define ['TextEditor', 'jQuery'], (TextEditor) ->
 		leftArrowEvent =
 			keyCode: leftKey
 		
+		#38 is the up arrow key
+		upArrowEvent =
+			keyCode: upKey
+		
 		#39 is the right arrow key
 		rightArrowEvent =
 			keyCode: rightKey
+		
+		#40 is the down arrow key
+		downArrowEvent =
+			keyCode: downKey
 		
 		uselessCharEvent =
 			keyCode: 99
@@ -68,6 +88,7 @@ define ['TextEditor', 'jQuery'], (TextEditor) ->
 
 	describe "Test TextEditor class", () ->
 		initTextEditorSpec(1)
+
 		it "are the html elements initialized?", () ->
 			expect(editor.display).toBeTruthy()
 			expect(editor.textarea).toBeTruthy()
@@ -109,7 +130,7 @@ define ['TextEditor', 'jQuery'], (TextEditor) ->
 		it "click on the editor with non empty string", () ->
 			#set editor text
 			mockedString = "abcdefghjklmnopqrstuwyxz123"
-			editor.statusMatrix[mockedPosition.cellY].string = mockedString
+			setInitialStrings(['test', 'abc', "third", mockedString, "fourth"])
 			
 			editor.clickEditor(mockedClick)
 			expect(editor.cellX).toBe(mockedPosition.cellX)
@@ -119,6 +140,12 @@ define ['TextEditor', 'jQuery'], (TextEditor) ->
 			expect(editor.carelPos.top).toBe(mockedCoordinates.y)
 
 			expect( editor.getCellLetter(mockedPosition.cellY, mockedPosition.cellX) ).toBe mockedString[mockedPosition.cellX]
+			
+
+			mockedClick.offsetY = 200
+			editor.clickEditor(mockedClick)
+			expect(editor.cellY).toBe(5)
+			expect(editor.carelPos.top).toBe(5*cellHeight)
 			return
 
 
@@ -152,7 +179,7 @@ define ['TextEditor', 'jQuery'], (TextEditor) ->
 
 			return
 		carelXPos = 0
-		it "test characters insertion", () ->
+		it "test characters insertion and deletion", () ->
 			#reset editor
 			initTextEditorSpec(3)
 			editor.initEditor()
@@ -226,6 +253,19 @@ define ['TextEditor', 'jQuery'], (TextEditor) ->
 			editor.handleKeyDown(rightArrowEvent)
 			carelXPos++
 			expect(editor.cellY).toEqual(1, "cellY has not increased after right key has been pressed")
+			expect(editor.cellX).toEqual(0, "right key on a new line always mean 0 as cellX")
+			
+			#back
+			editor.moveArrow(leftArrowEvent, leftKey)
+
+			#down key
+			editor.handleKeyDown(downArrowEvent)
+			expect(editor.cellY).toEqual(1, "cellY should be increased")
+			editor.handleKeyDown(downArrowEvent)
+			expect(editor.cellY).toEqual(2, "cellY should be increased")
+			editor.handleKeyDown(downArrowEvent)
+			expect(editor.cellY).toEqual(2, "cellY should be the same as before because there are no new lines")
+			
 			return
 		
 		return
