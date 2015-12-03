@@ -266,6 +266,19 @@ define ['TextEditor', 'jQuery'], (TextEditor) ->
 			editor.handleKeyDown(downArrowEvent)
 			expect(editor.cellY).toEqual(2, "cellY should be the same as before because there are no new lines")
 			
+			mockedClick.offsetY = 0
+			mockedClick.target.offsetTop = 0
+			editor.clickEditor(mockedClick)
+			expect(editor.cellY).toEqual(0, "set to the first line failed")
+			expect(editor.cellX).toEqual(4, "length of the fist string, 'test', should be equal to cellX")
+
+			editor.handleKeyDown(downArrowEvent)
+			expect(editor.cellY).toEqual(1, "new line")
+			expect(editor.cellX).toEqual(3, "cellX should be equal to the second line, , 'abc'")
+			
+			editor.handleKeyDown(upArrowEvent)
+			expect(editor.cellY).toEqual(0, "up arrow should have go to the first line")
+			expect(editor.cellX).toEqual(3, "up should mantain the length of 'abc'")
 			return
 		
 		return

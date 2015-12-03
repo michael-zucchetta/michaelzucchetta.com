@@ -155,7 +155,7 @@ define ['lodash', 'jQuery'], () ->
 				else return
 			if (@cellX + deltaX) < 0
 				deltaY = -1
-			if (@cellX + deltaX) >= @statusMatrix[@cellY].string.length
+			if (@cellX + deltaX) >= @statusMatrix[@cellY].string.length and key isnt upKey
 				deltaY = 1
 			else if deltaX and (@cellX + deltaX) >= 0
 				@cellX += deltaX
@@ -164,12 +164,16 @@ define ['lodash', 'jQuery'], () ->
 			if (@cellY + deltaY) >= 0 && !done
 				@cellY += deltaY
 				if (deltaY < 0)
-					@cellX = @statusMatrix[@cellY].string.length
+					if key isnt upKey or @cellX > @statusMatrix[@cellY].string.length
+						@cellX = @statusMatrix[@cellY].string.length
 				else
 					if @statusMatrix[@cellY - deltaY].isNew
 						@cellY -= deltaY
-					if @statusMatrix[@cellY].isNew || key is rightKey
+					if @statusMatrix[@cellY].isNew or key is rightKey
 						@cellX = 0
+					if key is downKey and @cellX > @statusMatrix[@cellY].string.length
+						@cellX = @statusMatrix[@cellY].string.length
+						
 				@carelPos.left = @cellX*@cellWidth
 				@carelPos.top = @cellY*@cellHeight
 			return
