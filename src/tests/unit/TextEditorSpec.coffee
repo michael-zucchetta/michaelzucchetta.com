@@ -130,6 +130,15 @@ define ['TextEditor', 'jQuery'], (TextEditor) ->
 		it "click on the editor with non empty string", () ->
 			#set editor text
 			mockedString = "abcdefghjklmnopqrstuwyxz123"
+			editor.clickEditor({
+				offsetX: 0
+				offsetY: cellHeight + 2
+				target:
+					offsetTop: 0
+			})
+			expect(editor.cellX).toEqual(0, "it should be get 0,0 as it is empty")
+			expect(editor.cellY).toEqual(0, "it should be get 0,0 as it is empty")
+			
 			setInitialStrings(['test', 'abc', "third", mockedString, "fourth"])
 			
 			editor.clickEditor(mockedClick)
@@ -213,6 +222,17 @@ define ['TextEditor', 'jQuery'], (TextEditor) ->
 			expect(editor.textValue).toBe(editor.statusMatrix[editor.cellY].string)
 			expect(editor.cellX).toBe(carelXPos)
 			expect(editor.carelPos.left).toBe(carelXPos*cellWidth)
+			
+			#delete everything
+			editor.deleteChar(charEventDel, delKey)
+			editor.deleteChar(charEventDel, delKey)
+			editor.deleteChar(charEventDel, delKey)
+			editor.deleteChar(charEventDel, delKey)
+			editor.deleteChar(charEventDel, delKey)
+			editor.deleteChar(charEventDel, delKey)
+			editor.deleteChar(charEventDel, delKey)
+			expect(editor.cellX).toEqual(0, "it should be on 0, 0 coordinates")
+			expect(editor.cellY).toEqual(0, "it should be on 0, 0 coordinates")
 			return
 
 

@@ -31,7 +31,11 @@
 				width: 85%;
 				position: relative;
 				.editor-row {
+					white-space: pre;
 					height: $json-editor-row-height;
+					p {
+						text-indent: 5em;
+					}
 				}
 			}
 

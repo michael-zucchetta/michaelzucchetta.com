@@ -1,4 +1,4 @@
-define ['premain', 'TextEditor'], (app, TextEditor) ->
+define ['premain', 'TextEditor', 'TrustHtmlFilter'], (app, TextEditor) ->
 	app.directive 'jsonEditor', ['$sce', '$timeout', '$interval', ($sce, $timeout, $interval) ->
 		restrict: 'E'
 		scope:
@@ -21,6 +21,9 @@ define ['premain', 'TextEditor'], (app, TextEditor) ->
 				$timeout () ->
 					scope.editor.handleKeyDown($event)
 					return
+				return
+
+			scope.selectWord = ($event) ->
 				return
 
 			scope.initCursor = (cursorId) ->

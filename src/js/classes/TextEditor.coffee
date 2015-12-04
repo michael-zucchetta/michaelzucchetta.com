@@ -4,6 +4,11 @@ define ['lodash', 'jQuery'], () ->
 	rightKey = 39
 	downKey = 40
 
+	delKey1 = 8
+	delKey2 = 46
+
+	tabKey = 9
+
 	class TextEditor
 		constructor: (@displayQuery, @textareaQuery, @containerQuery, @rowSuffix) ->
 			#row suffix is the name of the single row class, such as cell
@@ -54,7 +59,7 @@ define ['lodash', 'jQuery'], () ->
 		getLastRowIndex: () ->
 			$index = null
 			_.each @statusMatrix, (row, index) ->
-				if row.isNew and !$index
+				if row.isNew and $index == null
 					$index = index
 				return
 			return $index
@@ -79,6 +84,10 @@ define ['lodash', 'jQuery'], () ->
 			@carelPos.left = x
 			@carelPos.top = y
 			@textarea.focus()
+			return
+
+		doubleClickEditor: ($event) ->
+			#select word
 			return
 
 		insertChar: ($event) ->
@@ -120,13 +129,16 @@ define ['lodash', 'jQuery'], () ->
 				return
 			#then it's a backspace case
 			if (@statusMatrix[@cellY].string - 1) < 0
+				#if it is the first char of a line
 				@statusMatrix[@cellY].string = ""
 				@statusMatrix[@cellY].isNew = true
-				@cellY--
-				@carelPos.top -= @cellHeight
-				@cellX = @statusMatrix[@cellY].string.length
-				@textValue = @statusMatrix[@cellY].string
-				@carelPos.left = @cellWidth*@cellX
+				if @cellY isnt 0
+					#if not the first char of the first line
+					@cellY--
+					@carelPos.top -= @cellHeight
+					@cellX = @statusMatrix[@cellY].string.length
+					@textValue = @statusMatrix[@cellY].string
+					@carelPos.left = @cellWidth*@cellX
 			else
 				#concatenate two strings: one from zero to the cursor's position and then from the cursor's position to the end of the string
 				@statusMatrix[@cellY].string = @textValue = cellText.substring(0, @cellX - 1) + cellText.substring(@cellX, cellText.length)
@@ -178,15 +190,27 @@ define ['lodash', 'jQuery'], () ->
 				@carelPos.top = @cellY*@cellHeight
 			return
 
+		handleSpecialKeys: ($event, key) ->
+			if key is tabKey
+				$event.returnValue = false
+				$event.preventDefault()
+				$event.stopPropagation()
+				#@statusMatrix[@cellY].string += "<p class='tab'></p>"
+				return false
+			return
+
 		getKeyFromEvent = (event) ->
-			key = event.keyCode || event.charCode
+			key = event.keyCode or event.charCode or event.which
 			return key
 
 		handleKeyDown: ($event) ->
 			key = getKeyFromEvent($event)
 			if key in [leftKey, upKey, rightKey, downKey]
 				@moveArrow($event, key)
-			else @deleteChar($event, key)
+			else if key in [delKey1, delKey2]
+				@deleteChar($event, key)
+			else
+				return @handleSpecialKeys($event, key)
 			return
 
 	return TextEditor
