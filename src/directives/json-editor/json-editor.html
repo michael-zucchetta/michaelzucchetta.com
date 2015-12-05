@@ -6,7 +6,7 @@
 		<div class="editor-table" ng-click="editor.clickEditor($event)">
 			<textarea id="json-input" ng-model="json" ng-style="carelPos" ng-keypress="insertCharacter($event)" ng-keydown="handleKeyDown($event)"></textarea>
 			<b id="cursor" ng-hide="hideCursor" ng-style="editor.carelPos"></b>
-			<div class="editor-row" ng-repeat="row in editor.statusMatrix" ng-if="row.id" id="{{row.id}}" ng-bind-html="row.string | TrustHtmlFilter">
+			<div class="editor-row" ng-repeat="row in editor.statusMatrix" ng-if="row.id" id="{{row.id}}" ng-bind="row.string">
 			</div>
 		</div>
 	</div>
