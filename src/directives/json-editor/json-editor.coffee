@@ -24,6 +24,7 @@ define ['premain', 'TextEditor'], (app, TextEditor) ->
 				return
 
 			scope.selectWord = ($event) ->
+				console.log($event)
 				return
 
 			scope.initCursor = (cursorId) ->
