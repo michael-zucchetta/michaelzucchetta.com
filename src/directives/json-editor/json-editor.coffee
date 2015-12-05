@@ -1,4 +1,4 @@
-define ['premain', 'TextEditor', 'TrustHtmlFilter'], (app, TextEditor) ->
+define ['premain', 'TextEditor'], (app, TextEditor) ->
 	app.directive 'jsonEditor', ['$sce', '$timeout', '$interval', ($sce, $timeout, $interval) ->
 		restrict: 'E'
 		scope:
