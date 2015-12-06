@@ -67,6 +67,7 @@ define ['lodash', 'jQuery'], () ->
 		clickEditor: ($event) ->
 			# x/cellWidth I obtain the partial cell position, with round I get the cell number
 			tmpX = $event.offsetX/@cellWidth
+			console.log("click", $event)
 			@cellX = Math.round $event.offsetX/@cellWidth
 			tmpY = ($event.target.offsetTop + $event.offsetY)/@cellHeight
 			@cellY = Math.round(tmpY)
@@ -88,6 +89,7 @@ define ['lodash', 'jQuery'], () ->
 
 		doubleClickEditor: ($event) ->
 			#select word
+			console.log("double click", $event)
 			return
 
 		insertChar: ($event) ->

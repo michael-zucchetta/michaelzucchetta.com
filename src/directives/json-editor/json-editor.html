@@ -3,7 +3,7 @@
 	<div id="json-display">
 		<div class="editor-line-numbers">
 		</div>
-		<div class="editor-table" ng-click="editor.clickEditor($event)">
+		<div class="editor-table" ng-click="setPosition($event)">
 			<textarea id="json-input"
 				ng-model="json" ng-style="carelPos"
 				ng-keypress="insertCharacter($event)"

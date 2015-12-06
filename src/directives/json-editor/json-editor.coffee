@@ -12,6 +12,14 @@ define ['premain', 'TextEditor'], (app, TextEditor) ->
 			
 			scope.editor = new TextEditor('#json-display', '#json-input', '.json-input-container', 'cell')
 
+			scope.setPosition = ($event) ->
+				$timeout () ->
+					if (!scope.noSingleClick)
+						scope.editor.clickEditor($event)
+					return
+				, 200
+				return
+			
 			scope.insertCharacter = ($event) ->
 				scope.editor.insertChar($event)
 				scope.jsonText = scope.editor.textValue
@@ -24,7 +32,14 @@ define ['premain', 'TextEditor'], (app, TextEditor) ->
 				return
 
 			scope.selectWord = ($event) ->
-				console.log($event)
+				scope.noSingleClick = true
+				console.log("double click", $event)
+				scope.editor.doubleClickEditor($event)
+				$timeout () ->
+					#prevent single click to be triggered
+					scope.noSingleClick = false
+					return
+				, 201
 				return
 
 			scope.initCursor = (cursorId) ->
