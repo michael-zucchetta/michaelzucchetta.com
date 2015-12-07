@@ -14,13 +14,18 @@ define ['premain', 'TextEditor'], (app, TextEditor) ->
 
 			scope.setPosition = ($event) ->
 				$timeout () ->
-					if (!scope.noSingleClick)
+					#checking if any text has been selected
+					selectedText = getSelection().toString()
+					if (selectedText)
+						console.log(selectedText)
+					else if (!scope.noSingleClick)
 						scope.editor.clickEditor($event)
 					return
 				, 200
 				return
 			
 			scope.insertCharacter = ($event) ->
+				#a character has been inserted
 				scope.editor.insertChar($event)
 				scope.jsonText = scope.editor.textValue
 				return
