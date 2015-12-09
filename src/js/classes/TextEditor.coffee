@@ -9,6 +9,8 @@ define ['lodash', 'jQuery'], () ->
 
 	tabKey = 9
 
+	charA = 65
+
 	class TextEditor
 		constructor: (@displayQuery, @textareaQuery, @containerQuery, @rowSuffix) ->
 			#row suffix is the name of the single row class, such as cell
@@ -205,12 +207,32 @@ define ['lodash', 'jQuery'], () ->
 			key = event.keyCode or event.charCode or event.which
 			return key
 
+		#to be moved in utilities file
+		selectText = (querySelector) ->
+			#select all the text
+			node = document.querySelector(querySelector)
+			selection = window.getSelection()
+			if document.selection
+				range = document.body.createTextRange()
+				range.moveToElementText(node)
+				range.select()
+			else if window.getSelection
+				range = document.createRange()
+				range.selectNodeContents( node )
+				range.selectNode(node)
+				selection.removeAllRanges()
+				selection.addRange(range)
+			return
+
 		handleKeyDown: ($event) ->
 			key = getKeyFromEvent($event)
 			if key in [leftKey, upKey, rightKey, downKey]
 				@moveArrow($event, key)
 			else if key in [delKey1, delKey2]
 				@deleteChar($event, key)
+			else if key  is charA and $event.ctrlKey
+				#tests to be added for this
+				selectText(@containerQuery)
 			else
 				return @handleSpecialKeys($event, key)
 			return
