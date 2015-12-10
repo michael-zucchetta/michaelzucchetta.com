@@ -211,7 +211,7 @@ define ['lodash', 'jQuery'], () ->
 		selectText = (querySelector) ->
 			#select all the text
 			node = document.querySelector(querySelector)
-			selection = window.getSelection()
+			@selection = window.getSelection()
 			if document.selection
 				range = document.body.createTextRange()
 				range.moveToElementText(node)
@@ -220,8 +220,15 @@ define ['lodash', 'jQuery'], () ->
 				range = document.createRange()
 				range.selectNodeContents( node )
 				range.selectNode(node)
-				selection.removeAllRanges()
-				selection.addRange(range)
+				@selection.removeAllRanges()
+				@selection.addRange(range)
+			return
+
+		copyText = () ->
+			#store copy text in a global variable
+			return
+
+		cutText = () ->
 			return
 
 		handleKeyDown: ($event) ->
