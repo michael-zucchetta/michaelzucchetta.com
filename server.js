@@ -9,9 +9,9 @@ var port = process.env.PORT || 8000;
 
 var httpServer = http.createServer(function(request, response) {
 	console.log("Request is: " + request.url);
-	//Set to default page
+	//Set to the default page
 	request.url = request.url === "/" ? "/index.html" : request.url;
-	if ( request.url.indexOf("/lib/") !== 0 &&  request.url.indexOf("/src/") !== 0 ) {
+	if ( request.url.indexOf("/lib/") !== 0 && request.url.indexOf("/src/") !== 0 ) {
 		request.url = basePath + request.url;
 	}
 	var requestedPath = __dirname + request.url;
