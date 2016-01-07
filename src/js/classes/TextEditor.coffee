@@ -97,8 +97,8 @@ define ['lodash', 'jQuery'], () ->
 		insertChar: ($event) ->
 			key = getKeyFromEvent($event)
 			newChar = String.fromCharCode(key)
-			#not del and not newline
-			if (key isnt 8 and key isnt 46 and key isnt 13)
+			#not del and not newline, to be put on constants
+			if (key isnt 8 and key isnt 46 and key isnt 13 and key isnt 10)
 				@carelPos.left += @cellWidth
 				if (@statusMatrix[@cellY].isNew)
 					@textValue = @statusMatrix[@cellY].string = newChar
@@ -108,8 +108,8 @@ define ['lodash', 'jQuery'], () ->
 					@statusMatrix[@cellY].string = tmpString.substring(0, @cellX) + newChar + tmpString.substring(@cellX, tmpString.length)
 					@textValue += newChar
 				@cellX++
-			if (key is 13)
-				#key 13 is a newline
+			if (key is 13 or key is 10)
+				#if key 13 and 10 -> key is a newline
 				@carelPos.left = 0
 				@carelPos.top += @cellHeight
 				@textarea.val('')
@@ -224,8 +224,17 @@ define ['lodash', 'jQuery'], () ->
 				@selection.addRange(range)
 			return
 
-		copyText = () ->
-			#store copy text in a global variable
+		pasteText: ($event) ->
+			event = $event.originalEvent || $event
+			pastedText = event.clipboardData.getData('text/plain')
+			me = this
+			_.each pastedText, (char) ->
+				fakeInsertEvent =
+					keyCode: char.charCodeAt(0)
+				
+				me.insertChar fakeInsertEvent
+				return
+			console.log(pastedText)
 			return
 
 		cutText = () ->

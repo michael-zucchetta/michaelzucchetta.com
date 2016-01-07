@@ -300,7 +300,28 @@ define ['TextEditor', 'jQuery'], (TextEditor) ->
 			expect(editor.cellY).toEqual(0, "up arrow should have go to the first line")
 			expect(editor.cellX).toEqual(3, "up should mantain the length of 'abc'")
 			return
-		
+	
+		it "use of copy/paste", () ->
+			#reset editor
+			initTextEditorSpec(5)
+			editor.initEditor()
+			setInitialStrings(['a', 'f'])
+			#last char, last line
+			mockedPastedText = "cane"
+			mockedPasteEvent =
+				clipboardData:
+					getData: () ->
+						return mockedPastedText
+			editor.pasteText(mockedPasteEvent)
+			expect(editor.cellY).toEqual(1, "messed up during pasted text on Y")
+			expect(editor.cellX).toEqual(5, "messed up during pasted text on X")
+
+			mockedPastedText = "a\na"
+			editor.pasteText(mockedPasteEvent)
+			expect(editor.cellY).toEqual(2, "messed up during pasted text with new line on Y")
+			expect(editor.cellX).toEqual(1, "messed up during pasted text with new line on X")
+
+			return
 		return
 	
 	return

@@ -21,7 +21,7 @@ define ['premain', 'TextEditor'], (app, TextEditor) ->
 					else if (!scope.noSingleClick)
 						scope.editor.clickEditor($event)
 					return
-				, 200
+				, 10
 				return
 			
 			scope.insertCharacter = ($event) ->
@@ -45,6 +45,10 @@ define ['premain', 'TextEditor'], (app, TextEditor) ->
 					scope.noSingleClick = false
 					return
 				, 201
+				return
+
+			scope.pasteText = ($event) ->
+				scope.editor.pasteText($event)
 				return
 
 			scope.initCursor = (cursorId) ->
