@@ -11,8 +11,10 @@
 				ng-paste="pasteText($event)"></textarea>
 			<b id="cursor" ng-hide="hideCursor" ng-style="editor.carelPos"></b>
 			<div class="editor-row" 
+				tabindex="0"
 				ng-repeat="row in editor.statusMatrix"
     				ng-if="row.id" id="{{row.id}}" ng-bind="row.string"
+				ng-keydown="handleExistingText($event)"
 				ng-dblclick="selectWord($event)"
 				>
 			</div>

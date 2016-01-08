@@ -7,9 +7,13 @@ define ['lodash', 'jQuery'], () ->
 	delKey1 = 8
 	delKey2 = 46
 
+	newLineKey1 = 10
+	newLineKey2 = 13
+
 	tabKey = 9
 
 	charA = 65
+	charX = 88
 
 	class TextEditor
 		constructor: (@displayQuery, @textareaQuery, @containerQuery, @rowSuffix) ->
@@ -35,7 +39,9 @@ define ['lodash', 'jQuery'], () ->
 			@carelPos =
 				left: 0
 				top: 0
+			@selectedText = ""
 			return
+		
 		initEditor: () ->
 			@editorWidth = @display.outerWidth()
 			@editorHeight = @display.outerHeight()
@@ -90,15 +96,18 @@ define ['lodash', 'jQuery'], () ->
 			return
 
 		doubleClickEditor: ($event) ->
-			#select word
 			console.log("double click", $event)
+			return
+
+		selectText: (selectedText) ->
+			@selectedText = selectedText;
 			return
 
 		insertChar: ($event) ->
 			key = getKeyFromEvent($event)
 			newChar = String.fromCharCode(key)
 			#not del and not newline, to be put on constants
-			if (key isnt 8 and key isnt 46 and key isnt 13 and key isnt 10)
+			if (key isnt delKey1 and key isnt delKey2 and key isnt newLineKey1 and key isnt newLineKey2)
 				@carelPos.left += @cellWidth
 				if (@statusMatrix[@cellY].isNew)
 					@textValue = @statusMatrix[@cellY].string = newChar
@@ -108,7 +117,7 @@ define ['lodash', 'jQuery'], () ->
 					@statusMatrix[@cellY].string = tmpString.substring(0, @cellX) + newChar + tmpString.substring(@cellX, tmpString.length)
 					@textValue += newChar
 				@cellX++
-			if (key is 13 or key is 10)
+			if (key is newLineKey1 or key is newLineKey2)
 				#if key 13 and 10 -> key is a newline
 				@carelPos.left = 0
 				@carelPos.top += @cellHeight
@@ -129,7 +138,7 @@ define ['lodash', 'jQuery'], () ->
 			#needed to capture the "delete key"
 			cellText = @statusMatrix[@cellY].string
 			#to be refactored
-			if (key isnt 8 and key isnt 46)
+			if (key isnt delKey1 and key isnt delKey2)
 				return
 			#then it's a backspace case
 			if (@statusMatrix[@cellY].string - 1) < 0
@@ -218,7 +227,7 @@ define ['lodash', 'jQuery'], () ->
 				range.select()
 			else if window.getSelection
 				range = document.createRange()
-				range.selectNodeContents( node )
+				range.selectNodeContents(node)
 				range.selectNode(node)
 				@selection.removeAllRanges()
 				@selection.addRange(range)
@@ -237,16 +246,34 @@ define ['lodash', 'jQuery'], () ->
 			console.log(pastedText)
 			return
 
-		cutText = () ->
+		cutText: () ->
+			if !@selectedText
+				return
+			textLength = @selectedText.length
+			console.log(textLength)
+			#broken, add tests
+			@statusMatrix[@cellY].string = @statusMatrix[@cellY].string.slice(0, @cellX - textLength) + @statusMatrix[@cellY].string.slice(@cellX - textLength, @cellX)
+			return
+
+		handleTextOnKeyDown: ($event) ->
+			key = getKeyFromEvent($event)
+			console.log("triggered", key, key is charX and ($event.ctrlKey or $event.metaKey))
+			if key is charX and ($event.ctrlKey or $event.metaKey)
+				#cut event
+				#tests to be added for this
+				@cutText()
 			return
 
 		handleKeyDown: ($event) ->
 			key = getKeyFromEvent($event)
+			console.log(key, "key", key is charA and ($event.ctrlKey or $event.metaKey));
 			if key in [leftKey, upKey, rightKey, downKey]
 				@moveArrow($event, key)
 			else if key in [delKey1, delKey2]
 				@deleteChar($event, key)
-			else if key  is charA and $event.ctrlKey
+			else if key is charA and ($event.ctrlKey or $event.metaKey)
+				#select All
+				#to be fixed on Mac
 				#tests to be added for this
 				selectText(@containerQuery)
 			else

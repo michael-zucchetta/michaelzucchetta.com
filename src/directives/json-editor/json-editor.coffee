@@ -17,7 +17,7 @@ define ['premain', 'TextEditor'], (app, TextEditor) ->
 					#checking if any text has been selected
 					selectedText = getSelection().toString()
 					if (selectedText)
-						console.log(selectedText)
+						scope.editor.selectText(selectedText)
 					else if (!scope.noSingleClick)
 						scope.editor.clickEditor($event)
 					return
@@ -45,6 +45,10 @@ define ['premain', 'TextEditor'], (app, TextEditor) ->
 					scope.noSingleClick = false
 					return
 				, 201
+				return
+
+			scope.handleExistingText = ($event) ->
+				scope.editor.handleTextOnKeyDown($event)
 				return
 
 			scope.pasteText = ($event) ->
