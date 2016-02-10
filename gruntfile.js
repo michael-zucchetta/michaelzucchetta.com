@@ -1,3 +1,4 @@
+var baseSrcPath = 'src/';
 var filesPath = "dist/files.json";
 module.exports = function(grunt) {
 	// Project configuration.
@@ -97,7 +98,7 @@ module.exports = function(grunt) {
 		coffee: {
 			compile_with_maps: {
 				options: {
-					 sourceMap: true
+					sourceMap: true
 				},
 				src:  ['**/*.coffee', '!tests/**'],
 				cwd: 'src/',
@@ -108,7 +109,7 @@ module.exports = function(grunt) {
 			},
 			compile_tests_with_maps: {
 				options: {
-					 sourceMap: true
+					sourceMap: true
 				},
 				src:  ['**/*.coffee'],
 				cwd: 'src/tests',
@@ -202,6 +203,35 @@ module.exports = function(grunt) {
 					event: ['changed', 'added', 'deleted']
 				}
 			}
+		},
+		typescript: {
+			compile_with_maps: {
+				src: [baseSrcPath + '**/*.ts', '!' + baseSrcPath + 'tests/**'],
+				dest: 'dist/',
+				options: {
+					/* on version 0.8 basePath is deprecated and the author states that rootDir should be used, but it seems to be not working, so ignoring the warning for now
+					*rootDir: baseSrcPath,
+					*/
+					basePath: baseSrcPath,
+					sourceMap: true,
+					target: 'es5',
+					keepDirectoryHierarchy: true
+				}
+			},
+			compile_tests_with_maps: {
+				src: [baseSrcPath + 'tests/**/*.ts'],
+				dest: 'dist/tests/',
+				options: {
+					/* on version 0.8 basePath is deprecated and the author states that rootDir should be used, but it seems to be not working, so ignoring the warning for now
+					*rootDir: baseSrcPath,
+					*/
+					basePath: baseSrcPath,
+					sourceMap: true,
+					target: 'es5',
+					keepDirectoryHierarchy: true,
+					rootDir: baseSrcPath
+				}
+			}
 		}
 	});
 	//Loading before the others
@@ -220,6 +250,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-newer');
 	grunt.loadNpmTasks('grunt-protractor-runner');
 	grunt.loadNpmTasks('grunt-tree');
+	grunt.loadNpmTasks('grunt-typescript');
 	
 	grunt.registerTask('bower-install', ["bower-install-simple"]);
 	
