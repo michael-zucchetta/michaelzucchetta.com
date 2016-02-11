@@ -1,10 +1,31 @@
 /// <reference path="../../../lib/DefinitelyTyped/jquery/jquery.d.ts" />
+/// <reference path="../../../lib/DefinitelyTyped/requirejs/require.d.ts" />
 
+export class CarelPos {
+	public left: number;
+	public top: number;
+}
+
+var jquery = require('jQuery');
 import * as keys from "./KeyConstants";
 export class TextEditor {
 	private display: HTMLElement;
 	private textarea: HTMLElement;
 	private container: HTMLElement;
+	private cellWidth: number = 8;
+	private cellHeight: number = 16;
+	private editorWidth: number;
+	private editorHeight: number;
+	private colsNumber: number;
+	private rowsNumber: number;
+	private statusMatrix: number[][];
+	private textValue: string = "";
+	private cellX: number = 0;
+	private cellY: number = 0;
+	private carelPos: CarelPos = {
+		left: 0,
+		top: 0
+	};
 
 	constructor(displayQuery: string, textareaQuery: string, containerQuery: string, rowSuffix: string) {
 		/**
@@ -16,5 +37,6 @@ export class TextEditor {
 		this.display = $(displayQuery)[0];
 		this.textarea = $(textareaQuery)[0];
 		this.container = $(containerQuery)[0];
+		
 	}
 }
