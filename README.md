@@ -2,6 +2,7 @@
 
 Install npm and do the following (as they are used in package):
 
+- npm install -g typings //to be checked
 - npm install -g karma
 - npm install -g karma-cli
 - npm install -g protractor

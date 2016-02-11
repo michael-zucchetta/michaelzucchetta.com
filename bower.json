@@ -11,7 +11,8 @@
 		"ng-file-upload": "*",
 		"bootstrap": "*",
 		"requirejs": "*",
-		"lodash": "*"
+		"lodash": "*",
+		"DefinitelyTyped": "*"
 	},
 	"private": true
 }

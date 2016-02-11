@@ -1,5 +1,16 @@
 var baseSrcPath = 'src/';
 var filesPath = "dist/files.json";
+var typescriptOptions = {
+	/* on version 0.8 basePath is deprecated and the author states that rootDir should be used, but it seems to be not working, so ignoring the warning for now
+	*rootDir: baseSrcPath,
+	*/
+	basePath: baseSrcPath,
+	sourceMap: true,
+	target: 'es5',
+	keepDirectoryHierarchy: true,
+	module: 'amd'
+};
+
 module.exports = function(grunt) {
 	// Project configuration.
 	grunt.initConfig({
@@ -208,29 +219,12 @@ module.exports = function(grunt) {
 			compile_with_maps: {
 				src: [baseSrcPath + '**/*.ts', '!' + baseSrcPath + 'tests/**'],
 				dest: 'dist/',
-				options: {
-					/* on version 0.8 basePath is deprecated and the author states that rootDir should be used, but it seems to be not working, so ignoring the warning for now
-					*rootDir: baseSrcPath,
-					*/
-					basePath: baseSrcPath,
-					sourceMap: true,
-					target: 'es5',
-					keepDirectoryHierarchy: true
-				}
+				options: typescriptOptions
 			},
 			compile_tests_with_maps: {
 				src: [baseSrcPath + 'tests/**/*.ts'],
 				dest: 'dist/tests/',
-				options: {
-					/* on version 0.8 basePath is deprecated and the author states that rootDir should be used, but it seems to be not working, so ignoring the warning for now
-					*rootDir: baseSrcPath,
-					*/
-					basePath: baseSrcPath,
-					sourceMap: true,
-					target: 'es5',
-					keepDirectoryHierarchy: true,
-					rootDir: baseSrcPath
-				}
+				options: typescriptOptions
 			}
 		}
 	});
