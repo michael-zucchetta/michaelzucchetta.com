@@ -6,7 +6,7 @@ export class CarelPos {
 	public top: number;
 }
 
-var jquery = require('jQuery');
+var jquery = define('jQuery');
 import * as keys from "./KeyConstants";
 export class TextEditor {
 	private display: HTMLElement;

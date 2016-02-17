@@ -10,6 +10,7 @@ module.exports = function(config) {
 			{pattern: 'dist/**/*.js', included: false},
 			{pattern: 'dist/js/**/*.json', included: false},
 			{pattern: 'src/**/*.coffee', included: false},
+			{pattern: 'src/**/*.ts', included: false},
 			{pattern: 'dist/**/*.map', included: false},
 			{pattern: 'lib/**/*.map', included: false},
 			'dist/js/initialisation/requirejs-bootstrap-test.js'
