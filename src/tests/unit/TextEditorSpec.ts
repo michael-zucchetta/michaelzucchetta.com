@@ -2,6 +2,7 @@
 /// <reference path="../../../dist/js/classes/BaseImports.d.ts" />
 
 define('BaseImports');
+import * as imports from '../../js/classes/BaseImports';
 describe ("Test TextEditor class", () => {
 
 	let editor: TextEditor;
