@@ -1,8 +1,7 @@
 /// <reference path="../../../lib/DefinitelyTyped/jasmine/jasmine.d.ts" />
-/// <reference path="../../../lib/DefinitelyTyped/lodash/lodash.d.ts" />
-/// <reference path="../../../lib/DefinitelyTyped/requirejs/require.d.ts" />
+/// <reference path="../../../dist/js/classes/BaseImports.d.ts" />
 
-let TextEditor = define('TextEditor');
+define('BaseImports');
 describe ("Test TextEditor class", () => {
 
 	let editor: TextEditor;

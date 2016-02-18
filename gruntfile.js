@@ -6,9 +6,11 @@ var typescriptOptions = {
 	*/
 	basePath: baseSrcPath,
 	sourceMap: true,
+	declaration: true,
 	target: 'es5',
 	keepDirectoryHierarchy: true,
-	module: 'amd'
+	module: 'amd',
+	inlineSourceMap: true
 };
 
 module.exports = function(grunt) {
@@ -230,7 +232,6 @@ module.exports = function(grunt) {
 	});
 	//Loading before the others
 	grunt.loadNpmTasks('grunt-npm-install');
-	
 	grunt.loadNpmTasks('grunt-bower-install-simple');
 	grunt.loadNpmTasks('grunt-contrib-coffee');
 	grunt.loadNpmTasks('grunt-contrib-concat');
