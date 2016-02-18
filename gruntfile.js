@@ -5,10 +5,10 @@ var typescriptOptions = {
 	*rootDir: baseSrcPath,
 	*/
 	basePath: baseSrcPath,
-	sourceMap: true,
+	//sourceMap: true,
 	declaration: true,
 	target: 'es5',
-	keepDirectoryHierarchy: true,
+	fast: 'never',
 	module: 'amd',
 	inlineSourceMap: true
 };
@@ -217,7 +217,7 @@ module.exports = function(grunt) {
 				}
 			}
 		},
-		typescript: {
+		ts: {
 			compile_with_maps: {
 				src: [baseSrcPath + '**/*.ts', '!' + baseSrcPath + 'tests/**'],
 				dest: 'dist/',
@@ -245,7 +245,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-newer');
 	grunt.loadNpmTasks('grunt-protractor-runner');
 	grunt.loadNpmTasks('grunt-tree');
-	grunt.loadNpmTasks('grunt-typescript');
+	grunt.loadNpmTasks('grunt-ts');
 	
 	grunt.registerTask('bower-install', ["bower-install-simple"]);
 	

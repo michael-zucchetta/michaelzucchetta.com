@@ -1,11 +1,11 @@
 /// <reference path="../../../lib/DefinitelyTyped/jasmine/jasmine.d.ts" />
-/// <reference path="../../../dist/js/classes/BaseImports.d.ts" />
+/// <reference path="../../../dist/BaseImports.d.ts" />
 
-define('BaseImports');
-import * as imports from '../../js/classes/BaseImports';
+
+import t = require('../../js/classes/TextEditor');
 describe ("Test TextEditor class", () => {
 
-	let editor: TextEditor;
+	let editor: t.TextEditor;
 	let display;
 	let textarea;
 	let container;
@@ -63,7 +63,7 @@ describe ("Test TextEditor class", () => {
 		document.body.appendChild(container);
 		display.appendChild(textarea);
 		container.appendChild(display);
-		editor = new TextEditor("#displayId" + nth, "#textareaId" + nth, ".containerClass" + nth, "cell" + nth);
+		editor = new t.TextEditor("#displayId" + nth, "#textareaId" + nth, ".containerClass" + nth, "cell" + nth);
 
 		charEvent.keyCode = "a".charCodeAt(0);
 		
