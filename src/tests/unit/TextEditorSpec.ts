@@ -1,5 +1,6 @@
 /// <reference path="../../../lib/DefinitelyTyped/jasmine/jasmine.d.ts" />
-/// <reference path="../../../dist/BaseImports.d.ts" />
+///ts:ref=BaseImports
+/// No file or directory matched name "BaseImports" ///ts:ref:generated
 
 
 import t = require('../../js/classes/TextEditor');

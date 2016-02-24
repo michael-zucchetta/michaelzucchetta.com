@@ -135,9 +135,12 @@ module.exports = function(grunt) {
 		clean: {
 			js: ["dist/**/*.js"]
 		},
-		karma: {
+		"karma": {
 			unit: {
 				configFile: 'config/karma.unittest.conf.js'
+			},
+			"unit-ts": {
+				configFile: 'config/karma.unittest.ts.conf.js'
 			}
 		},
 		protractor: {
@@ -219,13 +222,21 @@ module.exports = function(grunt) {
 		},
 		ts: {
 			compile_with_maps: {
-				src: [baseSrcPath + '**/*.ts', '!' + baseSrcPath + 'tests/**'],
-				dest: 'dist/',
+				files: [{
+					src: [baseSrcPath + '**/*.ts'],
+					dest: 'dist/',
+				}],
 				options: typescriptOptions
 			},
 			compile_tests_with_maps: {
-				src: [baseSrcPath + 'tests/**/*.ts'],
-				dest: 'dist/tests/',
+				files: [{
+					src: [baseSrcPath + '**/*.ts'],
+					dest: 'dist/'
+				},
+				{
+					src: [baseSrcPath + 'tests/**/*.ts'],
+					dest: 'tests/',
+				}],
 				options: typescriptOptions
 			}
 		}
@@ -256,7 +267,7 @@ module.exports = function(grunt) {
 		grunt.file.write(filesPath, dependencies);
 	});
 
-	grunt.registerTask("default", [/*"npm-install", "bower-install", "clean",*/ "tree", "coffee", "build-requirejs", "concat", "jsbeautifier", "copy", "sass", "jshint"]);
+	grunt.registerTask("default", [/*"npm-install", "bower-install", "clean",*/ "tree", "coffee", "build-requirejs", "concat", "jsbeautifier", "copy", "sass"/*, "jshint"*/]);
 	grunt.registerTask("test", ["default", "karma"]);
 	grunt.registerTask("dev", ["default", "watch"]);
 
