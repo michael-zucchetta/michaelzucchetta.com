@@ -3,6 +3,6 @@
 /// <reference path="../../../lib/DefinitelyTyped/lodash/lodash.d.ts" />
 
 module BaseImports {
-	var jquery = define('jQuery');
-	var lodash = define('lodash');
+	var jQuery: any = require('jQuery');
+	var lodash: any = require('lodash');
 }

@@ -1,7 +1,6 @@
 /// <reference path="../../../lib/DefinitelyTyped/jquery/jquery.d.ts" />
 /// <reference path="../../../lib/DefinitelyTyped/requirejs/require.d.ts" />
 
-var jquery = define('jQuery');
 export class CarelPos {
 	public left: number;
 	public top: number;

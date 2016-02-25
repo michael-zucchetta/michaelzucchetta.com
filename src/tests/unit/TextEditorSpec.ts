@@ -1,9 +1,9 @@
 /// <reference path="../../../lib/DefinitelyTyped/jasmine/jasmine.d.ts" />
-///ts:ref=BaseImports
-/// No file or directory matched name "BaseImports" ///ts:ref:generated
+/// <reference path="../../js/classes/BaseImports" />
+/// <reference path="../../js/classes/BaseImports" />
 
 
-import t = require('../../js/classes/TextEditor');
+import t = require('TextEditor');
 describe ("Test TextEditor class", () => {
 
 	let editor: t.TextEditor;

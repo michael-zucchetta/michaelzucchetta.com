@@ -1,5 +1,6 @@
 var baseSrcPath = 'src/';
 var filesPath = "dist/files.json";
+var tsFilesPath = "dist/tsFiles.json";
 var typescriptOptions = {
 	/* on version 0.8 basePath is deprecated and the author states that rootDir should be used, but it seems to be not working, so ignoring the warning for now
 	*rootDir: baseSrcPath,
@@ -93,6 +94,17 @@ module.exports = function(grunt) {
 					{
 						src: ['dist/'],
 						dest: filesPath
+					}
+				]
+			},
+			ts: {
+				options: {
+					type: ['ts']
+				},
+				files: [
+					{
+						src: ['src/'],
+						dest: tsFilesPath
 					}
 				]
 			}
@@ -223,7 +235,7 @@ module.exports = function(grunt) {
 		ts: {
 			compile_with_maps: {
 				files: [{
-					src: [baseSrcPath + '**/*.ts'],
+					src: [baseSrcPath + '**/*.ts', '!' + baseSrcPath + 'tests/**/*.ts'],
 					dest: 'dist/',
 				}],
 				options: typescriptOptions
@@ -265,6 +277,10 @@ module.exports = function(grunt) {
 		dependencies = dependencies.substring(1, dependencies.length - 1).replace(/\.js/g, "");
 		console.log("created dependencies files for requirejs!");
 		grunt.file.write(filesPath, dependencies);
+	});
+
+	grunt.registerTask('build-requirejs-ts', function() {
+		//var dependencies = 
 	});
 
 	grunt.registerTask("default", [/*"npm-install", "bower-install", "clean",*/ "tree", "coffee", "build-requirejs", "concat", "jsbeautifier", "copy", "sass"/*, "jshint"*/]);
