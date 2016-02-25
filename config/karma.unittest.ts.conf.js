@@ -2,15 +2,14 @@ module.exports = function(config) {
 	config.set({
 		//Neded for avoiding absolute Path
 		basePath: '../',
-		frameworks: ['jasmine-jquery', 'jasmine', 'requirejs'],
+		frameworks: ['jasmine-jquery', 'jasmine'],
 		files: [
 			{pattern: 'lib/**/*.js', included: false},
-			{pattern: 'tests/**/unit/*Spec.js', included: false},
-			{pattern: 'dist/**/*.js', included: false},
+			{pattern: 'tests/**/unit/*Spec.js', included: true},
+			{pattern: 'dist/app.js', included: true},
 			{pattern: 'dist/js/**/*.json', included: false},
 			{pattern: 'src/**/*.ts', included: false},
-			{pattern: 'lib/**/*.map', included: false},
-			'dist/js/initialisation/requirejs-bootstrap-test.js'
+			{pattern: 'lib/**/*.map', included: false}
 		],
 		// list of files to exclude
 		exclude: [

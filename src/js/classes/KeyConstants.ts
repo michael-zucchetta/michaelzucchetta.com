@@ -1,4 +1,4 @@
-export class KeyConstants {
+class KeyConstants {
 	// arrow keys
 	static leftKey = 37;
 	static upKey = 38;

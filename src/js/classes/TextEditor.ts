@@ -1,15 +1,12 @@
-/// <reference path="../../../lib/DefinitelyTyped/jquery/jquery.d.ts" />
-/// <reference path="../../../lib/DefinitelyTyped/requirejs/require.d.ts" />
-
-export class CarelPos {
+class CarelPos {
 	public left: number;
 	public top: number;
 }
-export class statusArray extends Array {
+class statusArray extends Array {
 	public isNew: boolean;
 	public string: string;
 }
-export class TextEditor {
+class TextEditor {
 	private display: HTMLElement;
 	private textarea: HTMLElement;
 	private container: HTMLElement;

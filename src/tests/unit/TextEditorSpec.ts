@@ -1,12 +1,9 @@
 /// <reference path="../../../lib/DefinitelyTyped/jasmine/jasmine.d.ts" />
-/// <reference path="../../js/classes/BaseImports" />
-/// <reference path="../../js/classes/BaseImports" />
+/// <reference path="../../../dist/app.ts" />
 
-
-import t = require('TextEditor');
 describe ("Test TextEditor class", () => {
 
-	let editor: t.TextEditor;
+	let editor: TextEditor;
 	let display;
 	let textarea;
 	let container;
@@ -64,7 +61,7 @@ describe ("Test TextEditor class", () => {
 		document.body.appendChild(container);
 		display.appendChild(textarea);
 		container.appendChild(display);
-		editor = new t.TextEditor("#displayId" + nth, "#textareaId" + nth, ".containerClass" + nth, "cell" + nth);
+		editor = new TextEditor("#displayId" + nth, "#textareaId" + nth, ".containerClass" + nth, "cell" + nth);
 
 		charEvent.keyCode = "a".charCodeAt(0);
 		
@@ -72,5 +69,9 @@ describe ("Test TextEditor class", () => {
 		newCharEvent.keyCode = 13;
 		charEventDel.keyCode = delKey;
 	};
+
+	it("test of the test itself", () => {
+	
+	});
 
 });

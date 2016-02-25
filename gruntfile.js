@@ -7,7 +7,7 @@ var typescriptOptions = {
 	*/
 	basePath: baseSrcPath,
 	//sourceMap: true,
-	declaration: true,
+	//not generating d.ts declaration: true,
 	target: 'es5',
 	fast: 'never',
 	module: 'amd',
@@ -54,6 +54,12 @@ module.exports = function(grunt) {
 					'src/js/initialisation/require/post-requirejs-bootstrap-test'
 				],
 				dest: 'src/js/initialisation/requirejs-bootstrap-test.js'
+			},
+			"build-ts": {
+				src: [
+					'src/js/**/*.ts'
+				],
+				dest: 'dist/app.ts'
 			}
 		},
 		copy: {
@@ -96,17 +102,6 @@ module.exports = function(grunt) {
 						dest: filesPath
 					}
 				]
-			},
-			ts: {
-				options: {
-					type: ['ts']
-				},
-				files: [
-					{
-						src: ['src/'],
-						dest: tsFilesPath
-					}
-				]
 			}
 		},
 		jsbeautifier: {
@@ -115,6 +110,7 @@ module.exports = function(grunt) {
 				js: {
 					preserveNewlines: false
 				}
+					
 			}
 		},
 		jshint: {
@@ -235,17 +231,13 @@ module.exports = function(grunt) {
 		ts: {
 			compile_with_maps: {
 				files: [{
-					src: [baseSrcPath + '**/*.ts', '!' + baseSrcPath + 'tests/**/*.ts'],
+					src: ['dist/**/*.ts', '!' + baseSrcPath + 'tests/**/*.ts'],
 					dest: 'dist/',
 				}],
 				options: typescriptOptions
 			},
 			compile_tests_with_maps: {
 				files: [{
-					src: [baseSrcPath + '**/*.ts'],
-					dest: 'dist/'
-				},
-				{
 					src: [baseSrcPath + 'tests/**/*.ts'],
 					dest: 'tests/',
 				}],
@@ -277,10 +269,6 @@ module.exports = function(grunt) {
 		dependencies = dependencies.substring(1, dependencies.length - 1).replace(/\.js/g, "");
 		console.log("created dependencies files for requirejs!");
 		grunt.file.write(filesPath, dependencies);
-	});
-
-	grunt.registerTask('build-requirejs-ts', function() {
-		//var dependencies = 
 	});
 
 	grunt.registerTask("default", [/*"npm-install", "bower-install", "clean",*/ "tree", "coffee", "build-requirejs", "concat", "jsbeautifier", "copy", "sass"/*, "jshint"*/]);
