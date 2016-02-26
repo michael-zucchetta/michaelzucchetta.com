@@ -231,7 +231,7 @@ module.exports = function(grunt) {
 		ts: {
 			compile_with_maps: {
 				files: [{
-					src: ['dist/**/*.ts', '!' + baseSrcPath + 'tests/**/*.ts'],
+					src: ['dist/app.ts', '!' + baseSrcPath + 'tests/**/*.ts'],
 					dest: 'dist/',
 				}],
 				options: typescriptOptions
