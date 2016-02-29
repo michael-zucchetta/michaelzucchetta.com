@@ -18,7 +18,7 @@ describe ("Test TextEditor class", () => {
 	let downArrowEvent: KeyboardEvent = new KeyboardEvent("0");
 	let upArrowEvent: KeyboardEvent = new KeyboardEvent("0");
 
-	let uselessCharEvent: Event;
+	let uselessCharEvent: KeyboardEvent;
 
 	//To be moved in another file
 	let cellWidth: number = 8;
@@ -28,6 +28,8 @@ describe ("Test TextEditor class", () => {
 
 	//to be moved as well
 	let delKey = 46;
+	
+	let newKey = 13;
 
 	let leftKey = 37;
 	let upKey = 38;
@@ -65,13 +67,33 @@ describe ("Test TextEditor class", () => {
 
 		charEvent.keyCode = "a".charCodeAt(0);
 		
-		//13 is a new char
-		newCharEvent.keyCode = 13;
+		newCharEvent.keyCode = newKey;
 		charEventDel.keyCode = delKey;
+
+		leftArrowEvent.keyCode = leftKey;
+		rightArrowEvent.keyCode = rightKey;
+		downArrowEvent.keyCode = downKey;
+		upArrowEvent.keyCode = upKey;
+
+		uselessCharEvent.keyCode = 99;
 	};
 
-	it("test of the test itself", () => {
+	describe("Test TextEditor class", () => {
+		initTextEditorSpec(1);
+
+		it("are the html elements intialised?", () => {
+			expect(editor.display).toBeTruthy();
+			expect(editor.textarea).toBeTruthy();
+			expect(editor.container).toBeTruthy();
+		});
 	
+		$(display).css({
+			position: 'absolute',
+			width: editorWidth,
+			height: editorHeight
+		});
+
+		editor.initEditor();
 	});
 
 });

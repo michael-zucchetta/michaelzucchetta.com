@@ -274,5 +274,6 @@ module.exports = function(grunt) {
 	grunt.registerTask("default", [/*"npm-install", "bower-install", "clean",*/ "tree", "coffee", "build-requirejs", "concat", "jsbeautifier", "copy", "sass"/*, "jshint"*/]);
 	grunt.registerTask("test", ["default", "karma"]);
 	grunt.registerTask("dev", ["default", "watch"]);
+	grunt.registerTask("typescript", ["concat", "ts"]);
 
 }
