@@ -18,7 +18,7 @@ describe ("Test TextEditor class", () => {
 	let downArrowEvent: KeyboardEvent = new KeyboardEvent("0");
 	let upArrowEvent: KeyboardEvent = new KeyboardEvent("0");
 
-	let uselessCharEvent: KeyboardEvent;
+	let uselessCharEvent: KeyboardEvent = new KeyboardEvent("0");
 
 	//To be moved in another file
 	let cellWidth: number = 8;

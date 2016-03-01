@@ -34,7 +34,7 @@ class TextEditor {
 	private textValue: string = "";
 	private rowSuffix: string = "";
 	
-	public statusMatrix: StatusArray[];
+	public statusMatrix: StatusArray;
 	public cellX: number = 0;
 	public cellY: number = 0;
 	public carelPos: CarelPos = {
@@ -72,7 +72,7 @@ class TextEditor {
 		this.editorHeight = this._display.outerHeight();
 		this.colsNumber = Math.round(this.editorWidth/this.cellWidth);
 		this.rowsNumber = Math.round(this.editorHeight/this.cellHeight);
-		this.statusMatrix = new StatusArray[this.rowsNumber];
+		this.statusMatrix = new StatusArray(this.rowsNumber);
 		_.each(this.statusMatrix, (statusArray, $index) => {
 			statusArray = this.statusMatrix[$index] = new StatusArray(this.colsNumber);
 			statusArray.isNew = true;
