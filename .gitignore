@@ -30,3 +30,4 @@ karma_html/**/*
 tscommand-*.tmp.txt
 .tscache
 src/**/.*.ts
+typings/**/*

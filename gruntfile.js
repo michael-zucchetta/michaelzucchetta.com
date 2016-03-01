@@ -2,16 +2,7 @@ var baseSrcPath = 'src/';
 var filesPath = "dist/files.json";
 var tsFilesPath = "dist/tsFiles.json";
 var typescriptOptions = {
-	/* on version 0.8 basePath is deprecated and the author states that rootDir should be used, but it seems to be not working, so ignoring the warning for now
-	*rootDir: baseSrcPath,
-	*/
-	basePath: baseSrcPath,
-	//sourceMap: true,
-	//not generating d.ts declaration: true,
-	target: 'es5',
-	fast: 'never',
-	module: 'amd',
-	inlineSourceMap: true
+	tsconfig: true
 };
 
 module.exports = function(grunt) {
@@ -242,6 +233,13 @@ module.exports = function(grunt) {
 					dest: 'tests/',
 				}],
 				options: typescriptOptions
+			},
+			compile: {
+				files: [{
+					src: [baseSrcPath + '**/*.ts', '!' + baseSrcPath + 'tests/**/*.ts'],
+					dest: 'dist/'
+				}],
+				tsconfig: true
 			}
 		}
 	});
@@ -275,5 +273,4 @@ module.exports = function(grunt) {
 	grunt.registerTask("test", ["default", "karma"]);
 	grunt.registerTask("dev", ["default", "watch"]);
 	grunt.registerTask("typescript", ["concat", "ts"]);
-
 }

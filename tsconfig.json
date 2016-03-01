@@ -1,0 +1,49 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "basePath:": "src/",
+        "target": "es5",
+        "fast": "never",
+        "inlineSourceMap": true,
+        "outDir": "dist/"
+    },
+    "filesGlob": [
+        "src/js/**/*.ts",
+        "!node_modules/**",
+        "!dist",
+        "./lib/DefinitelyTyped/angularjs/**/*.d.ts",
+        "./lib/DefinitelyTyped/jquery/**/*.d.ts",
+        "./lib/DefinitelyTyped/lodash/**/*.d.ts"
+    ],
+    "files": [
+        "src/js/classes/BaseClass.ts",
+        "src/js/classes/KeyConstants.ts",
+        "src/js/classes/Test.ts",
+        "src/js/classes/TextEditor.ts",
+        "lib/DefinitelyTyped/angularjs/angular-animate.d.ts",
+        "lib/DefinitelyTyped/angularjs/angular-component-router.d.ts",
+        "lib/DefinitelyTyped/angularjs/angular-cookies.d.ts",
+        "lib/DefinitelyTyped/angularjs/angular-mocks.d.ts",
+        "lib/DefinitelyTyped/angularjs/angular-resource.d.ts",
+        "lib/DefinitelyTyped/angularjs/angular-route.d.ts",
+        "lib/DefinitelyTyped/angularjs/angular-sanitize.d.ts",
+        "lib/DefinitelyTyped/angularjs/angular.d.ts",
+        "lib/DefinitelyTyped/angularjs/legacy/angular-1.0.d.ts",
+        "lib/DefinitelyTyped/angularjs/legacy/angular-1.2.d.ts",
+        "lib/DefinitelyTyped/angularjs/legacy/angular-animate-1.2.d.ts",
+        "lib/DefinitelyTyped/angularjs/legacy/angular-cookies-1.0.d.ts",
+        "lib/DefinitelyTyped/angularjs/legacy/angular-cookies-1.2.d.ts",
+        "lib/DefinitelyTyped/angularjs/legacy/angular-mocks-1.0.d.ts",
+        "lib/DefinitelyTyped/angularjs/legacy/angular-mocks-1.2.d.ts",
+        "lib/DefinitelyTyped/angularjs/legacy/angular-resource-1.0.d.ts",
+        "lib/DefinitelyTyped/angularjs/legacy/angular-resource-1.2.d.ts",
+        "lib/DefinitelyTyped/angularjs/legacy/angular-route-1.2.d.ts",
+        "lib/DefinitelyTyped/angularjs/legacy/angular-sanitize-1.0.d.ts",
+        "lib/DefinitelyTyped/angularjs/legacy/angular-sanitize-1.2.d.ts",
+        "lib/DefinitelyTyped/angularjs/legacy/angular-scenario-1.0.d.ts",
+        "lib/DefinitelyTyped/angularjs/legacy/angular-scenario-1.2.d.ts",
+        "lib/DefinitelyTyped/jquery/jquery.d.ts",
+        "lib/DefinitelyTyped/lodash/lodash-3.10.d.ts",
+        "lib/DefinitelyTyped/lodash/lodash.d.ts"
+    ]
+}

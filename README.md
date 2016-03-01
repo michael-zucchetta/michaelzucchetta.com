@@ -12,6 +12,7 @@ Install npm and do the following (as they are used in package):
 - Install gem
 - gem install sass
 - gem install compass
+- npm install -g typings
 
 Then:
 - grunt dev for running grunt in dev mode: watch for coffee, sass, jshint is active
