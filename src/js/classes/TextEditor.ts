@@ -67,6 +67,14 @@ class TextEditor {
 		return this._container;
 	}
 
+	get height(): number {
+		return this.editorHeight;
+	}
+
+	get width(): number {
+		return this.editorWidth;
+	}
+
 	public initEditor() {
 		this.editorWidth = this._display.outerWidth();
 		this.editorHeight = this._display.outerHeight();
@@ -79,5 +87,10 @@ class TextEditor {
 			statusArray.string = "";
 			statusArray.id = this.rowSuffix + $index;
 		});
+	}
+
+	public clickEditor($event: MouseEvent) {
+		// x/cellWidth is the partial cell position, with round it's the cell number
+		let tmpX: number = $event.offsetX/this.cellWidth;
 	}
 }

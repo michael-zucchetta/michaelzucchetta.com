@@ -17,6 +17,19 @@ describe ("Test TextEditor class", () => {
 
 	let uselessCharEvent: KeyboardEvent = new KeyboardEvent("0");
 
+	
+	let mockedClickEvent: MouseEvent = new MouseEvent("click");
+	//This is for mocking the event. To be moved
+	let evt = document.createEvent('Event');
+	evt.initEvent('customevent', true, true);
+	let listener = function (e: Event) {
+		var element = <HTMLElement> e.target;
+		element.innerHTML = 'hello';
+	};
+	let div = document.createElement("div");
+	div.addEventListener('customevent', listener);
+	div.dispatchEvent(evt);
+
 	//To be moved in another file
 	let cellWidth: number = 8;
 	let cellHeight: number = 16;
@@ -91,6 +104,29 @@ describe ("Test TextEditor class", () => {
 		});
 
 		editor.initEditor();
+
+		it("editor properties initialised?", () => {
+			expect(editor.width).toEqual(editorWidth);
+			expect(editor.height).toEqual(editorHeight);
+		});
+
+
+		mockedClickEvent.offsetX = 202;
+		mockedClickEvent.offsetY = 4;
+		mockedClickEvent.target.offsetTop = 50;
+
+		let mockedPosCellX: number = 25;
+		let mockedPosCellY: number = 3;
+		let mockedCoordX: number = 200;
+		let mockedCoordY: number = 48;
+
+		it("empty text => cellX is 0", () => {
+			editor.clickEditor(mockedClickEvent);
+			expect(editor.cellX).toEqual(0, "it should be get 0,0 as it is empty");
+			expect(editor.cellY).toEqual(0, "it should be get 0,0 as it is empty");
+			
+		});
+
 	});
 
 });

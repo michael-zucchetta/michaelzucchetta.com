@@ -162,6 +162,13 @@ module.exports = function(grunt) {
 			}
 		},
 		watch: {
+			ts: {
+				files: ['src/**/*.ts'],
+				tasks: 'newer:ts:compile',
+				options: {
+					event: ['changed', 'deleted']
+				}
+			},
 			coffee: {
 				files: ['src/**/*.coffee'],
 				tasks: 'newer:coffee',
@@ -236,7 +243,7 @@ module.exports = function(grunt) {
 			},
 			compile: {
 				files: [{
-					src: [baseSrcPath + '**/*.ts', '!' + baseSrcPath + 'tests/**/*.ts'],
+					src: [baseSrcPath + '**/*.ts'], //'!' + baseSrcPath + 'tests/**/*.ts'],
 					dest: 'dist/'
 				}],
 				tsconfig: true

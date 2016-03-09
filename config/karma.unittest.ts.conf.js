@@ -7,8 +7,8 @@ module.exports = function(config) {
 			{pattern: 'lib/jquery/dist/jquery.min.js'},
 			{pattern: 'lib/angular/angular.min.js'},
 			{pattern: 'lib/lodash/lodash.min.js'},
-			{pattern: 'dist/app.js', included: true},
-			{pattern: 'tests/**/unit/*Spec.js', included: true},
+			{pattern: 'dist/js/**/*.js', included: true},
+			{pattern: 'dist/tests/**/unit/*Spec.js', included: true},
 			{pattern: 'dist/js/**/*.json', included: false},
 			{pattern: 'src/**/*.ts', included: false},
 			{pattern: 'lib/**/*.map', included: false}
