@@ -13,8 +13,10 @@ Install npm and do the following (as they are used in package):
 - gem install sass
 - gem install compass
 - npm install -g typings
+- typings install 
 
 Then:
+- typings install react --ambient --save (to install a new typing for typescript)
 - grunt dev for running grunt in dev mode: watch for coffee, sass, jshint is active
 - grunt karma for running grunt with karma
 - grunt protractor for running protractor once

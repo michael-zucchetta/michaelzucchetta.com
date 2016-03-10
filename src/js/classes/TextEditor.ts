@@ -5,7 +5,7 @@ class CarelPos {
 class XArray {
 	constructor(length: number) {
 		Array.apply(this, arguments);   
-		return new Array();
+		return new Array(length);
 	}
 	pop(): any { return "" };
 	push(val): number { return 0; };
@@ -18,7 +18,7 @@ class StatusArray extends XArray {
 	public string: string;
 	public id: string;
 	constructor(length: number) {
-		super(length);
+		return super(length);
 	}
 };
 class TextEditor {
@@ -89,7 +89,7 @@ class TextEditor {
 		});
 	}
 
-	public clickEditor($event: MouseEvent) {
+	public clickEditor($event) {
 		// x/cellWidth is the partial cell position, with round it's the cell number
 		let tmpX: number = $event.offsetX/this.cellWidth;
 	}

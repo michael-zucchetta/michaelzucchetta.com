@@ -1,3 +1,8 @@
+class ZEvent {
+	offsetX: number;
+	offsetY: number;
+	target: any;
+}
 describe ("Test TextEditor class", () => {
 
 	let editor: TextEditor;
@@ -17,18 +22,11 @@ describe ("Test TextEditor class", () => {
 
 	let uselessCharEvent: KeyboardEvent = new KeyboardEvent("0");
 
-	
-	let mockedClickEvent: MouseEvent = new MouseEvent("click");
-	//This is for mocking the event. To be moved
-	let evt = document.createEvent('Event');
-	evt.initEvent('customevent', true, true);
-	let listener = function (e: Event) {
-		var element = <HTMLElement> e.target;
-		element.innerHTML = 'hello';
-	};
-	let div = document.createElement("div");
-	div.addEventListener('customevent', listener);
-	div.dispatchEvent(evt);
+
+	let mockedString: string = "";	
+	let mockedClickEvent: ZEvent = new ZEvent();
+	mockedClickEvent.target = {};
+
 
 	//To be moved in another file
 	let cellWidth: number = 8;
@@ -125,6 +123,24 @@ describe ("Test TextEditor class", () => {
 			expect(editor.cellX).toEqual(0, "it should be get 0,0 as it is empty");
 			expect(editor.cellY).toEqual(0, "it should be get 0,0 as it is empty");
 			
+		});
+
+		it("click on the editor with non empty string", () => {
+			//set editor text
+			mockedString = "abcdefghjklmnopqrstuwyxz123";
+			editor.clickEditor({
+				offsetX: 0,
+				offsetY: cellHeight + 2,
+				target: {
+					offsetTop: 0
+				}
+			});
+			expect(editor.cellX).toEqual(0, "it should be get 0,0 as it is empty");
+			expect(editor.cellY).toEqual(0, "it should be get 0,0 as it is empty");
+			setInitialStrings(['test', 'abc', "third", mockedString, "fourth"]);
+			editor.clickEditor(mockedClickEvent);
+			expect(editor.cellY).toEqual(5, "click editor doesn't go to the 5th line");
+			expect(editor.carelPos.top).toEqual(5*cellHeight, "it doesn't get the height in pixels on the 5th line");
 		});
 
 	});
