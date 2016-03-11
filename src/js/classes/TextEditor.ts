@@ -2,24 +2,10 @@ class CarelPos {
 	public left: number;
 	public top: number;
 }
-class XArray {
-	constructor(length: number) {
-		Array.apply(this, arguments);   
-		return new Array(length);
-	}
-	pop(): any { return "" };
-	push(val): number { return 0; };
-	length: number;
-	
-}
-XArray["prototype"] = new Array();
-class StatusArray extends XArray {
+class Status {
 	public isNew: boolean;
 	public string: string;
 	public id: string;
-	constructor(length: number) {
-		return super(length);
-	}
 };
 class TextEditor {
 	private _display: JQuery;
@@ -34,7 +20,7 @@ class TextEditor {
 	private textValue: string = "";
 	private rowSuffix: string = "";
 	
-	public statusMatrix: StatusArray;
+	public statusMatrix: Status[];
 	public cellX: number = 0;
 	public cellY: number = 0;
 	public carelPos: CarelPos = {
@@ -80,12 +66,14 @@ class TextEditor {
 		this.editorHeight = this._display.outerHeight();
 		this.colsNumber = Math.round(this.editorWidth/this.cellWidth);
 		this.rowsNumber = Math.round(this.editorHeight/this.cellHeight);
-		this.statusMatrix = new StatusArray(this.rowsNumber);
-		_.each(this.statusMatrix, (statusArray, $index) => {
-			statusArray = this.statusMatrix[$index] = new StatusArray(this.colsNumber);
-			statusArray.isNew = true;
-			statusArray.string = "";
-			statusArray.id = this.rowSuffix + $index;
+		this.statusMatrix = new Array(this.rowsNumber);
+		let that = this;
+		this.statusMatrix = _.map(this.statusMatrix, function(el, $index) {
+			el = new Status();
+			el.isNew = true;
+			el.string = "";
+			el.id = that.rowSuffix + $index;
+			return el;
 		});
 	}
 

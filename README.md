@@ -1,5 +1,9 @@
 "Vanilla Project" was cloned and reused (I am not a fan of scaffolding tools) from: https://github.com/michael-zucchetta/requirejs-angular-empty-project.
 
+Use of Vundle
+https://github.com/VundleVim/Vundle.vim
+:PluginInstall
+
 Install npm and do the following (as they are used in package):
 
 - npm install -g typings //to be checked
