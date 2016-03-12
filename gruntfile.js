@@ -1,9 +1,6 @@
 var baseSrcPath = 'src/';
 var filesPath = "dist/files.json";
 var tsFilesPath = "dist/tsFiles.json";
-var typescriptOptions = {
-	tsconfig: true
-};
 
 module.exports = function(grunt) {
 	// Project configuration.
@@ -135,9 +132,6 @@ module.exports = function(grunt) {
 			js: ["dist/**/*.js"]
 		},
 		"karma": {
-			unit: {
-				configFile: 'config/karma.unittest.conf.js'
-			},
 			"unit-ts": {
 				configFile: 'config/karma.unittest.ts.conf.js'
 			}
@@ -227,20 +221,6 @@ module.exports = function(grunt) {
 			}
 		},
 		ts: {
-			compile_with_maps: {
-				files: [{
-					src: ['dist/app.ts', '!' + baseSrcPath + 'tests/**/*.ts'],
-					dest: 'dist/',
-				}],
-				options: typescriptOptions
-			},
-			compile_tests_with_maps: {
-				files: [{
-					src: [baseSrcPath + 'tests/**/*.ts'],
-					dest: 'tests/',
-				}],
-				options: typescriptOptions
-			},
 			compile: {
 				files: [{
 					src: [baseSrcPath + '**/*.ts'], //'!' + baseSrcPath + 'tests/**/*.ts'],

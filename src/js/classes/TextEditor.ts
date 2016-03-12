@@ -61,6 +61,24 @@ class TextEditor {
 		return this.editorWidth;
 	}
 
+	private getCellString(y) {
+		return this.statusMatrix[y].string;
+	}
+
+	public getCellLetter(y, x) {
+		return this.statusMatrix[y].string[x];
+	}
+
+	private getLastRowIndex() {
+		let $index = null;
+		_.each(this.statusMatrix, (row, index) => {
+			if (row.isNew && $index === null) {
+				$index = index;
+			}
+		});
+		return $index;
+	}
+
 	public initEditor() {
 		this.editorWidth = this._display.outerWidth();
 		this.editorHeight = this._display.outerHeight();
@@ -80,5 +98,29 @@ class TextEditor {
 	public clickEditor($event) {
 		// x/cellWidth is the partial cell position, with round it's the cell number
 		let tmpX: number = $event.offsetX/this.cellWidth;
+		this.cellX = Math.round($event.offsetX / this.cellWidth);
+		
+		let tmpY = ($event.target.offsetTop + $event.offsetY)/this.cellHeight;
+		this.cellY = Math.round(tmpY);
+
+		let cellText = this.getCellString(this.cellY);
+		if (cellText) {
+			if (cellText.length < this.cellX) {
+				this.cellX = cellText.length;
+			}
+			this.textarea.val(cellText)
+		} else {
+			this.cellX = 0;
+		}
+
+		if (this.cellY > this.getLastRowIndex()) {
+			this.cellY = this.getLastRowIndex();
+		}
+
+		let y = this.cellY * this.cellHeight;
+		let x = this.cellX * this.cellWidth;
+		this.carelPos.left = x;
+		this.carelPos.top = y;
+		this.textarea.focus();
 	}
 }
