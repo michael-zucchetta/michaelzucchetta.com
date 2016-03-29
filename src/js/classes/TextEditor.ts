@@ -17,9 +17,9 @@ class TextEditor {
 	private editorHeight: number;
 	private colsNumber: number;
 	private rowsNumber: number;
-	private textValue: string = "";
 	private rowSuffix: string = "";
-	
+
+	public textValue: string = "";	
 	public statusMatrix: Status[];
 	public cellX: number = 0;
 	public cellY: number = 0;

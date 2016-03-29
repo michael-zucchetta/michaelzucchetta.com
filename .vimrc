@@ -31,3 +31,4 @@ syntax on "required for osx
 " " Put your non-Plugin stuff after this line
 " Ali: to indent json files on save
 autocmd FileType json autocmd BufWritePre <buffer> %!python -m json.tool
+set backspace=indent,eol,start
