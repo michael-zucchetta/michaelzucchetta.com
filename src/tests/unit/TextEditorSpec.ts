@@ -302,17 +302,20 @@ describe ("Test TextEditor class", () => {
 			
 			//last char, last line
 			let mockedPastedText = "cane";
-			let mockedPasteEvent =
-				clipboardData:
-					getData: () ->
-						return mockedPastedText
+			let mockedPasteEvent = {
+				clipboardData: {
+					getData: () => {
+						return mockedPastedText;
+					}
+				}
+			};
 			editor.pasteText(mockedPasteEvent);
 			expect(editor.cellY).toEqual(1, "messed up during pasted text on Y");
 			expect(editor.cellX).toEqual(5, "messed up during pasted text on X");
 			mockedPastedText = "a\na";
 			editor.pasteText(mockedPasteEvent);
 			expect(editor.cellY).toEqual(2, "messed up during pasted text with new line on Y");
-			expect(editor.cellX).toEqual(1, "messed up during pasted text with new line on X")/
+			expect(editor.cellX).toEqual(1, "messed up during pasted text with new line on X");
 		});
 	});
 
