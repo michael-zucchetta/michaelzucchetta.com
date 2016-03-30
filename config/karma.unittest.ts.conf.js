@@ -3,6 +3,9 @@ module.exports = function(config) {
 		//Neded for avoiding absolute Path
 		basePath: '../',
 		frameworks: ['jasmine-jquery', 'jasmine'],
+	        preprocessors: {
+			'dist/**/*.js': ['sourcemap']
+		},	  
 		files: [
 			{pattern: 'lib/jquery/dist/jquery.min.js'},
 			{pattern: 'lib/angular/angular.min.js'},
@@ -63,7 +66,8 @@ module.exports = function(config) {
 			'karma-jasmine-jquery',
 			'karma-requirejs',
 			'karma-chrome-launcher',
-			'karma-firefox-launcher'
+			'karma-firefox-launcher',
+			'karma-sourcemap-loader'
 		]
 	});
 };

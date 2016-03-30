@@ -123,4 +123,22 @@ class TextEditor {
 		this.carelPos.top = y;
 		this.textarea.focus();
 	}
+
+	public insertChar($event: KeyboardEvent) {
+	
+	}
+
+	public moveArrow($event: KeyboardEvent, key) {
+	
+	}
+
+	public handleKeyDown($event: KeyboardEvent) {
+	}
+
+	public deleteChar($event: KeyboardEvent, key) {
+	
+	}
+
+	public pasteText($event) {
+	}
 }
