@@ -148,12 +148,12 @@ describe ("Test TextEditor class", () => {
 			
 			expect(editor.cellX).toEqual(mockedPosCellX, "click editor doesn't go to the " + editor.cellX + "th line");
 			expect(editor.cellY).toEqual(mockedPosCellY, "it doesn't get the height in pixels on the " + editor.cellY + "th line");
-		
+
 			expect(editor.carelPos.left).toEqual(mockedCoordX, "click doesn't match coordinates X");
 			expect(editor.carelPos.top).toEqual(mockedCoordY, "click doesn't match coordinates Y");
 
 			expect( editor.getCellLetter(mockedPosCellY, mockedPosCellX) ).toBe(mockedString[mockedPosCellX]);
-			
+
 			mockedClickEvent.offsetY = 200;
 			editor.clickEditor(mockedClickEvent);
 			expect(editor.cellY).toBe(5);
@@ -321,6 +321,12 @@ describe ("Test TextEditor class", () => {
 			editor.pasteText(mockedPasteEvent);
 			expect(editor.cellY).toEqual(2, "messed up during pasted text with new line on Y");
 			expect(editor.cellX).toEqual(1, "messed up during pasted text with new line on X");
+		});
+
+		it("use of cut", () => {
+			initTextEditorSpec(6);
+			editor.initEditor();
+			setInitialString(['feafeafeafea', 'fefefe', 'aaaaaaa']);
 		});
 	});
 

@@ -8,8 +8,17 @@ class Status {
 	public id: string;
 };
 
+class TextPortion {
+	public y1: number;
+	public x1: number;
+	public y2: number;
+	public x2: number;
+	public text: string;
+}
+
 class TextEditor {
 	public textValue: string = "";
+	public selectedText: TextPortion; 
 	public statusMatrix: Status[];
 	public cellX: number = 0;
 	public cellY: number = 0;
@@ -236,6 +245,10 @@ class TextEditor {
 		_.each(pastedText, (char: string) => {
 			this.addCharacterToEditor(char.charCodeAt(0));
 		});
+	}
+
+	public cutText(): void {
+		
 	}
 
 	private getLastRowIndex(): number {
