@@ -326,7 +326,7 @@ describe ("Test TextEditor class", () => {
 		it("use of cut", () => {
 			initTextEditorSpec(6);
 			editor.initEditor();
-			setInitialString(['feafeafeafea', 'fefefe', 'aaaaaaa']);
+			setInitialStrings(['feafeafeafea', 'fefefe', 'aaaaaaa']);
 		});
 	});
 

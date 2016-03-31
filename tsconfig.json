@@ -16,8 +16,10 @@
     ],
     "files": [
         "src/js/classes/BaseClass.ts",
+        "src/js/classes/Constants.ts",
         "src/js/classes/Keys.ts",
         "src/js/classes/TextEditor.ts",
+        "src/js/services/RouteResolverService.ts",
         "typings/main.d.ts",
         "src/tests/unit/TextEditorSpec.ts"
     ]
