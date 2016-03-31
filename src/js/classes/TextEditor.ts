@@ -7,6 +7,7 @@ class Status {
 	public string: string;
 	public id: string;
 };
+
 class TextEditor {
 	private _display: JQuery;
 	private _textarea: JQuery;
@@ -124,21 +125,126 @@ class TextEditor {
 		this.textarea.focus();
 	}
 
+	public addCharacterToEditor(key: number) {
+		let newChar = String.fromCharCode(key);
+		
+		if (!Keys.isDelKey(key) && !Keys.isNewLineKey(key)) {	
+			this.carelPos.left += this.cellWidth;
+			if (this.statusMatrix[this.cellY].isNew) {
+				this.textValue = this.statusMatrix[this.cellY].string = newChar;
+				this.statusMatrix[this.cellY].isNew = false;
+			} else {
+				let tmpString = this.statusMatrix[this.cellY].string;
+				this.statusMatrix[this.cellY].string = tmpString.substring(0, this.cellX) + newChar + tmpString.substring(this.cellX, tmpString.length);
+				this.textValue += newChar;
+			}
+			this.cellX++;
+		}
+		if (Keys.isNewLineKey(key)) {
+			this.carelPos.left = 0;
+			this.carelPos.top += this.cellHeight;
+			this._textarea.val("");
+			this.textValue = "";
+			this.cellX = 0;
+			this.cellY++;
+		}
+	};
+
 	public insertChar($event: KeyboardEvent) {
-	
+		let key = Keys.getKeyFromEvent($event);
+		this.addCharacterToEditor(key);
 	}
 
 	public moveArrow($event: KeyboardEvent, key) {
-	
+		let done: boolean = false;
+		let deltaX: number = NaN;
+		let deltaY: number = NaN;
+
+		switch(key) {
+			case Keys.leftKey:
+				deltaX = -1;
+			break;
+			case Keys.upKey:
+				deltaY = -1;
+			break;
+			case Keys.rightKey:
+				deltaX = 1;
+			break;
+			case  Keys.downKey:
+				deltaY = 1;
+			break;
+			default:
+				return;
+		}
+
+		if ((this.cellX + deltaX) < 0)
+			deltaY = -1;
+		if ((this.cellX + deltaX) >= this.statusMatrix[this.cellY].string.length && key !== Keys.upKey)
+			deltaY = 1;
+		else if (this.cellX + deltaX >= 0) {
+			this.cellX += deltaX;
+			this.carelPos.left += this.cellWidth * deltaX;
+			done = true;
+		}
+		if (this.cellY + deltaY >= 0 && !done) {
+			this.cellY += deltaY;
+			if (deltaY < 0) {
+				if (key !== Keys.upKey || this.cellX > this.statusMatrix[this.cellY].string.length) {
+					this.cellX = this.statusMatrix[this.cellY].string.length;
+				}
+			} else {
+				if (this.statusMatrix[this.cellY - deltaY].isNew)
+					this.cellY -= deltaY;
+				if (this.statusMatrix[this.cellY].isNew || key === Keys.rightKey)
+					this.cellX = 0;
+				if (key === Keys.downKey && this.cellX > this.statusMatrix[this.cellY].string.length)
+					this.cellX = this.statusMatrix[this.cellY].string.length;
+			}
+			this.carelPos.left = this.cellX * this.cellWidth;
+			this.carelPos.top = this.cellY * this.cellHeight;
+		}
 	}
 
 	public handleKeyDown($event: KeyboardEvent) {
+		let key = Keys.getKeyFromEvent($event);
+		if (Keys.isArrowKey(key)) {
+			this.moveArrow($event, key);
+		}
 	}
 
 	public deleteChar($event: KeyboardEvent, key) {
-	
+		let cellText = this.statusMatrix[this.cellY].string;
+		if (!Keys.isDelKey(key)) return;
+		if (this.statusMatrix[this.cellY].string.length === 0) {
+			this.statusMatrix[this.cellY].string = "";
+			this.statusMatrix[this.cellY].isNew = true;
+			if (this.cellY !== 0) {
+				this.cellY--;
+				this.carelPos.top -= this.cellHeight;
+				this.cellX = this.statusMatrix[this.cellY].string.length;
+				this.textValue = this.statusMatrix[this.cellY].string;
+				this.carelPos.left = this.cellWidth * this.cellX;
+			}
+		} else {
+			//concatenate two strings: one from zero to the cursor's position and then from the cursor's position to the end of the string
+			let firstSubPart = cellText.substring(0, this.cellX - 1);
+			let secondSubPart = cellText.substring(this.cellX, cellText.length);
+			this.statusMatrix[this.cellY].string = this.textValue = firstSubPart + secondSubPart;
+			this.carelPos.left -= this.cellWidth;
+			this.cellX--;
+			if (this.cellX < 0) {
+				//if it's going out of the screen
+				this.cellX = 0;
+			}
+		}
 	}
 
 	public pasteText($event) {
+		let event = $event.originalEvent || $event;
+		let pastedText = event.clipboardData.getData('text/plain');
+		let me = this;
+		_.each(pastedText, (char) => {
+			me.addCharacterToEditor(char.charCodeAt(0));
+		});
 	}
 }

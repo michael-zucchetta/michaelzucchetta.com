@@ -44,6 +44,10 @@ describe ("Test TextEditor class", () => {
 	let rightKey = 39;
 	let downKey = 40;
 
+	let setKey = function(keyEvent: KeyboardEvent, key: number) {
+		keyEvent.key = Number(key).toString();
+	};
+
 	let setInitialStrings = (strings: string[]) => {
 		_.each(strings, (string, $index) => {
 			editor.statusMatrix[$index].isNew = false;
@@ -73,17 +77,18 @@ describe ("Test TextEditor class", () => {
 		container.appendChild(display);
 		editor = new TextEditor("#displayId" + nth, "#textareaId" + nth, ".containerClass" + nth, "cell" + nth);
 
-		charEvent.keyCode = "a".charCodeAt(0);
+		//Object.defineProperty(charEvent, "keyCode", "a".charCodeAt(0));
+		setKey(charEvent, "a".charCodeAt(0));
 		
-		newCharEvent.keyCode = newKey;
-		charEventDel.keyCode = delKey;
+		setKey(newCharEvent, newKey);
+		setKey(charEventDel, delKey);
 
-		leftArrowEvent.keyCode = leftKey;
-		rightArrowEvent.keyCode = rightKey;
-		downArrowEvent.keyCode = downKey;
-		upArrowEvent.keyCode = upKey;
+		setKey(leftArrowEvent, leftKey);
+		setKey(rightArrowEvent, rightKey);
+		setKey(downArrowEvent, downKey);
+		setKey(upArrowEvent, upKey);
 
-		uselessCharEvent.keyCode = 99;
+		setKey(uselessCharEvent, 99);
 	};
 
 	describe("Test TextEditor class", () => {
@@ -157,7 +162,7 @@ describe ("Test TextEditor class", () => {
 		});
 
 		it("test characters insertion", () => {
-		       	initTextEditorSpec(2);
+			initTextEditorSpec(2);
 			editor.initEditor();
 			//charCodeAt returns the keyCode for a char
 			editor.insertChar(charEvent);
