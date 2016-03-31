@@ -228,6 +228,14 @@ module.exports = function(grunt) {
 				}],
 				tsconfig: true
 			}
+		},
+		tslint: {
+			options: {
+				configuration: "tslint.json"
+			},
+			files: {
+				src: ["src/**/*ts"]
+			}
 		}
 	});
 	//Loading before the others
@@ -246,7 +254,8 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-protractor-runner');
 	grunt.loadNpmTasks('grunt-tree');
 	grunt.loadNpmTasks('grunt-ts');
-	
+	grunt.loadNpmTasks('grunt-tslint');
+
 	grunt.registerTask('bower-install', ["bower-install-simple"]);
 	
 	grunt.registerTask('build-requirejs', function() {
@@ -259,5 +268,4 @@ module.exports = function(grunt) {
 	grunt.registerTask("default", [/*"npm-install", "bower-install", "clean",*/ "tree", "coffee", "build-requirejs", "concat", "jsbeautifier", "copy", "sass"/*, "jshint"*/]);
 	grunt.registerTask("test", ["default", "karma"]);
 	grunt.registerTask("dev", ["default", "watch"]);
-	grunt.registerTask("typescript", ["concat", "ts"]);
 }

@@ -16,9 +16,7 @@
     ],
     "files": [
         "src/js/classes/BaseClass.ts",
-        "src/js/classes/KeyConstants.ts",
         "src/js/classes/Keys.ts",
-        "src/js/classes/Test.ts",
         "src/js/classes/TextEditor.ts",
         "typings/main.d.ts",
         "src/tests/unit/TextEditorSpec.ts"
