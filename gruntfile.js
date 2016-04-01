@@ -45,9 +45,9 @@ module.exports = function(grunt) {
 			},
 			"build-ts": {
 				src: [
-					"src/js/**/*.ts"
+					"dist/js/**/*.js",
 				],
-				dest: "dist/app.ts"
+				dest: "dist/app.js"
 			}
 		},
 		copy: {
@@ -272,5 +272,5 @@ module.exports = function(grunt) {
 	//grunt.registerTask("default", [/*"npm-install", "bower-install", "clean",*/ "tree", "coffee", "build-requirejs", "concat", "jsbeautifier", "copy", "sass"/*, "jshint"*/]);
 	grunt.registerTask("test", ["default", "karma"]);
 	grunt.registerTask("dev", ["default", "watch"]);
-	grunt.registerTask("default", ["ts", "watch:ts"]);
+	grunt.registerTask("default", ["ts", "concat:build-ts", "watch:ts"]);
 }
