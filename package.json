@@ -17,7 +17,6 @@
         "grunt-newer": "^1.1.1",
         "grunt-npm-install": "*",
         "grunt-protractor-runner": "^2.1.0",
-        "grunt-tree": "^0.4.9",
         "grunt-ts": "^5.3.2",
         "grunt-tslint": "^3.0.3",
         "jasmine-jquery": "^2.1.1",

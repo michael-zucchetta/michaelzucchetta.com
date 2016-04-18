@@ -7,9 +7,7 @@ module.exports = function(config) {
 			'dist/**/*.js': ['sourcemap']
 		},	  
 		files: [
-			{pattern: 'lib/jquery/dist/jquery.min.js'},
-			{pattern: 'lib/angular/angular.min.js'},
-			{pattern: 'lib/lodash/lodash.min.js'},
+			{pattern: 'dist/libs.js'},
 			{pattern: 'dist/app.js', included: true},
 			//{pattern: 'dist/js/**/*.js', included: true},
 			{pattern: 'dist/tests/**/unit/*Spec.js', included: true},

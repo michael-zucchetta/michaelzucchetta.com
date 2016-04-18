@@ -48,6 +48,14 @@ module.exports = function(grunt) {
 					"dist/js/**/*.js",
 				],
 				dest: "dist/app.js"
+			},
+			"build-libs": {
+				src: [
+					"lib/jquery/jquery.min.js",
+					"lib/lodash/lodash.min.js",
+					"lib/angular/angular.min.js"
+				],
+				dest: "dist/libs.js"
 			}
 		},
 		copy: {
@@ -75,22 +83,6 @@ module.exports = function(grunt) {
 					src: ["**/*.jpg", "**/*.png", "**/*.jpeg"],
 					dest: "tests/"
 				}
-		},
-		tree: {
-			options: {
-				format: true
-			},
-			js: {
-				options: {
-					type: ["js"]
-				},
-				files: [
-					{
-						src: ["dist/"],
-						dest: filesPath
-					}
-				]
-			}
 		},
 		jsbeautifier: {
 			files: ["src/js/initialisation/requirejs-bootstrap.js", "src/js/initialisation/requirejs-bootstrap-test.js"],
@@ -160,7 +152,7 @@ module.exports = function(grunt) {
 				files: ["src/**/*.ts"],
 				tasks: ["newer:ts:compile", "tslint"],
 				options: {
-					event: ["changed", "deleted"]
+					event: ["changed", "deleted", "newer"]
 				}
 			},
 			coffee: {
@@ -252,7 +244,6 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks("grunt-karma");
 	grunt.loadNpmTasks("grunt-newer");
 	grunt.loadNpmTasks("grunt-protractor-runner");
-	grunt.loadNpmTasks("grunt-tree");
 	grunt.loadNpmTasks("grunt-ts");
 	grunt.loadNpmTasks("grunt-tslint");
 
@@ -272,5 +263,5 @@ module.exports = function(grunt) {
 	//grunt.registerTask("default", [/*"npm-install", "bower-install", "clean",*/ "tree", "coffee", "build-requirejs", "concat", "jsbeautifier", "copy", "sass"/*, "jshint"*/]);
 	grunt.registerTask("test", ["default", "karma"]);
 	grunt.registerTask("dev", ["default", "watch"]);
-	grunt.registerTask("default", ["ts", "concat:build-ts", "watch:ts"]);
+	grunt.registerTask("default", ["ts", "concat:build-ts", "concat:build-libs", "watch:ts"]);
 }
