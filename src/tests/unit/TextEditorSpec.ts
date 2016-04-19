@@ -14,7 +14,7 @@ describe ('Test TextEditor class', () => {
 	let newCharEvent: KeyboardEvent = new KeyboardEvent('0');
 	let charEventDel: KeyboardEvent = new KeyboardEvent('0');
 
-	//move events
+	// move events
 	let leftArrowEvent: KeyboardEvent = new KeyboardEvent('0');
 	let rightArrowEvent: KeyboardEvent = new KeyboardEvent('0');
 	let downArrowEvent: KeyboardEvent = new KeyboardEvent('0');
@@ -28,13 +28,13 @@ describe ('Test TextEditor class', () => {
 	mockedClickEvent.target = {};
 
 
-	//To be moved in another file
+	// To be moved in another file
 	let cellWidth: number = 8;
 	let cellHeight: number = 16;
 	let editorWidth: number = 800;
 	let editorHeight: number = 416;
 
-	//to be moved as well
+	// to be moved as well
 	let delKey = 46;
 	
 	let newKey = 13;
@@ -77,7 +77,7 @@ describe ('Test TextEditor class', () => {
 		container.appendChild(display);
 		editor = new TextEditor('#displayId' + nth, '#textareaId' + nth, '.containerClass' + nth, 'cell' + nth);
 
-		//Object.defineProperty(charEvent, 'keyCode', 'a'.charCodeAt(0));
+		// Object.defineProperty(charEvent, 'keyCode', 'a'.charCodeAt(0));
 		setKey(charEvent, 'a'.charCodeAt(0));
 		
 		setKey(newCharEvent, newKey);
@@ -131,7 +131,7 @@ describe ('Test TextEditor class', () => {
 		});
 
 		it('click on the editor with non empty string', () => {
-			//set editor text
+			// set editor text
 			mockedString = 'abcdefghjklmnopqrstuwyxz123';
 			editor.clickEditor({
 				offsetX: 0,
@@ -164,7 +164,7 @@ describe ('Test TextEditor class', () => {
 		it('test characters insertion', () => {
 			initTextEditorSpec(2);
 			editor.initEditor();
-			//charCodeAt returns the keyCode for a char
+			// charCodeAt returns the keyCode for a char
 			editor.insertChar(charEvent);
 			expect(editor.textValue.length).toBe(1);
 			editor.insertChar(charEvent);
@@ -174,7 +174,7 @@ describe ('Test TextEditor class', () => {
 			expect(editor.carelPos.left).toBe(cellWidth * 2);
 			expect(editor.carelPos.top).toBe(0);
                        
-			//new chars
+			// new chars
 			editor.insertChar(newCharEvent);
 			expect(editor.cellY).toBe(1);
 			expect(editor.carelPos.left).toBe(0);
@@ -189,7 +189,7 @@ describe ('Test TextEditor class', () => {
 
 		let carelXPos = 0;
 		it('test characters insertion and deletion', () => {
-			//reset editor
+			// reset editor
 			initTextEditorSpec(3);
 			editor.initEditor();
 			editor.insertChar(charEvent);
@@ -204,7 +204,7 @@ describe ('Test TextEditor class', () => {
 			editor.insertChar(charEvent);
 			carelXPos++;
 
-			//46 is the deletion char
+			// 46 is the deletion char
 			carelXPos--;
 			editor.textValue = editor.textValue.substring(0, carelXPos);
 			editor.deleteChar(charEventDel, delKey);
@@ -225,7 +225,7 @@ describe ('Test TextEditor class', () => {
 
 			expect(editor.carelPos.left).toBe(carelXPos * cellWidth)
 
-			//delete everything			
+			// delete everything			
 			editor.deleteChar(charEventDel, delKey);
 			editor.deleteChar(charEventDel, delKey);
 			editor.deleteChar(charEventDel, delKey);
@@ -238,31 +238,31 @@ describe ('Test TextEditor class', () => {
 		});
 
 		it('use directional arrows', () => {
-			//reset editor
+			// reset editor
 			initTextEditorSpec(4)
 			editor.initEditor()
 			setInitialStrings(['test', 'abc'])
 			editor.moveArrow(uselessCharEvent, null)
 			carelXPos = 3
-			//2
+			// 2
 			editor.moveArrow(leftArrowEvent, leftKey)
 			carelXPos--;
 			expect(editor.cellX).toBe(carelXPos);
 			expect(editor.carelPos.left).toBe(carelXPos * cellWidth);
 		   
-			//1
+			// 1
 			editor.moveArrow(leftArrowEvent, leftKey);
 			carelXPos--;
 			expect(editor.cellX).toBe(carelXPos);
 			expect(editor.carelPos.left).toBe(cellWidth);
 
-			//0
+			// 0
 			editor.moveArrow(leftArrowEvent, leftKey);
 			carelXPos--;
 			expect(editor.cellX).toBe(0);
 			expect(editor.carelPos.left).toBe(0);
            
-			//-1
+			// -1
 			editor.moveArrow(leftArrowEvent, leftKey);
 			carelXPos--;
 			expect(editor.cellY).toEqual(0, 'cellY has not changed after left key has been pressed');
@@ -270,16 +270,16 @@ describe ('Test TextEditor class', () => {
 			expect(editor.carelPos.left).toEqual(4 * cellWidth, 'carelPos.left has changed after left key');
 			expect(editor.carelPos.top).toEqual(0, 'carelPos.top has not changed after it has gone up');
 
-			//right key			
+			// right key			
 			editor.handleKeyDown(rightArrowEvent);
 			carelXPos++;
 			expect(editor.cellY).toEqual(1, 'cellY has not increased after right key has been pressed');
 			expect(editor.cellX).toEqual(0, 'right key on a new line always mean 0 as cellX');
 			
-			//back
+			// back
 			editor.moveArrow(leftArrowEvent, leftKey);
 
-			//down key		
+			// down key		
 			editor.handleKeyDown(downArrowEvent);
 			expect(editor.cellY).toEqual(1, 'cellY should be increased');
 			editor.handleKeyDown(downArrowEvent);
@@ -300,12 +300,12 @@ describe ('Test TextEditor class', () => {
 		});
 
 		it('use of copy/paste', () => {
-			//reset editor
+			// reset editor
 			initTextEditorSpec(5);
 			editor.initEditor();
 			setInitialStrings(['a', 'f']);
 			
-			//last char, last line
+			// last char, last line
 			let mockedPastedText = 'cane';
 			let mockedPasteEvent = {
 				clipboardData: {

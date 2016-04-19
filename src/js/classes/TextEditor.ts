@@ -17,7 +17,7 @@ class TextPortion {
 }
 
 class TextEditor {
-	public textValue: string = "";
+	public textValue: string = '';
 	public selectedText: TextPortion; 
 	public statusMatrix: Status[];
 	public cellX: number = 0;
@@ -36,7 +36,7 @@ class TextEditor {
 	private editorHeight: number;
 	private colsNumber: number;
 	private rowsNumber: number;
-	private rowSuffix: string = "";
+	private rowSuffix: string = '';
 
 	constructor(displayQuery: string, textareaQuery: string, containerQuery: string, rowSuffix: string) {
 		/**
@@ -84,7 +84,7 @@ class TextEditor {
 		this.statusMatrix = _.map(this.statusMatrix, (el: Status, $index: number): Status => {
 			el = new Status();
 			el.isNew = true;
-			el.string = "";
+			el.string = '';
 			el.id = this.rowSuffix + $index;
 			return el;
 		});
@@ -136,8 +136,8 @@ class TextEditor {
 		if (Keys.isNewLineKey(key)) {
 			this.carelPos.left = 0;
 			this.carelPos.top += this.cellHeight;
-			this._textarea.val("");
-			this.textValue = "";
+			this._textarea.val('');
+			this.textValue = '';
 			this.cellX = 0;
 			this.cellY++;
 		}
@@ -216,7 +216,7 @@ class TextEditor {
 			return;
 		}
 		if (this.statusMatrix[this.cellY].string.length === 0) {
-			this.statusMatrix[this.cellY].string = "";
+			this.statusMatrix[this.cellY].string = '';
 			this.statusMatrix[this.cellY].isNew = true;
 			if (this.cellY !== 0) {
 				this.cellY--;
@@ -241,7 +241,7 @@ class TextEditor {
 
 	public pasteText($event): void {
 		let event = $event.originalEvent || $event;
-		let pastedText: string = event.clipboardData.getData("text/plain");
+		let pastedText: string = event.clipboardData.getData('text/plain');
 		_.each(pastedText, (char: string) => {
 			this.addCharacterToEditor(char.charCodeAt(0));
 		});

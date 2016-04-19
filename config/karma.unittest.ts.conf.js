@@ -7,9 +7,8 @@ module.exports = function(config) {
 			'dist/**/*.js': ['sourcemap']
 		},	  
 		files: [
-			{pattern: 'dist/libs.js'},
+			{pattern: 'dist/libs.js', included: true},
 			{pattern: 'dist/app.js', included: true},
-			//{pattern: 'dist/js/**/*.js', included: true},
 			{pattern: 'dist/tests/**/unit/*Spec.js', included: true},
 			{pattern: 'dist/js/**/*.json', included: false},
 			{pattern: 'src/**/*.ts', included: false},
@@ -63,7 +62,6 @@ module.exports = function(config) {
 			'karma-html-reporter',
 			'karma-jasmine',
 			'karma-jasmine-jquery',
-			'karma-requirejs',
 			'karma-chrome-launcher',
 			'karma-firefox-launcher',
 			'karma-sourcemap-loader'
