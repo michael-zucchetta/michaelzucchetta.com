@@ -1,4 +1,4 @@
-angular.module('michaelzucchetta').component(['$sce', '$timeout', '$interval',
+angular.module('michaelzucchetta').component('jsonEditor', ['$sce', '$timeout', '$interval',
 	($sce, $timeout, $interval) => {
 		return {
 			restrict: 'E',

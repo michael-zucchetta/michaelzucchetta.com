@@ -1,0 +1,8 @@
+{
+  "ambientDependencies": {
+    "angular": "github:DefinitelyTyped/DefinitelyTyped/angularjs/angular.d.ts#fa3294c560ee49f4af43e02a62e3f4b5b6bbe5e5",
+    "jasmine": "github:DefinitelyTyped/DefinitelyTyped/jasmine/jasmine.d.ts#5c182b9af717f73146399c2485f70f1e2ac0ff2b",
+    "jquery": "github:DefinitelyTyped/DefinitelyTyped/jquery/jquery.d.ts#56295f5058cac7ae458540423c50ac2dcf9fc711",
+    "lodash": "github:DefinitelyTyped/DefinitelyTyped/lodash/lodash-3.10.d.ts#e12c8e3bcdd77fb05d498ec61525be6ad112dfd6"
+  }
+}

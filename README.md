@@ -17,7 +17,6 @@ Install npm and do the following (as they are used in package):
 - gem install sass
 - gem install compass
 - npm install -g typings
-- npm install -g tsd
 - typings install 
 
 Then:
