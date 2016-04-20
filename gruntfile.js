@@ -46,6 +46,7 @@ module.exports = function(grunt) {
 			"build-ts": {
 				src: [
 					"dist/js/**/*.js",
+					"dist/directives/**/*.js"
 				],
 				dest: "dist/app.js"
 			},
@@ -53,7 +54,9 @@ module.exports = function(grunt) {
 				src: [
 					"lib/jquery/dist/jquery.min.js",
 					"lib/lodash/lodash.min.js",
-					"lib/angular/angular.min.js"
+					"lib/angular/angular.min.js",
+					"lib/angular-route/angular-route.min.js",
+					"lib/angular-css/angular-css.min.js"
 				],
 				dest: "dist/libs.js"
 			}
@@ -96,30 +99,6 @@ module.exports = function(grunt) {
 		jshint: {
 			all: ["dist/**/*.js"]
 		},
-		coffee: {
-			compile_with_maps: {
-				options: {
-					sourceMap: true
-				},
-				src:  ["**/*.coffee", "!tests/**"],
-				cwd: "src/",
-				dest: "dist/",
-				ext: ".js",
-				expand: true,
-				flatten: false
-			},
-			compile_tests_with_maps: {
-				options: {
-					sourceMap: true
-				},
-				src:  ["**/*.coffee"],
-				cwd: "src/tests",
-				dest: "tests/",
-				ext: ".js",
-				expand: true,
-				flatten: false
-			}
-		},
 		clean: {
 			js: ["dist/**/*.js"]
 		},
@@ -150,23 +129,9 @@ module.exports = function(grunt) {
 		watch: {
 			ts: {
 				files: ["src/**/*.ts"],
-				tasks: ["newer:ts:compile", "tslint"],
+				tasks: ["newer:ts:compile", "concat:build-ts", "tslint"],
 				options: {
 					event: ["changed", "deleted", "newer"]
-				}
-			},
-			coffee: {
-				files: ["src/**/*.coffee"],
-				tasks: "newer:coffee",
-				options: {
-					event: ["changed", "deleted"]
-				}
-			},
-			coffee_after_creation: {
-				files: ["src/**/*.coffee"],
-				tasks: ["newer:coffee", "build-requirejs", "concat", "jsbeautifier", "newer:copy:json"],
-				options: {
-					event: ["added"]
 				}
 			},
 			sass_after_creation: {

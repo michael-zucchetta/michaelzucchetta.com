@@ -10,7 +10,6 @@
 		"angular-css": "*",
 		"ng-file-upload": "*",
 		"bootstrap": "*",
-		"requirejs": "*",
 		"lodash": "*"
 	},
 	"private": true
