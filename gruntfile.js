@@ -53,7 +53,7 @@ module.exports = function(grunt) {
 			"build-libs": {
 				src: [
 					"lib/jquery/dist/jquery.min.js",
-					"lib/lodash/lodash.min.js",
+					"lib/lodash/lodash.js",
 					"lib/angular/angular.min.js",
 					"lib/angular-route/angular-route.min.js",
 					"lib/angular-css/angular-css.min.js"
@@ -141,13 +141,6 @@ module.exports = function(grunt) {
 					event: ["added"]
 				}
 			},
-			coffee_test: {
-				files: ["src/tests/*.coffee"],
-				tasks: ["newer:compile_tests_with_maps"],
-				options: {
-					event: ["added", "changed"]
-				}
-			},
 			sass_watch: {
 				files: ["src/**/*.scss"],
 				tasks: ["newer:sass:dest"],
@@ -165,13 +158,6 @@ module.exports = function(grunt) {
 			copy_html: {
 				files: ["src/**/*.html"],
 				tasks: ["newer:copy:html"],			
-				options: {
-					event: ["changed", "added", "deleted"]
-				}
-			},
-			jshint: {
-				files: ["dist/js/**/*.js"],
-				task: "newer:jshint",
 				options: {
 					event: ["changed", "added", "deleted"]
 				}
@@ -232,5 +218,5 @@ module.exports = function(grunt) {
 	//grunt.registerTask("default", [/*"npm-install", "bower-install", "clean",*/ "tree", "coffee", "build-requirejs", "concat", "jsbeautifier", "copy", "sass"/*, "jshint"*/]);
 	grunt.registerTask("test", ["default", "karma"]);
 	grunt.registerTask("dev", ["default", "watch"]);
-	grunt.registerTask("default", ["typings", "copy:html", "sass", "clean", "ts", "concat:build-ts", "concat:build-libs", "watch:ts", "watch:sass_after_creation"]);
+	grunt.registerTask("default", ["typings", "copy:html", "sass", "clean", "ts", "concat:build-ts", "concat:build-libs", "watch"]);
 }

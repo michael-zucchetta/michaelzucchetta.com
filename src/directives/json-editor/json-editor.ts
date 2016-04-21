@@ -1,10 +1,10 @@
 (() => {
-	let jsonEditorCtrl = ($timeout) => {
+	function jsonEditorCtrl ($timeout, $interval) {
 		let display: JQuery = $('#json-display');
 		let textarea: JQuery = $('#json-input');
 		let container: JQuery = $('json-input-container');
 		let vm = this;
-
+		this.test = "fefae";
 		vm.editor = new TextEditor('#json-display', '#json-input', '.json-input-container', 'cell');
 
 		vm.setPosition = ($event): void => {
@@ -31,9 +31,23 @@
 			});
 		};
 
+		vm.initCursor = (cursorId: number): void => {
+			$interval(() => {
+				vm.hideCursor = !vm.hideCursor;
+			}, 500);
+		};
+		
+		angular.element(document).ready(() => {
+			$timeout(() => {
+				vm.editor.initEditor();
+			}, 100);
+			vm.initCursor('cursor');
+			textarea.focus();
+		});
+		this.test = 5;
 	};
 
-	jsonEditorCtrl.$inject = ['$timeout'];
+	jsonEditorCtrl.$inject = ['$timeout', '$interval'];
 	interface IComponentOptionsCss extends angular.IComponentOptions {
 		css: string;
 	};
@@ -44,7 +58,6 @@
 		},
 		css: '/directives/json-editor/json-editor.css',
 		templateUrl: '/directives/json-editor/json-editor.html',
-		controllerAs: 'editorCtrl',
 		controller: jsonEditorCtrl
 	};
 	angular.module('michaelzucchetta').component('jsonEditor', jsonEditorOpts);

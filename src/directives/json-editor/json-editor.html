@@ -3,20 +3,19 @@
 	<div id="json-display">
 		<div class="editor-line-numbers">
 		</div>
-		<div class="editor-table" ng-click="editorCtrl.setPosition($event)">
+		<div class="editor-table" ng-click="$ctrl.setPosition($event)">
 			<textarea id="json-input"
-				ng-model="json" ng-style="carelPos"
-				ng-keypress="editorCtrl.insertCharacter($event)"
-				ng-keydown="editorCtrl.handleKeyDown($event)"
-				ng-paste="editorCtrl.pasteText($event)"></textarea>
-			<b id="cursor" ng-hide="hideCursor" ng-style="editorCtrl.editor.carelPos"></b>
+				ng-model="json" ng-style="$ctrl.carelPos"
+				ng-keypress="$ctrl.insertCharacter($event)"
+				ng-keydown="$ctrl.handleKeyDown($event)"
+				ng-paste="$ctrl.pasteText($event)"></textarea>
+			<b id="cursor" ng-hide="$ctrl.hideCursor" ng-style="$ctrl.editor.carelPos"></b>
 			<div class="editor-row" 
 				tabindex="0"
-				ng-repeat="row in editorCtrl.editor.statusMatrix"
+				ng-repeat="row in $ctrl.editor.statusMatrix"
     				ng-if="row.id" id="{{row.id}}" ng-bind="row.string"
-				ng-keydown="editorCtrl.handleExistingText($event)"
-				ng-dblclick="editorCtrl.selectWord($event)"
-				>
+				ng-keydown="$ctrl.handleExistingText($event)"
+				ng-dblclick="$ctrl.selectWord($event)">
 			</div>
 		</div>
 	</div>

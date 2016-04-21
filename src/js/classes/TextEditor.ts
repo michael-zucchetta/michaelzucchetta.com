@@ -143,6 +143,10 @@ class TextEditor {
 		}
 	};
 
+        public selectText(selectedText): void {
+		this.selectedText = selectedText;
+	}
+
 	public insertChar($event: KeyboardEvent): void {
 		let key: number = Keys.getKeyFromEvent($event);
 		this.addCharacterToEditor(key);
@@ -204,9 +208,21 @@ class TextEditor {
 	}
 
 	public handleKeyDown($event: KeyboardEvent): void {
+		// add tests for this
 		let key = Keys.getKeyFromEvent($event);
 		if (Keys.isArrowKey(key)) {
 			this.moveArrow($event, key);
+		} else if (Keys.isDelKey(key)) {
+			this.deleteChar($event, key);
+		} else if (key === Keys.charA && ($event.ctrlKey || $event.metaKey)) {
+			/**
+			 * select all
+			 * to be fixed on Mac
+			 * tests to be added for this
+			 */
+			//this.selectText(this.containerQuery);
+		} else {
+			//return this.handleSpecialkeys($event, key);
 		}
 	}
 

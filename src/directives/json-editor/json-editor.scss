@@ -34,6 +34,7 @@
 				.editor-row {
 					white-space: pre;
 					height: $json-editor-row-height;
+					outline: none;
 					p {
 						text-indent: 5em;
 					}
