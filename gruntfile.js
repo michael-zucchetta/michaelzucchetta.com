@@ -186,7 +186,10 @@ module.exports = function(grunt) {
 				tsconfig: true
 			}
 		},
-		tslint: {
+		"typings": {
+			install: {}
+		},
+		"tslint": {
 			options: {
 				configuration: "tslint.json"
 			},
@@ -211,6 +214,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks("grunt-protractor-runner");
 	grunt.loadNpmTasks("grunt-ts");
 	grunt.loadNpmTasks("grunt-tslint");
+	grunt.loadNpmTasks("grunt-typings");
 
 	grunt.registerTask("bower-install", ["bower-install-simple"]);
 	
@@ -228,5 +232,5 @@ module.exports = function(grunt) {
 	//grunt.registerTask("default", [/*"npm-install", "bower-install", "clean",*/ "tree", "coffee", "build-requirejs", "concat", "jsbeautifier", "copy", "sass"/*, "jshint"*/]);
 	grunt.registerTask("test", ["default", "karma"]);
 	grunt.registerTask("dev", ["default", "watch"]);
-	grunt.registerTask("default", ["clean", "ts", "concat:build-ts", "concat:build-libs", "watch:ts"]);
+	grunt.registerTask("default", ["typings", "clean", "ts", "concat:build-ts", "concat:build-libs", "watch:ts"]);
 }
