@@ -1,5 +1,5 @@
 (() => {
-	function jsonEditorCtrl ($timeout, $interval) {
+	function jsonEditorCtrl ($timeout: ng.ITimeoutService, $interval: ng.IIntervalService): void {
 		let display: JQuery = $('#json-display');
 		let textarea: JQuery = $('#json-input');
 		let container: JQuery = $('json-input-container');
@@ -20,7 +20,7 @@
 		};
 
 		vm.insertCharacter = ($event): void => {
-			//a character has been inserted
+			// a character has been inserted
 			vm.editor.insertChar($event);
 			vm.jsonText = vm.editor.textValue;
 		};
@@ -36,7 +36,7 @@
 				vm.hideCursor = !vm.hideCursor;
 			}, 500);
 		};
-		
+
 		angular.element(document).ready(() => {
 			$timeout(() => {
 				vm.editor.initEditor();
@@ -52,7 +52,7 @@
 		css: string;
 	};
 	let jsonEditorOpts: IComponentOptionsCss = {
-		//restrict: 'E',
+		// restrict: 'E',
 		bindings: {
 			jsonText: '='
 		},

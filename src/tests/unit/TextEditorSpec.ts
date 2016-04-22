@@ -6,9 +6,9 @@ class ZEvent {
 describe ('Test TextEditor class', () => {
 
 	let editor: TextEditor;
-	let display : HTMLDivElement;
-	let textarea : HTMLTextAreaElement;
-	let container : HTMLDivElement;
+	let display: HTMLDivElement;
+	let textarea: HTMLTextAreaElement;
+	let container: HTMLDivElement;
 
 	let charEvent: KeyboardEvent = document.createEvent('KeyboardEvent');
 	let newCharEvent: KeyboardEvent = document.createEvent('KeyboardEvent');
@@ -27,7 +27,7 @@ describe ('Test TextEditor class', () => {
 	mockedClickEvent.target = {};
 
 
-	// To be moved in another file
+	// to be moved in another file
 	let cellWidth: number = 8;
 	let cellHeight: number = 16;
 	let editorWidth: number = 800;
@@ -48,7 +48,7 @@ describe ('Test TextEditor class', () => {
 	};
 
 	let setInitialStrings: Function = (stringValues: string[]) : void => {
-		_.each(stringValues, (stringValue : string, $index : number) => {
+		_.each(stringValues, (stringValue: string, $index: number) => {
 			editor.statusMatrix[$index].isNew = false;
 			editor.statusMatrix[$index].string = stringValue;
 		});
@@ -76,9 +76,9 @@ describe ('Test TextEditor class', () => {
 		container.appendChild(display);
 		editor = new TextEditor('#displayId' + nth, '#textareaId' + nth, '.containerClass' + nth, 'cell' + nth);
 
-		// Object.defineProperty(charEvent, 'keyCode', 'a'.charCodeAt(0));
+		// to define Object.defineProperty(charEvent, 'keyCode', 'a'.charCodeAt(0));
 		setKey(charEvent, 'a'.charCodeAt(0));
-		
+
 		setKey(newCharEvent, newKey);
 		setKey(charEventDel, delKey);
 
@@ -172,7 +172,7 @@ describe ('Test TextEditor class', () => {
 			expect(editor.statusMatrix[0].string).toBe('aa');
 			expect(editor.carelPos.left).toBe(cellWidth * 2);
 			expect(editor.carelPos.top).toBe(0);
-                       
+
 			// new chars
 			editor.insertChar(newCharEvent);
 			expect(editor.cellY).toBe(1);
@@ -196,7 +196,7 @@ describe ('Test TextEditor class', () => {
 			charEvent.keyCode = 'b'.charCodeAt(0);
 			editor.insertChar(charEvent);
 			carelXPos++;
-			charEvent.keyCode = 'c'.charCodeAt(0);	
+			charEvent.keyCode = 'c'.charCodeAt(0);
 			editor.insertChar(charEvent);
 			carelXPos++;
 			charEvent.keyCode = 'd'.charCodeAt(0);
@@ -212,10 +212,10 @@ describe ('Test TextEditor class', () => {
 		});
 
 		it('new line and deletion', () => {
-	        	editor.insertChar(newCharEvent);
+			editor.insertChar(newCharEvent);
 			expect(editor.cellY).toEqual(1, 'cellY value was not changed when a new char was inserted');
 			editor.deleteChar(charEventDel, delKey);
-			
+
 			expect(editor.cellY).toEqual(0, 'cellY was not decreased after char deletion');
 
 			expect(editor.textValue).toBe(editor.statusMatrix[editor.cellY].string);
@@ -248,7 +248,7 @@ describe ('Test TextEditor class', () => {
 			carelXPos--;
 			expect(editor.cellX).toBe(carelXPos);
 			expect(editor.carelPos.left).toBe(carelXPos * cellWidth);
- 
+
 			// 1
 			editor.moveArrow(leftArrowEvent, leftKey);
 			carelXPos--;

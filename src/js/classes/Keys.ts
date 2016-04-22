@@ -26,7 +26,7 @@ class Keys {
 	public static getKeyFromEvent($event: KeyboardEvent): number {
 		// key is the unimplemented new version, the others are deprecated
 		let key: number|string = $event.key || $event.keyCode || $event.charCode || $event.which;
-		if (typeof key === "string") {
+		if (typeof key === 'string') {
 			return parseInt(key);
 		} else {
 			return key;

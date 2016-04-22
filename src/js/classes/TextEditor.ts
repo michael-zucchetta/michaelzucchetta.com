@@ -18,7 +18,7 @@ class TextPortion {
 
 class TextEditor {
 	public textValue: string = '';
-	public selectedText: TextPortion; 
+	public selectedText: TextPortion;
 	public statusMatrix: Status[];
 	public cellX: number = 0;
 	public cellY: number = 0;
@@ -143,7 +143,7 @@ class TextEditor {
 		}
 	};
 
-        public selectText(selectedText): void {
+	public selectText(selectedText): void {
 		this.selectedText = selectedText;
 	}
 
@@ -179,8 +179,7 @@ class TextEditor {
 		}
 		if (this.cellX + deltaX >= this.statusMatrix[this.cellY].string.length && key !== Keys.upKey) {
 			deltaY = 1;
-		}
-		else if (this.cellX + deltaX >= 0) {
+		} else if (this.cellX + deltaX >= 0) {
 			this.cellX += deltaX;
 			this.carelPos.left += this.cellWidth * deltaX;
 			done = true;
@@ -220,9 +219,9 @@ class TextEditor {
 			 * to be fixed on Mac
 			 * tests to be added for this
 			 */
-			//this.selectText(this.containerQuery);
+			// this.selectText(this.containerQuery);
 		} else {
-			//return this.handleSpecialkeys($event, key);
+			// return this.handleSpecialkeys($event, key);
 		}
 	}
 
@@ -264,7 +263,7 @@ class TextEditor {
 	}
 
 	public cutText(): void {
-		
+		return undefined;
 	}
 
 	private getLastRowIndex(): number {
