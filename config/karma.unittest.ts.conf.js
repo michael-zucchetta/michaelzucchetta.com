@@ -44,7 +44,8 @@ module.exports = function(config) {
 		autoWatch: true,
 
 		// Start these browsers
-		browsers: ['Chrome'],
+		//browsers: ['Chrome', 'PhantomJS'],
+		browsers: ['PhantomJS'],
 
 		// If browser does not capture in given timeout [ms], kill it
 		captureTimeout: 60000,
@@ -64,6 +65,7 @@ module.exports = function(config) {
 			'karma-jasmine-jquery',
 			'karma-chrome-launcher',
 			'karma-firefox-launcher',
+			'karma-phantomjs-launcher',
 			'karma-sourcemap-loader'
 		]
 	});

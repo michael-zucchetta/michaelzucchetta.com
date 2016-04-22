@@ -10,17 +10,17 @@ describe ('Test TextEditor class', () => {
 	let textarea : HTMLTextAreaElement;
 	let container : HTMLDivElement;
 
-	let charEvent: KeyboardEvent = new KeyboardEvent('0');
-	let newCharEvent: KeyboardEvent = new KeyboardEvent('0');
-	let charEventDel: KeyboardEvent = new KeyboardEvent('0');
+	let charEvent: KeyboardEvent = document.createEvent('KeyboardEvent');
+	let newCharEvent: KeyboardEvent = document.createEvent('KeyboardEvent');
+	let charEventDel: KeyboardEvent = document.createEvent('KeyboardEvent');
 
 	// move events
-	let leftArrowEvent: KeyboardEvent = new KeyboardEvent('0');
-	let rightArrowEvent: KeyboardEvent = new KeyboardEvent('0');
-	let downArrowEvent: KeyboardEvent = new KeyboardEvent('0');
-	let upArrowEvent: KeyboardEvent = new KeyboardEvent('0');
+	let leftArrowEvent: KeyboardEvent = document.createEvent('KeyboardEvent');
+	let rightArrowEvent: KeyboardEvent = document.createEvent('KeyboardEvent');
+	let downArrowEvent: KeyboardEvent = document.createEvent('KeyboardEvent');
+	let upArrowEvent: KeyboardEvent = document.createEvent('KeyboardEvent');
 
-	let uselessCharEvent: KeyboardEvent = new KeyboardEvent('0');
+	let uselessCharEvent: KeyboardEvent = document.createEvent('KeyboardEvent');
 
 	let mockedString: string = '';
 	let mockedClickEvent: ZEvent = new ZEvent();
