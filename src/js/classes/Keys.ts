@@ -27,7 +27,7 @@ class Keys {
 		// key is the unimplemented new version, the others are deprecated
 		let key: number|string = $event.key || $event.keyCode || $event.charCode || $event.which;
 		if (typeof key === 'string') {
-			return parseInt(key);
+			return parseInt(key, 10);
 		} else {
 			return key;
 		}

@@ -8,6 +8,7 @@ module.exports = function(config) {
 		},	  
 		files: [
 			{pattern: 'dist/libs.js', included: true},
+			'/lib/angular-mocks/angular-mocks.js',
 			{pattern: 'dist/app.js', included: true},
 			{pattern: 'dist/tests/**/unit/*Spec.js', included: true},
 			{pattern: 'dist/js/**/*.json', included: false},

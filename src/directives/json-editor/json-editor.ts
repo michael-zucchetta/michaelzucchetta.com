@@ -1,15 +1,15 @@
 (() => {
-	function jsonEditorCtrl ($timeout: ng.ITimeoutService, $interval: ng.IIntervalService): void {
+	function JsonEditorCtrl ($timeout: ng.ITimeoutService, $interval: ng.IIntervalService): void {
 		let display: JQuery = $('#json-display');
 		let textarea: JQuery = $('#json-input');
 		let container: JQuery = $('json-input-container');
-		let vm = this;
+		let vm: any = this;
 		vm.editor = new TextEditor('#json-display', '#json-input', '.json-input-container', 'cell');
 
-		vm.setPosition = ($event): void => {
+		vm.setPosition = ($event: ng.IAngularEvent): void => {
 			let setPosition = (): void => {
 				// checking if any text has been selected
-				let selectedText = window.getSelection().toString();
+				let selectedText: string = window.getSelection().toString();
 				if (selectedText) {
 					vm.editor.selectedText(selectedText);
 				} else if (!vm.noSingleClick) {
@@ -19,13 +19,13 @@
 			$timeout(setPosition, 10);
 		};
 
-		vm.insertCharacter = ($event): void => {
+		vm.insertCharacter = ($event: ng.IAngularEvent): void => {
 			// a character has been inserted
 			vm.editor.insertChar($event);
 			vm.jsonText = vm.editor.textValue;
 		};
 
-		vm.handleKeyDown = ($event): void => {
+		vm.handleKeyDown = ($event: ng.IAngularEvent): void => {
 			$timeout(() => vm.editor.handleKeyDown($event));
 		};
 
@@ -40,7 +40,7 @@
 		});
 	};
 
-	jsonEditorCtrl.$inject = ['$timeout', '$interval'];
+	JsonEditorCtrl.$inject = ['$timeout', '$interval'];
 	interface IComponentOptionsCss extends angular.IComponentOptions {
 		css: string;
 	};
@@ -51,7 +51,7 @@
 		},
 		css: '/directives/json-editor/json-editor.css',
 		templateUrl: '/directives/json-editor/json-editor.html',
-		controller: jsonEditorCtrl
+		controller: JsonEditorCtrl
 	};
 	angular.module('michaelzucchetta').component('jsonEditor', jsonEditorOpts);
 })();
