@@ -8,7 +8,7 @@ module.exports = function(config) {
 		},	  
 		files: [
 			{pattern: 'dist/libs.js', included: true},
-			'/lib/angular-mocks/angular-mocks.js',
+			{pattern: 'lib/angular-mocks/angular-mocks.js', included: true},
 			{pattern: 'dist/app.js', included: true},
 			{pattern: 'dist/tests/**/unit/*Spec.js', included: true},
 			{pattern: 'dist/js/**/*.json', included: false},
@@ -45,8 +45,8 @@ module.exports = function(config) {
 		autoWatch: true,
 
 		// Start these browsers
-		//browsers: ['Chrome', 'PhantomJS'],
-		browsers: ['PhantomJS'],
+		browsers: ['Chrome', 'PhantomJS'],
+		//browsers: ['PhantomJS'],
 
 		// If browser does not capture in given timeout [ms], kill it
 		captureTimeout: 60000,
