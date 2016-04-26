@@ -3,7 +3,7 @@ class ZEvent {
 	public offsetY: number;
 	public target: any;
 }
-import Utils from '../utils/utils';
+import Utils from 'tests/utils/utils';
 describe ('Test TextEditor class', () => {
 
 	let editor: TextEditor;
@@ -44,10 +44,6 @@ describe ('Test TextEditor class', () => {
 	let rightKey: number = 39;
 	let downKey: number = 40;
 
-	let setKey: Function = (keyEvent: KeyboardEvent, key: number) : void => {
-		keyEvent.key = Number(key).toString();
-	};
-
 	let setInitialStrings: Function = (stringValues: string[]) : void => {
 		_.each(stringValues, (stringValue: string, $index: number) => {
 			editor.statusMatrix[$index].isNew = false;
@@ -78,17 +74,17 @@ describe ('Test TextEditor class', () => {
 		editor = new TextEditor('#displayId' + nth, '#textareaId' + nth, '.containerClass' + nth, 'cell' + nth);
 
 		// to define Object.defineProperty(charEvent, 'keyCode', 'a'.charCodeAt(0));
-		setKey(charEvent, 'a'.charCodeAt(0));
+		Utils.setKey(charEvent, 'a'.charCodeAt(0));
 
-		setKey(newCharEvent, newKey);
-		setKey(charEventDel, delKey);
+		Utils.setKey(newCharEvent, newKey);
+		Utils.setKey(charEventDel, delKey);
 
-		setKey(leftArrowEvent, leftKey);
-		setKey(rightArrowEvent, rightKey);
-		setKey(downArrowEvent, downKey);
-		setKey(upArrowEvent, upKey);
+		Utils.setKey(leftArrowEvent, leftKey);
+		Utils.setKey(rightArrowEvent, rightKey);
+		Utils.setKey(downArrowEvent, downKey);
+		Utils.setKey(upArrowEvent, upKey);
 
-		setKey(uselessCharEvent, 99);
+		Utils.setKey(uselessCharEvent, 99);
 	};
 
 	describe('Test TextEditor class', () => {

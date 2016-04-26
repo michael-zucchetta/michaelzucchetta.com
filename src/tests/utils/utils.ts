@@ -1,6 +1,6 @@
 export default class Utils {
 	
-	public setKey: Function = (keyEvent: KeyboardEvent, key: number) : void => {
+	public static setKey: Function = (keyEvent: KeyboardEvent, key: number) : void => {
                 keyEvent.key = Number(key).toString();
         };	
 }

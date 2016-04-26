@@ -9,16 +9,6 @@ module.exports = function(grunt) {
 			options: {
 				color: true,
 				directory: "lib"
-			},
-			"prod": {
-				options: {
-					production: true
-				}
-			},
-			"dev": {
-				options: {
-					production: false
-				}
 			}
 		},
 		concat: {
@@ -187,5 +177,5 @@ module.exports = function(grunt) {
 	//grunt.registerTask("default", [/*"npm-install", "bower-install", "clean",*/ "tree", "coffee", "build-requirejs", "concat", "jsbeautifier", "copy", "sass"/*, "jshint"*/]);
 	grunt.registerTask("test", ["default", "karma"]);
 	grunt.registerTask("dev", ["default", "watch"]);
-	grunt.registerTask("default", ["typings", "copy:html", "sass", "clean", "ts", "concat:build-ts", "concat:build-libs", "watch"]);
+	grunt.registerTask("default", ["bower-install", "typings", "copy:html", "sass", "clean", "ts", "concat:build-ts", "concat:build-libs", "watch"]);
 }

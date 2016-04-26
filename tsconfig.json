@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "amd",
         "basePath:": "src/",
         "target": "es5",
         "fast": "never",

@@ -2,18 +2,24 @@ module.exports = function(config) {
 	config.set({
 		//Neded for avoiding absolute Path
 		basePath: '../',
-		frameworks: ['jasmine-jquery', 'jasmine'],
+		frameworks: ['requirejs', 'jasmine-jquery', 'jasmine'],
 	        preprocessors: {
 			'dist/**/*.js': ['sourcemap']
 		},	  
 		files: [
-			{pattern: 'dist/libs.js', included: true},
-			{pattern: 'lib/angular-mocks/angular-mocks.js', included: true},
-			{pattern: 'dist/app.js', included: true},
-			{pattern: 'dist/tests/**/unit/*Spec.js', included: true},
-			{pattern: 'dist/js/**/*.json', included: false},
-			{pattern: 'src/**/*.ts', included: false},
-			{pattern: 'lib/**/*.map', included: false}
+			{pattern: 'lib/**/*.js', included: false},
+			{pattern: 'dist/app.js', included: false},
+			{pattern: 'dist/tests/unit/*Spec.js', included: false},
+			{pattern: 'dist/tests/utils/*.js', included: false},
+			'config/karma-require.js'
+		//	{pattern: 'lib/requirejs/requirejs', included: true},
+		//	{pattern: 'dist/libs.js', included: true},
+		//	{pattern: 'lib/angular-mocks/angular-mocks.js', included: true},
+		//	{pattern: 'dist/app.js', included: true},
+		//	{pattern: 'dist/tests/**/unit/*Spec.js', included: true},
+		//	{pattern: 'dist/js/**/*.json', included: false},
+		//	{pattern: 'src/**/*.ts', included: false},
+		//	{pattern: 'lib/**/*.map', included: false}
 		],
 		// list of files to exclude
 		exclude: [
@@ -39,14 +45,14 @@ module.exports = function(config) {
 		colors: true,
 
 		// level of logging
-		logLevel: config.LOG_DEBUG,
+		logLevel: config.LOG_INFO,
 
 		// enable / disable watching file and executing tests whenever any file changes
 		autoWatch: true,
 
 		// Start these browsers
-		// browsers: ['Chrome', 'PhantomJS'],
-		browsers: ['PhantomJS'],
+		browsers: ['Chrome', 'PhantomJS'],
+		// browsers: ['PhantomJS'],
 
 		// If browser does not capture in given timeout [ms], kill it
 		captureTimeout: 60000,
@@ -64,6 +70,7 @@ module.exports = function(config) {
 			'karma-html-reporter',
 			'karma-jasmine',
 			'karma-jasmine-jquery',
+			'karma-requirejs',
 			'karma-chrome-launcher',
 			'karma-firefox-launcher',
 			'karma-phantomjs-launcher',
