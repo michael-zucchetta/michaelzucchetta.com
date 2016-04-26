@@ -3,6 +3,7 @@ class ZEvent {
 	public offsetY: number;
 	public target: any;
 }
+import Utils from '../utils/utils';
 describe ('Test TextEditor class', () => {
 
 	let editor: TextEditor;

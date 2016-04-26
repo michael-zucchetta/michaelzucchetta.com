@@ -22,6 +22,7 @@
         "src/js/initialisation/main.ts",
         "typings/main.d.ts",
         "src/tests/unit/JsonEditorSpec.ts",
-        "src/tests/unit/TextEditorSpec.ts"
+        "src/tests/unit/TextEditorSpec.ts",
+        "src/tests/utils/utils.ts"
     ]
 }

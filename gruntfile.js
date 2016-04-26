@@ -22,27 +22,6 @@ module.exports = function(grunt) {
 			}
 		},
 		concat: {
-			"require": {
-				src: [
-					"src/js/initialisation/require/pre-requirejs-bootstrap",
-					"src/js/initialisation/require/requirejs-bootstrap-body-1",
-					filesPath,
-					"src/js/initialisation/require/requirejs-bootstrap-body-2",
-					"src/js/initialisation/require/post-requirejs-bootstrap"
-				],
-				dest: "src/js/initialisation/requirejs-bootstrap.js"
-			},
-			"require-test": {
-				// karma needs a slightly differenc configuration because it serves files on /base, so two files are built with the same dependecies
-				src: [
-					"src/js/initialisation/require/pre-requirejs-bootstrap-test",
-					"src/js/initialisation/require/requirejs-bootstrap-body-1",
-					filesPath,
-					"src/js/initialisation/require/requirejs-bootstrap-body-2",
-					"src/js/initialisation/require/post-requirejs-bootstrap-test"
-				],
-				dest: "src/js/initialisation/requirejs-bootstrap-test.js"
-			},
 			"build-ts": {
 				src: [
 					"dist/js/**/*.js",
@@ -86,15 +65,6 @@ module.exports = function(grunt) {
 					src: ["**/*.jpg", "**/*.png", "**/*.jpeg"],
 					dest: "tests/"
 				}
-		},
-		jsbeautifier: {
-			files: ["src/js/initialisation/requirejs-bootstrap.js", "src/js/initialisation/requirejs-bootstrap-test.js"],
-			options: {
-				js: {
-					preserveNewlines: false
-				}
-					
-			}
 		},
 		jshint: {
 			all: ["dist/**/*.js"]
@@ -194,7 +164,6 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks("grunt-contrib-jshint");
 	grunt.loadNpmTasks("grunt-contrib-sass");
 	grunt.loadNpmTasks("grunt-contrib-watch");
-	grunt.loadNpmTasks("grunt-jsbeautifier");
 	grunt.loadNpmTasks("grunt-karma");
 	grunt.loadNpmTasks("grunt-newer");
 	grunt.loadNpmTasks("grunt-protractor-runner");
