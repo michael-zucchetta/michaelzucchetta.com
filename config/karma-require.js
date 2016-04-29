@@ -15,17 +15,25 @@ requirejs.config({
 	baseUrl: '/base/dist',
 
 	paths: {
-		"jquery": "lib/jquery/dist/jquery.min.js",
-		"lodash": "lib/lodash/lodash.js",
-		"angular": "lib/angular/angular.min.js",
-		"angular-route": "lib/angular-route/angular-route.min.js",
-		"angular-css": "lib/angular-css/angular-css.min.js"
+		"jquery": "../lib/jquery/dist/jquery.min",
+		"lodash": "../lib/lodash/lodash",
+		"angular": "../lib/angular/angular.min",
+		"angular-route": "../lib/angular-route/angular-route.min",
+		"angular-mocks": "../lib/angular-mocks/angular-mocks",
+		"ngMock": "../lib/angular-mocks/ngMock",
+		"angular-css": "../lib/angular-css/angular-css.min"
 	},
 
 	shim: {
-	//'underscore': {
-	//    exports: '_'
-	//}
+		'angular': {
+			exports: 'angular'
+		},
+		'angular-mocks': {
+			exports: 'angular-mocks'
+		},
+		'ngMock': {
+			exports: 'ngMock'
+		}
 	},
 
 	// ask Require.js to load these files (all our tests)
@@ -34,3 +42,16 @@ requirejs.config({
 	// start test run, once Require.js is done
 	callback: window.__karma__.start
 });
+requirejs(
+        [
+                'jquery',
+                'lodash',
+                'ngMock',
+                'angular',
+                'angular-mocks',
+                // Load our app module and pass it to our definition function
+        ],
+        function(){
+                console.log("bootstrap");
+        }
+);

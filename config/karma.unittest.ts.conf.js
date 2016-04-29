@@ -8,7 +8,7 @@ module.exports = function(config) {
 		},	  
 		files: [
 			{pattern: 'lib/**/*.js', included: false},
-			{pattern: 'dist/app.js', included: false},
+			{pattern: 'dist/**/*.js', included: false},
 			{pattern: 'dist/tests/unit/*Spec.js', included: false},
 			{pattern: 'dist/tests/utils/*.js', included: false},
 			'config/karma-require.js'
@@ -51,7 +51,7 @@ module.exports = function(config) {
 		autoWatch: true,
 
 		// Start these browsers
-		browsers: ['Chrome', 'PhantomJS'],
+		browsers: ['Chrome'],
 		// browsers: ['PhantomJS'],
 
 		// If browser does not capture in given timeout [ms], kill it

@@ -7,7 +7,7 @@ class Status {
 	public string: string;
 	public id: string;
 };
-
+import Keys from 'js/classes/Keys';
 class TextPortion {
 	public y1: number;
 	public x1: number;
@@ -16,7 +16,7 @@ class TextPortion {
 	public text: string;
 }
 
-class TextEditor {
+export default class TextEditor {
 	public textValue: string = '';
 	public selectedText: TextPortion;
 	public statusMatrix: Status[];

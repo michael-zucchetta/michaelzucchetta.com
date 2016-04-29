@@ -4,6 +4,7 @@ class ZEvent {
 	public target: any;
 }
 import Utils from 'tests/utils/utils';
+import TextEditor from 'js/classes/TextEditor';
 describe ('Test TextEditor class', () => {
 
 	let editor: TextEditor;

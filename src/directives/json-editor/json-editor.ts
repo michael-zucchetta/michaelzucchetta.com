@@ -1,3 +1,4 @@
+import TextEditor from 'js/classes/TextEditor';
 (() => {
 	function JsonEditorCtrl ($timeout: ng.ITimeoutService, $interval: ng.IIntervalService): void {
 		let display: JQuery = $('#json-display');

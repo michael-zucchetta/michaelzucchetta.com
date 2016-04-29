@@ -1,3 +1,4 @@
+import Keys from 'js/classes/Keys';
 describe ('Test jsonEditor component', () => {
 	let $componentController,
 		component;

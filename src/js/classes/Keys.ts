@@ -1,4 +1,4 @@
-class Keys {
+export default class Keys {
 	public static leftKey: number = 37;
 	public static upKey: number = 38;
 	public static rightKey: number = 39;
