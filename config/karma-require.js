@@ -20,7 +20,6 @@ requirejs.config({
 		"angular": "../lib/angular/angular.min",
 		"angular-route": "../lib/angular-route/angular-route.min",
 		"angular-mocks": "../lib/angular-mocks/angular-mocks",
-		"ngMock": "../lib/angular-mocks/ngMock",
 		"angular-css": "../lib/angular-css/angular-css.min"
 	},
 
@@ -29,10 +28,7 @@ requirejs.config({
 			exports: 'angular'
 		},
 		'angular-mocks': {
-			exports: 'angular-mocks'
-		},
-		'ngMock': {
-			exports: 'ngMock'
+			deps: ['angular']
 		}
 	},
 
@@ -44,14 +40,13 @@ requirejs.config({
 });
 requirejs(
         [
+                'angular',
                 'jquery',
                 'lodash',
-                'ngMock',
-                'angular',
                 'angular-mocks',
                 // Load our app module and pass it to our definition function
         ],
         function(){
-                console.log("bootstrap");
-        }
+		console.log("HOOOI");
+	}
 );

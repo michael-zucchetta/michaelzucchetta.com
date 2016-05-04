@@ -1,3 +1,4 @@
+import angular from 'angular-mocks';
 import Keys from 'js/classes/Keys';
 describe ('Test jsonEditor component', () => {
 	let $componentController,
@@ -5,7 +6,7 @@ describe ('Test jsonEditor component', () => {
 	beforeEach(() => {
 		angular.mock.module('michaelzucchetta');
 	});
-	beforeEach(inject((_$componentController_) => {
+	beforeEach(angular.mock.inject((_$componentController_) => {
 		$componentController = _$componentController_;
 	}));
 	
