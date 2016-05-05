@@ -1,8 +1,9 @@
-import Keys from 'js/classes/Keys';
-import jsonEditor from 'directives/json-editor/json-editor';
+import jsonEditor = require('directives/json-editor/json-editor');
+
 describe ('Test jsonEditor component', () => {
 	let $componentController,
 		component;
+	console.log(jsonEditor);
 	beforeEach(() => {
 		angular.mock.module('michaelzucchetta');
 		inject((_$componentController_) => {

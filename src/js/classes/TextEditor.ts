@@ -8,6 +8,7 @@ class Status {
 	public id: string;
 };
 import Keys from 'js/classes/Keys';
+import _ = require('lodash');
 class TextPortion {
 	public y1: number;
 	public x1: number;
