@@ -3,12 +3,6 @@ for (var file in window.__karma__.files) {
 	if (/Spec\.js$/.test(file)) {
 		tests.push(file);
 	}
-	if (/utils\/*.js/.test(file)) {
-	//	var tmp = window.__karma__.files[file];
-	//	 window.__karma__.files[file] = undefined;
-	//	window.__karma__.files[file.substring(0, file.length - 3)] = '.js' + tmp; 
-	//	console.log( window.__karma__.files[file] );
-	}
 }
 requirejs.config({
 	// Karma serves files from '/base'
@@ -28,7 +22,8 @@ requirejs.config({
 			exports: 'angular'
 		},
 		'angular-mocks': {
-			deps: ['angular']
+			deps: ['angular'],
+			exports: 'angular-mocks'
 		}
 	},
 
@@ -40,10 +35,10 @@ requirejs.config({
 });
 requirejs(
         [
-                'angular',
+                //'angular',
                 'jquery',
                 'lodash',
-                'angular-mocks',
+                //'angular-mocks',
                 // Load our app module and pass it to our definition function
         ],
         function(){

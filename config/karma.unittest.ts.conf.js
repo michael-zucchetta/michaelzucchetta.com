@@ -7,19 +7,15 @@ module.exports = function(config) {
 			'dist/**/*.js': ['sourcemap']
 		},	  
 		files: [
+			"lib/angular/angular.min.js",
+			"lib/angular-mocks/angular-mocks.js",
+			"dist/tests/unit/bootstrap.js",
 			{pattern: 'lib/**/*.js', included: false},
 			{pattern: 'dist/**/*.js', included: false},
+			{pattern: 'src/**/*.ts', included: false},
 			{pattern: 'dist/tests/unit/*Spec.js', included: false},
 			{pattern: 'dist/tests/utils/*.js', included: false},
 			'config/karma-require.js'
-		//	{pattern: 'lib/requirejs/requirejs', included: true},
-		//	{pattern: 'dist/libs.js', included: true},
-		//	{pattern: 'lib/angular-mocks/angular-mocks.js', included: true},
-		//	{pattern: 'dist/app.js', included: true},
-		//	{pattern: 'dist/tests/**/unit/*Spec.js', included: true},
-		//	{pattern: 'dist/js/**/*.json', included: false},
-		//	{pattern: 'src/**/*.ts', included: false},
-		//	{pattern: 'lib/**/*.map', included: false}
 		],
 		// list of files to exclude
 		exclude: [

@@ -1,6 +1,7 @@
 import TextEditor from 'js/classes/TextEditor';
-(() => {
-	function JsonEditorCtrl ($timeout: ng.ITimeoutService, $interval: ng.IIntervalService): void {
+export default class JsonEditorCtrl {
+	
+	constructor($timeout: ng.ITimeoutService, $interval: ng.IIntervalService) {
 		let display: JQuery = $('#json-display');
 		let textarea: JQuery = $('#json-input');
 		let container: JQuery = $('json-input-container');
@@ -21,9 +22,9 @@ import TextEditor from 'js/classes/TextEditor';
 		};
 
 		vm.insertCharacter = ($event: ng.IAngularEvent): void => {
-			// a character has been inserted
-			vm.editor.insertChar($event);
-			vm.jsonText = vm.editor.textValue;
+		// a character has been inserted
+		vm.editor.insertChar($event);
+		vm.jsonText = vm.editor.textValue;
 		};
 
 		vm.handleKeyDown = ($event: ng.IAngularEvent): void => {
@@ -39,20 +40,20 @@ import TextEditor from 'js/classes/TextEditor';
 			vm.initCursor('cursor');
 			textarea.focus();
 		});
-	};
+	}
+};
 
-	JsonEditorCtrl.$inject = ['$timeout', '$interval'];
-	interface IComponentOptionsCss extends angular.IComponentOptions {
-		css: string;
-	};
-	let jsonEditorOpts: IComponentOptionsCss = {
-		// restrict: 'E',
-		bindings: {
-			jsonText: '='
-		},
-		css: '/directives/json-editor/json-editor.css',
-		templateUrl: '/directives/json-editor/json-editor.html',
-		controller: JsonEditorCtrl
-	};
-	angular.module('michaelzucchetta').component('jsonEditor', jsonEditorOpts);
-})();
+JsonEditorCtrl.$inject = ['$timeout', '$interval'];
+interface IComponentOptionsCss extends angular.IComponentOptions {
+	css: string;
+};
+let jsonEditorOpts: IComponentOptionsCss = {
+	// restrict: 'E',
+	bindings: {
+		jsonText: '='
+	},
+	css: '/directives/json-editor/json-editor.css',
+	templateUrl: '/directives/json-editor/json-editor.html',
+	controller: JsonEditorCtrl
+};
+angular.module('michaelzucchetta').component('jsonEditor', jsonEditorOpts);

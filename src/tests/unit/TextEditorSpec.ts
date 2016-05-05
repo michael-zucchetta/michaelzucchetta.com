@@ -193,13 +193,13 @@ describe ('Test TextEditor class', () => {
 			editor.initEditor();
 			editor.insertChar(charEvent);
 			carelXPos++;
-			charEvent.keyCode = 'b'.charCodeAt(0);
+			Utils.setKey(charEvent, 'b'.charCodeAt(0));
 			editor.insertChar(charEvent);
 			carelXPos++;
-			charEvent.keyCode = 'c'.charCodeAt(0);
+			Utils.setKey(charEvent,'c'.charCodeAt(0));
 			editor.insertChar(charEvent);
 			carelXPos++;
-			charEvent.keyCode = 'd'.charCodeAt(0);
+			Utils.setKey(charEvent, 'd'.charCodeAt(0));
 			editor.insertChar(charEvent);
 			carelXPos++;
 
