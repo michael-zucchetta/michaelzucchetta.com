@@ -8,7 +8,7 @@ describe ('Test jsonEditor component', () => {
 		angular.mock.module('michaelzucchetta');
 		inject((_$componentController_) => {
 			$componentController = _$componentController_;
-		})
+		});
 	});
 	
 	it ('test char insertion', () => {
