@@ -2,13 +2,13 @@ requirejs.config({
 	baseUrl: '/',
 
 	paths: {
-		"angular": "../lib/angularjs/angular.min",
-		"angularRoute": "../lib/angular-route/angular-route.min",
-		"angularResource": "../lib/angular-resource/angular-resource.min",
-		"angularCss": "../lib/angular-css/angular-css.min",
-		"jQuery": "../lib/jquery/dist/jquery.min",
-		"lodash": "../lib/lodash/lodash.min",
-		"main": "js/initialisation/main"
+		'angular': '../lib/angularjs/angular.min',
+		'angularRoute': '../lib/angular-route/angular-route.min',
+		'angularResource': '../lib/angular-resource/angular-resource.min',
+		'angularCss': '../lib/angular-css/angular-css.min',
+		'jQuery': '../lib/jquery/dist/jquery.min',
+		'lodash': '../lib/lodash/lodash.min',
+		'main': 'js/initialisation/main'
 	},
 
 	shim: {
@@ -27,9 +27,9 @@ requirejs.config({
 			deps: ['angular'],
 			exports: 'angularResource'
 		},
-		'angularCss': {	
-			deps: ['angular'],   
-			exports: 'angularCss'	
+		'angularCss': {
+			deps: ['angular'],
+			exports: 'angularCss'
 		},
 		'main': {
 			deps: ['angular', 'angularRoute', 'angularCss'],
@@ -41,6 +41,6 @@ requirejs.config({
 requirejs([
 		'main'
 	],
-	(app) => {
-
+	(app: any) => {
+		console.log(app);
 });

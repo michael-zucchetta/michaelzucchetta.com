@@ -3,7 +3,7 @@
         "module": "amd",
         "basePath:": "src/",
         "target": "es5",
-        "fast": "watch",
+        "fast": "always",
         "inlineSourceMap": true,
         "outDir": "dist/"
     },
