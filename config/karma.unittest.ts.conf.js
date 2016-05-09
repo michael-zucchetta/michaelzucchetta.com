@@ -63,7 +63,7 @@ module.exports = function(config) {
 		},
 
 		plugins: [
-			'karma-html-reporter',
+			// 'karma-html-reporter',
 			'karma-jasmine',
 			'karma-jasmine-jquery',
 			'karma-requirejs',

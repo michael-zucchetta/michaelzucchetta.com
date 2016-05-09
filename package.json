@@ -4,7 +4,9 @@
     "devDependencies": {
         "chromedriver": "^2.21.2",
         "express": "^4.13.3",
+	"bower": "^1.7.9",
 	"grunt": "^0.4.5",
+	"grunt-cli": "^1.2.0",
 	"grunt-bower-install-simple": "^1.1.4",
         "grunt-contrib-clean": "^0.6.0",
         "grunt-contrib-coffee": "^0.13.0",
@@ -35,7 +37,8 @@
         "mongodb": "^2.1.7",
         "phantomjs-prebuilt": "^2.1.7",
 	"protractor": "^2.2.0",
-        "selenium-standalone": "^4.6.3",
+        "requirejs": "*",
+	"selenium-standalone": "^4.6.3",
 	"tslint": "^3.6.0",
         "typescript": "^1.8.7",
         "typings": "^0.8.1"
@@ -48,7 +51,8 @@
         "url": "https://github.com/michael-zucchetta/michaelzucchetta.com"
     },
     "scripts": {
-        "preprotractor": "npm run update-webdriver",
+        "run": "npm run grunt",
+	"preprotractor": "npm run update-webdriver",
         "protractor": "protractor config/protractor.e2e.conf.js",
         "test": "karma start config/karma.unittest.conf.js",
         "update-webdriver": "webdriver-manager update"
