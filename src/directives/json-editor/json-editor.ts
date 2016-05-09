@@ -44,7 +44,7 @@ export default class JsonEditorCtrl {
 };
 
 JsonEditorCtrl.$inject = ['$timeout', '$interval'];
-interface IComponentOptionsCss extends angular.IComponentOptions {
+interface IComponentOptionsCss extends ng.IComponentOptions {
 	css: string;
 };
 let jsonEditorOpts: IComponentOptionsCss = {

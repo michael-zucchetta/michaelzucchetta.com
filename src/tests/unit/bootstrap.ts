@@ -1,1 +1,1 @@
-angular.module('michaelzucchetta',[]);
+angular.module('michaelzucchetta', []);
