@@ -82,8 +82,4 @@ class RouteResolver {
 	};
 };
 
-let servicesApp = angular.module('RouteResolverServices', ['ngRoute', 'angularCss']);
-
-// Must be a provider since it will be injected into module.config()
-servicesApp.provider('RouteResolverService', new RouteResolver());
-
+export default RouteResolver;

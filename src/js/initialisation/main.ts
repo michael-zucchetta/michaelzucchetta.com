@@ -1,6 +1,11 @@
 import angular = require('angular');
+import RouteResolver from 'js/services/RouteResolverService';
 
-let module = angular.module('michaelzucchetta', ['ngRoute', 'angularCSS']);
+// move angular bootstrap to another class
+let serviceModule = angular.module('RouteResolverServices', ['ngRoute', 'angularCSS']);
+// Must be a provider since it will be injected into module.config()
+serviceModule.provider('RouteResolverService', new RouteResolver());
+let module = angular.module('michaelzucchetta', ['RouteResolverServices']);
 module.run([() => {
 	console.debug('module run');
 }]);
