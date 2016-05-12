@@ -8,6 +8,8 @@ module.exports = function(config) {
 		},	  
 		files: [
 			"lib/angular/angular.min.js",
+			"lib/angular-route/angular-route.min.js",
+			"lib/angular-css/angular-css.min.js",
 			"lib/angular-mocks/angular-mocks.js",
 			"dist/tests/unit/bootstrap.js",
 			{pattern: 'lib/**/*.js', included: false},
@@ -47,8 +49,8 @@ module.exports = function(config) {
 		autoWatch: true,
 
 		// Start these browsers
-		// browsers: ['Chrome'],
-		browsers: ['PhantomJS'],
+		browsers: ['Chrome'],
+		// browsers: ['PhantomJS'],
 
 		// If browser does not capture in given timeout [ms], kill it
 		captureTimeout: 60000,

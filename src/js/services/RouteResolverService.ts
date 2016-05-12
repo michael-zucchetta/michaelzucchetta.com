@@ -32,55 +32,66 @@ class RouteConfig {
 };
 export interface IRouteResolver {
 
-};
+}
+class RouteDef {
+	controller: string;
+	secure: boolean;
+	templateUrl: string;
+	css: string;
+	resolve: any;
+}
+
 export class RouteResolver implements IRouteResolver {
+	
+	private resolveDependencies ($q, $rootScope, dependencies): ng.IPromise<void> {
+		// IDeferred<T> is what you return in the resolve type
+		let deferred: ng.IDeferred<void> = $q.defer()
+		require(dependencies, () => {
+			deferred.resolve();
+			$rootScope.$apply();
+		});
+		return deferred.promise;
+	};
+	
+	
+	private resolveWithParams (baseName: string, path: string, secure: boolean): RouteDef {
+		if (!path) {
+			path = '';
+		}
+		// move regex
+		let nonCamelToeBaseName: string = baseName.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+		let routeDef: RouteDef = {
+			controller: baseName + 'Ctrl',
+			secure: secure || false,
+			templateUrl: this.routeConfig.getViewsDirectory() + path + nonCamelToeBaseName + '.html',
+			css: this.routeConfig.getCSSDirectory() + path + nonCamelToeBaseName + '.css',
+			resolve: {
+				load: ['$q', '$rootScope', ($q: ng.IQService, $rootScope: ng.IRootScopeService) => {
+						let dependencies = [this.routeConfig.getControllersDirectory() + path + baseName + 'Ctrl.js'];
+						return this.resolveDependencies($q, $rootScope, dependencies)
+					}
+				]
+			}
+		};
+		return routeDef;
+	};
+
+	private resolve (baseName: string): RouteDef {
+		return this.resolveWithParams(baseName, null, null);
+	}
+	
+	private routeConfig: RouteConfig;
 	
 	public $get() {
 		return this;
 	}
 
-	private routeConfig: RouteConfig;
-	
 	constructor() {
 		this.routeConfig = new RouteConfig();
 	};
 
-	public route() {
-		let resolve: Function = (baseName: string, path: string, secure: boolean) => {
-			if (!path) {
-				path = '';
-			}
-			// move regex
-			let nonCamelToeBaseName: string = baseName.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
-			let routeDef = {
-				controller: baseName + 'Ctrl',
-				secure: secure || false,
-				templateUrl: this.routeConfig.getViewsDirectory() + path + nonCamelToeBaseName + '.html',
-				css: this.routeConfig.getCSSDirectory() + path + nonCamelToeBaseName + '.css',
-				resolve: {}
-			};
-			
-			routeDef.resolve = {
-				load: ['$q', '$rootScope', ($q: ng.IQService, $rootScope: ng.IRootScopeService) => {
-						let dependencies = [this.routeConfig.getControllersDirectory() + path + baseName + 'Ctrl.js'];
-						return resolveDependencies($q, $rootScope, dependencies)
-					}
-				]
-			};
-			return routeDef;
-		};
-			
-		let resolveDependencies = ($q, $rootScope, dependencies) => {
-			// IDeferred<T> is what you return in the resolve type
-			let deferred: ng.IDeferred<void> = $q.defer()
-			require(dependencies, () => {
-				deferred.resolve();
-				$rootScope.$apply();
-			});
-			return deferred.promise;
-		};
-		
-		return resolve;
+	public route = {
+		resolve: this.resolve
 	};
 };
 
