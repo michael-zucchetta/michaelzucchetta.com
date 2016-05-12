@@ -12,8 +12,12 @@ jasmine.getJSONFixtures().fixturesPath = '/base/dist/js/mocks/';
 describe('RouteResolverService resolving names to objects', () => {
 	beforeEach(() => angular.mock.module('RouteResolverServices'));
 	// ng and ngMock modules are necessary for mocking rootElement, because angular-css is using rootElement and here it is using location, and if you use location before rootElement, it is necessary to mock it
+	// let $injectorModule: ng.auto.IInjectorService = angular.injector([ 'ng', 'ngMock', 'RouteResolverServices' ]);
+	let service = angular.module('RouteResolverServices', ['ngRoute', 'angularCSS']);
+	service.provider('RouteResolverService', new RouteResolver());
+	service.run();
 	let $injectorModule: ng.auto.IInjectorService = angular.injector([ 'ng', 'ngMock', 'RouteResolverServices' ]);
-	let routeResolver: RouteResolver = $injectorModule.get<RouteResolver>('RouteResolverServices');
+	let routeResolver = $injectorModule.get<RouteResolver>('RouteResolverService');
 	console.log('Route Provider ' +  routeResolver.route.resolve('AboutMe'));
 	let resolved = routeResolver.route.resolve('AboutMe');
 	it('Resolving controllers', () => {
