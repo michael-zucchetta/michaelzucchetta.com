@@ -30,8 +30,10 @@ class RouteConfig {
 	};
 
 };
+export interface IRouteResolver {
 
-class RouteResolver {
+};
+export class RouteResolver implements IRouteResolver {
 	
 	public $get() {
 		return this;
