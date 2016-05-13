@@ -30,9 +30,6 @@ class RouteConfig {
 	};
 
 };
-export interface IRouteResolver {
-
-}
 class RouteDef {
 	controller: string;
 	secure: boolean;
@@ -41,7 +38,11 @@ class RouteDef {
 	resolve: any;
 }
 
-export class RouteResolver implements IRouteResolver {
+export class RouteResolver {
+	
+	constructor() {
+		this.routeConfig = new RouteConfig();
+	}
 	
 	private resolveDependencies ($q, $rootScope, dependencies): ng.IPromise<void> {
 		// IDeferred<T> is what you return in the resolve type
@@ -51,7 +52,7 @@ export class RouteResolver implements IRouteResolver {
 			$rootScope.$apply();
 		});
 		return deferred.promise;
-	};
+	}
 	
 	
 	private resolveWithParams (baseName: string, path: string, secure: boolean): RouteDef {
@@ -74,7 +75,7 @@ export class RouteResolver implements IRouteResolver {
 			}
 		};
 		return routeDef;
-	};
+	}
 
 	private resolve (baseName: string): RouteDef {
 		return this.resolveWithParams(baseName, null, null);
@@ -86,13 +87,9 @@ export class RouteResolver implements IRouteResolver {
 		return this;
 	}
 
-	constructor() {
-		this.routeConfig = new RouteConfig();
-	};
-
 	public route = {
 		resolve: this.resolve
-	};
+	}
 };
 
 export default RouteResolver;
