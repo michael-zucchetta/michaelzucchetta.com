@@ -11,6 +11,7 @@ module.run([() => {
 }]);
 
 class AngularBootstrap implements ng.IAngularBootstrapConfig {
+
 	constructor($routeProvider: ng.route.IRouteProvider, $locationProvider: ng.ILocationProvider, $controllerProvider: ng.IControllerProvider, $provide: ng.auto.IProvideService, $compileProvider: ng.ICompileProvider) {
 		let app: ng.IModule = module;
 		// http://www.bennadel.com/blog/2554-loading-angularjs-components-with-requirejs-after-application-bootstrap.htm
