@@ -1,14 +1,16 @@
+import Keys from 'js/classes/Keys';
+
 class CarelPos {
 	public left: number;
 	public top: number;
 }
+
 class Status {
 	public isNew: boolean;
 	public string: string;
 	public id: string;
 };
-import Keys from 'js/classes/Keys';
-import _ = require('lodash');
+
 class TextPortion {
 	public y1: number;
 	public x1: number;
@@ -226,7 +228,7 @@ export default class TextEditor {
 		}
 	}
 
-	public deleteChar($event: KeyboardEvent, key): void {
+	public deleteChar($event: KeyboardEvent, key: number): void {
 		let cellText: string = this.statusMatrix[this.cellY].string;
 		if (!Keys.isDelKey(key)) {
 			return;

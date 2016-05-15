@@ -31,30 +31,24 @@ module.exports = function(grunt) {
 			}
 		},
 		copy: {
-				js: {
-					expand: true,
-					cwd: "src/",
-					src: "**/*.js",
-					dest: "dist/"
-				},
-				html: {
-					expand: true,
-					cwd: "src/",
-					src: "**/*.html",
-					dest: "dist/"
-				},
-				json: {
-					expand: true,
-					cwd: "src/",
-					src: "**/*.json",
-					dest: "dist/"
-				},
-				img_tests: {
-					expand: true,
-					cwd: "src/tests",
-					src: ["**/*.jpg", "**/*.png", "**/*.jpeg"],
-					dest: "tests/"
-				}
+			html: {
+				expand: true,
+				cwd: "src/",
+				src: "**/*.html",
+				dest: "dist/"
+			},
+			json: {
+				expand: true,
+				cwd: "src/",
+				src: "**/*.json",
+				dest: "dist/"
+			},
+			img_tests: {
+				expand: true,
+				cwd: "src/tests",
+				src: ["**/*.jpg", "**/*.png", "**/*.jpeg"],
+				dest: "tests/"
+			}
 		},
 		jshint: {
 			all: ["dist/**/*.js"]
@@ -177,5 +171,5 @@ module.exports = function(grunt) {
 	//grunt.registerTask("default", [/*"npm-install", "bower-install", "clean",*/ "tree", "coffee", "build-requirejs", "concat", "jsbeautifier", "copy", "sass"/*, "jshint"*/]);
 	grunt.registerTask("test", ["default", "karma"]);
 	grunt.registerTask("dev", ["default", "watch"]);
-	grunt.registerTask("default", ["bower-install", "typings", "copy:html", "sass", "clean", "ts", "concat:build-ts", "concat:build-libs", "watch"]);
+	grunt.registerTask("default", ["bower-install", "typings", "copy", "sass", "clean", "ts", "watch"]);
 }

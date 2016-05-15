@@ -1,14 +1,16 @@
 import angular = require('angular');
+import Constants from 'js/services/Constants';
 import RouteResolver from 'js/services/RouteResolverService';
+import RouteProvider from 'js/initialisation/RouteProvider';
 
 // move angular bootstrap to another class
-let serviceModule = angular.module('RouteResolverServices', ['ngRoute', 'angularCSS']);
-// Must be a provider since it will be injected into module.config()
-serviceModule.provider('RouteResolverService', new RouteResolver());
-let module = angular.module('michaelzucchetta', ['RouteResolverServices']);
-module.run([() => {
-	console.debug('module run');
-}]);
+let serviceModule: ng.IModule = angular.module('RouteResolverServices', ['ngRoute', 'angularCSS']);
+// must be a provider since it will be injected into module.config()
+serviceModule.provider('RouteResolverService', new RouteResolver);
+let routeProviderService: ng.IModule = angular.module(Constants.ROUTE_PROVIDER, [Constants.ROUTE_SERVICES]);
+routeProviderService.config(RouteProvider);
+let module: ng.IModule = angular.module(Constants.MAIN_MODULE, [Constants.ROUTE_PROVIDER]);
+module.run([]);
 
 class AngularBootstrap implements ng.IAngularBootstrapConfig {
 
@@ -54,7 +56,7 @@ class AngularBootstrap implements ng.IAngularBootstrapConfig {
 				return app;
 			}
 		});
-		// NOTE: You can do the same thing with the "filter"
+		// note: You can do the same thing with the "filter"
 		// and the "$filterProvider"; but, I don't really use
 		// custom filters.
 	}
@@ -63,4 +65,4 @@ class AngularBootstrap implements ng.IAngularBootstrapConfig {
 AngularBootstrap.$inject = ['$routeProvider', '$locationProvider', '$controllerProvider', '$provide', '$compileProvider'];
 
 module.config(AngularBootstrap);
-angular.element().ready(() => angular.bootstrap(document, ['michaelzucchetta']));
+angular.element().ready(() => angular.bootstrap(document, [Constants.MAIN_MODULE]));

@@ -1,50 +1,9 @@
-import angular = require('angular');
-import RouteResolver from 'js/services/RouteResolverService';
+import Constants from 'js/services/Constants';
 
 // move angular bootstrap to another class
 // let serviceModule = angular.module('RouteResolverServices', ['ngRoute', 'angularCSS']);
 // must be a provider since it will be injected into module.config()
 // serviceModule.provider('RouteResolverService', new RouteResolver());
-
-// let app = angular.module('RouteProvider', ['RouteResolverServices', 'ngRoute', 'constants']);
-
-// app.config(['$routeProvider', 'RouteResolverServiceProvider', '$controllerProvider', '$compileProvider', '$filterProvider', '$provide']); 
-
-class RouteDecorator {
-
-	constructor($delegate, RouteResolverServiceProvider, $routeProvider) {
-		let $route = $delegate;
-		$route.route =  RouteResolverServiceProvider.route;
-			//default view
-		$routeProvider.when('/home.html', {
-			templateUrl: 'home.html'
-		});
-		// I allow routes to be defined after the application has been
-		// bootstrapped. These go into a shared "routes" collection.
-			
-		$route.when = (path: string, route: string) => {
-			$routeProvider.when(path, route);
-			return this;
-		};
-
-		$route.otherwise = (path: string) => {
-			$routeProvider.otherwise(path);
-			return this;
-		};
-
-		return $route;
-	}
-
-}
-
-RouteDecorator.$inject = ['$delegate', 'RouteResolverServiceProvider', '$routeProvider'];
-
-class SetProvideDecorator {
-	constructor($provide) {
-		$provide.decorator('$route', RouteDecorator);
-	}
-}
-SetProvideDecorator.$inject = ['$provide'];
 
 class Register {
 	public controller: Function;
@@ -54,23 +13,51 @@ class Register {
 	public service: any;
 }
 
-class RouteProvider {
+let RouteProvider: Function = ($routeProvider, RouteResolverServiceProvider, $controllerProvider, $compileProvider, $filterProvider, $provide: ng.auto.IProvideService): Register => {
+	let register = new Register();
+	register.controller = $controllerProvider.register;
+	register.directive = $compileProvider.directive;
+	register.filter = $filterProvider.register;
+	register.factory = $provide.factory;
+	register.service = $provide.service;
+	let routeDecorator: any = ($delegate: any) => {
+			let $route: any = $delegate;
+			$route.route =  RouteResolverServiceProvider.route;
+			// default view
+			$routeProvider.when('/home.html', {
+				templateUrl: 'home.html'
+			});
+			// allow routes to be defined after the application has been
+			// bootstrapped. These go into a shared "routes" collection.
 
-	constructor($routeProvider, RouteResolverServiceProvider, $controllerProvider, $compileProvider, $filterProvider, $provide: ng.auto.IProvideService) {
-		/*this.register = new Register();
-		// Change default views and controllers directory using the following:
-		// routeResolverProvider.routeConfig.setBaseDirectories('/app/views', '/app/controllers');
-		this.register.controller = $controllerProvider.register;
-		this.register.directive = $compileProvider.directive;
-		this.register.filter = $filterProvider.register;
-		this.register.factory = $provide.factory;
-		this.register.service = $provide.service;*/ 
-		// $provide.decorator('$route', RouteDecorator);
-	}
-		
-	public register: Register;
+			$route.when = (path: string, route: string) => {
+				$routeProvider.when(path, route);
+				return this;
+			};
 
-}
+			$route.otherwise = (path: string) => {
+				$routeProvider.otherwise(path);
+				return this;
+			};
+
+			$route.setRouteDinamically = (menu): void => {
+				let route = $route.route;
+				_.each(menu, (menuItem) => {
+					if (menuItem.active) {
+						$route.when('/' + Constants.FUNCTIONS_PREFIX + '/' + menuItem.id, route.resolve(menuItem.name));
+					}
+				});
+				$route.otherwise(Constants.DEFAULT_PAGE);
+				$route.reload();
+			};
+
+			return $route;
+
+	};
+
+	$provide.decorator('$route', routeDecorator);
+	return register;
+};
 
 RouteProvider.$inject = ['$routeProvider', 'RouteResolverServiceProvider', '$controllerProvider', '$compileProvider', '$filterProvider', '$provide'];
 // serviceModule.config(new RouteProvider());

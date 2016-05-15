@@ -1,4 +1,3 @@
-import angular = require('angular');
 
 class RouteConfig {
 	private viewsDirectory: string;
@@ -44,16 +43,6 @@ export class RouteResolver {
 		this.routeConfig = new RouteConfig();
 	}
 
-	private resolveDependencies ($q, $rootScope: ng.IRootScopeService, dependencies): ng.IPromise<void> {
-		// the IDeferred<T> is what you return in the resolve type
-		let deferred: ng.IDeferred<void> = $q.defer();
-		require(dependencies, () => {
-			deferred.resolve();
-			$rootScope.$apply();
-		});
-		return deferred.promise;
-	}
-
 	resolveWithParams = (baseName: string, path: string, secure: boolean): RouteDef => {
 		if (!path) {
 			path = '';
@@ -73,6 +62,7 @@ export class RouteResolver {
 				]
 			}
 		};
+
 		return routeDef;
 	};
 
@@ -80,15 +70,25 @@ export class RouteResolver {
 		return this.resolveWithParams(baseName, undefined, undefined);
 	};
 
-	private routeConfig: RouteConfig;
-
-	public $get() {
+	public $get(): RouteResolver {
 		return this;
 	}
 
 	public route = {
 		resolve: this.resolve
 	};
+
+	private routeConfig: RouteConfig;
+
+	private resolveDependencies ($q: ng.IQService, $rootScope: ng.IRootScopeService, dependencies): ng.IPromise<void> {
+		// the IDeferred<T> is what you return in the resolve type
+		let deferred: ng.IDeferred<void> = $q.defer<void>();
+		require(dependencies, () => {
+			deferred.resolve();
+			$rootScope.$apply();
+		});
+		return deferred.promise;
+	}
 };
 
 export default RouteResolver;

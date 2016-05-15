@@ -38,9 +38,6 @@ requirejs.config({
 	}
 });
 
-requirejs([
-		'main'
-	],
-	(app: any) => {
+requirejs(['main'], (app: any) => {
 		console.log(app);
 });

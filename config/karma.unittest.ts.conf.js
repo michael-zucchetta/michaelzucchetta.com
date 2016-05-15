@@ -14,6 +14,7 @@ module.exports = function(config) {
 			"dist/tests/unit/bootstrap.js",
 			{pattern: 'lib/**/*.js', included: false},
 			{pattern: 'dist/**/*.js', included: false},
+			{pattern: 'dist/**/*.json', included: false},
 			{pattern: 'src/**/*.ts', included: false},
 			{pattern: 'dist/tests/unit/*Spec.js', included: false},
 			{pattern: 'dist/tests/utils/*.js', included: false},
