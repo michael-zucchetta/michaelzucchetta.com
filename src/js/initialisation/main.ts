@@ -6,11 +6,13 @@ import RouteProvider from 'js/initialisation/RouteProvider';
 // move angular bootstrap to another class
 let serviceModule: ng.IModule = angular.module('RouteResolverServices', ['ngRoute', 'angularCSS']);
 // must be a provider since it will be injected into module.config()
-serviceModule.provider('RouteResolverService', new RouteResolver);
+serviceModule.provider('RouteResolverService', RouteResolver);
 let routeProviderService: ng.IModule = angular.module(Constants.ROUTE_PROVIDER, [Constants.ROUTE_SERVICES]);
 routeProviderService.config(RouteProvider);
 let module: ng.IModule = angular.module(Constants.MAIN_MODULE, [Constants.ROUTE_PROVIDER]);
-module.run([]);
+console.log(Constants.MAIN_MODULE);
+// removing the function argument in the run inokation results in an error 
+module.run([() => {}]);
 
 class AngularBootstrap implements ng.IAngularBootstrapConfig {
 
