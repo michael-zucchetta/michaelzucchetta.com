@@ -9,7 +9,12 @@ module.exports = function(grunt) {
 			options: {
 				color: true,
 				directory: "lib"
-			}
+		   },
+        "prod": {
+            options: {
+                production: true
+            }
+        }
 		},
 		concat: {
 			"build-ts": {
@@ -83,7 +88,7 @@ module.exports = function(grunt) {
 		watch: {
 			ts: {
 				files: ["src/**/*.ts"],
-				tasks: ["newer:ts:compile", "concat:build-ts", "tslint"],
+				tasks: ["newer:ts:main", "concat:build-ts", "tslint"],
 				options: {
 					event: ["changed", "deleted", "newer"]
 				}
@@ -118,7 +123,7 @@ module.exports = function(grunt) {
 			}
 		},
 		ts: {
-			compile: {
+			main: {
 				files: [{
 					src: [baseSrcPath + "**/*.ts"], //"!" + baseSrcPath + "tests/**/*.ts"],
 					dest: "dist/"
@@ -155,7 +160,10 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks("grunt-tslint");
 	grunt.loadNpmTasks("grunt-typings");
 
-	grunt.registerTask("bower-install", ["bower-install-simple"]);
+	grunt.registerTask("bower-install", function() {
+       console.log("CIOA");
+       grunt.task.run(["bower-install-simple"]);
+   });
 	
 	grunt.registerTask("build-requirejs", function() {
 		var dependencies = grunt.file.read(filesPath);

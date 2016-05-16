@@ -1,5 +1,5 @@
 {
-	"name": "michaelzucchetta libs",
+	"name": "michaelzucchetta-libs",
 	"description": "",
 	"dependencies": {
 		"jquery": "*",
@@ -10,7 +10,8 @@
 		"angular-css": "*",
 		"ng-file-upload": "*",
 		"bootstrap": "*",
-		"lodash": "*"
+		"lodash": "*",
+      "requirejs": "*"
 	},
 	"private": true
 }
