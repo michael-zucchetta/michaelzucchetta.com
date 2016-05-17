@@ -25,6 +25,7 @@
         "src/js/services/Constants.ts",
         "src/js/services/RegexUtils.ts",
         "src/js/services/RouteResolverService.ts",
+        "src/js/services/Session.ts",
         "src/js/services/StringUtils.ts",
         "src/js/services/UtilitiesService.ts",
         "typings/main.d.ts",
@@ -32,6 +33,7 @@
         "src/tests/unit/TextEditorSpec.ts",
         "src/tests/unit/bootstrap.ts",
         "src/tests/unit/route-resolver.Spec.ts",
+        "src/tests/unit/session.Spec.ts",
         "src/tests/utils/utils.ts"
     ]
 }

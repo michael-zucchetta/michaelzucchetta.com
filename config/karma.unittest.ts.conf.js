@@ -11,6 +11,7 @@ module.exports = function(config) {
 			"lib/angular-route/angular-route.min.js",
 			"lib/angular-css/angular-css.min.js",
 			"lib/angular-mocks/angular-mocks.js",
+			"lodash/lodash.js",
 			"dist/tests/unit/bootstrap.js",
 			{pattern: 'lib/**/*.js', included: false},
 			{pattern: 'dist/**/*.js', included: false},
