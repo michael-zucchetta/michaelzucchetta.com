@@ -1,6 +1,6 @@
 import StringUtils from 'js/services/StringUtils';
 import RegexUtils from 'js/services/RegexUtils';
-import UtilitiesService from 'js/services/UtilitiesService';
+import Utils from 'js/services/utils';
 
 describe('StringUtils methos', () => {
     
@@ -30,7 +30,7 @@ describe('StringUtils methos', () => {
  
   it ('Removing tabs/new lines/spaces from string', () => {
      let stringText = "\n test \t \ test \n \t test";
-     let newString = UtilitiesService.removeFormattationFromString(stringText);
+     let newString = Utils.removeFormattationFromString(stringText);
      expect(!RegexUtils.tabs.test(newString) && !RegexUtils.spaces.test(newString) && !RegexUtils.newLines.test(newString)).toBe(true);
   });
 

@@ -16,6 +16,7 @@
     ],
     "files": [
         "src/js/classes/BaseClass.ts",
+        "src/js/classes/Canvas.ts",
         "src/js/classes/Constants.ts",
         "src/js/classes/Keys.ts",
         "src/js/classes/TextEditor.ts",
@@ -27,7 +28,7 @@
         "src/js/services/RouteResolverService.ts",
         "src/js/services/Session.ts",
         "src/js/services/StringUtils.ts",
-        "src/js/services/UtilitiesService.ts",
+        "src/js/services/utils.ts",
         "typings/main.d.ts",
         "src/tests/unit/JsonEditorSpec.ts",
         "src/tests/unit/TextEditorSpec.ts",

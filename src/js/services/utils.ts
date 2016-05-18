@@ -1,8 +1,8 @@
 import StringUtils from 'js/services/StringUtils';
 
-class UtilsFactory {
+class Utils {
 
-	public initializeMenu(rawMenu) {
+	public static initializeMenu(rawMenu) {
 		let menu = {};
 		_.each(rawMenu, (element) => {
 			if (element.id in menu) {
@@ -26,7 +26,7 @@ class UtilsFactory {
 		return menu;
 	}
 
-	public removeFormattationFromString(inputString: string): string {
+	public static removeFormattationFromString(inputString: string): string {
 		let newString = StringUtils.removeTabs(inputString);
 		newString = StringUtils.removeSpaces(newString);
 		newString = StringUtils.removeNewLines(newString);
@@ -35,5 +35,4 @@ class UtilsFactory {
 	}
 }
 
-
-export default UtilsFactory;
+export default Utils;

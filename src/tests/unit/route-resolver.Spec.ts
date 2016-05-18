@@ -1,6 +1,5 @@
 import RouteResolver from 'js/services/RouteResolverService';
 import RouteProvider from 'js/initialisation/RouteProvider';
-import Utilities from 'js/services/UtilitiesService';
 
 let location: ng.ILocationService,
 	route: any,
@@ -35,7 +34,6 @@ describe('RouteProvider resolving pages', () => {
 		angular.mock.module('RouteResolverServices');
 		angular.mock.module('RouteProvider');
 		// angular.mock.module('common');
-		console.log('fea', Utilities);
 		angular.mock.module.apply('common');
 		inject(($location: ng.ILocationService, $route: any, $httpBackend: ng.IHttpBackendService) => {
 			location = $location;
