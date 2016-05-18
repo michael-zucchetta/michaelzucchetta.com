@@ -34,6 +34,7 @@
         "src/tests/unit/bootstrap.ts",
         "src/tests/unit/route-resolver.Spec.ts",
         "src/tests/unit/session.Spec.ts",
+        "src/tests/unit/string-utils.Spec.ts",
         "src/tests/utils/utils.ts"
     ]
 }

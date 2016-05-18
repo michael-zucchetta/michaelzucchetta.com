@@ -8,7 +8,6 @@
 		"angular-route": "*",
 		"angular-resource": "*",
 		"angular-css": "*",
-		//"material": "*",
 		"ng-file-upload": "*",
 		"bootstrap": "*",
 		"lodash": "*",
