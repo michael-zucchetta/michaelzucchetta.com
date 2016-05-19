@@ -16,7 +16,6 @@
     ],
     "files": [
         "src/js/classes/BaseClass.ts",
-        "src/js/classes/Canvas.ts",
         "src/js/classes/Constants.ts",
         "src/js/classes/Keys.ts",
         "src/js/classes/TextEditor.ts",
@@ -30,6 +29,7 @@
         "src/js/services/StringUtils.ts",
         "src/js/services/utils.ts",
         "typings/main.d.ts",
+        "src/tests/e2e/pick-color.Spec.ts",
         "src/tests/unit/JsonEditorSpec.ts",
         "src/tests/unit/TextEditorSpec.ts",
         "src/tests/unit/bootstrap.ts",
