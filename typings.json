@@ -7,6 +7,6 @@
     "jasmine-jquery": "registry:dt/jasmine-jquery#0.0.0+20160317120654",
     "jquery": "github:DefinitelyTyped/DefinitelyTyped/jquery/jquery.d.ts#56295f5058cac7ae458540423c50ac2dcf9fc711",
     "lodash": "github:DefinitelyTyped/DefinitelyTyped/lodash/lodash-3.10.d.ts#e12c8e3bcdd77fb05d498ec61525be6ad112dfd6",
-    "requirejs": "github:typed-contrib/requirejs/global/typings.json#351aee1093083c1357f06b0fb5e9abb520537140"
+    "requirejs": "github:typed-contrib/requirejs/global/typings.json#351aee1093083c1357f06b0fb5e9abb520537140" 
   }
 }
