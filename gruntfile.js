@@ -161,9 +161,8 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks("grunt-typings");
 
 	grunt.registerTask("bower-install", function() {
-       console.log("CIOA");
-       grunt.task.run(["bower-install-simple"]);
-   });
+		grunt.task.run(["bower-install-simple"]);
+	});
 	
 	grunt.registerTask("build-requirejs", function() {
 		var dependencies = grunt.file.read(filesPath);
