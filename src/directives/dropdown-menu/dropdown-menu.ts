@@ -1,5 +1,5 @@
 import Constants from 'js/services/Constants';
-import DaoFacade from 'js/serivces/dao-facade';
+import DaoFacade from 'js/services/dao-facade';
 
 export default class DropdownMenuCtrl {
 
@@ -7,7 +7,9 @@ export default class DropdownMenuCtrl {
 		let vm: any = this;
 		vm.prefix = Constants.FUNCTION_PREFIX;
 		// add ng-click to the element that has the directive
-		vm.showHideMenu = (): void => vm.showMenu = !vm.showMenu;
+		vm.showHideMenu = (): void => {
+			vm.showMenu = !vm.showMenu
+		};
 	}
 }
 
@@ -19,7 +21,7 @@ let dropDownMenuDirective: Function = ($http, $compile, $timeout, DaoFacade) => 
 		},
 		css: '/directives/dropdown-menu/dropdown-menu.css',
 		controller: DropdownMenuCtrl,	
-		link: (element) => { 
+		link: (scope, element) => { 
 			$http.get('/directives/dropdown-menu/dropdown-menu.html').then((template) => {
 				let templateHtml = $(template.data);
 				let compiledTemplate = $compile(templateHtml)(scope);

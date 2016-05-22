@@ -2,7 +2,7 @@ import Constants from 'js/services/Constants';
 
 export default class RestProxy {
 
-	constructor(private $q: ng.IPromise, private $http: ng.IHttpService) {
+	constructor(private $q: ng.IPromiseService, private $http: ng.IHttpService) {
 	}
 
 	private data(response) {

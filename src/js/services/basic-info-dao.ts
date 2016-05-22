@@ -25,5 +25,5 @@ let basicInfoDaoFactory: Function = (RestProxy) => {
 basicInfoDaoFactory.$inject = ['RestProxy'];
 
 
-angular.module(Constants.MAIN_MODULE).factory(basicInfoDatoFactory);
+angular.module(Constants.MAIN_MODULE).factory(basicInfoDaoFactory);
 
