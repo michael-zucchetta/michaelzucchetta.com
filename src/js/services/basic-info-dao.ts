@@ -18,6 +18,7 @@ export default class BasicInfoDao {
 
 }
 
+@inject('RestProxy')
 let basicInfoDaoFactory: Function = (RestProxy) => {
 	return new BasicInfoDao(RestProxy);
 };

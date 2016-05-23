@@ -4,12 +4,12 @@ import UtilitiesService from 'js/services/utils';
 
 export default class DaoFacade {
 
-	constructor(private BasicInfoDao, private UtilitiesService) {
+	constructor(private BasicInfoDao, private $route) {
 	}
 
 	private getMenu() {
 		return BasicInfoDao.getMenu().then((menu) => {
-			UtilitiesService.setRouteDinamically(menu)
+			$route.route.setRouteDinamically(menu)
 			return UtilitiesService.initializeMenu(menu);
 		});
 	}
@@ -20,6 +20,6 @@ let daoFacadeFactory: Function = (BasicInfoDao, UtilitiesService) => {
 	return new DaoFacade(BasicInfoDao, UtilitiesService);
 }
 
-daoFacadeFactory.$inject = ['BasicInfoDao', 'UtilitiesService'];
+daoFacadeFactory.$inject = ['BasicInfoDao', '$route'];
 
 angular.module(Constants.MAIN_MODULE).factory(daoFacadeFactory);

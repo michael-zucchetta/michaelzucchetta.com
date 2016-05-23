@@ -33,7 +33,6 @@
         "src/js/services/rest-proxy.ts",
         "src/js/services/utils.ts",
         "typings/main.d.ts",
-        "src/tests/e2e/pick-color.Spec.ts",
         "src/tests/unit/JsonEditorSpec.ts",
         "src/tests/unit/TextEditorSpec.ts",
         "src/tests/unit/bootstrap.ts",

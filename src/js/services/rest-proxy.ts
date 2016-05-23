@@ -2,14 +2,14 @@ import Constants from 'js/services/Constants';
 
 export default class RestProxy {
 
-	constructor(private $q: ng.IPromiseService, private $http: ng.IHttpService) {
+	constructor(private $q: ng.IQService, private $http: ng.IHttpService) {
 	}
 
 	private data(response) {
 		return response.data && response.data.data || response.data;
 	}
 		
-	private deferredCall() {
+	private deferredCall = () => {
 		let fn = Array.prototype.shift.call(arguments, 0);
 		let deferred = this.$q.defer();
 		fn.apply(null, arguments).then((response) => {
@@ -22,7 +22,7 @@ export default class RestProxy {
 		return this.$http.get
 	}
 	
-	private handleGetCall() {
+	public handleGetCall() {
 		let newArgs = Array.prototype.concat.apply([this.getCall()], arguments);
 	}
 }
