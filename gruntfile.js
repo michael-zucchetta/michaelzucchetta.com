@@ -9,12 +9,27 @@ module.exports = function(grunt) {
 			options: {
 				color: true,
 				directory: "lib"
-		   },
-        "prod": {
-            options: {
-                production: true
-            }
-        }
+			},
+			"prod": {
+				options: {
+					production: true
+		    		}
+			}
+		},
+		instrument: {
+		        ignore: [],                   /* [1] */
+			files: [
+			    {
+				src: 'src/**/*.js',       /* [2] */
+				expand: true,
+				cwd: 'lib',           /* [3] */
+				dest: 'test/src'      /* [4] */
+			    }
+			]
+		},
+		report: {
+			reports: ['html', 'text-summary'],    /* [5] */
+			dest: 'coverage'                      /* [6] */
 		},
 		concat: {
 			"build-ts": {
@@ -153,6 +168,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks("grunt-contrib-jshint");
 	grunt.loadNpmTasks("grunt-contrib-sass");
 	grunt.loadNpmTasks("grunt-contrib-watch");
+	grunt.loadNpmTasks("grunt-istanbul");
 	grunt.loadNpmTasks("grunt-karma");
 	grunt.loadNpmTasks("grunt-newer");
 	grunt.loadNpmTasks("grunt-protractor-runner");
@@ -163,7 +179,7 @@ module.exports = function(grunt) {
 	grunt.registerTask("bower-install", function() {
 		grunt.task.run(["bower-install-simple"]);
 	});
-	
+
 	grunt.registerTask("build-requirejs", function() {
 		var dependencies = grunt.file.read(filesPath);
 		dependencies = dependencies.substring(1, dependencies.length - 1).replace(/\.js/g, "");

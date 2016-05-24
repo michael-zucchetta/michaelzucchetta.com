@@ -9,11 +9,11 @@ export default class RestProxy {
 		return response.data && response.data.data || response.data;
 	}
 		
-	private deferredCall = () => {
-		let fn = Array.prototype.shift.call(arguments, 0);
+	private deferredCall(...args) {
+		let fn = Array.prototype.shift.call(args, 0);
 		let deferred = this.$q.defer();
-		fn.apply(null, arguments).then((response) => {
-			response.status && deferred.resolve(this.data(response)) || deferred.reject(data(response));
+		fn.apply(null, args).then((response) => {
+			response.status && deferred.resolve(this.data(response)) || deferred.reject(this.data(response));
 		});
 		return deferred.promise;
 	}

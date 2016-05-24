@@ -20,6 +20,7 @@
         "src/js/classes/Keys.ts",
         "src/js/classes/TextEditor.ts",
         "src/js/classes/canvas.ts",
+        "src/js/ctrl/init-ctrl.ts",
         "src/js/initialisation/RouteProvider.ts",
         "src/js/initialisation/bootstrap.ts",
         "src/js/initialisation/main.ts",

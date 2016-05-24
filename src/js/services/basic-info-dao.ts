@@ -1,5 +1,5 @@
 import Constants from 'js/services/constants';
-import RestProxy from 'js/services/rest-proxy';
+import RestProxyFun from 'js/services/rest-proxy';
 
 export default class BasicInfoDao {
 
@@ -9,16 +9,15 @@ export default class BasicInfoDao {
 
 	// temporary
 	public getLinks() {
-		return RestProxy.handleGetCall('/js/mocks/links.json');
+		return this.RestProxy.handleGetCall('/js/mocks/links.json');
 	}
 
 	public getMenu() {
-		return RestProxy.handleGetCall('/js/mocks/menu.json');
+		return this.RestProxy.handleGetCall('/js/mocks/menu.json');
 	}
 
 }
 
-@inject('RestProxy')
 let basicInfoDaoFactory: Function = (RestProxy) => {
 	return new BasicInfoDao(RestProxy);
 };

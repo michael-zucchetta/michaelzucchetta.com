@@ -8,8 +8,8 @@ export default class DaoFacade {
 	}
 
 	private getMenu() {
-		return BasicInfoDao.getMenu().then((menu) => {
-			$route.route.setRouteDinamically(menu)
+		return this.BasicInfoDao.getMenu().then((menu) => {
+			this.$route.route.setRouteDinamically(menu)
 			return UtilitiesService.initializeMenu(menu);
 		});
 	}
