@@ -1,18 +1,24 @@
 import Constants from 'js/services/Constants';
 
 class AnimateTextCtrl {
-	
+
+	private letters;
+
+	private lettersBuffer;
+
+	private dataText;
+
 	constructor($interval) {	
-		let vm = this;
-		vm.letters = [];
-		vm.lettersBuffer = scope.dataText.split('');
-		let pushLetters = () => {
-			vm.letters.push(scope.lettersBuffer.shift());
-		       	if (vm.lettersBuffer.length === 0) {
-				$interval.cancel(vm.endInterval);
+		this.letters = [];
+		this.lettersBuffer = this.dataText.split('');
+		let endInterval;
+		let pushLetters = function() {
+			this.letters.push(this.lettersBuffer.shift());
+		       	if (this.lettersBuffer.length === 0) {
+				$interval.cancel(this.endInterval);
 			}
 		};
-		vm.endInterval = $interval(pushLetters, 100);
+		endInterval = $interval(pushLetters, 100);
 	}
 }
 

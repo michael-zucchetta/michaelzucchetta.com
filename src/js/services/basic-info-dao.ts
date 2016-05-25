@@ -1,7 +1,7 @@
 import Constants from 'js/services/constants';
 import RestProxyFun from 'js/services/rest-proxy';
 
-export default class BasicInfoDao {
+export class BasicInfoDao {
 
 	public constructor(private RestProxy) {
 		
@@ -25,5 +25,5 @@ let basicInfoDaoFactory: Function = (RestProxy) => {
 basicInfoDaoFactory.$inject = ['RestProxy'];
 
 
-angular.module(Constants.MAIN_MODULE).factory(basicInfoDaoFactory);
+export default angular.module(Constants.MAIN_MODULE).factory(basicInfoDaoFactory);
 
