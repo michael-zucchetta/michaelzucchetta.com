@@ -1,5 +1,5 @@
 import Constants from 'js/services/constants';
-import RestProxyFun from 'js/services/rest-proxy';
+import 'js/services/rest-proxy';
 
 export class BasicInfoDao {
 

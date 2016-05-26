@@ -8,15 +8,15 @@ class Utils {
 			if (element.id in menu) {
 				return;
 			}
+
 			if (!element.parentId) {
 				if (!menu[element.id]) {
 					menu[element.id] = {};
 				}
-				_.each(element, (attr, key) => {
+				_.each(element, (attr: string, key: string) => {
 					menu[element.id][key] = attr;
 				});
-			}
-			else {
+			} else {
 				if (!menu[element.parentId].children) {
 					menu[element.parentId].children = [];
 				}
@@ -27,7 +27,7 @@ class Utils {
 	}
 
 	public static removeFormattationFromString(inputString: string): string {
-		let newString = StringUtils.removeTabs(inputString);
+		let newString: string = StringUtils.removeTabs(inputString);
 		newString = StringUtils.removeSpaces(newString);
 		newString = StringUtils.removeNewLines(newString);
 		newString = StringUtils.removeEscapes(newString);

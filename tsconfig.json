@@ -35,6 +35,7 @@
         "src/js/services/files-utilities.ts",
         "src/js/services/images-utilities.ts",
         "src/js/services/rest-proxy.ts",
+        "src/js/services/trust-html.filter.ts",
         "src/js/services/utils.ts",
         "typings/main.d.ts",
         "src/tests/unit/JsonEditorSpec.ts",

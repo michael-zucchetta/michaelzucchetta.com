@@ -1,36 +1,36 @@
 import Constants from 'js/services/Constants';
 
-export default class RestProxy {
+class RestProxy {
 
 	constructor(private $q: ng.IQService, private $http: ng.IHttpService) {
 	}
+	
+	public handleGetCall() {
+		return Array.prototype.concat.apply([this.getCall()], arguments);
+	}
 
-	private data(response) {
+	private data(response): any {
 		return response.data && response.data.data || response.data;
 	}
-		
+
 	private deferredCall(...args) {
 		let fn = Array.prototype.shift.call(args, 0);
 		let deferred = this.$q.defer();
-		fn.apply(null, args).then((response) => {
-			response.status && deferred.resolve(this.data(response)) || deferred.reject(this.data(response));
+		fn.apply(undefined, args).then((response) => {
+			return response.status && deferred.resolve(this.data(response)) || deferred.reject(this.data(response));
 		});
 		return deferred.promise;
 	}
 
-	private getCall() {
-		return this.$http.get
-	}
-	
-	public handleGetCall() {
-		let newArgs = Array.prototype.concat.apply([this.getCall()], arguments);
+	private getCall(): Function {
+		return this.$http.get;
 	}
 }
 
-let restProxyFactory: Function = ($q, $http) => {
+let restProxyFactory: Function = ($q: ng.IQService, $http: ng.IHttpService) => {
 	return new RestProxy($q, $http);
 };
 
 restProxyFactory.$inject = ['$q', '$http'];
 
-angular.module(Constants.MAIN_MODULE).factory(restProxyFactory);
+export default angular.module(Constants.MAIN_MODULE).factory(restProxyFactory);

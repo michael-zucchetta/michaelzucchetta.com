@@ -1,8 +1,8 @@
-	
+
 class Canvas {
-	
+
 	private pixInterval: number = 4;
-	
+
 	private canvas: any;
 
 	private scale: number;
@@ -49,7 +49,7 @@ class Canvas {
 					this.scale = Math.min(this.scaleX, this.scaleY);
 				}
 				this.drawImage();
-			}
+			};
 			window.addEventListener('resize', this.resizeCanvas, false);
 			document.addEventListener('mousemove', (event) => {
 				this.mouseX = (event.pageX - $(this.canvas).offset().left);
@@ -63,12 +63,11 @@ class Canvas {
 		this.ctx.drawImage(canvas, 0, 0);
 		this.ctx.restore();
 	}
-		
-	
+
 	get Canvas(): HTMLCanvasElement {
 		return this.canvas;
 	}
-		
+
 	get Scale(): number {
 		return this.scale;
 	}
@@ -76,7 +75,7 @@ class Canvas {
 	set Scale(scale) {
 		this.scale = scale;
 	}
-		
+
 	private initCanvasWithImg(img: HTMLImageElement): any {
 		this.img = img;
 		this.width = this.img.width;
@@ -85,7 +84,7 @@ class Canvas {
 		this.canvas.height = this.height;
 		this.resizeCanvas(undefined);
 	}
-		
+
 	private loadImage(img: HTMLImageElement): void {
 		if (img instanceof Image) {
 			this.initCanvasWithImg(img);
@@ -94,7 +93,7 @@ class Canvas {
 			img.onload = this.initCanvasWithImg(img);
 		}
 	}
-		
+
 	private drawImage(action?): void {
 		this.ctx.clearRect(0, 0, this.width, this.height);
 		this.ctx.save();
@@ -116,7 +115,7 @@ class Canvas {
 			opacity: this.pixels.data[offset + 3]
 		}
 	}
-	
+
 	// zoom by a factor of 2 and use a cursor as center of the zoomed canvas
 	private zoomCanvas(): void {
 		this.drawImage(() => {
@@ -127,4 +126,3 @@ class Canvas {
 		});
 	}
 }
-// return Canvas

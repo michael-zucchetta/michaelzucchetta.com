@@ -2,7 +2,7 @@ import Constants from 'js/services/Constants';
 import BasicInfoDao from 'js/services/basic-info-dao';
 import UtilitiesService from 'js/services/utils';
 
-export default class DaoFacade {
+class DaoFacade {
 
 	constructor(private BasicInfoDao, private $route) {
 	}
@@ -22,4 +22,4 @@ let daoFacadeFactory: Function = (BasicInfoDao, UtilitiesService) => {
 
 daoFacadeFactory.$inject = ['BasicInfoDao', '$route'];
 
-angular.module(Constants.MAIN_MODULE).factory(daoFacadeFactory);
+export default angular.module(Constants.MAIN_MODULE).factory(daoFacadeFactory);

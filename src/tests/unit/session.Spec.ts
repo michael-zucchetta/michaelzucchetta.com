@@ -12,7 +12,7 @@ describe('test session\'s factory', () => {
 	}));
 
 	it('test session set/get attribute', () => {
-		let testObj = {
+		let testObj: any = {
 			'a': 123
 		};
 		session.setAttr('test', testObj);
