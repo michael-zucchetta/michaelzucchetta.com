@@ -2,20 +2,20 @@ import Constants from 'js/services/Constants';
 
 class AnimateTextCtrl {
 
-	private letters;
+	private letters: string[];
 
-	private lettersBuffer;
+	private lettersBuffer: string[];
 
-	private dataText;
+	private dataText: string;
 
-	constructor($interval) {	
+	constructor($interval: ng.IIntervalService) {
 		this.letters = [];
 		this.lettersBuffer = this.dataText.split('');
-		let endInterval;
-		let pushLetters = function() {
+		let endInterval: ng.IPromise<any>;
+		let pushLetters: Function = (): void => {
 			this.letters.push(this.lettersBuffer.shift());
-		       	if (this.lettersBuffer.length === 0) {
-				$interval.cancel(this.endInterval);
+			if (this.lettersBuffer.length === 0) {
+				$interval.cancel(endInterval);
 			}
 		};
 		endInterval = $interval(pushLetters, 100);
@@ -25,7 +25,7 @@ class AnimateTextCtrl {
 AnimateTextCtrl.$inject = ['$interval'];
 
 interface IComponentOptionsCss extends ng.IComponentOptions {
-	        css: string;
+	css: string;
 };
 
 let animateTextOpts: IComponentOptionsCss = {
@@ -35,6 +35,7 @@ let animateTextOpts: IComponentOptionsCss = {
 	templateUrl: '/directives/animate-text/animate-text.html',
 	css: '/directives/animate-text/animate-text.css',
 	controller: AnimateTextCtrl
-}
+};
 
-export default angular.module(Constants.MAIN_MODULE).component('animateText', animateTextOpts);
+export default angular.module(Constants.MAIN_MODULE)
+	.component('animateText', animateTextOpts);

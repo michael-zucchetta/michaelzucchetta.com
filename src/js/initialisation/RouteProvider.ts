@@ -1,5 +1,5 @@
 import Constants from 'js/services/Constants';
-
+import MenuEl from 'domains/menu';
 // move angular bootstrap to another class
 // let serviceModule = angular.module('RouteResolverServices', ['ngRoute', 'angularCSS']);
 // must be a provider since it will be injected into module.config()
@@ -13,7 +13,7 @@ class Register {
 	public service: any;
 }
 
-let RouteProvider: Function = ($routeProvider, RouteResolverServiceProvider, $controllerProvider, $compileProvider, $filterProvider, $provide: ng.auto.IProvideService): Register => {
+let RouteProvider: Function = ($routeProvider: ng.route.IRouteProvider, RouteResolverServiceProvider, $controllerProvider: ng.IControllerProvider, $compileProvider: ng.ICompileProvider, $filterProvider: ng.IFilterProvider, $provide: ng.auto.IProvideService): Register => {
 	let register = new Register();
 	register.controller = $controllerProvider.register;
 	register.directive = $compileProvider.directive;
@@ -39,15 +39,15 @@ let RouteProvider: Function = ($routeProvider, RouteResolverServiceProvider, $co
 				$routeProvider.otherwise(path);
 				return this;
 			};
+			$route.otherwise(Constants.DEFAULT_PAGE);
 
-			$route.setRouteDinamically = (menu): void => {
+			$route.setRouteDinamically = (menu: MenuEl[]): void => {
 				let route = $route.route;
-				_.each(menu, (menuItem) => {
+				_.each(menu, (menuItem: MenuEl) => {
 					if (menuItem.active) {
 						$route.when('/' + Constants.FUNCTIONS_PREFIX + '/' + menuItem.id, route.resolve(menuItem.name));
 					}
 				});
-				$route.otherwise(Constants.DEFAULT_PAGE);
 				$route.reload();
 			};
 

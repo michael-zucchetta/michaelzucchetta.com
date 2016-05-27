@@ -56,7 +56,7 @@ export class RouteResolver {
 			templateUrl: this.routeConfig.getViewsDirectory() + path + nonCamelToeBaseName + '.html',
 			resolve: {
 				load: ['$q', '$rootScope', ($q: ng.IQService, $rootScope: ng.IRootScopeService) => {
-						let dependencies = [this.routeConfig.getControllersDirectory() + path + baseName + 'Ctrl.js'];
+						let dependencies = [this.routeConfig.getControllersDirectory() + path + baseName + '.ctrl.js'];
 						return this.resolveDependencies($q, $rootScope, dependencies);
 					}
 				]

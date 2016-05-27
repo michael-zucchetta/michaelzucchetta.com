@@ -9,7 +9,7 @@ class DaoFacade {
 
 	private getMenu() {
 		return this.BasicInfoDao.getMenu().then((menu) => {
-			this.$route.route.setRouteDinamically(menu)
+			this.$route.route.setRouteDinamically(menu);
 			return UtilitiesService.initializeMenu(menu);
 		});
 	}
@@ -18,7 +18,7 @@ class DaoFacade {
 
 let daoFacadeFactory: Function = (BasicInfoDao, UtilitiesService) => {
 	return new DaoFacade(BasicInfoDao, UtilitiesService);
-}
+};
 
 daoFacadeFactory.$inject = ['BasicInfoDao', '$route'];
 

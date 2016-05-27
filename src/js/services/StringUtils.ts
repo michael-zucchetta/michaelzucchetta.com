@@ -1,5 +1,4 @@
 import RegexUtils from 'js/services/RegexUtils';
-import Utils from 'js/services/utils';
 
 class StringUtils {
 

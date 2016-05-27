@@ -4,7 +4,6 @@ import 'js/services/rest-proxy';
 export class BasicInfoDao {
 
 	public constructor(private RestProxy) {
-		
 	}
 
 	// temporary

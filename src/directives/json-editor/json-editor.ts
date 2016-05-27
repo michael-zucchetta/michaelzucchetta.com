@@ -1,5 +1,6 @@
 import TextEditor from 'js/classes/TextEditor';
-export default class JsonEditorCtrl {
+
+class JsonEditorCtrl {
 	
 	constructor($timeout: ng.ITimeoutService, $interval: ng.IIntervalService) {
 		let display: JQuery = $('#json-display');
@@ -56,4 +57,5 @@ let jsonEditorOpts: IComponentOptionsCss = {
 	templateUrl: '/directives/json-editor/json-editor.html',
 	controller: JsonEditorCtrl
 };
-angular.module('michaelzucchetta').component('jsonEditor', jsonEditorOpts);
+export default angular.module('michaelzucchetta')
+	.component('jsonEditor', jsonEditorOpts);

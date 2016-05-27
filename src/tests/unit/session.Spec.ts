@@ -1,21 +1,19 @@
-import s from 'js/services/Session';
+import ISession from 'domains/session';
+import 'js/services/Session';
 
 describe('test session\'s factory', () => {
-	let session: s.Session;
-	console.log(s.Session);
-	beforeEach(() => {
-		angular.mock.module('michaelzucchetta');
-	});
+	let Session: ISession;
+	beforeEach(() => angular.mock.module('michaelzucchetta'));
 
-	beforeEach(() => inject((Session: s.Session) => {
-		session = Session;
+	beforeEach(() => inject((_Session_: ISession) => {
+		Session = _Session_;
 	}));
 
 	it('test session set/get attribute', () => {
 		let testObj: any = {
 			'a': 123
 		};
-		session.setAttr('test', testObj);
-		expect(session.getAttr('test')).toEqual(testObj);
+		Session.setAttr('test', testObj);
+		expect(Session.getAttr('test')).toEqual(testObj);
 	});
 });

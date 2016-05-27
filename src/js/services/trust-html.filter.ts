@@ -1,7 +1,7 @@
 import Constants from 'Constants';
 
-let trustHtmlFilter = ($sce) => {
-	return (value, type) => {
+let trustHtmlFilter: Function = ($sce: ng.ISCEService): Function => {
+	return (value: any, type: string) => {
 		return $sce.trustAs(type || 'html', value);
 	};
 };

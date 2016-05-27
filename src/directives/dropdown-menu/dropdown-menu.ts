@@ -1,7 +1,7 @@
 import Constants from 'js/services/Constants';
 import 'js/services/dao-facade';
 
-export default class DropdownMenuCtrl {
+class DropdownMenuCtrl {
 
 	constructor() {
 		let vm: any = this;
@@ -45,6 +45,7 @@ let dropDownMenuDirective: Function = ($http, $compile, $timeout, DaoFacade) => 
 		}
 	};
 };
+
 dropDownMenuDirective.$inject = ['$http', '$compile', '$timeout', 'DaoFacade'];
 
-angular.module(Constants.MAIN_MODULE).directive(dropDownMenuDirective);
+export default angular.module(Constants.MAIN_MODULE).directive(dropDownMenuDirective);

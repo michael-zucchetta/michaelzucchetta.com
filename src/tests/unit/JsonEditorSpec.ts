@@ -1,10 +1,9 @@
-import jsonEditor from 'directives/json-editor/json-editor';
+import 'directives/json-editor/json-editor';
 
 describe ('Test jsonEditor component', () => {
 	let componentController: ng.IComponentControllerService,
 		rootScope: ng.IRootScopeService,
 		component: ng.IModule;
-	console.log(jsonEditor);
 	beforeEach(() => {
 		angular.mock.module('michaelzucchetta');
 		inject(($componentController: ng.IComponentControllerService, $rootScope: ng.IRootScopeService) => {

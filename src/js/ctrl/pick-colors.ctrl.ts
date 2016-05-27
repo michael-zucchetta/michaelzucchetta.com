@@ -2,17 +2,17 @@ import Constants from 'js/services/Constants';
 
 class PickColorsCtrl {
 
-	private canvas;
+	private canvas: any;
 
-	private backupCanvases;
+	private backupCanvases: any[];
 
 	private imageFile;
 
-	private pixelValue;
+	private pixelValue: number;
 
-	private loadPicLabel;
+	private loadPicLabel: string;
 
-	private pixelHexValue;
+	private pixelHexValue: string;
 
 	constructor(private $timeout, private ImagesUtilities) {
 	}
@@ -22,13 +22,13 @@ class PickColorsCtrl {
 			return;
 		}
 		let file = this.imageFile;
-		this.canvas = new Canvas('uploaded-picture')
-		this.ImagesUtilities.loadImage(file, img => this.canvas.loadImage(img))
+		this.canvas = new Canvas('uploaded-picture');
+		this.ImagesUtilities.loadImage(file, img => this.canvas.loadImage(img));
 	}
-	
+
 	public initPickColors() {
 		this.canvas = undefined;
-		this.loadPicLabel = "Load picture:";
+		this.loadPicLabel = 'Load picture:';
 		this.backupCanvases = [];
 	}
 
@@ -36,7 +36,7 @@ class PickColorsCtrl {
 		let canvasBackup = document.createElement('canvas');
 		canvasBackup.width = this.canvas.width;
 		canvasBackup.height = this.canvas.height;
-		let ctx = canvasBackup.getContext('2d');
+		let ctx: CanvasRenderingContext2D = canvasBackup.getContext('2d');
 		ctx.drawImage(this.canvas.getCanvas(), 0, 0);
 		this.backupCanvases.push(canvasBackup);
 	}
@@ -46,16 +46,15 @@ class PickColorsCtrl {
 		this.pixelHexValue = this.ImagesUtilities.fromRgbToHex(this.pixelValue);
 		this.$timeout(() => (<HTMLInputElement> document.getElementById('result-color')).value = this.pixelHexValue);
 	}
-	
+
 	public zoomCanvas($event) {
 		// magic number: To be changed so it is enabled on body and check if the event is within the canvas
 		if ($event.keyCode === 122) {
 			this.createCanvasBackup();
 			this.canvas.zoomCanvas();
-		}
-		else if ($event.shiftKey && $event.keyCode === 90 && this.backupCanvases.length) {
+		} else if ($event.shiftKey && $event.keyCode === 90 && this.backupCanvases.length) {
 			this.canvas.setScale(this.canvas.getScale() / 2);
-			this.canvas.drawCanvas(this.backupCanvases.pop())
+			this.canvas.drawCanvas(this.backupCanvases.pop());
 		}
 
 		this.initPickColors();

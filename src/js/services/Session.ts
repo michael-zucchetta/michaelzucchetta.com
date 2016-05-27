@@ -1,29 +1,26 @@
 import Constants from 'js/services/Constants';
+import ISession from 'domains/session';
 
-module services {
-	export class Session {
+class Session implements ISession {
 
-		private sessionData: any;
+	private sessionData: any;
 
-		constructor() {
-			this.sessionData = {};
-		}
-
-		public getAttr(name: string): any {
-			return this.sessionData[name];
-		}
-
-		public setAttr(name: string, obj: any): void {
-			this.sessionData[name] = obj;
-		}
-
+	constructor() {
+		this.sessionData = {};
 	}
 
-	let sessionFactory: Function = () => {
-		return new Session();
-	};
+	public getAttr(name: string): any {
+		return this.sessionData[name];
+	}
 
-	angular.module(Constants.MAIN_MODULE).factory('Session', sessionFactory);
+	public setAttr(name: string, obj: any): void {
+		this.sessionData[name] = obj;
+	}
+
 }
 
-export default services;
+let sessionFactory: Function = (): ISession => {
+	return new Session();
+};
+
+export default angular.module(Constants.MAIN_MODULE).factory('Session', sessionFactory);
