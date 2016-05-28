@@ -13,7 +13,7 @@ class Register {
 	public service: any;
 }
 
-let RouteProvider: Function = ($routeProvider: ng.route.IRouteProvider, RouteResolverServiceProvider, $controllerProvider: ng.IControllerProvider, $compileProvider: ng.ICompileProvider, $filterProvider: ng.IFilterProvider, $provide: ng.auto.IProvideService): Register => {
+let RouteProvider: Function = ($stateProvider, $urlRouterProvider, $controllerProvider: ng.IControllerProvider, $compileProvider: ng.ICompileProvider, $filterProvider: ng.IFilterProvider, $provide: ng.auto.IProvideService): Register => {
 	let register = new Register();
 	register.controller = $controllerProvider.register;
 	register.directive = $compileProvider.directive;
@@ -22,21 +22,20 @@ let RouteProvider: Function = ($routeProvider: ng.route.IRouteProvider, RouteRes
 	register.service = $provide.service;
 	let routeDecorator: any = ($delegate: any) => {
 			let $route: any = $delegate;
-			$route.route =  RouteResolverServiceProvider.route;
+			$route.state =  $stateProvider.state;
 			// default view
-			$routeProvider.when('/home.html', {
+			$stateProvider.state('home', {
+				url: '/home.html',
 				templateUrl: 'home.html'
 			});
-			// allow routes to be defined after the application has been
-			// bootstrapped. These go into a shared "routes" collection.
 
-			$route.when = (path: string, route: string) => {
-				$routeProvider.when(path, route);
+			$route.when = (url: string, templateUrl: string, controller: string) => {
+				$stateProvider.state(url, templateUrl, controller);
 				return this;
 			};
 
 			$route.otherwise = (path: string) => {
-				$routeProvider.otherwise(path);
+				$urlRouterProvider.otherwise(path);
 				return this;
 			};
 			$route.otherwise(Constants.DEFAULT_PAGE);
@@ -59,6 +58,6 @@ let RouteProvider: Function = ($routeProvider: ng.route.IRouteProvider, RouteRes
 	return register;
 };
 
-RouteProvider.$inject = ['$routeProvider', 'RouteResolverServiceProvider', '$controllerProvider', '$compileProvider', '$filterProvider', '$provide'];
-// serviceModule.config(new RouteProvider());
+RouteProvider.$inject = ['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$compileProvider', '$filterProvider', '$provide'];
+
 export default RouteProvider;

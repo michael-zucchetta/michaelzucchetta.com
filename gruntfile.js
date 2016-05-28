@@ -140,7 +140,7 @@ module.exports = function(grunt) {
 		ts: {
 			main: {
 				files: [{
-					src: [baseSrcPath + "**/*.ts"], //"!" + baseSrcPath + "tests/**/*.ts"],
+					src: [baseSrcPath + "**/*.ts"], 
 					dest: "dist/"
 				}],
 				tsconfig: true

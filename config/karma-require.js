@@ -12,7 +12,7 @@ requirejs.config({
 		"jquery": "../lib/jquery/dist/jquery.min",
 		"lodash": "../lib/lodash/lodash",
 		"angular": "../lib/angular/angular.min",
-		"angular-route": "../lib/angular-route/angular-route.min",
+		"ui-router": "../lib/ui-router/release/angular-ui-router",
 		"angular-mocks": "../lib/angular-mocks/angular-mocks",
 		"angular-css": "../lib/angular-css/angular-css.min"
 	},

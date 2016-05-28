@@ -4,19 +4,19 @@ import RouteResolver from 'js/services/RouteResolverService';
 import RouteProvider from 'js/initialisation/RouteProvider';
 
 // move angular bootstrap to another class
-let serviceModule: ng.IModule = angular.module('RouteResolverServices', ['ngRoute', 'angularCSS']);
+//let serviceModule: ng.IModule = angular.module('RouteResolverServices', ['ui-router', 'angularCSS']);
 // must be a provider since it will be injected into module.config()
-serviceModule.provider('RouteResolverService', RouteResolver);
-let routeProviderService: ng.IModule = angular.module(Constants.ROUTE_PROVIDER, [Constants.ROUTE_SERVICES]);
+// serviceModule.provider('RouteResolverService', RouteResolver);
+ let routeProviderService: ng.IModule = angular.module(Constants.ROUTE_PROVIDER, ['ui.router']);
 routeProviderService.config(RouteProvider);
 let module: ng.IModule = angular.module(Constants.MAIN_MODULE, [Constants.ROUTE_PROVIDER]);
 console.log(Constants.MAIN_MODULE);
-// removing the function argument in the run inokation results in an error 
+// removing the function argument in the run invocation results in an error 
 module.run([() => {}]);
 
 class AngularBootstrap implements ng.IAngularBootstrapConfig {
 
-	constructor($routeProvider: ng.route.IRouteProvider, $locationProvider: ng.ILocationProvider, $controllerProvider: ng.IControllerProvider, $provide: ng.auto.IProvideService, $compileProvider: ng.ICompileProvider) {
+	constructor($stateProvider, $locationProvider: ng.ILocationProvider, $controllerProvider: ng.IControllerProvider, $provide: ng.auto.IProvideService, $compileProvider: ng.ICompileProvider) {
 		let app: ng.IModule = module;
 		// http://www.bennadel.com/blog/2554-loading-angularjs-components-with-requirejs-after-application-bootstrap.htm
 		angular.extend(app, {
@@ -64,7 +64,7 @@ class AngularBootstrap implements ng.IAngularBootstrapConfig {
 	}
 };
 
-AngularBootstrap.$inject = ['$routeProvider', '$locationProvider', '$controllerProvider', '$provide', '$compileProvider'];
+AngularBootstrap.$inject = ['$stateProvider', '$locationProvider', '$controllerProvider', '$provide', '$compileProvider'];
 
 module.config(AngularBootstrap);
 angular.element().ready(() => angular.bootstrap(document, [Constants.MAIN_MODULE]));

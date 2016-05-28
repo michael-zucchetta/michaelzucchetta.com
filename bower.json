@@ -5,6 +5,7 @@
 		"jquery": "*",
 		"angularjs": "*",
 		"angular-mocks": "*",
+		"ui-router": "*",
 		"angular-route": "*",
 		"angular-resource": "*",
 		"angular-css": "*",

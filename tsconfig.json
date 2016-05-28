@@ -8,19 +8,25 @@
         "outDir": "dist/"
     },
     "filesGlob": [
-        "src/js/**/*.ts",
+        "src/**/*.ts",
         "!node_modules/**",
         "!dist",
-        "typings/main.d.ts",
-        "src/tests/**/*.ts"
+        "typings/main.d.ts"
     ],
     "files": [
+        "src/directives/animate-text/animate-text.ts",
+        "src/directives/dropdown-menu/dropdown-menu.ts",
+        "src/directives/json-editor/json-editor.ts",
+        "src/directives/text-editor/text-editor.ts",
+        "src/domains/menu.ts",
+        "src/domains/session.ts",
         "src/js/classes/BaseClass.ts",
         "src/js/classes/Constants.ts",
         "src/js/classes/Keys.ts",
         "src/js/classes/TextEditor.ts",
         "src/js/classes/canvas.ts",
-        "src/js/ctrl/init-ctrl.ts",
+        "src/js/ctrl/characters-count.ctrl.ts",
+        "src/js/ctrl/init.ctrl.ts",
         "src/js/ctrl/pick-colors.ctrl.ts",
         "src/js/initialisation/RouteProvider.ts",
         "src/js/initialisation/bootstrap.ts",
@@ -37,13 +43,13 @@
         "src/js/services/rest-proxy.ts",
         "src/js/services/trust-html.filter.ts",
         "src/js/services/utils.ts",
-        "typings/main.d.ts",
         "src/tests/unit/JsonEditorSpec.ts",
         "src/tests/unit/TextEditorSpec.ts",
         "src/tests/unit/bootstrap.ts",
         "src/tests/unit/route-resolver.Spec.ts",
         "src/tests/unit/session.Spec.ts",
         "src/tests/unit/string-utils.Spec.ts",
-        "src/tests/utils/utils.ts"
+        "src/tests/utils/utils.ts",
+        "typings/main.d.ts"
     ]
 }

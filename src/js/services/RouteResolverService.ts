@@ -50,7 +50,7 @@ export class RouteResolver {
 		// move regex
 		let nonCamelToeBaseName: string = baseName.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
 		let routeDef: RouteDef = {
-			controller: baseName + 'Ctrl',
+			controller: baseName + 'ctrl',
 			css: this.routeConfig.getCSSDirectory() + path + nonCamelToeBaseName + '.css',
 			secure: secure || false,
 			templateUrl: this.routeConfig.getViewsDirectory() + path + nonCamelToeBaseName + '.html',

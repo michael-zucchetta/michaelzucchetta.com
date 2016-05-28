@@ -1,4 +1,4 @@
-import Constants from 'js/services/constants';
+import Constants from 'js/services/Constants';
 import 'js/services/rest-proxy';
 
 export class BasicInfoDao {

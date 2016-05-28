@@ -3,7 +3,7 @@ requirejs.config({
 
 	paths: {
 		'angular': '../lib/angularjs/angular.min',
-		'angularRoute': '../lib/angular-route/angular-route.min',
+		"uiRouter": "../lib/ui-router/release/angular-ui-router",
 		'angularResource': '../lib/angular-resource/angular-resource.min',
 		'angularCss': '../lib/angular-css/angular-css.min',
 		'jQuery': '../lib/jquery/dist/jquery.min',
@@ -15,9 +15,9 @@ requirejs.config({
 		'angular' : {
 			exports : 'angular'
 		},
-		'angularRoute': {
+		'uiRouter': {
 			deps: ['angular'],
-			exports: 'angularRoute'
+			exports: 'uiRouter'
 		},
 		'angularMocks': {
 			deps: ['angular'],
@@ -32,7 +32,7 @@ requirejs.config({
 			exports: 'angularCss'
 		},
 		'main': {
-			deps: ['angular', 'angularRoute', 'angularCss'],
+			deps: ['angular', 'uiRouter', 'angularCss'],
 			exports: 'main'
 		}
 	}
