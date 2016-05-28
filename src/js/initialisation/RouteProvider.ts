@@ -26,11 +26,12 @@ let RouteProvider: Function = ($stateProvider, $urlRouterProvider, $controllerPr
 			// default view
 			$stateProvider.state('home', {
 				url: '/home.html',
-				templateUrl: 'home.html'
+				templateUrl: 'home.html',
+				controller: require('js/ctrl/init.ctrl')
 			});
 
-			$route.when = (url: string, templateUrl: string, controller: string) => {
-				$stateProvider.state(url, templateUrl, controller);
+			$route.state = (name: string) => {
+				$stateProvider.state(name);
 				return this;
 			};
 
@@ -44,7 +45,7 @@ let RouteProvider: Function = ($stateProvider, $urlRouterProvider, $controllerPr
 				let route = $route.route;
 				_.each(menu, (menuItem: MenuEl) => {
 					if (menuItem.active) {
-						$route.when('/' + Constants.FUNCTIONS_PREFIX + '/' + menuItem.id, route.resolve(menuItem.name));
+						$route.state(menuItem.name, menuItem.status);
 					}
 				});
 				$route.reload();
@@ -54,7 +55,7 @@ let RouteProvider: Function = ($stateProvider, $urlRouterProvider, $controllerPr
 
 	};
 
-	$provide.decorator('$route', routeDecorator);
+	$provide.decorator('$state', routeDecorator);
 	return register;
 };
 

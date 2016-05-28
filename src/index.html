@@ -15,11 +15,11 @@
 				</span>
 			</div>
 			<div class="website-content col-xs-12 col-md-12">
-				<div id="view-container" ng-view></div>
+				<div id="view-container" ui-view></div>
 			</div>
 			<div class="notes col-xs-12 col-md-12">Michael Zucchetta - michael.zucchetta@gmail.com - Dublin, Ireland
 				<span class="links">
-					<span ng-repeat="link in myLinks" class="{{link.class}}">
+					<span ng-repeat="link in myLinks" ng-class="{{link.class}}">
 						<a target="_blank" ng-href="{{link.link}}" ng-bind="link.text"></a>
 					</span>
 				</span>

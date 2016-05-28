@@ -1,12 +1,9 @@
 import angular = require('angular');
 import Constants from 'js/services/Constants';
-import RouteResolver from 'js/services/RouteResolverService';
 import RouteProvider from 'js/initialisation/RouteProvider';
 
 // move angular bootstrap to another class
-//let serviceModule: ng.IModule = angular.module('RouteResolverServices', ['ui-router', 'angularCSS']);
 // must be a provider since it will be injected into module.config()
-// serviceModule.provider('RouteResolverService', RouteResolver);
  let routeProviderService: ng.IModule = angular.module(Constants.ROUTE_PROVIDER, ['ui.router']);
 routeProviderService.config(RouteProvider);
 let module: ng.IModule = angular.module(Constants.MAIN_MODULE, [Constants.ROUTE_PROVIDER]);

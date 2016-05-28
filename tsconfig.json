@@ -33,7 +33,6 @@
         "src/js/initialisation/main.ts",
         "src/js/services/Constants.ts",
         "src/js/services/RegexUtils.ts",
-        "src/js/services/RouteResolverService.ts",
         "src/js/services/Session.ts",
         "src/js/services/StringUtils.ts",
         "src/js/services/basic-info-dao.ts",
