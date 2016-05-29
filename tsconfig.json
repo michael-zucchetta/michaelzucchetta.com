@@ -26,6 +26,7 @@
         "src/js/classes/TextEditor.ts",
         "src/js/classes/canvas.ts",
         "src/js/ctrl/characters-count.ctrl.ts",
+        "src/js/ctrl/format-json.ctrl.ts",
         "src/js/ctrl/init.ctrl.ts",
         "src/js/ctrl/pick-colors.ctrl.ts",
         "src/js/initialisation/RouteProvider.ts",

@@ -269,6 +269,11 @@ export default class TextEditor {
 		return undefined;
 	}
 
+
+	public doubleClickEditor($event) {
+		console.log("double click", $event);
+	}
+
 	private getLastRowIndex(): number {
 		let $index: number = undefined;
 		_.each(this.statusMatrix, (row: Status, index: number) => {
