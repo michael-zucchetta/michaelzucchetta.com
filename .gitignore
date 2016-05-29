@@ -19,6 +19,7 @@ node_modules/**/**/build/Makefile
 src/js/initialisation/requirejs-bootstrap.js
 src/js/initialisation/requirejs-bootstrap-test.js
 src/files.json
+src/**/*map
 npm-debug.log
 tests/units.html
 src/js/example/result.js
@@ -26,3 +27,7 @@ dist/**/*
 .sass-cache/
 tests/**/*
 karma_html/**/*
+tscommand-*.tmp.txt
+.tscache
+src/**/.*.ts
+typings/**/*

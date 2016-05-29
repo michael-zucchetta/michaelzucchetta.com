@@ -10,10 +10,13 @@ call vundle#begin()
 " " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'kchmck/vim-coffee-script'
+Plugin 'leafgarland/typescript-vim'
 Plugin 'cakebaker/scss-syntax.vim'
+Plugin 'kien/ctrlp.vim'
 " " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
+syntax on "required for osx
 " " To ignore plugin indent changes, instead use:
 " "filetype plugin on
 " "
@@ -27,3 +30,6 @@ filetype plugin indent on    " required
 " "
 " " see :h vundle for more details or wiki for FAQ
 " " Put your non-Plugin stuff after this line
+" Ali: to indent json files on save
+" autocmd FileType json autocmd BufWritePre <buffer> %!python -m json.tool
+set backspace=indent,eol,start

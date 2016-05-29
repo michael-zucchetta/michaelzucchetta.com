@@ -1,17 +1,18 @@
 {
-	"name": "michaelzucchetta libs",
+	"name": "michaelzucchetta-libs",
 	"description": "",
 	"dependencies": {
 		"jquery": "*",
 		"angularjs": "*",
 		"angular-mocks": "*",
+		"ui-router": "*",
 		"angular-route": "*",
 		"angular-resource": "*",
 		"angular-css": "*",
 		"ng-file-upload": "*",
 		"bootstrap": "*",
-		"requirejs": "*",
-		"lodash": "*"
+		"lodash": "*",
+      "requirejs": "*"
 	},
 	"private": true
 }
