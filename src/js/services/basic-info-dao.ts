@@ -3,11 +3,11 @@ import 'js/services/rest-proxy';
 
 export class BasicInfoDao {
 
-	public constructor(private RestProxy) {
+	constructor(private RestProxy) {
 	}
 
-	// temporary
 	public getLinks() {
+		// temporary
 		return this.RestProxy.handleGetCall('/js/mocks/links.json');
 	}
 
@@ -23,6 +23,5 @@ let basicInfoDaoFactory: Function = (RestProxy) => {
 
 basicInfoDaoFactory.$inject = ['RestProxy'];
 
-
-export default angular.module(Constants.MAIN_MODULE).factory(basicInfoDaoFactory);
-
+export default angular.module(Constants.MAIN_MODULE)
+	.factory('BasicInfoDao', basicInfoDaoFactory);

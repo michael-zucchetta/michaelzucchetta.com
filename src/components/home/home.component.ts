@@ -7,7 +7,5 @@ let homeOpts: IComponentsOptionsCss = {
 	controller: InitCtrl,
 };
 
-
-
 export default angular.module(Constants.MAIN_MODULE)
 	.component('home', homeOpts);

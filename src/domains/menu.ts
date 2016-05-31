@@ -22,6 +22,10 @@ interface IMenuEl {
 	active: boolean;
 
 	children?: IMenuEl[];
+	
+	url: string;
+
+	definition: string;
 }
 
 export default IMenuEl;

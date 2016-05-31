@@ -9,20 +9,12 @@ import RouteProvider from 'js/initialisation/RouteProvider';
 routeProviderService.config(RouteProvider);
 let module: ng.IModule = angular.module(Constants.MAIN_MODULE, [Constants.ROUTE_PROVIDER, 'angularCSS']);
 // removing the function argument in the run invocation results in an error 
-module.run(['$state', ($state) => {
-	require(['components/home/home.component'], (homeOpts) => {
-		module.component('home', homeOpts);
-		$state.state('home', {
-			url: '/home.html',
-			templateUrl: '<home></home>'
-		});
-		$state.otherwise(Constants.DEFAULT_PAGE);
-	});
+module.run([() => {
 }]);
 
 class AngularBootstrap implements ng.IAngularBootstrapConfig {
 
-	constructor($stateProvider, $locationProvider: ng.ILocationProvider, $controllerProvider: ng.IControllerProvider, $provide: ng.auto.IProvideService, $compileProvider: ng.ICompileProvider) {
+	constructor($stateProvider, $locationProvider: ng.ILocationProvider, $controllerProvider: ng.IControllerProvider, $provide: ng.auto.IProvideService, $compileProvider: ng.ICompileProvider, $urlRouterProvider) {
 		let app: ng.IModule = module;
 		// http://www.bennadel.com/blog/2554-loading-angularjs-components-with-requirejs-after-application-bootstrap.htm
 		angular.extend(app, {
@@ -67,19 +59,35 @@ class AngularBootstrap implements ng.IAngularBootstrapConfig {
 		// note: You can do the same thing with the "filter"
 		// and the "$filterProvider"; but, I don't really use
 		// custom filters.
+		requirejs(['components/home/home.component'], (homeComponent) => { 
+			$stateProvider.state('home', {
+				url: '/home.html',
+				template: '<home></home>',
+				component: homeComponent
+			});
+		});
+		$urlRouterProvider.otherwise(Constants.DEFAULT_PAGE);
 	}
 };
 
-AngularBootstrap.$inject = ['$stateProvider', '$locationProvider', '$controllerProvider', '$provide', '$compileProvider'];
+AngularBootstrap.$inject = ['$stateProvider', '$locationProvider', '$controllerProvider', '$provide', '$compileProvider', '$urlRouterProvider'];
 
 module.config(AngularBootstrap);
-// module.component('home', homeOpts);
 
-export default angular.module(Constants.MAIN_MODULE)
-		 //      .component('home', homeOpts);
+let initFirstComponent = ($state) => {
+	requirejs(['components/home/home.component'], (homeOpts) => {
+		module.component('home', homeOpts);
+		/*$state.state('home', {
+			url: '/home.html',
+			templateUrl: '<home></home>'
+		});
+		$state.otherwise(Constants.DEFAULT_PAGE);*/
+	});
+};
+
+initFirstComponent.$inject = ['$state'];
+
+export default angular.module(Constants.MAIN_MODULE);
 angular.element().ready(() => {
 	angular.bootstrap(document, [Constants.MAIN_MODULE]);
-	require(['components/home/home.component'], (homeOpts) => {
-		module.component('home', homeOpts);
-	});
 });

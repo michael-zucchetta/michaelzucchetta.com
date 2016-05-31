@@ -23,11 +23,6 @@ let RouteProvider: Function = ($stateProvider, $urlRouterProvider, $controllerPr
 	let routeDecorator: any = ($delegate: any) => {
 			let $route: any = $delegate;
 			$route.state =  $stateProvider.state;
-			// default view
-			// $stateProvider.state('home', {
-			//	url: '/home.html',
-			//	templateUrl: '<home></home>'
-			// });
 
 			$route.state = (name: string, definition) => {
 				$stateProvider.state(name, definition);

@@ -5,7 +5,8 @@
 		"title": "About Me",
 		"order": 1,
 		"parentId": null,
-		"active": true
+		"active": false,
+		"url": "/about-me.html"
 	},
 	{
 		"id": 2,

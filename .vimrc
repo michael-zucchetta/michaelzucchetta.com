@@ -12,7 +12,10 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'leafgarland/typescript-vim'
 Plugin 'cakebaker/scss-syntax.vim'
-Plugin 'kien/ctrlp.vim'
+Plugin 'rust-lang/rust.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'jistr/vim-nerdtree-tabs'
 " " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -31,5 +34,13 @@ syntax on "required for osx
 " " see :h vundle for more details or wiki for FAQ
 " " Put your non-Plugin stuff after this line
 " Ali: to indent json files on save
+map <C-l> :NERDTreeToggle<CR>
 " autocmd FileType json autocmd BufWritePre <buffer> %!python -m json.tool
 set backspace=indent,eol,start
+if has("multi_byte")
+	if &termencoding == ""
+		let &termencoding = &encoding
+	endif
+	set encoding=utf-8                     " better default than latin1
+	setglobal fileencoding=utf-8           " change default file encoding when writing new files
+endif

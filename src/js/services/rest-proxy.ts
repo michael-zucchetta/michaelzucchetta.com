@@ -5,8 +5,9 @@ class RestProxy {
 	constructor(private $q: ng.IQService, private $http: ng.IHttpService) {
 	}
 	
-	public handleGetCall() {
-		return Array.prototype.concat.apply([this.getCall()], arguments);
+	public handleGetCall(endpoint) {
+		return this.getCall(endpoint);
+		// Array.prototype.concat.apply([this.getCall()], arguments);
 	}
 
 	private data(response): any {
@@ -22,9 +23,8 @@ class RestProxy {
 		return deferred.promise;
 	}
 
-	private getCall(): Function {
-		return this.$http.get;
-	}
+	private getCall: Function = this.$http.get;
+	
 }
 
 let restProxyFactory: Function = ($q: ng.IQService, $http: ng.IHttpService) => {
@@ -33,4 +33,5 @@ let restProxyFactory: Function = ($q: ng.IQService, $http: ng.IHttpService) => {
 
 restProxyFactory.$inject = ['$q', '$http'];
 
-export default angular.module(Constants.MAIN_MODULE).factory(restProxyFactory);
+export default angular.module(Constants.MAIN_MODULE)
+	.factory('RestProxy', restProxyFactory);
