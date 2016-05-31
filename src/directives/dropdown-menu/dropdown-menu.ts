@@ -13,16 +13,16 @@ class DropdownMenuCtrl {
 	}
 }
 
-let dropDownMenuDirective: Function = ($http, $compile, $timeout, DaoFacade) => {
+let dropDownMenuDirective: any = ($http, $compile, $timeout, DaoFacade) => {
 	return {
 		restrict: 'A',
 		template: (element, attrs) => {
 					element.attr('ng-click', 'showHideMenu()');
 		},
-		css: '/directives/dropdown-menu/dropdown-menu.css',
+		css: 'directives/dropdown-menu/dropdown-menu.css',
 		controller: DropdownMenuCtrl,
 		link: (scope, element) => {
-			$http.get('/directives/dropdown-menu/dropdown-menu.html').then((template) => {
+			$http.get('directives/dropdown-menu/dropdown-menu.html').then((template) => {
 				let templateHtml = $(template.data);
 				let compiledTemplate = $compile(templateHtml)(scope);
 				element.after(compiledTemplate);
@@ -48,4 +48,5 @@ let dropDownMenuDirective: Function = ($http, $compile, $timeout, DaoFacade) => 
 
 dropDownMenuDirective.$inject = ['$http', '$compile', '$timeout', 'DaoFacade'];
 
-export default angular.module(Constants.MAIN_MODULE).directive(dropDownMenuDirective);
+export default angular.module(Constants.MAIN_MODULE)
+	.directive('dropDownMenu', dropDownMenuDirective);

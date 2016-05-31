@@ -1,5 +1,4 @@
 // json-editor is temporary. css attribute in directives is not working for directives bootstrapped later
-import Constants from 'js/services/Constants';
 import 'js/services/basic-info-dao';
 import 'directives/animate-text/animate-text';
 import 'directives/dropdown-menu/dropdown-menu';
@@ -26,5 +25,4 @@ class InitCtrl {
 
 InitCtrl.$inject = ['BasicInfoDao'];
 
-export default angular.module(Constants.MAIN_MODULE)
-	.controller('InitCtrl', InitCtrl);
+export default InitCtrl;

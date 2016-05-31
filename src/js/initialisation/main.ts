@@ -1,15 +1,24 @@
 import angular = require('angular');
 import Constants from 'js/services/Constants';
 import RouteProvider from 'js/initialisation/RouteProvider';
+// import homeOpts from 'components/home/home.component';
 
 // move angular bootstrap to another class
 // must be a provider since it will be injected into module.config()
- let routeProviderService: ng.IModule = angular.module(Constants.ROUTE_PROVIDER, ['ui.router']);
+ let routeProviderService: ng.IModule = angular.module(Constants.ROUTE_PROVIDER, ['ui.router', 'angularCSS']);
 routeProviderService.config(RouteProvider);
-let module: ng.IModule = angular.module(Constants.MAIN_MODULE, [Constants.ROUTE_PROVIDER]);
-console.log(Constants.MAIN_MODULE);
+let module: ng.IModule = angular.module(Constants.MAIN_MODULE, [Constants.ROUTE_PROVIDER, 'angularCSS']);
 // removing the function argument in the run invocation results in an error 
-module.run([() => {}]);
+module.run(['$state', ($state) => {
+	require(['components/home/home.component'], (homeOpts) => {
+		module.component('home', homeOpts);
+		$state.state('home', {
+			url: '/home.html',
+			templateUrl: '<home></home>'
+		});
+		$state.otherwise(Constants.DEFAULT_PAGE);
+	});
+}]);
 
 class AngularBootstrap implements ng.IAngularBootstrapConfig {
 
@@ -64,4 +73,13 @@ class AngularBootstrap implements ng.IAngularBootstrapConfig {
 AngularBootstrap.$inject = ['$stateProvider', '$locationProvider', '$controllerProvider', '$provide', '$compileProvider'];
 
 module.config(AngularBootstrap);
-angular.element().ready(() => angular.bootstrap(document, [Constants.MAIN_MODULE]));
+// module.component('home', homeOpts);
+
+export default angular.module(Constants.MAIN_MODULE)
+		 //      .component('home', homeOpts);
+angular.element().ready(() => {
+	angular.bootstrap(document, [Constants.MAIN_MODULE]);
+	require(['components/home/home.component'], (homeOpts) => {
+		module.component('home', homeOpts);
+	});
+});

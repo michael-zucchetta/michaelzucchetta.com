@@ -14,10 +14,13 @@
         "typings/main.d.ts"
     ],
     "files": [
+        "src/components/home/home.component.ts",
+        "src/components/home/init.ctrl.ts",
         "src/directives/animate-text/animate-text.ts",
         "src/directives/dropdown-menu/dropdown-menu.ts",
         "src/directives/json-editor/json-editor.ts",
         "src/directives/text-editor/text-editor.ts",
+        "src/domains/angular-component-css.ts",
         "src/domains/menu.ts",
         "src/domains/session.ts",
         "src/js/classes/BaseClass.ts",
@@ -27,7 +30,6 @@
         "src/js/classes/canvas.ts",
         "src/js/ctrl/characters-count.ctrl.ts",
         "src/js/ctrl/format-json.ctrl.ts",
-        "src/js/ctrl/init.ctrl.ts",
         "src/js/ctrl/pick-colors.ctrl.ts",
         "src/js/initialisation/RouteProvider.ts",
         "src/js/initialisation/bootstrap.ts",

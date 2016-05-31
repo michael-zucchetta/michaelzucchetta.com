@@ -24,14 +24,13 @@ let RouteProvider: Function = ($stateProvider, $urlRouterProvider, $controllerPr
 			let $route: any = $delegate;
 			$route.state =  $stateProvider.state;
 			// default view
-			$stateProvider.state('home', {
-				url: '/home.html',
-				templateUrl: 'home.html',
-				controller: require('js/ctrl/init.ctrl')
-			});
+			// $stateProvider.state('home', {
+			//	url: '/home.html',
+			//	templateUrl: '<home></home>'
+			// });
 
-			$route.state = (name: string) => {
-				$stateProvider.state(name);
+			$route.state = (name: string, definition) => {
+				$stateProvider.state(name, definition);
 				return this;
 			};
 
@@ -39,7 +38,7 @@ let RouteProvider: Function = ($stateProvider, $urlRouterProvider, $controllerPr
 				$urlRouterProvider.otherwise(path);
 				return this;
 			};
-			$route.otherwise(Constants.DEFAULT_PAGE);
+			// $route.otherwise(Constants.DEFAULT_PAGE);
 
 			$route.setRouteDinamically = (menu: MenuEl[]): void => {
 				let route = $route.route;
