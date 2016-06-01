@@ -1,8 +1,8 @@
 import Constants from 'js/services/Constants';
 
 let trustHtmlFilter: Function = ($sce: ng.ISCEService): Function => {
-	return (value, type) => $sce.trustAs(type || 'html', value);
-}
+	return (value: string, type: string) => $sce.trustAs(type || 'html', value);
+};
 
 trustHtmlFilter.$inject = ['$sce'];
 

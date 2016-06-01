@@ -3,17 +3,20 @@ import 'js/services/dao-facade';
 
 class DropdownMenuCtrl {
 
-	constructor() {
-		let vm: any = this;
-		vm.prefix = Constants.FUNCTION_PREFIX;
+    private prefix: string;
+
+    private showMenu: boolean;
 		// add ng-click to the element that has the directive
-		vm.showHideMenu = (): void => {
-			vm.showMenu = !vm.showMenu
+		private showHideMenu(): void {
+			this.showMenu = !this.showMenu;
 		};
+
+	constructor() {
+		this.prefix = Constants.FUNCTION_PREFIX;
 	}
 }
 
-let dropDownMenuDirective: any = ($http, $compile, $timeout, DaoFacade) => {
+let dropDownMenuDirective: any = ($http: ng.IHttpService, $compile: ng.ICompileService, $timeout: ng.ITimeoutService, DaoFacade) => {
 	return {
 		restrict: 'A',
 		template: (element, attrs) => {

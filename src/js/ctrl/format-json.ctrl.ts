@@ -7,7 +7,7 @@ class FormatJsonCtrl {
 
 	constructor(private UtilitiesService) {
 	}
-	
+
 	public unformatJson() {
 		let formattedJson = this.UtilitiesService.removeFormattationFromString(this.unformattedJson);
 		this.unformattedJson = JSON.stringify(formattedJson);

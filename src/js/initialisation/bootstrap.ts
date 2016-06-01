@@ -3,7 +3,7 @@ requirejs.config({
 
 	paths: {
 		'angular': '../lib/angularjs/angular.min',
-		"uiRouter": "../lib/ui-router/release/angular-ui-router",
+		"uiRouter": '../lib/ui-router/release/angular-ui-router',
 		'angularResource': '../lib/angular-resource/angular-resource.min',
 		'angularCss': '../lib/angular-css/angular-css.min',
 		'jQuery': '../lib/jquery/dist/jquery.min',

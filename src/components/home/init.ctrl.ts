@@ -4,7 +4,6 @@ import 'directives/animate-text/animate-text';
 import 'directives/dropdown-menu/dropdown-menu';
 import 'directives/json-editor/json-editor';
 import IMenuEl from 'domains/menu';
-import _ = require('lodash');
 
 class InitCtrl {
 	private myLinks;
@@ -18,11 +17,11 @@ class InitCtrl {
 		(() => {
 			BasicInfoDao.getLinks()
 				.then(links => this.myLinks = links);
-			
+
 			BasicInfoDao.getMenu()
 				.then(menuEls => {
 					this.menu = menuEls;
-					_.each(this.menu, (menuEl: IMenuEl) => {
+					this.menu.forEach((menuEl: IMenuEl) => {
 						if (menuEl.active) {
 							$state.state(menuEl.url, menuEl.definition);
 						}
@@ -32,6 +31,6 @@ class InitCtrl {
 	}
 }
 
-InitCtrl.$inject = ['BasicInfoDao'];
+InitCtrl.$inject = ['BasicInfoDao', '$state'];
 
 export default InitCtrl;

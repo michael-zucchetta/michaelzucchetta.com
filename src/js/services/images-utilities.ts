@@ -1,5 +1,6 @@
 import Constants from 'js/services/Constants';
 import 'js/services/file-utilities';
+import RGB from 'domains/rgb';
 
 class ImagesUtilities {
 
@@ -13,7 +14,7 @@ class ImagesUtilities {
 		});
 	}
 
-	public onCompleteImg(img) {
+	public onCompleteImg(img): ng.IPromise<boolean> {
 		let deferred = this.$q.defer();
 		let cancelInterval = this.$interval(() => {
 			if (img.complete) {
@@ -24,7 +25,7 @@ class ImagesUtilities {
 		return deferred.promise;
 	}
 
-	public createImage(hash) {
+	public createImage(hash: string) {
 		let image = new Image();
 		image.src = hash;
 		return image;
@@ -48,7 +49,7 @@ class ImagesUtilities {
 		return hexVal;
 	}
 
-	public fromRgbToHex(point) {
+	public fromRgbToHex(point: RGB): string {
 		let opacity = this.floatOpacity(point.opacity);
 		return '#' + this.calculateVal(point.r, opacity) + this.calculateVal(point.g, opacity) + this.calculateVal(point.b, opacity);
 	}

@@ -59,15 +59,12 @@ class AngularBootstrap implements ng.IAngularBootstrapConfig {
 		// note: You can do the same thing with the "filter"
 		// and the "$filterProvider"; but, I don't really use
 		// custom filters.
-		requirejs(['components/home/home.component'], (homeComponent) => { 
-			$stateProvider.state('home', {
-				url: '/home.html',
-				template: '<home></home>',
-				component: homeComponent
-			});
-		});
-		$urlRouterProvider.otherwise(Constants.DEFAULT_PAGE);
-	}
+        $stateProvider.state('home', {
+            url: '/home.html',
+            template: '<home></home>'
+        });
+        $urlRouterProvider.otherwise(Constants.DEFAULT_PAGE);
+    }
 };
 
 AngularBootstrap.$inject = ['$stateProvider', '$locationProvider', '$controllerProvider', '$provide', '$compileProvider', '$urlRouterProvider'];
@@ -89,5 +86,7 @@ initFirstComponent.$inject = ['$state'];
 
 export default angular.module(Constants.MAIN_MODULE);
 angular.element().ready(() => {
-	angular.bootstrap(document, [Constants.MAIN_MODULE]);
+    requirejs(['components/home/home.component'], (homeComponent) => { 
+        angular.bootstrap(document, [Constants.MAIN_MODULE]);
+    });
 });
