@@ -3,8 +3,8 @@ import Constants from 'js/services/Constants';
 class FilesUtilities {
 
 	constructor(private $q) {
-	}	
-		
+	}
+	
 	public loadFile(file) {
 		let deferred = this.$q.defer();
 		let reader = new FileReader();

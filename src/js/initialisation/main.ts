@@ -5,7 +5,7 @@ import RouteProvider from 'js/initialisation/RouteProvider';
 
 // move angular bootstrap to another class
 // must be a provider since it will be injected into module.config()
- let routeProviderService: ng.IModule = angular.module(Constants.ROUTE_PROVIDER, ['ui.router', 'angularCSS']);
+let routeProviderService: ng.IModule = angular.module(Constants.ROUTE_PROVIDER, ['ui.router', 'angularCSS']);
 routeProviderService.config(RouteProvider);
 let module: ng.IModule = angular.module(Constants.MAIN_MODULE, [Constants.ROUTE_PROVIDER, 'angularCSS']);
 // removing the function argument in the run invocation results in an error 
@@ -59,12 +59,12 @@ class AngularBootstrap implements ng.IAngularBootstrapConfig {
 		// note: You can do the same thing with the "filter"
 		// and the "$filterProvider"; but, I don't really use
 		// custom filters.
-        $stateProvider.state('home', {
-            url: '/home.html',
-            template: '<home></home>'
-        });
-        $urlRouterProvider.otherwise(Constants.DEFAULT_PAGE);
-    }
+		$stateProvider.state('home', {
+			url: '/home.html',
+			template: '<home></home>'
+		});
+		$urlRouterProvider.otherwise(Constants.DEFAULT_PAGE);
+	}
 };
 
 AngularBootstrap.$inject = ['$stateProvider', '$locationProvider', '$controllerProvider', '$provide', '$compileProvider', '$urlRouterProvider'];
@@ -86,7 +86,7 @@ initFirstComponent.$inject = ['$state'];
 
 export default angular.module(Constants.MAIN_MODULE);
 angular.element().ready(() => {
-    requirejs(['components/home/home.component'], (homeComponent) => { 
-        angular.bootstrap(document, [Constants.MAIN_MODULE]);
-    });
+	requirejs(['components/home/home.component'], (homeComponent) => {
+		angular.bootstrap(document, [Constants.MAIN_MODULE]);
+	});
 });

@@ -3,13 +3,14 @@ import 'js/services/dao-facade';
 
 class DropdownMenuCtrl {
 
-    private prefix: string;
+	private prefix: string;
 
-    private showMenu: boolean;
-		// add ng-click to the element that has the directive
-		private showHideMenu(): void {
-			this.showMenu = !this.showMenu;
-		};
+	private showMenu: boolean;
+	
+	// add ng-click to the element that has the directive
+	public showHideMenu(): void {
+		this.showMenu = !this.showMenu;
+	};
 
 	constructor() {
 		this.prefix = Constants.FUNCTION_PREFIX;
@@ -19,12 +20,12 @@ class DropdownMenuCtrl {
 let dropDownMenuDirective: any = ($http: ng.IHttpService, $compile: ng.ICompileService, $timeout: ng.ITimeoutService, DaoFacade) => {
 	return {
 		restrict: 'A',
-		template: (element, attrs) => {
-					element.attr('ng-click', 'showHideMenu()');
+		template: (element: ng.IAugmentedJQuery) => {
+			element.attr('ng-click', 'showHideMenu()');
 		},
 		css: 'directives/dropdown-menu/dropdown-menu.css',
 		controller: DropdownMenuCtrl,
-		link: (scope, element) => {
+		link: (scope: ng.IScopeService, element: ng.IAugmentedJQuery) => {
 			$http.get('directives/dropdown-menu/dropdown-menu.html').then((template) => {
 				let templateHtml = $(template.data);
 				let compiledTemplate = $compile(templateHtml)(scope);
