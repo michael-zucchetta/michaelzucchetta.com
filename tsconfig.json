@@ -1,9 +1,7 @@
 {
     "compilerOptions": {
-        "module": "amd",
-        "basePath:": "src/",
+        "module": "commonjs",
         "target": "es5",
-        "fast": "always",
         "inlineSourceMap": true,
         "outDir": "dist/"
     },
@@ -16,6 +14,8 @@
     "files": [
         "src/components/home/home.component.ts",
         "src/components/home/init.ctrl.ts",
+        "src/components/pick-colors/pick-colors.component.ts",
+        "src/components/pick-colors/pick-colors.ctrl.ts",
         "src/directives/animate-text/animate-text.ts",
         "src/directives/dropdown-menu/dropdown-menu.ts",
         "src/directives/json-editor/json-editor.ts",
@@ -31,7 +31,6 @@
         "src/js/classes/canvas.ts",
         "src/js/ctrl/characters-count.ctrl.ts",
         "src/js/ctrl/format-json.ctrl.ts",
-        "src/js/ctrl/pick-colors.ctrl.ts",
         "src/js/initialisation/RouteProvider.ts",
         "src/js/initialisation/bootstrap.ts",
         "src/js/initialisation/main.ts",

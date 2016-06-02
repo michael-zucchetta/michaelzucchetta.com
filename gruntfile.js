@@ -175,9 +175,10 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks("grunt-ts");
 	grunt.loadNpmTasks("grunt-tslint");
 	grunt.loadNpmTasks("grunt-typings");
+	grunt.loadNpmTasks('grunt-webpack');
 
 	grunt.registerTask("bower-install", function() {
-		grunt.task.run(["bower-install-simple"]);
+	grunt.task.run(["bower-install-simple"]);
 	});
 
 	grunt.registerTask("build-requirejs", function() {

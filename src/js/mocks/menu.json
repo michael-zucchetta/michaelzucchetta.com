@@ -22,7 +22,11 @@
 		"title": "Pick color from image",
 		"order": 1,
 		"parentId": 2,
-		"active": true
+		"active": true,
+		"definition": {
+			"url": "/pick-colors.html",
+			"component": "components/pick-colors/pick-colors.component"
+		}
 	},
 	{
 		"id": 7,
@@ -30,7 +34,7 @@
 		"title": "Json Formatter",
 		"order": 3,
 		"parentId": 2,
-		"active": true
+		"active": false
 	},
 	{
 		"id": 4,
@@ -38,7 +42,7 @@
 		"title": "Count characters/words",
 		"order": 2,
 		"parentId": 2,
-		"active": true
+		"active": false
 	},
 	{
 		"id": 5,
@@ -54,6 +58,6 @@
 		"title": "Image Filters",
 		"order": 1,
 		"parentId": 5,
-		"active": true
+		"active": false
 	}
 ]

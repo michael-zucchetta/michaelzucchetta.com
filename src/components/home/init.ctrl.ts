@@ -23,7 +23,7 @@ class InitCtrl {
 					this.menu = menuEls;
 					this.menu.forEach((menuEl: IMenuEl) => {
 						if (menuEl.active) {
-							$state.state(menuEl.url, menuEl.definition);
+							$state.state(menuEl.name, menuEl.definition);
 						}
 					});
 				});

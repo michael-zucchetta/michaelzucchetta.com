@@ -25,7 +25,7 @@ let dropDownMenuDirective: any = ($http: ng.IHttpService, $compile: ng.ICompileS
 		},
 		css: 'directives/dropdown-menu/dropdown-menu.css',
 		controller: DropdownMenuCtrl,
-		link: (scope: ng.IScopeService, element: ng.IAugmentedJQuery) => {
+		link: (scope: any, element: ng.IAugmentedJQuery) => {
 			$http.get('directives/dropdown-menu/dropdown-menu.html').then((template) => {
 				let templateHtml = $(template.data);
 				let compiledTemplate = $compile(templateHtml)(scope);

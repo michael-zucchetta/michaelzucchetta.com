@@ -23,9 +23,7 @@ interface IMenuEl {
 
 	children?: IMenuEl[];
 
-	url: string;
-
-	definition: string;
+	definition: any;
 }
 
 export default IMenuEl;

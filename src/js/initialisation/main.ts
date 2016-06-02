@@ -1,7 +1,8 @@
-import angular = require('angular');
+import 'angular';
+import 'ui-router';
+import 'angular-css';
 import Constants from 'js/services/Constants';
 import RouteProvider from 'js/initialisation/RouteProvider';
-// import homeOpts from 'components/home/home.component';
 
 // move angular bootstrap to another class
 // must be a provider since it will be injected into module.config()
@@ -72,13 +73,8 @@ AngularBootstrap.$inject = ['$stateProvider', '$locationProvider', '$controllerP
 module.config(AngularBootstrap);
 
 let initFirstComponent = ($state) => {
-	requirejs(['components/home/home.component'], (homeOpts) => {
+	require(['components/home/home.component'], (homeOpts) => {
 		module.component('home', homeOpts);
-		/*$state.state('home', {
-			url: '/home.html',
-			templateUrl: '<home></home>'
-		});
-		$state.otherwise(Constants.DEFAULT_PAGE);*/
 	});
 };
 
@@ -86,7 +82,5 @@ initFirstComponent.$inject = ['$state'];
 
 export default angular.module(Constants.MAIN_MODULE);
 angular.element().ready(() => {
-	requirejs(['components/home/home.component'], (homeComponent) => {
-		angular.bootstrap(document, [Constants.MAIN_MODULE]);
-	});
+	angular.bootstrap(document, [Constants.MAIN_MODULE]);
 });

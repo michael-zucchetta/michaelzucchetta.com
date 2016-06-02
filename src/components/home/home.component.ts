@@ -1,9 +1,9 @@
 import Constants from 'js/services/Constants';
-import InitCtrl from 'components/home/init.ctrl';
+import InitCtrl from './init.ctrl';
 import IComponentsOptionsCss from 'domains/angular-component-css';
 
 let homeOpts: IComponentsOptionsCss = {
-	templateUrl: 'components/home/home.html',
+	templateUrl: './home.html',
 	controller: InitCtrl,
 };
 

@@ -13,7 +13,7 @@ class Register {
 	public service: any;
 }
 
-let RouteProvider: Function = ($stateProvider, $urlRouterProvider, $controllerProvider: ng.IControllerProvider, $compileProvider: ng.ICompileProvider, $filterProvider: ng.IFilterProvider, $provide: ng.auto.IProvideService): Register => {
+let RouteProvider: Function = ($stateProvider, $urlRouterProvider, $controllerProvider: ng.IControllerProvider, $compileProvider: ng.ICompileProvider, $filterProvider: ng.IFilterProvider, $provide: ng.auto.IProvideService, $http: ng.IHttpService): Register => {
 	let register = new Register();
 	register.controller = $controllerProvider.register;
 	register.directive = $compileProvider.directive;
@@ -33,13 +33,17 @@ let RouteProvider: Function = ($stateProvider, $urlRouterProvider, $controllerPr
 				$urlRouterProvider.otherwise(path);
 				return this;
 			};
-			// $route.otherwise(Constants.DEFAULT_PAGE);
 
 			$route.setRouteDinamically = (menu: MenuEl[]): void => {
 				let route = $route.route;
 				_.each(menu, (menuItem: MenuEl) => {
 					if (menuItem.active) {
-						$route.state(menuItem.name, menuItem.status);
+						menuItem.definition.resolve = {
+							resolveComponent: () => {
+							
+							},
+						};
+						$route.state(menuItem.name, menuItem.definition);
 					}
 				});
 				$route.reload();

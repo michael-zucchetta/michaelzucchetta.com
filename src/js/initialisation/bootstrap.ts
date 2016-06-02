@@ -39,5 +39,5 @@ requirejs.config({
 });
 
 requirejs(['main'], (app: any) => {
-		console.log(app);
+	console.log(app);
 });

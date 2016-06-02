@@ -22,6 +22,7 @@ Plugin 'scrooloose/nerdcommenter'
 Plugin 'timonv/vim-cargo'
 Plugin 'scrooloose/syntastic'
 Plugin 'Shougo/neocomplcache.vim'
+Plugin 'mileszs/ack.vim'
 " " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -46,11 +47,11 @@ set backspace=indent,eol,start
 
 " spaces instead of tab
 " show existing tab with 4 spaces width
-" set tabstop=4
+set tabstop=2
 " " when indenting with '>', use 4 spaces width
-" set shiftwidth=4
+set shiftwidth=2
 " " On pressing tab, insert 4 spaces
-" set expandtab
+set expandtab
 
 if has("multi_byte")
 	if &termencoding == ""
@@ -59,6 +60,8 @@ if has("multi_byte")
 	set encoding=utf-8                     " better default than latin1
 	setglobal fileencoding=utf-8           " change default file encoding when writing new files
 endif
+
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 
 " vim-airline {
 let g:airline_theme = 'badwolf'
