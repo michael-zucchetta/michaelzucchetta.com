@@ -1,6 +1,7 @@
 import 'angular';
 import 'ui-router';
 import 'angular-css';
+import 'oclazyload';
 import Constants from 'js/services/Constants';
 import RouteProvider from 'js/initialisation/RouteProvider';
 
@@ -82,5 +83,7 @@ initFirstComponent.$inject = ['$state'];
 
 export default angular.module(Constants.MAIN_MODULE);
 angular.element().ready(() => {
-	angular.bootstrap(document, [Constants.MAIN_MODULE]);
+	require(['components/home/home.component'], () => {
+		angular.bootstrap(document, [Constants.MAIN_MODULE]);
+	});
 });

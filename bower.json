@@ -10,6 +10,7 @@
 		"angular-resource": "*",
 		"angular-css": "*",
 		"ng-file-upload": "*",
+		"ocLazyLoad": "*",
 		"bootstrap": "*",
 		"lodash": "*",
       "requirejs": "*"

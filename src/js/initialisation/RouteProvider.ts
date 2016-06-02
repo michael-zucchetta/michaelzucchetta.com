@@ -13,7 +13,7 @@ class Register {
 	public service: any;
 }
 
-let RouteProvider: Function = ($stateProvider, $urlRouterProvider, $controllerProvider: ng.IControllerProvider, $compileProvider: ng.ICompileProvider, $filterProvider: ng.IFilterProvider, $provide: ng.auto.IProvideService, $http: ng.IHttpService): Register => {
+let RouteProvider: Function = ($stateProvider, $urlRouterProvider, $controllerProvider: ng.IControllerProvider, $compileProvider: ng.ICompileProvider, $filterProvider: ng.IFilterProvider, $provide: ng.auto.IProvideService, $http: ng.IHttpService, $log: ng.ILogService): Register => {
 	let register = new Register();
 	register.controller = $controllerProvider.register;
 	register.directive = $compileProvider.directive;
@@ -36,13 +36,23 @@ let RouteProvider: Function = ($stateProvider, $urlRouterProvider, $controllerPr
 
 			$route.setRouteDinamically = (menu: MenuEl[]): void => {
 				let route = $route.route;
+				console.log("HOLA");
 				_.each(menu, (menuItem: MenuEl) => {
 					if (menuItem.active) {
 						menuItem.definition.resolve = {
-							resolveComponent: () => {
-							
-							},
+							loadHomeController: ($q, $ocLazyLoad) => {
+								return $q((resolve) => {
+									console.log("CIAO");
+									//require.ensure([], () => {
+										// load whole module
+										let module = require(menuItem.definition.component);
+										$ocLazyLoad.load({name: menuItem.name});
+										resolve(module);
+									//});
+								});
+							}
 						};
+						$log.log(menuItem.definition);
 						$route.state(menuItem.name, menuItem.definition);
 					}
 				});

@@ -3,7 +3,7 @@ import InitCtrl from './init.ctrl';
 import IComponentsOptionsCss from 'domains/angular-component-css';
 
 let homeOpts: IComponentsOptionsCss = {
-	templateUrl: './home.html',
+	template: require('./home.html'),
 	controller: InitCtrl,
 };
 

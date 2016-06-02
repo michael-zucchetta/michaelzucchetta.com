@@ -4,8 +4,10 @@ var webpack = require('webpack');
 module.exports = {  
   entry: './js/initialisation/main.ts',
   context: __dirname + '/src/',
+  devtool: 'source-map',
   output: {
-    filename: 'dist/bundle.js'
+    path: __dirname + '/dist/',
+    filename: 'bundle.js',
   },
   resolve: {
     extensions: ['', '.webpack.js', '.web.js', '.ts', '.js'],
@@ -16,11 +18,13 @@ module.exports = {
 	  alias: {
 	  	'ui-router': 'ui-router/release/angular-ui-router',
 	  	'angular-css': 'angular-css/index',
+	  	'oclazyload': __dirname + '/node_modules/oclazyload/dist/ocLazyLoad',
 	  },
   },
   module: {
     loaders: [
-      { test: /\.ts$/, test2: /\.js$/, loader: 'ts-loader' }
+      { test: /\.ts$/, test2: /\.js$/, loader: 'ts-loader' },
+      { test: /\.html$/, loader: 'html-loader' },
     ]
   },
   resolveLoader: {

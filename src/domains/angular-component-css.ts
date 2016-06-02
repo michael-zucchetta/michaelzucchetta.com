@@ -1,5 +1,7 @@
 interface IComponentOptionsCss extends ng.IComponentOptions {
-	css?: string;
+	css?: any;
+
+	template?: any;
 };
 
 export default IComponentOptionsCss;
