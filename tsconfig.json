@@ -12,8 +12,9 @@
         "typings/main.d.ts"
     ],
     "files": [
-        "src/components/home/home.component.ts",
-        "src/components/home/init.ctrl.ts",
+        "src/components/home/home.ctrl.ts",
+        "src/components/home/home.routes.ts",
+        "src/components/home/index.ts",
         "src/components/pick-colors/pick-colors.component.ts",
         "src/components/pick-colors/pick-colors.ctrl.ts",
         "src/directives/animate-text/animate-text.ts",

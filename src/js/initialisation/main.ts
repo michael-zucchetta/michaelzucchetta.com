@@ -4,12 +4,13 @@ import 'angular-css';
 import 'oclazyload';
 import Constants from 'js/services/Constants';
 import RouteProvider from 'js/initialisation/RouteProvider';
+import home from 'components/home/index';
 
 // move angular bootstrap to another class
 // must be a provider since it will be injected into module.config()
 let routeProviderService: ng.IModule = angular.module(Constants.ROUTE_PROVIDER, ['ui.router', 'angularCSS']);
 routeProviderService.config(RouteProvider);
-let module: ng.IModule = angular.module(Constants.MAIN_MODULE, [Constants.ROUTE_PROVIDER, 'angularCSS']);
+let module: ng.IModule = angular.module(Constants.MAIN_MODULE, [Constants.ROUTE_PROVIDER, 'angularCSS', home]);
 // removing the function argument in the run invocation results in an error 
 module.run([() => {
 }]);
@@ -61,11 +62,6 @@ class AngularBootstrap implements ng.IAngularBootstrapConfig {
 		// note: You can do the same thing with the "filter"
 		// and the "$filterProvider"; but, I don't really use
 		// custom filters.
-		$stateProvider.state('home', {
-			url: '/home.html',
-			template: '<home></home>'
-		});
-		$urlRouterProvider.otherwise(Constants.DEFAULT_PAGE);
 	}
 };
 
@@ -73,17 +69,7 @@ AngularBootstrap.$inject = ['$stateProvider', '$locationProvider', '$controllerP
 
 module.config(AngularBootstrap);
 
-let initFirstComponent = ($state) => {
-	require(['components/home/home.component'], (homeOpts) => {
-		module.component('home', homeOpts);
-	});
-};
-
-initFirstComponent.$inject = ['$state'];
-
 export default angular.module(Constants.MAIN_MODULE);
 angular.element().ready(() => {
-	require(['components/home/home.component'], () => {
-		angular.bootstrap(document, [Constants.MAIN_MODULE]);
-	});
+  angular.bootstrap(document, [Constants.MAIN_MODULE]);
 });

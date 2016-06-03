@@ -42,9 +42,9 @@ let dropDownMenuDirective: any = ($http: ng.IHttpService, $compile: ng.ICompileS
 				});
 
 				// init the menu
-				DaoFacade.getMenu().then((response) => {
-					scope.menuEls = response;
-				});
+				// DaoFacade.getMenu().then((response) => {
+				//	scope.menuEls = response;
+				// });
 			});
 		}
 	};

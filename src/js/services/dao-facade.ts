@@ -1,25 +1,27 @@
 import Constants from 'js/services/Constants';
 import BasicInfoDao from 'js/services/basic-info-dao';
 import UtilitiesService from 'js/services/utils';
+import 'lodash';
 
 class DaoFacade {
 
-	constructor(private BasicInfoDao, private $route) {
+	constructor(private BasicInfoDao, private $state) {
 	}
 
-	private getMenu() {
+	public getMenu() {
 		return this.BasicInfoDao.getMenu().then((menu) => {
-			this.$route.route.setRouteDinamically(menu);
+			this.$state.setRouteDinamically(menu);
 			return UtilitiesService.initializeMenu(menu);
 		});
 	}
 
 }
 
-let daoFacadeFactory: Function = (BasicInfoDao, UtilitiesService) => {
-	return new DaoFacade(BasicInfoDao, UtilitiesService);
+let daoFacadeFactory: Function = (BasicInfoDao, $state) => {
+	return new DaoFacade(BasicInfoDao, $state);
 };
 
-daoFacadeFactory.$inject = ['BasicInfoDao', '$route'];
+daoFacadeFactory.$inject = ['BasicInfoDao', '$state'];
 
-export default angular.module(Constants.MAIN_MODULE).factory(daoFacadeFactory);
+export default angular.module(Constants.MAIN_MODULE)
+  .factory('DaoFacade', daoFacadeFactory);

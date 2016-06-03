@@ -13,7 +13,7 @@ class Register {
 	public service: any;
 }
 
-let RouteProvider: Function = ($stateProvider, $urlRouterProvider, $controllerProvider: ng.IControllerProvider, $compileProvider: ng.ICompileProvider, $filterProvider: ng.IFilterProvider, $provide: ng.auto.IProvideService, $http: ng.IHttpService, $log: ng.ILogService): Register => {
+let RouteProvider: Function = ($stateProvider, $urlRouterProvider, $controllerProvider: ng.IControllerProvider, $compileProvider: ng.ICompileProvider, $filterProvider: ng.IFilterProvider, $provide: ng.auto.IProvideService): Register => {
 	let register = new Register();
 	register.controller = $controllerProvider.register;
 	register.directive = $compileProvider.directive;
@@ -24,10 +24,10 @@ let RouteProvider: Function = ($stateProvider, $urlRouterProvider, $controllerPr
 			let $route: any = $delegate;
 			$route.state =  $stateProvider.state;
 
-			$route.state = (name: string, definition) => {
-				$stateProvider.state(name, definition);
-				return this;
-			};
+			//$route.state = (name: string, definition) => {
+			//	$stateProvider.state(name, definition);
+			//	return this;
+			//};
 
 			$route.otherwise = (path: string) => {
 				$urlRouterProvider.otherwise(path);
@@ -36,13 +36,11 @@ let RouteProvider: Function = ($stateProvider, $urlRouterProvider, $controllerPr
 
 			$route.setRouteDinamically = (menu: MenuEl[]): void => {
 				let route = $route.route;
-				console.log("HOLA");
 				_.each(menu, (menuItem: MenuEl) => {
 					if (menuItem.active) {
 						menuItem.definition.resolve = {
 							loadHomeController: ($q, $ocLazyLoad) => {
 								return $q((resolve) => {
-									console.log("CIAO");
 									//require.ensure([], () => {
 										// load whole module
 										let module = require(menuItem.definition.component);
@@ -52,7 +50,6 @@ let RouteProvider: Function = ($stateProvider, $urlRouterProvider, $controllerPr
 								});
 							}
 						};
-						$log.log(menuItem.definition);
 						$route.state(menuItem.name, menuItem.definition);
 					}
 				});

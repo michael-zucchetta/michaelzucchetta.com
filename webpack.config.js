@@ -19,7 +19,8 @@ module.exports = {
 	  	'ui-router': 'ui-router/release/angular-ui-router',
 	  	'angular-css': 'angular-css/index',
 	  	'oclazyload': __dirname + '/node_modules/oclazyload/dist/ocLazyLoad',
-	  },
+	    'lodash': 'lodash/lodash',
+    },
   },
   module: {
     loaders: [

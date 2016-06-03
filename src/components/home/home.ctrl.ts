@@ -4,13 +4,14 @@ import 'directives/animate-text/animate-text';
 import 'directives/dropdown-menu/dropdown-menu';
 import 'directives/json-editor/json-editor';
 import IMenuEl from 'domains/menu';
+import 'js/services/dao-facade';
 
-class InitCtrl {
+class HomeCtrl {
 	private myLinks;
 
 	private menu: IMenuEl[];
 
-	constructor(BasicInfoDao, $state) {
+	constructor(BasicInfoDao, DaoFacade, $state) {
 		this.myLinks = [];
 		this.menu = [];
 
@@ -18,19 +19,14 @@ class InitCtrl {
 			BasicInfoDao.getLinks()
 				.then(links => this.myLinks = links);
 
-			BasicInfoDao.getMenu()
+			DaoFacade.getMenu()
 				.then(menuEls => {
 					this.menu = menuEls;
-					this.menu.forEach((menuEl: IMenuEl) => {
-						if (menuEl.active) {
-							$state.state(menuEl.name, menuEl.definition);
-						}
-					});
-				});
+			});
 		})();
 	}
 }
 
-InitCtrl.$inject = ['BasicInfoDao', '$state'];
+HomeCtrl.$inject = ['BasicInfoDao', 'DaoFacade', '$state'];
 
-export default InitCtrl;
+export default HomeCtrl;
