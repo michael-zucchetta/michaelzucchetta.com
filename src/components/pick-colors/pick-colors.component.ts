@@ -4,7 +4,8 @@ import IComponentOptionsCss from 'domains/angular-component-css';
 
 
 let pickColorsOpts: IComponentOptionsCss = {
-	templateUrl: './pick-colors.html',
+	template: require('./pick-colors.html'),
+	css: require('./pick-colors.scss'),
 	controller: PickColorsCtrl,
 };
 

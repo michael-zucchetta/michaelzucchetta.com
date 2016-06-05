@@ -9,22 +9,22 @@ class HomeCtrl {
 
 	private menu: IMenuEl[];
 
-	constructor(BasicInfoDao, DaoFacade, $state) {
+	constructor(private BasicInfoDao, private DaoFacade) {
 		this.myLinks = [];
 		this.menu = [];
+	}
 
-		(() => {
-			BasicInfoDao.getLinks()
-				.then(links => this.myLinks = links);
+	public $onInit() {
+		this.BasicInfoDao.getLinks()
+			.then(links => this.myLinks = links);
 
-			DaoFacade.getMenu()
-				.then(menuEls => {
-					this.menu = menuEls;
-			});
-		})();
+		this.DaoFacade.getMenu()
+			.then(menuEls => {
+			this.menu = menuEls;
+		});
 	}
 }
 
-HomeCtrl.$inject = ['BasicInfoDao', 'DaoFacade', '$state'];
+HomeCtrl.$inject = ['BasicInfoDao', 'DaoFacade'];
 
 export default HomeCtrl;

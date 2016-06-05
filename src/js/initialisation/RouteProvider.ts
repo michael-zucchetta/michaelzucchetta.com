@@ -29,11 +29,6 @@ let RouteProvider: Function = ($stateProvider, $urlRouterProvider, $controllerPr
 			//	return this;
 			//};
 
-			$route.otherwise = (path: string) => {
-				$urlRouterProvider.otherwise(path);
-				return this;
-			};
-
 			$route.setRouteDinamically = (menu: MenuEl[]): void => {
 				let route = $route.route;
 				_.each(menu, (menuItem: MenuEl) => {
@@ -53,7 +48,7 @@ let RouteProvider: Function = ($stateProvider, $urlRouterProvider, $controllerPr
 						$route.state(menuItem.name, menuItem.definition);
 					}
 				});
-				$route.reload();
+				// $route.reload();
 			};
 
 			return $route;
