@@ -15,7 +15,7 @@
         "src/components/home/home.ctrl.ts",
         "src/components/home/index.ts",
         "src/components/home/routes.ts",
-        "src/components/pick-colors/pick-colors.component.ts",
+        "src/components/pick-colors/index.ts",
         "src/components/pick-colors/pick-colors.ctrl.ts",
         "src/directives/animate-text/animate-text.ts",
         "src/directives/dropdown-menu/dropdown-menu.ts",

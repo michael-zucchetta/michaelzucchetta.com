@@ -25,7 +25,7 @@
 		"active": true,
 		"definition": {
 			"url": "/pick-colors.html",
-			"component": "components/pick-colors/pick-colors.component"
+			"component": "components/pick-colors/index"
 		}
 	},
 	{

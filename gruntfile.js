@@ -192,8 +192,8 @@ module.exports = function(grunt) {
 		grunt.task.run(["ts", "tslint"]);
 	});
 
-	//grunt.registerTask("default", [/*"npm-install", "bower-install", "clean",*/ "tree", "coffee", "build-requirejs", "concat", "jsbeautifier", "copy", "sass"/*, "jshint"*/]);
 	grunt.registerTask("test", ["default", "karma"]);
 	grunt.registerTask("dev", ["default", "watch"]);
-	grunt.registerTask("default", ["bower-install", "typings", "copy", "sass", "clean", "ts", "watch"]);
+	// grunt.registerTask("default", ["bower-install", "typings", "copy", "sass", "clean", "ts", "watch"]);
+	grunt.registerTask("default", ["bower-install", "typings", "copy", "sass", "ts", "watch"]);
 }
