@@ -1,4 +1,4 @@
-import RegexUtils from 'js/services/RegexUtils';
+import RegexUtils from 'js/services/regex-utils';
 
 class StringUtils {
 

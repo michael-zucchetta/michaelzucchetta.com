@@ -30,5 +30,4 @@ let fileUtilitiesFactory = ($q) => {
 
 fileUtilitiesFactory.$inject = ['$q'];
 
-export default angular.module(Constants.MAIN_MODULE)
-	.factory('FilesUtilities', fileUtilitiesFactory);
+export default fileUtilitiesFactory;

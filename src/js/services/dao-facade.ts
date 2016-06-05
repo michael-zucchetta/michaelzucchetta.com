@@ -23,5 +23,4 @@ let daoFacadeFactory: Function = (BasicInfoDao, $state) => {
 
 daoFacadeFactory.$inject = ['BasicInfoDao', '$state'];
 
-export default angular.module(Constants.MAIN_MODULE)
-  .factory('DaoFacade', daoFacadeFactory);
+export default daoFacadeFactory;

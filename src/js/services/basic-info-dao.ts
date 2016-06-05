@@ -23,5 +23,4 @@ let basicInfoDaoFactory: Function = (RestProxy) => {
 
 basicInfoDaoFactory.$inject = ['RestProxy'];
 
-export default angular.module(Constants.MAIN_MODULE)
-	.factory('BasicInfoDao', basicInfoDaoFactory);
+export default basicInfoDaoFactory;

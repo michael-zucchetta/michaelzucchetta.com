@@ -23,4 +23,4 @@ let sessionFactory: Function = (): ISession => {
 	return new Session();
 };
 
-export default angular.module(Constants.MAIN_MODULE).factory('Session', sessionFactory);
+export default sessionFactory;

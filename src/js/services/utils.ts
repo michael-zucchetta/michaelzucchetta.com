@@ -1,5 +1,6 @@
-import StringUtils from 'js/services/StringUtils';
+import StringUtils from 'js/services/string-utils';
 import IMenuEl from 'domains/menu';
+
 class Utils {
 
 	public static initializeMenu(rawMenu: IMenuEl[]): IMenuEl[] {

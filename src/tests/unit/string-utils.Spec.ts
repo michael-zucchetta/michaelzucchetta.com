@@ -1,5 +1,5 @@
-import StringUtils from 'js/services/StringUtils';
-import RegexUtils from 'js/services/RegexUtils';
+import StringUtils from 'js/services/string-utils';
+import RegexUtils from 'js/services/regex-utils';
 import Utils from 'js/services/utils';
 
 describe('StringUtils methos', () => {

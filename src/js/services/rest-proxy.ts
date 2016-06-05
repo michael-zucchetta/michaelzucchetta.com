@@ -32,5 +32,4 @@ let restProxyFactory: Function = ($q: ng.IQService, $http: ng.IHttpService) => {
 
 restProxyFactory.$inject = ['$q', '$http'];
 
-export default angular.module(Constants.MAIN_MODULE)
-	.factory('RestProxy', restProxyFactory);
+export default restProxyFactory;

@@ -4,13 +4,14 @@ import 'angular-css';
 import 'oclazyload';
 import Constants from 'js/services/Constants';
 import RouteProvider from 'js/initialisation/RouteProvider';
+import services from 'js/services/index';
 import home from 'components/home/index';
 
 // move angular bootstrap to another class
 // must be a provider since it will be injected into module.config()
 let routeProviderService: ng.IModule = angular.module(Constants.ROUTE_PROVIDER, ['ui.router', 'angularCSS']);
 routeProviderService.config(RouteProvider);
-let module: ng.IModule = angular.module(Constants.MAIN_MODULE, [Constants.ROUTE_PROVIDER, 'angularCSS', home]);
+let module: ng.IModule = angular.module(Constants.MAIN_MODULE, [Constants.ROUTE_PROVIDER, 'angularCSS', services, home]);
 // removing the function argument in the run invocation results in an error 
 module.run([() => {
 }]);
@@ -71,5 +72,5 @@ module.config(AngularBootstrap);
 
 export default angular.module(Constants.MAIN_MODULE);
 angular.element().ready(() => {
-  angular.bootstrap(document, [Constants.MAIN_MODULE]);
+	angular.bootstrap(document, [Constants.MAIN_MODULE]);
 });

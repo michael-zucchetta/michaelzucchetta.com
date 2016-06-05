@@ -1,5 +1,5 @@
-import Constants from 'js/services/Constants';
-import 'js/services/file-utilities';
+import Constants from './constants';
+import './file-utilities';
 import RGB from 'domains/rgb';
 
 class ImagesUtilities {
@@ -59,5 +59,4 @@ let imagesUtilitiesFactory: Function = ($q: ng.IQService, $interval: ng.IInterva
 	return new ImagesUtilities($q, $interval, FilesUtilities);
 };
 
-export default angular.module(Constants.MAIN_MODULE)
-	.factory('ImagesUtilities', imagesUtilitiesFactory);
+export default imagesUtilitiesFactory;
