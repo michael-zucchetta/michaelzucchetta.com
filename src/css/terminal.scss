@@ -29,7 +29,7 @@ body {
 	&.unactive {
 		border: 3px solid $dark-gray-border;
 	}
-	.terminal-bar .unactive{
+	.terminal-bar.unactive{
 		background-color: $dark-gray;
 	}
 }
