@@ -1,6 +1,6 @@
 import 'angular';
 import 'ui-router';
-import Constants from 'js/services/Constants';
+import Constants from 'js/services/constants';
 import HomeCtrl from './home.ctrl';
 import IComponentsOptionsCss from 'domains/angular-component-css';
 import services from 'js/services/index';
@@ -13,4 +13,5 @@ let homeOpts: IComponentsOptionsCss = {
 
 export default angular.module('home', ['ui.router', Constants.SERVICE_MODULE])
 	.config(routes)
-	.component('home', homeOpts).name;
+	.component('home', homeOpts)
+	.name;

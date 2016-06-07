@@ -2,7 +2,7 @@ import 'angular';
 import 'ui-router';
 import 'angular-css';
 import 'oclazyload';
-import Constants from 'js/services/Constants';
+import Constants from 'js/services/constants';
 import RouteProvider from 'js/initialisation/RouteProvider';
 import services from 'js/services/index';
 import home from 'components/home/index';

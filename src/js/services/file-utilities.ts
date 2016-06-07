@@ -1,4 +1,4 @@
-import Constants from 'js/services/Constants';
+import Constants from './constants';
 
 class FilesUtilities {
 

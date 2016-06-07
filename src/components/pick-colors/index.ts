@@ -1,4 +1,4 @@
-import Constants from 'js/services/Constants';
+import Constants from 'js/services/constants';
 import PickColorsCtrl from './pick-colors.ctrl';
 import IComponentOptionsCss from 'domains/angular-component-css';
 

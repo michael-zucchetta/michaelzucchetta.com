@@ -1,4 +1,4 @@
-import Constants from 'js/services/Constants';
+import Constants from 'js/services/constants';
 import MenuEl from 'domains/menu';
 // move angular bootstrap to another class
 // let serviceModule = angular.module('RouteResolverServices', ['ngRoute', 'angularCSS']);
