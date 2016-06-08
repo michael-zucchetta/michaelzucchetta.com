@@ -195,5 +195,5 @@ module.exports = function(grunt) {
 	grunt.registerTask("test", ["default", "karma"]);
 	grunt.registerTask("dev", ["default", "watch"]);
 	// grunt.registerTask("default", ["bower-install", "typings", "copy", "sass", "clean", "ts", "watch"]);
-	grunt.registerTask("default", ["bower-install", "typings", "copy", "sass"]);
+	grunt.registerTask("default", ["bower-install", "copy", "sass"]);
 }

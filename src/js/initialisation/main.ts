@@ -7,6 +7,7 @@ import RouteProvider from 'js/initialisation/RouteProvider';
 import services from 'js/services/index';
 import home from 'components/home/index';
 import focusClass from 'directives/focus-class/focus-class';
+import initCtrl from './init.ctrl';
 
 // move angular bootstrap to another class
 // must be a provider since it will be injected into module.config()
@@ -70,6 +71,8 @@ class AngularBootstrap implements ng.IAngularBootstrapConfig {
 AngularBootstrap.$inject = ['$stateProvider', '$locationProvider', '$controllerProvider', '$provide', '$compileProvider', '$urlRouterProvider'];
 
 module.config(AngularBootstrap);
+
+module.controller('InitCtrl', initCtrl);
 
 export default angular.module(Constants.MAIN_MODULE);
 angular.element().ready(() => {

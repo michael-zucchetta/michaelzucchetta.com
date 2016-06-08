@@ -1,34 +1,40 @@
 import 'angular';
-class FocusClass {
-	
-	public setActive: Function;
-	
+
+class FocusCtrl {
+
+	public setActive() {
+		alert('ciao');
+	}
+
+}
+
+class FocusClass implements angular.IDirective {
+
 	constructor(private $compile) {
-
 	}
 
-	public link(scope: ng.IScope, element: ng.IAugmentedJQuery, attrs: ng.IAttributes) {
-		tElement.attr('ng-focus', 'setActive()');
-		return tElement;
+	transclude = true;
 
-	}
+	replace = true;
 
-	public controller() {
-		this.setActive = () => {
-			alert("ciao");
-		};
-	}
+	restrict = 'A';
 
-	public static Factory() {
-		let directive = ($compile) => {
-			return new FocusClass($compile);
-		};
+	template = '<div ng-mouseover="$ctrl.setActive()" ng-transclude></div>';
+
+	controller = FocusCtrl;
+
+	controllerAs = '$ctrl';
+
+	static factory(): ng.IDirectiveFactory {
+		const directive = ($compile: ng.ICompileService) => new FocusClass($compile);
 		directive.$inject = ['$compile'];
 		return directive;
 	}
+
+
 }
 
 
 export default angular.module('focusClass', [])
-	.directive('focusClass', FocusClass.Factory())
-	.name;
+.directive('focusClass', FocusClass.factory())
+.name;

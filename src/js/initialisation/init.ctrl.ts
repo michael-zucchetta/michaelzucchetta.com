@@ -1,9 +1,13 @@
 export default class InitCtrl {
 
+	public prova;
+
 	constructor() {
+		this.prova = "ciao";
 	}
 
-	public getActiveClass() {
-	
+	public getClass() {
+		return 'forforOAa';
 	}
 }
+

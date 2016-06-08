@@ -4,19 +4,19 @@
                 <title>Michael Zucchetta's Website</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 	</head>
-	<body>
+	<body ng-controller="InitCtrl as $ctrl">
 		<div class="animation-initial">
 		</div>
 		<div class="website-container">
 			<div class="website-title col-xs-8 col-md-8" animate-text="michaelzucchetta.com">
 			</div>
-			<div class="menu-container col-xs-4 col-md-4 pull-right">
+			<div class="menu-container col-xs-4 col-md-4 pull-right" focus-class ng-class="$ctrl.getClass()">
 				<span class="icon-container" dropdown-menu>
 					<span class="icon"></span>
 				</span>
 			</div>
-			<div class="website-content unactive col-xs-12 col-md-12">
-				<div class="terminal-bar row" focus-class>user@localhost:/home/user/</div>
+			<div class="website-content col-xs-12 col-md-12" focus-class>
+				<div class="terminal-bar row">user@localhost:/home/user/</div>
 				<div id="view-container" ui-view></div>
 			</div>
 			<div class="notes col-xs-12 col-md-12">Michael Zucchetta - michael.zucchetta@gmail.com - Dublin, Ireland
