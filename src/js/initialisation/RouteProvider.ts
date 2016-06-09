@@ -24,11 +24,6 @@ let RouteProvider: Function = ($stateProvider, $urlRouterProvider, $controllerPr
 			let $route: any = $delegate;
 			$route.state =  $stateProvider.state;
 
-			//$route.state = (name: string, definition) => {
-			//	$stateProvider.state(name, definition);
-			//	return this;
-			//};
-
 			$route.setRouteDinamically = (menu: MenuEl[]): void => {
 				let route = $route.route;
 				_.each(menu, (menuItem: MenuEl) => {

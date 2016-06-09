@@ -45,13 +45,16 @@ map <C-l> :NERDTreeToggle<CR>
 " autocmd FileType json autocmd BufWritePre <buffer> %!python -m json.tool
 set backspace=indent,eol,start
 
+" copy to clipboard when lines are yanked
+set clipboard=unnamed
+
 " spaces instead of tab
 " show existing tab with 4 spaces width
-set tabstop=2
+" set tabstop=2
 " " when indenting with '>', use 4 spaces width
-set shiftwidth=2
+" set shiftwidth=2
 " " On pressing tab, insert 4 spaces
-set expandtab
+" set expandtab
 
 if has("multi_byte")
 	if &termencoding == ""

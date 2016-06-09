@@ -19,7 +19,7 @@
         "src/components/pick-colors/pick-colors.ctrl.ts",
         "src/directives/animate-text/animate-text.ts",
         "src/directives/dropdown-menu/dropdown-menu.ts",
-        "src/directives/focus-class/focus-class.ts",
+        "src/directives/focus-class/focus-class.directive.ts",
         "src/directives/json-editor/json-editor.ts",
         "src/directives/text-editor/text-editor.ts",
         "src/domains/angular-component-css.ts",

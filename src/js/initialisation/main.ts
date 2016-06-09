@@ -6,7 +6,7 @@ import Constants from 'js/services/constants';
 import RouteProvider from 'js/initialisation/RouteProvider';
 import services from 'js/services/index';
 import home from 'components/home/index';
-import focusClass from 'directives/focus-class/focus-class';
+import focusClass from 'directives/focus-class/focus-class.directive';
 import initCtrl from './init.ctrl';
 
 // move angular bootstrap to another class
