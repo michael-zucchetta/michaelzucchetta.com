@@ -4,16 +4,15 @@ import 'angular-css';
 import 'oclazyload';
 import Constants from 'js/services/constants';
 import RouteProvider from 'js/initialisation/RouteProvider';
-import services from 'js/services/index';
-import home from 'components/home/index';
-import focusClass from 'directives/focus-class/focus-class.directive';
-import initCtrl from './init.ctrl';
+import services from 'js/services';
+import home from 'components/home';
+import global from 'components/global';
 
 // move angular bootstrap to another class
 // must be a provider since it will be injected into module.config()
 let routeProviderService: ng.IModule = angular.module(Constants.ROUTE_PROVIDER, ['ui.router', 'angularCSS']);
 routeProviderService.config(RouteProvider);
-let module: ng.IModule = angular.module(Constants.MAIN_MODULE, [Constants.ROUTE_PROVIDER, 'angularCSS', services, home, focusClass]);
+let module: ng.IModule = angular.module(Constants.MAIN_MODULE, [Constants.ROUTE_PROVIDER, 'angularCSS', services, home, global]);
 // removing the function argument in the run invocation results in an error 
 module.run([() => {
 }]);
@@ -71,8 +70,6 @@ class AngularBootstrap implements ng.IAngularBootstrapConfig {
 AngularBootstrap.$inject = ['$stateProvider', '$locationProvider', '$controllerProvider', '$provide', '$compileProvider', '$urlRouterProvider'];
 
 module.config(AngularBootstrap);
-
-module.controller('InitCtrl', initCtrl);
 
 export default angular.module(Constants.MAIN_MODULE);
 angular.element().ready(() => {

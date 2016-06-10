@@ -10,4 +10,5 @@ let pickColorsOpts: IComponentOptionsCss = {
 };
 
 export default angular.module(Constants.MAIN_MODULE)
-	.component('pickColors', pickColorsOpts);
+	.component('pickColors', pickColorsOpts)
+	.name;

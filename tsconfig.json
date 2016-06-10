@@ -35,7 +35,6 @@
         "src/js/ctrl/format-json.ctrl.ts",
         "src/js/initialisation/RouteProvider.ts",
         "src/js/initialisation/bootstrap.ts",
-        "src/js/initialisation/init.ctrl.ts",
         "src/js/initialisation/main.ts",
         "src/js/services/basic-info-dao.ts",
         "src/js/services/constants.ts",

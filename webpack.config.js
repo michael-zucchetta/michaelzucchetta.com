@@ -25,8 +25,9 @@ module.exports = {
 	},
 	module: {
 		loaders: [
-		{ test: /\.ts$/, test2: /\.js$/, loader: 'ts-loader' },
-		{ test: /\.html$/, loader: 'html-loader' },
+			{ test: /\.ts$/, test2: /\.js$/, loader: 'ts-loader' },
+			{ test: /\.html$/, loader: 'html-loader' },
+			{ test: /\.scss$/, loader: 'sass-loader' },
 		]
 	},
 	resolveLoader: {
