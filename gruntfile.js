@@ -129,7 +129,7 @@ module.exports = function(grunt) {
 					event: ["changed", "added", "deleted"]
 				}
 			},
-			copy_html: {
+			html: {
 				files: ["src/**/*.html"],
 				tasks: ["newer:copy:html"],			
 				options: {

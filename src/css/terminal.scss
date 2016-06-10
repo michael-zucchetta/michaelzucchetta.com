@@ -39,3 +39,10 @@ body {
 		}
 	}
 }
+
+pre.ascii-text {
+	background-color: transparent;
+	border: none;
+	font-size: 5px;
+	display: inline-flex;
+}

@@ -5,14 +5,13 @@ import 'oclazyload';
 import Constants from 'js/services/constants';
 import RouteProvider from 'js/initialisation/RouteProvider';
 import services from 'js/services';
-import home from 'components/home';
-import global from 'components/global';
+import components from 'components';
 
 // move angular bootstrap to another class
 // must be a provider since it will be injected into module.config()
 let routeProviderService: ng.IModule = angular.module(Constants.ROUTE_PROVIDER, ['ui.router', 'angularCSS']);
 routeProviderService.config(RouteProvider);
-let module: ng.IModule = angular.module(Constants.MAIN_MODULE, [Constants.ROUTE_PROVIDER, 'angularCSS', services, home, global]);
+let module: ng.IModule = angular.module(Constants.MAIN_MODULE, [Constants.ROUTE_PROVIDER, 'angularCSS', services, components]);
 // removing the function argument in the run invocation results in an error 
 module.run([() => {
 }]);

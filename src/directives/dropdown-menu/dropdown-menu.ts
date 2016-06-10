@@ -52,5 +52,4 @@ let dropDownMenuDirective: any = ($http: ng.IHttpService, $compile: ng.ICompileS
 
 dropDownMenuDirective.$inject = ['$http', '$compile', '$timeout', 'DaoFacade'];
 
-export default angular.module(Constants.MAIN_MODULE)
-	.directive('dropDownMenu', dropDownMenuDirective);
+export default dropDownMenuDirective;

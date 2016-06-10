@@ -1,5 +1,3 @@
-import Constants from 'js/services/constants';
-
 class AnimateTextCtrl {
 
 	private letters: string[];
@@ -24,18 +22,4 @@ class AnimateTextCtrl {
 
 AnimateTextCtrl.$inject = ['$interval'];
 
-interface IComponentOptionsCss extends ng.IComponentOptions {
-	css: string;
-};
-
-let animateTextOpts: IComponentOptionsCss = {
-	bindings: {
-		dataText: '@animateText'
-	},
-	templateUrl: '/directives/animate-text/animate-text.html',
-	css: '/directives/animate-text/animate-text.css',
-	controller: AnimateTextCtrl
-};
-
-export default angular.module(Constants.MAIN_MODULE)
-	.component('animateText', animateTextOpts);
+export default AnimateTextCtrl;

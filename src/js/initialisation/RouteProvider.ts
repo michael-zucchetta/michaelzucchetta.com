@@ -21,30 +21,31 @@ let RouteProvider: Function = ($stateProvider, $urlRouterProvider, $controllerPr
 	register.factory = $provide.factory;
 	register.service = $provide.service;
 	let routeDecorator: any = ($delegate: any) => {
-			let $route: any = $delegate;
-			$route.state =  $stateProvider.state;
+		let $route: any = $delegate;
+		$route.state =  $stateProvider.state;
 
-			$route.setRouteDinamically = (menu: MenuEl[]): void => {
-				let route = $route.route;
-				_.each(menu, (menuItem: MenuEl) => {
-					if (menuItem.active) {
-						menuItem.definition.resolve = {};
-						menuItem.definition.resolve['loadPickColors'] = ($q, $ocLazyLoad) => {
-							return $q((resolve) => {
-								// load whole module
+		$route.setRouteDinamically = (menu: MenuEl[]): void => {
+			let route = $route.route;
+			_.each(menu, (menuItem: MenuEl) => {
+				if (menuItem.active) {
+					menuItem.definition.resolve = {};
+					/* menuItem.definition.resolve['loadPickColors'] = ($q, $ocLazyLoad) => {
+						return $q((resolve) => {
+							require.ensure([], () => {
 								let module = require('components/pick-colors');
-								
+
 								$ocLazyLoad.load({name: menuItem.name});
 								resolve(module);
 							});
-						}
-						$route.state(menuItem.name, menuItem.definition);
-					}
-				});
-				// $route.reload();
-			};
+						});
+					} */
+					$route.state(menuItem.name, menuItem.definition);
+				}
+			});
+			// $route.reload();
+		};
 
-			return $route;
+		return $route;
 
 	};
 

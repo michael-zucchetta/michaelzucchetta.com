@@ -1,4 +1,4 @@
-requirejs.config({
+/* requirejs.config({
 	baseUrl: '/',
 
 	paths: {
@@ -41,3 +41,4 @@ requirejs.config({
 requirejs(['main'], (app: any) => {
 	console.log(app);
 });
+*/
