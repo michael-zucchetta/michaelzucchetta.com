@@ -1,11 +1,14 @@
 // @import "compass/css3";
 $black: black;
 $white: white;
-$dark-gray: #222222;
+$dark-gray: #212121;
 $dark-gray-border: #303030;
 $blue-bar-active: #285577;
 $blue-bar-active-border: #457294;
-
+$terminal-green: #008F10;
+$black-status: #030100;
+$terminal-bar-red: #E31D13;
+$terminal-bar-green: #1CBA22;
 html {
         height: 100%;
         /*overflow hidden prevents scroll on non scrollable pages in iOS*/
@@ -22,8 +25,11 @@ body {
 }
 
 .website-content {
-	width: 70%;
-	height: 80%;
+	width: 80%;
+	height: 82.8vh;
+}
+
+.terminal {
 	background-color: $black;
 	color: $white;
 	&.unactive {
@@ -32,6 +38,7 @@ body {
 			background-color: $dark-gray;
 		}
 	}
+
 	&.active {
 		border: 3px solid $blue-bar-active-border;
 		.terminal-bar {
@@ -40,9 +47,30 @@ body {
 	}
 }
 
+.title {
+	width: 80%;
+}
+
 pre.ascii-text {
 	background-color: transparent;
 	border: none;
-	font-size: 5px;
+	font-size: 4.5px;
 	display: inline-flex;
+	color: $terminal-green;
+	font-weight: bold;
+}
+
+.notes {
+	height: 2.8vh;
+	text-align: right;
+	color: $white;
+	background-color: $black-status;
+	.second {
+		color: $terminal-bar-red;
+	}
+	
+	.third {
+		color: $terminal-bar-green;
+		margin-right: 5px;
+	}
 }

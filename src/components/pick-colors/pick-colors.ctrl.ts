@@ -60,6 +60,6 @@ class PickColorsCtrl {
 	}
 }
 
-PickColorsCtrl.$inject = ['$timeout', 'ImageUtilities'];
+PickColorsCtrl.$inject = ['$timeout', 'ImagesUtilities'];
 
 export default PickColorsCtrl;

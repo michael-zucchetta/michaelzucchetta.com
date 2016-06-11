@@ -108,14 +108,14 @@ module.exports = function(grunt) {
 					event: ["changed", "deleted", "newer"]
 				}
 			},
-			sass_after_creation: {
+			sass_added: {
 				files: ["src/**/*.sass"],
 				tasks: ["newer:sass:dest"],
 				options: {
 					event: ["added"]
 				}
 			},
-			sass_watch: {
+			sass: {
 				files: ["src/**/*.scss"],
 				tasks: ["newer:sass:dest"],
 				options: {

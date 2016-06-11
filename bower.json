@@ -7,7 +7,7 @@
 		"angular-mocks": "*",
 		"ui-router": "^1.0.0-alpha.5",
 		"angular-route": "*",
-		"angular-resource": "*",
+		"ng-file-upload": "*",
 		"angular-css": "*",
 		"ng-file-upload": "*",
 		"ocLazyLoad": "*",

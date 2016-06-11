@@ -21,7 +21,8 @@ module.exports = {
 			'angular-css': 'angular-css/index',
 			'oclazyload': __dirname + '/node_modules/oclazyload/dist/ocLazyLoad',
 			'lodash': 'lodash/dist/lodash.min',
-		},
+		  'ng-file-upload': 'ng-file-upload/ng-file-upload.min',
+    },
 	},
 	module: {
 		loaders: [
