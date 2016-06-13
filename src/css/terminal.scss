@@ -21,12 +21,12 @@ body {
 }
 
 .website-container {
-
+	height: 100%;
 }
 
 .website-content {
-	width: 80%;
-	height: 82.8vh;
+	width: 99%;
+	height: 84.8%;
 }
 
 .terminal {
@@ -48,7 +48,8 @@ body {
 }
 
 .title {
-	width: 80%;
+	width: 99%;
+	height: 11.2%;
 }
 
 pre.ascii-text {
@@ -61,7 +62,7 @@ pre.ascii-text {
 }
 
 .notes {
-	height: 2.8vh;
+	height: 2.8%;
 	text-align: right;
 	color: $white;
 	background-color: $black-status;
