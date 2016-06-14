@@ -3,17 +3,17 @@ var webpack = require('webpack');
 
 module.exports = {
 	entry: {
-    app: './js/initialisation/main.ts',
-    vendor: ['angular', 'ui-router', 'angular-css', 'ng-file-upload', 'lodash'],
-  },
+		app: './js/initialisation/main.ts',
+		vendor: ['angular', 'ui-router', 'angular-css', 'ng-file-upload', 'lodash'],
+	},
 	context: __dirname + '/src/',
 	devtool: 'source-map',
 	output: {
 		path: __dirname + '/dist/',
 		filename: 'bundle.js',
 	},
-  externals: {
-  },
+	externals: {
+	},
 	resolve: {
 		extensions: ['', '.webpack.js', '.web.js', '.ts', '.js'],
 		root: [
@@ -25,14 +25,14 @@ module.exports = {
 			'angular-css': __dirname + '/lib/angular-css/index',
 			'oclazyload': __dirname + '/node_modules/oclazyload/dist/ocLazyLoad',
 			'lodash': __dirname + '/lib/lodash/dist/lodash.min',
-		  'ng-file-upload': __dirname + '/lib/ng-file-upload/ng-file-upload.min',
-    },
+			'ng-file-upload': __dirname + '/lib/ng-file-upload/ng-file-upload.min',
+		},
 	},
 	module: {
 		loaders: [
-      { test: /\.ts$/, loader: 'ts-loader' },
-			{ test: /\.html$/, loader: 'html-loader' },
-			{ test: /\.scss$/, loaders: ['style', 'css','sass'] },
+		{ test: /\.ts$/, loader: 'ts-loader' },
+		{ test: /\.html$/, loader: 'html-loader' },
+		{ test: /\.scss$/, loaders: ['style', 'css','sass'] },
 		]
 	},
 	resolveLoader: {
@@ -42,17 +42,18 @@ module.exports = {
 		],
 		fallback: path.join(__dirname, "node_modules"),
 	},
-  plugins: [
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      chunks: ['vendor'],
-      filename: 'vendor.js',
-      minChunks: Infinity,
-    }),
-    //new webpack.ProvidePlugin({
-    //      $: 'jquery',
-    //      angular: 'angular',
-    //      _: 'lodash',
-    //}),
-  ],
+	plugins: [
+		new webpack.optimize.CommonsChunkPlugin({
+			name: 'vendor',
+			chunks: ['build1'],
+			filename: 'vendor.js',
+			minChunks: Infinity,
+		}),
+		// new webpack.HotModuleReplacementPlugin(),
+		//new webpack.ProvidePlugin({
+		//      $: 'jquery',
+		//      angular: 'angular',
+		//      _: 'lodash',
+		//}),
+	],
 }

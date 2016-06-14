@@ -1,5 +1,5 @@
-import './dropdown-menu';
+import dropdownMenuDirective from './dropdown-menu';
 
-export angular.module('dropdownMenu', []).
-	.directive('dropDownMenu', dropDownMenuDirective)
+export default angular.module('dropdownMenu', [])
+	.directive('dropDownMenu', dropdownMenuDirective)
 	.name;

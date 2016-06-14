@@ -8,11 +8,11 @@ export class BasicInfoDao {
 
 	public getLinks() {
 		// temporary
-		return this.RestProxy.handleGetCall('/js/mocks/links.json');
+		return this.RestProxy.handleGetCall('js/mocks/links.json');
 	}
 
 	public getMenu() {
-		return this.RestProxy.handleGetCall('/js/mocks/menu.json');
+		return this.RestProxy.handleGetCall('js/mocks/menu.json');
 	}
 
 }

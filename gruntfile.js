@@ -13,24 +13,24 @@ module.exports = function(grunt) {
 			"prod": {
 				options: {
 					production: true
-		    		}
+				}
 			}
 		},
-    concurrent: {
-      debug: ['watch:sass', 'watch:html', 'watch:json', 'webpack-dev-server'],
-      options: {
-        logConcurrentOutput: true,
-      },
-    },
-    instrument: {
-		        ignore: [],                   /* [1] */
+		concurrent: {
+			debug: ['watch:sass', 'watch:html', 'watch:json', 'webpack'],
+			options: {
+				logConcurrentOutput: true,
+			},
+		},
+		instrument: {
+			ignore: [],                   /* [1] */
 			files: [
-			    {
+			{
 				src: 'src/**/*.js',       /* [2] */
 				expand: true,
 				cwd: 'lib',           /* [3] */
 				dest: 'test/src'      /* [4] */
-			    }
+			}
 			]
 		},
 		report: {
@@ -163,19 +163,25 @@ module.exports = function(grunt) {
 				src: ["src/**/*.ts"]
 			}
 		},
-    webpack: {
-      options: require("./webpack.config.js"),
-      start: {
-        port: 9998,
-      },
-    },
-    "webpack-dev-server": {
-      options: require("./webpack.config.js"),
-      start: {
-        port: 12310,
-        keepalive: true,
-      }, 
-     },
+		webpack: {
+			options: require("./webpack.config.js"),
+			start: {
+				keepalive: true,
+				inline: true,
+				failOnError: false,
+				watch: true,
+			},
+		},
+		"webpack-dev-server": {
+			options: require("./webpack.config.js"),
+			start: {
+				port: 12310,
+				hot: true,
+				watch: true,
+				keepalive: true,
+				inline: true,
+			}, 
+		},
 	});
 	//Loading before the others
 	grunt.loadNpmTasks("grunt-npm-install");
@@ -198,7 +204,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-webpack');
 
 	grunt.registerTask("bower-install", function() {
-	grunt.task.run(["bower-install-simple"]);
+		grunt.task.run(["bower-install-simple"]);
 	});
 
 	grunt.registerTask("build-requirejs", function() {
@@ -215,5 +221,5 @@ module.exports = function(grunt) {
 	grunt.registerTask("test", ["default", "karma"]);
 	grunt.registerTask("dev", ["default", "watch"]);
 	// grunt.registerTask("default", ["bower-install", "typings", "copy", "sass", "clean", "ts", "watch"]);
-	grunt.registerTask("default", ["bower-install", "copy", "sass", "concurrent"]);
+	grunt.registerTask("default", ["bower-install", "clean", "copy", "sass", "concurrent"]);
 }

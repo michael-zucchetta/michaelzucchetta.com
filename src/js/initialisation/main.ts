@@ -2,12 +2,13 @@ import Constants from 'js/services/constants';
 import RouteProvider from 'js/initialisation/RouteProvider';
 import services from 'js/services';
 import components from 'components';
+import directives from 'directives';
 
 // move angular bootstrap to another class
 // must be a provider since it will be injected into module.config()
 let routeProviderService: ng.IModule = angular.module(Constants.ROUTE_PROVIDER, ['ui.router', 'angularCSS']);
 routeProviderService.config(RouteProvider);
-let module: ng.IModule = angular.module(Constants.MAIN_MODULE, [Constants.ROUTE_PROVIDER, 'angularCSS', 'ngFileUpload', services, components]);
+let module: ng.IModule = angular.module(Constants.MAIN_MODULE, [Constants.ROUTE_PROVIDER, 'angularCSS', 'ngFileUpload', services, components, directives]);
 // removing the function argument in the run invocation results in an error 
 module.run([() => {
 }]);
