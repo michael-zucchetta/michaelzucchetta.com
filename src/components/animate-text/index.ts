@@ -1,4 +1,3 @@
-import 'angular';
 import IComponentOptionsCss from 'domains/angular-component-css';
 import AnimateTextCtrl from './animate-text.ctrl';
 

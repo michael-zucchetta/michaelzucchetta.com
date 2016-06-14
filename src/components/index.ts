@@ -1,4 +1,3 @@
-import 'angular';
 import global from './global';
 import home from './home';
 import pickColors from './pick-colors';

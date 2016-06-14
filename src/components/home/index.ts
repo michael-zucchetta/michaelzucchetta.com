@@ -1,5 +1,3 @@
-import 'angular';
-import 'ui-router';
 import Constants from 'js/services/constants';
 import HomeCtrl from './home.ctrl';
 import IComponentsOptionsCss from 'domains/angular-component-css';

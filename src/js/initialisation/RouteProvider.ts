@@ -28,17 +28,6 @@ let RouteProvider: Function = ($stateProvider, $urlRouterProvider, $controllerPr
 			let route = $route.route;
 			_.each(menu, (menuItem: MenuEl) => {
 				if (menuItem.active) {
-					menuItem.definition.resolve = {};
-					/* menuItem.definition.resolve['loadPickColors'] = ($q, $ocLazyLoad) => {
-						return $q((resolve) => {
-							require.ensure([], () => {
-								let module = require('components/pick-colors');
-
-								$ocLazyLoad.load({name: menuItem.name});
-								resolve(module);
-							});
-						});
-					} */
 					$route.state(menuItem.name, menuItem.definition);
 				}
 			});

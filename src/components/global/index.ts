@@ -1,4 +1,3 @@
-import 'angular';
 import focusClass from 'directives/focus-class/focus-class.directive';
 import GlobalCtrl from './global.ctrl';
 

@@ -1,8 +1,3 @@
-import 'angular';
-import 'ui-router';
-import 'angular-css';
-import 'oclazyload';
-import 'ng-file-upload';
 import Constants from 'js/services/constants';
 import RouteProvider from 'js/initialisation/RouteProvider';
 import services from 'js/services';
@@ -71,7 +66,7 @@ AngularBootstrap.$inject = ['$stateProvider', '$locationProvider', '$controllerP
 
 module.config(AngularBootstrap);
 
-export default angular.module(Constants.MAIN_MODULE);
+export default angular.module(Constants.MAIN_MODULE).name;
 angular.element().ready(() => {
 	angular.bootstrap(document, [Constants.MAIN_MODULE]);
 });

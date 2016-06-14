@@ -1,5 +1,3 @@
-import 'angular';
-
 interface IMyScope extends ng.IScope {
 
 	activeClass: string;

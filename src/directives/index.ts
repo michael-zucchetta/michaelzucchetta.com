@@ -1,4 +1,3 @@
-import 'angular';
 import asciify from './asciify';
 import dropdownMenu from './dropdown-menu';
 import focusClass from './focus-class';
