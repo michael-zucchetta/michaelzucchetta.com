@@ -16,7 +16,13 @@ module.exports = function(grunt) {
 		    		}
 			}
 		},
-		instrument: {
+    concurrent: {
+      debug: ['watch:sass', 'watch:html', 'watch:json', 'webpack-dev-server'],
+      options: {
+        logConcurrentOutput: true,
+      },
+    },
+    instrument: {
 		        ignore: [],                   /* [1] */
 			files: [
 			    {
@@ -122,7 +128,7 @@ module.exports = function(grunt) {
 					event: ["changed", "deleted"]
 				}
 			},
-			json_html: {
+			json: {
 				files: ["src/**/*.json"],
 				tasks: ["newer:copy:json"],			
 				options: {
@@ -156,7 +162,20 @@ module.exports = function(grunt) {
 			files: {
 				src: ["src/**/*.ts"]
 			}
-		}
+		},
+    webpack: {
+      options: require("./webpack.config.js"),
+      start: {
+        port: 9998,
+      },
+    },
+    "webpack-dev-server": {
+      options: require("./webpack.config.js"),
+      start: {
+        port: 12310,
+        keepalive: true,
+      }, 
+     },
 	});
 	//Loading before the others
 	grunt.loadNpmTasks("grunt-npm-install");
@@ -168,6 +187,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks("grunt-contrib-jshint");
 	grunt.loadNpmTasks("grunt-contrib-sass");
 	grunt.loadNpmTasks("grunt-contrib-watch");
+	grunt.loadNpmTasks("grunt-concurrent");
 	grunt.loadNpmTasks("grunt-istanbul");
 	grunt.loadNpmTasks("grunt-karma");
 	grunt.loadNpmTasks("grunt-newer");
@@ -195,5 +215,5 @@ module.exports = function(grunt) {
 	grunt.registerTask("test", ["default", "karma"]);
 	grunt.registerTask("dev", ["default", "watch"]);
 	// grunt.registerTask("default", ["bower-install", "typings", "copy", "sass", "clean", "ts", "watch"]);
-	grunt.registerTask("default", ["bower-install", "copy", "sass"]);
+	grunt.registerTask("default", ["bower-install", "copy", "sass", "concurrent"]);
 }
