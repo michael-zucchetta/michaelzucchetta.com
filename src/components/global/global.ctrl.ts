@@ -1,13 +1,29 @@
-export default class InitCtrl {
+import IMenuEl from 'domains/menu';
 
-	public prova;
+export default class GlobalCtrl {
 
-	constructor() {
-		this.prova = "ciao";
+	private myLinks;
+
+	private menu: IMenuEl[];
+
+	constructor(private BasicInfoDao, private DaoFacade) {
+		this.myLinks = [];
+		this.menu = [];
 	}
 
+	public $onInit(): void {
+                this.BasicInfoDao.getLinks()
+                        .then(links => this.myLinks = links);
+
+                this.DaoFacade.getMenu()
+                        .then(menuEls => {
+                        this.menu = menuEls;
+                });
+        }
+	
 	public getClass() {
 		return 'forforOAa';
 	}
 }
 
+GlobalCtrl.$inject = ['BasicInfoDao', 'DaoFacade'];

@@ -4,7 +4,7 @@ var webpack = require('webpack');
 module.exports = {
 	entry: {
 		app: './js/initialisation/main.ts',
-		vendor: ['angular', 'ui-router', 'angular-css', 'ng-file-upload', 'lodash'],
+		vendor: ['angular', 'ui-router', 'angular-css', 'ng-file-upload', 'lodash', 'jQuery'],
 	},
 	context: __dirname + '/src/',
 	devtool: 'source-map',
@@ -26,6 +26,7 @@ module.exports = {
 			'oclazyload': __dirname + '/node_modules/oclazyload/dist/ocLazyLoad',
 			'lodash': __dirname + '/lib/lodash/dist/lodash.min',
 			'ng-file-upload': __dirname + '/lib/ng-file-upload/ng-file-upload.min',
+			'jQuery': __dirname + '/lib/jquery/dist/jquery.min',
 		},
 	},
 	module: {
@@ -50,7 +51,7 @@ module.exports = {
 			minChunks: Infinity,
 		}),
 		// new webpack.HotModuleReplacementPlugin(),
-		//new webpack.ProvidePlugin({
+		// new webpack.ProvidePlugin({
 		//      $: 'jquery',
 		//      angular: 'angular',
 		//      _: 'lodash',

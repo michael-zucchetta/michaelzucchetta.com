@@ -19,7 +19,7 @@ class Utils {
 				return;
 			}
 		});
-		return menu;
+		return _.compact(menu);
 	}
 
 	public static removeFormattationFromString(inputString: string): string {

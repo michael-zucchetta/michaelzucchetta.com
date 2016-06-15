@@ -5,8 +5,12 @@
 		"title": "About Me",
 		"order": 1,
 		"parentId": null,
-		"active": false,
-		"url": "/about-me.html"
+		"active": true,
+		"url": "/about-me.html",
+		"definition": {
+			"url": "/about-me.html",
+			"component": "aboutMe"
+		}
 	},
 	{
 		"id": 2,
@@ -34,7 +38,11 @@
 		"title": "Json Formatter",
 		"order": 3,
 		"parentId": 2,
-		"active": false
+		"active": true,
+		"definition": {
+			"url": "/format-json.html",
+			"component": "formatJson"
+		}
 	},
 	{
 		"id": 4,

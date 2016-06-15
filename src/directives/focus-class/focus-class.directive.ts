@@ -26,7 +26,7 @@ class FocusCtrl {
 	}
 }
 
-class FocusClass implements angular.IDirective {
+class FocusClass implements ng.IDirective {
 
 	transclude = true;
 
@@ -57,9 +57,7 @@ class FocusClass implements angular.IDirective {
 		return directive;
 	}
 
-
 }
-
 
 export default angular.module('focusClass', [])
 .directive('focusClass', FocusClass.factory())
