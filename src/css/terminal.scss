@@ -25,8 +25,12 @@ body {
 }
 
 .website-content {
-	width: 99%;
-	height: 84.8%;
+	width: 100%;
+	height: 85%;
+
+	#view-container {
+		margin-left: 10px;
+	}
 }
 
 .terminal {
@@ -48,8 +52,9 @@ body {
 }
 
 .title {
-	width: 99%;
-	height: 11.2%;
+	width: 100%;
+	height: 11.5%;
+	min-height: 100px;
 }
 
 pre.ascii-text {
@@ -59,10 +64,15 @@ pre.ascii-text {
 	display: inline-flex;
 	color: $terminal-green;
 	font-weight: bold;
+	&.extra {
+		font-size: 10px;
+		font-family: 'Ubuntu Mono', Menlo, Monaco, Consolas, 'Courier New', monospace;
+		margin: auto auto auto 20px;
+	}
 }
 
 .notes {
-	height: 2.8%;
+	height: 2.3%;
 	text-align: right;
 	color: $white;
 	background-color: $black-status;
