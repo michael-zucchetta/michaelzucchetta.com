@@ -9,15 +9,25 @@ $terminal-green: #008F10;
 $black-status: #030100;
 $terminal-bar-red: #E31D13;
 $terminal-bar-green: #1CBA22;
+$terminal-bar-height: 18px;
+
+$bottom-bar-height: 20px;
+$title-bar-height: 100px;
+$border-width: 3px;
+
+$content-min-height: 200px;
 html {
-        height: 100%;
-        /*overflow hidden prevents scroll on non scrollable pages in iOS*/
-        overflow: hidden;
+	height: 100%;
+	/*overflow hidden prevents scroll on non scrollable pages in iOS*/
+	overflow: hidden;
 }
 
 body {
-        margin: 0;
-        height: 100%;
+	margin: 0;
+	height: 100%;
+	&.hidden-body {
+		visibility: hidden;
+	}
 }
 
 .website-container {
@@ -26,25 +36,34 @@ body {
 
 .website-content {
 	width: 100%;
-	height: 85%;
-
+	height: calc(100% - #{$bottom-bar-height} - #{$title-bar-height} - #{$border-width * 4});
+	min-height: $content-min-height;
 	#view-container {
 		margin-left: 10px;
+		min-height: calc(#{$content-min-height} - #{$terminal-bar-height});
+		height: calc(100% - #{$terminal-bar-height});
+		overflow: auto;
 	}
 }
 
 .terminal {
 	background-color: $black;
 	color: $white;
+	.terminal-bar {
+		height: $terminal-bar-height;
+		span {
+			margin-left: 5px;
+		}
+	}
 	&.unactive {
-		border: 3px solid $dark-gray-border;
+		border: $border-width solid $dark-gray-border;
 		.terminal-bar {
 			background-color: $dark-gray;
 		}
 	}
 
 	&.active {
-		border: 3px solid $blue-bar-active-border;
+		border: $border-width solid $blue-bar-active-border;
 		.terminal-bar {
 			background-color: $blue-bar-active;
 		}
@@ -53,8 +72,7 @@ body {
 
 .title {
 	width: 100%;
-	height: 11.5%;
-	min-height: 100px;
+	height: $title-bar-height;
 }
 
 pre.ascii-text {
@@ -72,14 +90,14 @@ pre.ascii-text {
 }
 
 .notes {
-	height: 2.3%;
+	height: $bottom-bar-height;
 	text-align: right;
 	color: $white;
 	background-color: $black-status;
 	.second {
 		color: $terminal-bar-red;
 	}
-	
+
 	.third {
 		color: $terminal-bar-green;
 		margin-right: 5px;

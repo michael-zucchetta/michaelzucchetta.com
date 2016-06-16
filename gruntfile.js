@@ -17,7 +17,7 @@ module.exports = function(grunt) {
 			}
 		},
 		concurrent: {
-			debug: ['watch:sass', 'watch:html', 'watch:json', 'webpack'],
+			debug: ['watch:sass', 'watch:html', 'watch:json', 'webpack-dev-server'],
 			options: {
 				logConcurrentOutput: true,
 			},
@@ -87,7 +87,13 @@ module.exports = function(grunt) {
 				configFile: "config/karma.unittest.ts.conf.js"
 			}
 		},
-		protractor: {
+    run: {
+      "webpack-dev": {
+        cmd: 'npm',
+        args: ['run', 'dev'],
+      }
+    },
+    protractor: {
 			e2e: {
 				configFile: "config/protractor.e2e.conf.js"
 			}
@@ -173,14 +179,16 @@ module.exports = function(grunt) {
 			},
 		},
 		"webpack-dev-server": {
-			options: require("./webpack.config.js"),
-			start: {
+			options: {
+        webpack: require("./webpack.config.js"),
+				contentBase: 'dist/',
 				port: 12310,
-				hot: true,
-				watch: true,
-				keepalive: true,
-				inline: true,
-			}, 
+        host: 'localhost',
+      },
+      start: {
+        keepalive: true,
+        inline: false,
+      }, 
 		},
 	});
 	//Loading before the others
@@ -198,7 +206,8 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks("grunt-karma");
 	grunt.loadNpmTasks("grunt-newer");
 	grunt.loadNpmTasks("grunt-protractor-runner");
-	grunt.loadNpmTasks("grunt-ts");
+	grunt.loadNpmTasks("grunt-run");
+  grunt.loadNpmTasks("grunt-ts");
 	grunt.loadNpmTasks("grunt-tslint");
 	grunt.loadNpmTasks("grunt-typings");
 	grunt.loadNpmTasks('grunt-webpack');

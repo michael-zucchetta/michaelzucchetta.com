@@ -24,7 +24,8 @@
 		"grunt-newer": "^1.1.1",
 		"grunt-npm-install": "*",
 		"grunt-protractor-runner": "^2.1.0",
-		"grunt-ts": "^5.3.2",
+		"grunt-run": "^0.6.0",
+    "grunt-ts": "^5.3.2",
 		"grunt-tslint": "^3.0.3",
 		"grunt-typings": "^0.1.3",
 		"grunt-webpack": "1.0.11",
@@ -68,7 +69,8 @@
 	"scripts": {
 		"run": "npm run webpack",
 		"build": "webpack",
-		"preprotractor": "npm run update-webdriver",
+		"dev": "webpack-dev-server --inline --host=localhost --content-base='/dist/' --port 12310",
+    "preprotractor": "npm run update-webdriver",
 		"protractor": "protractor config/protractor.e2e.conf.js",
 		"test": "karma start config/karma.unittest.conf.js",
 		"update-webdriver": "webdriver-manager update"

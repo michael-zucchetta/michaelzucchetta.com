@@ -1,15 +1,20 @@
 <!doctype html>
 <html lang="en">
 	<head>
-                <title>Michael Zucchetta's Website</title>
+		<title>Michael Zucchetta's Website</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="./css/terminal.css"></link>
 	</head>
-	<body ng-controller="GlobalCtrl as $ctrl">
+	<body ng-controller="GlobalCtrl as $ctrl" class="hidden-body">
 		<div class="animation-initial">
 		</div>
 		<div class="website-container">
 			<div class="col-xs-8 col-md-8 title terminal" focus-class active="active" unactive="unactive">
-				<div class="terminal-bar row">user@localhost:/home/user/</div>
+				<div class="terminal-bar row">
+					<span>
+						user@michaelzucchetta.com:/home/user/
+					</span>
+				</div>
 				<pre class="ascii-text" style="display: none">
 					<span ng-include="'directives/asciify/M.html'"></span>
 					<span ng-include="'directives/asciify/I.html'"></span>
@@ -57,24 +62,25 @@
 				</span>
 			</div>
 			<div class="website-content terminal col-xs-12 col-md-12" focus-class active="active" unactive="unactive">
-				<div class="terminal-bar row">user@localhost:/home/user/</div>
+				<div class="terminal-bar row">
+					<span>
+						user@michaelzucchetta.com:/home/user/
+					</span>
+				</div>
 				<div id="view-container" ui-view></div>
 			</div>
 			<div class="notes col-xs-12 col-md-12">
 				<span class="first">Michael Zucchetta<span> |
-				<span class="second" >michael.zucchetta@gmail.com</span> | 
-				<span class="third">Dublin, Ireland</span>
-				<span class="links">
-					<span ng-repeat="link in myLinks" ng-class="{{link.class}}">
-						<a target="_blank" ng-href="{{link.link}}" ng-bind="link.text"></a>
-					</span>
-				</span>
+						<span class="second" >michael.zucchetta@gmail.com</span> | 
+						<span class="third">Dublin, Ireland</span>
+						<span class="links">
+							<span ng-repeat="link in myLinks" ng-class="{{::link.class}}">
+								<a target="_blank" ng-href="{{::link.link}}" ng-bind="link.text"></a>
+							</span>
+						</span>
 			</div>
 		</div>
 		<script type="text/javascript" src="vendor.js"></script>
 		<script type="text/javascript" src="bundle.js"></script>
-		<!--<link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css"></link>-->
-		<!--link rel="stylesheet" href="/css/main.css"></link-->
-		<link rel="stylesheet" href="./css/terminal.css"></link>
 	</body>
 </html>

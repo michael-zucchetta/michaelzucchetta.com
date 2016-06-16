@@ -19,6 +19,8 @@ export default class GlobalCtrl {
                         .then(menuEls => {
                         this.menu = menuEls;
                 });
+                var body: any = document.querySelector('body');
+                body.style.visibility = 'visible';
         }
 	
 	public getClass() {

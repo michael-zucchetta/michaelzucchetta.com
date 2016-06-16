@@ -1,6 +1,5 @@
-import focusClass from 'directives/focus-class/focus-class.directive';
 import GlobalCtrl from './global.ctrl';
 
-export default angular.module('global', [focusClass])
+export default angular.module('global', [])
 	.controller('GlobalCtrl', GlobalCtrl)
 	.name; 

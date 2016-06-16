@@ -1,6 +1,6 @@
 class HomeCtrl {
 
-	constructor(private BasicInfoDao, private DaoFacade) {
+	constructor() {
 	}
 }
 
