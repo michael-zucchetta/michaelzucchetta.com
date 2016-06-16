@@ -16,6 +16,7 @@ $title-bar-height: 100px;
 $border-width: 3px;
 
 $content-min-height: 200px;
+$terminal-font: monospace;
 html {
 	height: 100%;
 	/*overflow hidden prevents scroll on non scrollable pages in iOS*/
@@ -46,11 +47,23 @@ body {
 	}
 }
 
+
+.noselect {
+	-webkit-touch-callout: none; /* iOS Safari */
+	-webkit-user-select: none;   /* Chrome/Safari/Opera */
+	-khtml-user-select: none;    /* Konqueror */
+	-moz-user-select: none;      /* Firefox */
+	-ms-user-select: none;       /* Internet Explorer/Edge */
+	user-select: none;           /* Non-prefixed version, currently */
+}
+
 .terminal {
 	background-color: $black;
 	color: $white;
 	.terminal-bar {
 		height: $terminal-bar-height;
+		font-family: $terminal-font;
+		cursor: default;
 		span {
 			margin-left: 5px;
 		}
@@ -93,13 +106,28 @@ pre.ascii-text {
 	height: $bottom-bar-height;
 	text-align: right;
 	color: $white;
+	font-family: $terminal-font;
 	background-color: $black-status;
-	.second {
+	word-spacing: -5px;
+	cursor: default;
+
+	.red {
 		color: $terminal-bar-red;
 	}
 
-	.third {
+	.green {
 		color: $terminal-bar-green;
-		margin-right: 5px;
 	}
+	
+	span:last-child {
+		margin-right: 2px;
+	}
+}
+
+.animation-initial {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: black;
+	z-index: -1;	
 }

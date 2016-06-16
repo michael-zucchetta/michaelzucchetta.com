@@ -8,6 +8,10 @@ class RestProxy {
 	public handleGetCall(): ng.IPromise<any> {
 		return this.deferredCall(Array.prototype.concat.apply([this.getCall], arguments));
 	}
+	
+	public handleJsonpCall(): ng.IPromise<any> {
+		return this.deferredCall(Array.prototype.concat.apply([this.jsonpCall], arguments));
+	}
 
 	private data(response: any): any {
 		return response.data && response.data.data || response.data;
@@ -23,6 +27,7 @@ class RestProxy {
 	}
 
 	private getCall: Function = this.$http.get;
+	private jsonpCall: Function = this.$http.jsonp;
 
 }
 

@@ -14,6 +14,12 @@ export class BasicInfoDao {
 	public getMenu() {
 		return this.RestProxy.handleGetCall('js/mocks/menu.json');
 	}
+	
+	public getIP(): string {
+		// geoplugin.com
+		let endpoint = 'http://www.geoplugin.net/json.gp?jsoncallback=angular.callbacks._0';
+		return this.RestProxy.handleJsonpCall(endpoint);
+	}
 
 }
 
