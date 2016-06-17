@@ -26,6 +26,7 @@ html {
 body {
 	margin: 0;
 	height: 100%;
+	font-family: $terminal-font;
 	&.hidden-body {
 		visibility: hidden;
 	}
@@ -118,7 +119,7 @@ pre.ascii-text {
 	.green {
 		color: $terminal-bar-green;
 	}
-	
+
 	span:last-child {
 		margin-right: 2px;
 	}
@@ -130,4 +131,51 @@ pre.ascii-text {
 	height: 100%;
 	background: black;
 	z-index: -1;	
+
+	.website-content {
+		position: relative;
+		height: calc(100% - #{$bottom-bar-height} - #{$border-width * 2});
+		width: 100%;
+		animation: fadein 1.3s forwards;
+	}
+
+	.terminal-line {
+		position: relative;
+		.terminal-text-container {
+      display: inline-block;
+      width: 80px;
+      overflow-x: hidden;
+      .terminal-text {
+        overflow-x: hidden;
+        position: absolute;
+        display: inline-block;
+        top: 0;
+		    white-space: nowrap;
+        animation: typing 4s steps(10, end);
+      }
+		}
+	}
+
+	.line1 .terminal-text {
+		// position: absolute;
+		// top:0;
+		// width: 0px;
+		// animation: typing 4s steps(30, end);
+	}
 }
+
+.terminal-content {
+	position: absolute;
+	bottom: 5px;
+	left: 3px;
+}
+
+@keyframes fadein {
+	50% { visibility: hidden; }
+	100%   { visibility: visible; }
+}
+
+@keyframes typing {
+	from {width: 0%;}
+	to { width: 100%;} 
+} 

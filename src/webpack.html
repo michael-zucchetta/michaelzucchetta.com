@@ -3,15 +3,30 @@
 	<head>
 		<title>Michael Zucchetta's Website</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<style type="text/css">
+			.hidden {
+				visibility: hidden;
+			}
+		</style>
 		<link rel="stylesheet" href="./css/terminal.css"></link>
 	</head>
-	<body ng-controller="GlobalCtrl as $ctrl" style="visibility: hidden">
+	<body ng-controller="GlobalCtrl as $ctrl" class="hidden">
 		<div class="animation-initial">
-			<div class="website-content terminal hidden" focus-class active="active" unactive="unactive">
+			<div class="website-content terminal active" style="visibility: hidden">
 				<div class="terminal-bar noselect">
 					<span>
 						user@michaelzucchetta.com:/home/user/
 					</span>
+				</div>
+				<div class="terminal-content">
+					<div class="terminal-line line1">
+						<span class="terminal-line">
+							[user@michaelzucchetta.com home] $:
+							<span class="terminal-text-container">
+								<span class="terminal-text">cd scripts</span>
+							</span>
+						</span>
+					</div>
 				</div>
 			</div>
 		</div>
