@@ -17,6 +17,7 @@ $border-width: 3px;
 
 $content-min-height: 200px;
 $terminal-font: monospace;
+$font-size: 13px;
 html {
 	height: 100%;
 	/*overflow hidden prevents scroll on non scrollable pages in iOS*/
@@ -141,27 +142,34 @@ pre.ascii-text {
 
 	.terminal-line {
 		position: relative;
-		.terminal-text-container {
+		display: inline-flex;
+    .terminal-text-container {
       display: inline-block;
-      width: 80px;
+      font-size: 0;
+      width: 91px;
+      margin-left: 5px;
       overflow-x: hidden;
       .terminal-text {
         overflow-x: hidden;
-        position: absolute;
+        /* position: absolute; */
+        font-size: $font-size;
         display: inline-block;
         top: 0;
 		    white-space: nowrap;
-        animation: typing 4s steps(10, end);
+        animation: typing 2s steps(10, end) forwards paused;
       }
 		}
 	}
-
 	.line1 .terminal-text {
-		// position: absolute;
-		// top:0;
-		// width: 0px;
-		// animation: typing 4s steps(30, end);
 	}
+
+  .white-cursor {
+    display: inline-block;
+    background-color: $white;
+    width: 5px;
+    margin-left: 2px;
+    height: $font-size;
+  }
 }
 
 .terminal-content {
@@ -177,5 +185,5 @@ pre.ascii-text {
 
 @keyframes typing {
 	from {width: 0%;}
-	to { width: 100%;} 
+	to { width: 85%;} 
 } 
