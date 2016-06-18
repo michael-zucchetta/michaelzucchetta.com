@@ -35,7 +35,17 @@ export default class GlobalCtrl {
 		
 		var body: any = document.querySelector('body');
 		body.style.visibility = 'visible';
-	}
+	  
+    let websiteContent: any = document.querySelector('.website-content');
+    websiteContent.style.animationPlayState = 'running';
+    websiteContent.addEventListener('animationend', () => {
+      console.log('ciao');
+      setTimeout(() => {
+        let line1: any = document.querySelector('.line1 .terminal-text');
+        line1.style.animationPlayState = 'running';
+      }, 0);
+    });
+  }
 
 	public getClass() {
 		return 'forforOAa';

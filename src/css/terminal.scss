@@ -137,7 +137,7 @@ pre.ascii-text {
 		position: relative;
 		height: calc(100% - #{$bottom-bar-height} - #{$border-width * 2});
 		width: 100%;
-		animation: fadein 1.3s forwards;
+		animation: fadein 0.8s forwards paused;
 	}
 
 	.terminal-line {
@@ -156,7 +156,7 @@ pre.ascii-text {
         display: inline-block;
         top: 0;
 		    white-space: nowrap;
-        animation: typing 2s steps(10, end) forwards paused;
+        animation: typing 1.5s steps(10, end) forwards paused;
       }
 		}
 	}
