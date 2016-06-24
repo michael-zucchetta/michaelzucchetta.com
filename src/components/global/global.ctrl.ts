@@ -36,14 +36,23 @@ export default class GlobalCtrl {
 		var body: any = document.querySelector('body');
 		body.style.visibility = 'visible';
 	  
+    let line1: any = document.querySelector('.line1 .terminal-text');
+    let line1Cursor: any = document.querySelector('.line1 .white-cursor');
     let websiteContent: any = document.querySelector('.website-content');
     websiteContent.style.animationPlayState = 'running';
     websiteContent.addEventListener('animationend', () => {
       console.log('ciao');
       setTimeout(() => {
-        let line1: any = document.querySelector('.line1 .terminal-text');
         line1.style.animationPlayState = 'running';
       }, 0);
+    });
+
+    let line2: any = document.querySelector('.line2');
+    let line2Text: any = document.querySelector('.line2 .terminal-text');
+    line1.addEventListener('animationend', () => {
+      line1Cursor.style.visibility = 'hidden';
+      line2.style.display = 'block';
+      line2Text.style.animationPlayState = 'running';
     });
   }
 

@@ -38,7 +38,7 @@ body {
 }
 
 .website-content {
-	width: 100%;
+	width: calc(100 - 2 * #{border-width});
 	height: calc(100% - #{$bottom-bar-height} - #{$title-bar-height} - #{$border-width * 4});
 	min-height: $content-min-height;
 	#view-container {
@@ -136,22 +136,21 @@ pre.ascii-text {
 	.website-content {
 		position: relative;
 		height: calc(100% - #{$bottom-bar-height} - #{$border-width * 2});
-		width: 100%;
+		width: calc(100% - #{$border-width * 2});
 		animation: fadein 0.8s forwards paused;
 	}
 
 	.terminal-line {
 		position: relative;
 		display: inline-flex;
+    width: 100%;
     .terminal-text-container {
       display: inline-block;
       font-size: 0;
-      width: 91px;
       margin-left: 5px;
       overflow-x: hidden;
       .terminal-text {
         overflow-x: hidden;
-        /* position: absolute; */
         font-size: $font-size;
         display: inline-block;
         top: 0;
@@ -160,8 +159,14 @@ pre.ascii-text {
       }
 		}
 	}
-	.line1 .terminal-text {
-	}
+	
+  .line1 .terminal-text-container {
+	  width: 91px;
+  }
+  
+  .line2 .terminal-text-container {
+	  width: 64px;
+  }
 
   .white-cursor {
     display: inline-block;

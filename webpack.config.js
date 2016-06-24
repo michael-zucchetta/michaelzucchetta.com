@@ -31,10 +31,10 @@ module.exports = {
 	},
 	module: {
 		loaders: [
-		{ test: /\.ts$/, loader: 'ts-loader' },
-		{ test: /\.html$/, loader: 'html-loader' },
-		{ test: /\.scss$/, loaders: ['style', 'css','sass'] },
-		]
+			{ test: /\.ts$/, loader: 'ts-loader' },
+			{ test: /\.html$/, loader: 'html-loader' },
+			{ test: /\.scss$/, loaders: ['style', 'css','sass'] },
+		],
 	},
 	resolveLoader: {
 		root: [

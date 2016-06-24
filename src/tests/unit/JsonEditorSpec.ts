@@ -1,6 +1,6 @@
 import 'directives/json-editor/json-editor';
 
-describe ('Test jsonEditor component', () => {
+export default describe ('Test jsonEditor component', () => {
 	let componentController: ng.IComponentControllerService,
 		rootScope: ng.IRootScopeService,
 		component: ng.IModule;

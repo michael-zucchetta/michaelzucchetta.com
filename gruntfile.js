@@ -180,15 +180,17 @@ module.exports = function(grunt) {
 		},
 		"webpack-dev-server": {
 			options: {
-        webpack: require("./webpack.config.js"),
+        			webpack: require("./webpack.config.js"),
 				contentBase: 'dist/',
 				port: 12310,
-        host: 'localhost',
-      },
-      start: {
-        keepalive: true,
-        inline: false,
-      }, 
+				host: 'localhost',
+			},
+			start: {
+				keepalive: true,
+				hot: true,
+				failOnError: false,
+				inline: true,
+			}, 
 		},
 	});
 	//Loading before the others
@@ -207,7 +209,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks("grunt-newer");
 	grunt.loadNpmTasks("grunt-protractor-runner");
 	grunt.loadNpmTasks("grunt-run");
-  grunt.loadNpmTasks("grunt-ts");
+	grunt.loadNpmTasks("grunt-ts");
 	grunt.loadNpmTasks("grunt-tslint");
 	grunt.loadNpmTasks("grunt-typings");
 	grunt.loadNpmTasks('grunt-webpack');

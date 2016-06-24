@@ -1,25 +1,22 @@
+var webpackConfig = require('../webpack.config');
+
 module.exports = function(config) {
 	config.set({
 		//Neded for avoiding absolute Path
-		basePath: '../',
-		frameworks: ['requirejs', 'jasmine-jquery', 'jasmine'],
+		basePath: '../src/',
+		frameworks: ['jasmine-jquery', 'jasmine'],
 	        preprocessors: {
-			'dist/**/*.js': ['sourcemap']
-		},	  
+			//'dist/**/*.ts': ['sourcemap']
+			'tests/unit/index.ts': ['webpack', 'sourcemap'],
+		},
+
+		webpack: {
+			module: webpackConfig.module,			
+			resolve: webpackConfig.resolve,
+		},
+
 		files: [
-			"lib/angular/angular.min.js",
-			"lib/angular-route/angular-route.min.js",
-			"lib/angular-css/angular-css.min.js",
-			"lib/angular-mocks/angular-mocks.js",
-			"lodash/lodash.js",
-			"dist/tests/unit/bootstrap.js",
-			{pattern: 'lib/**/*.js', included: false},
-			{pattern: 'dist/**/*.js', included: false},
-			{pattern: 'dist/**/*.json', included: false},
-			{pattern: 'src/**/*.ts', included: false},
-			{pattern: 'dist/tests/unit/*Spec.js', included: false},
-			{pattern: 'dist/tests/utils/*.js', included: false},
-			'config/karma-require.js'
+			'tests/unit/index.ts',
 		],
 		// list of files to exclude
 		exclude: [
@@ -27,7 +24,6 @@ module.exports = function(config) {
 
 		// test results reporter to use
 		reporters: ['progress', 'html'],
-	
 
 		// used to see the page on the browser
 		htmlReporter: {
@@ -68,13 +64,15 @@ module.exports = function(config) {
 
 		plugins: [
 			// 'karma-html-reporter',
-			'karma-jasmine',
-			'karma-jasmine-jquery',
-			'karma-requirejs',
-			'karma-chrome-launcher',
-			'karma-firefox-launcher',
-			'karma-phantomjs-launcher',
-			'karma-sourcemap-loader'
-		]
+			require('karma-webpack'),
+			require('karma-jasmine-html-reporter-livereload'),
+			require('karma-jasmine'),
+			require('karma-jasmine-jquery'),
+			require('karma-requirejs'),
+			require('karma-chrome-launcher'),
+			require('karma-firefox-launcher'),
+			require('karma-phantomjs-launcher'),
+			require('karma-sourcemap-loader'),
+		],
 	});
 };
