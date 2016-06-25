@@ -7,7 +7,7 @@ module.exports = function(config) {
 		frameworks: ['jasmine-jquery', 'jasmine'],
 	        preprocessors: {
 			//'dist/**/*.ts': ['sourcemap']
-			'tests/unit/index.ts': ['webpack', 'sourcemap'],
+			'index.unit.spec.ts': ['webpack', 'sourcemap'],
 		},
 
 		webpack: {
@@ -16,7 +16,7 @@ module.exports = function(config) {
 		},
 
 		files: [
-			'tests/unit/index.ts',
+			'index.unit.spec.ts',
 		],
 		// list of files to exclude
 		exclude: [
@@ -68,7 +68,6 @@ module.exports = function(config) {
 			require('karma-jasmine-html-reporter-livereload'),
 			require('karma-jasmine'),
 			require('karma-jasmine-jquery'),
-			require('karma-requirejs'),
 			require('karma-chrome-launcher'),
 			require('karma-firefox-launcher'),
 			require('karma-phantomjs-launcher'),

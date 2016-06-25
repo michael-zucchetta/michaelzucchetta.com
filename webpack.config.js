@@ -21,6 +21,7 @@ module.exports = {
 		],
 		alias: {
 			'angular': __dirname + '/lib/angular/angular.min',
+			'angular-mocks': __dirname + '/lib/angular-mocks/angular-mocks',
 			'ui-router': __dirname + '/lib/ui-router/release/angular-ui-router.min',
 			'angular-css': __dirname + '/lib/angular-css/index',
 			'oclazyload': __dirname + '/node_modules/oclazyload/dist/ocLazyLoad',

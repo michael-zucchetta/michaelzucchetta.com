@@ -1,4 +1,3 @@
-import Constants from './constants';
 import BasicInfoDao from 'js/services/basic-info-dao';
 import UtilitiesService from 'js/services/utils';
 
