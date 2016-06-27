@@ -12,6 +12,8 @@ export default class GlobalCtrl {
 
 	private regionIP: string;
 
+	private countryIP: string;
+
 	constructor(private BasicInfoDao, private DaoFacade, private $interval, private $timeout) {
 		this.myLinks = [];
 		this.menu = [];
@@ -31,6 +33,7 @@ export default class GlobalCtrl {
 		.then((ipData) => {
 			this.userIP = ipData.geoplugin_request;
 			this.regionIP = ipData.geoplugin_region;
+			this.countryIP = ipData.geoplugin_countryName;
 		});
 
 		var body: any = document.querySelector('body');
@@ -41,7 +44,6 @@ export default class GlobalCtrl {
 		let websiteContent: any = document.querySelector('.website-content');
 		websiteContent.style.animationPlayState = 'running';
 		websiteContent.addEventListener('animationend', () => {
-			console.log('ciao');
 			setTimeout(() => {
 				line1.style.animationPlayState = 'running';
 			}, 200);
@@ -67,6 +69,15 @@ export default class GlobalCtrl {
 				line3Text.style.animationPlayState = 'running';
 			}, 200);
 		});
+
+		let animation: any = document.querySelector('.website-content.terminal');
+		let title: any = document.querySelector('.title.terminal');
+		line3.addEventListener('animationend', () => {
+			setTimeout(() => {
+				animation.setAttribute('class', animation.getAttribute('class') + ' command-init');
+				title.setAttribute('class', title.getAttribute('class') + ' command-init');
+			}, 200);
+		});
 	}
 
 	public getClass() {
@@ -74,8 +85,13 @@ export default class GlobalCtrl {
 	}
 
 	private getTodayDate(): void {
-		let todayDate = new Date().toISOString();
-		this.dateString = todayDate.substring(0, 10) + '  ' + todayDate.substring(11, 19);
+		let todayDate = new Date();
+		this.dateString = `${todayDate.getFullYear()}-${this.getTwoDigits(todayDate.getMonth())}-${this.getTwoDigits(todayDate.getDate())} ${this.getTwoDigits(todayDate.getHours())}:${this.getTwoDigits(todayDate.getMinutes())}:${this.getTwoDigits(todayDate.getSeconds())}`;
+	}
+
+	getTwoDigits(digit: number): string {
+		let digitString = digit.toString();
+		return digitString.length == 1 && '0' + digitString || digitString;
 	}
 }
 

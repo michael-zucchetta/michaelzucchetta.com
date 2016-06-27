@@ -88,6 +88,11 @@ body {
 .title {
 	width: 100%;
 	height: $title-bar-height;
+	&.command-init {
+		position: absolute;
+		visibility: visible;
+		top: 0px;
+	}
 }
 
 pre.ascii-text {
@@ -106,12 +111,16 @@ pre.ascii-text {
 
 .notes {
 	height: $bottom-bar-height;
+	width: 100%;
 	text-align: right;
 	color: $white;
 	font-family: $terminal-font;
 	background-color: $black-status;
 	word-spacing: -5px;
 	cursor: default;
+	/*consider moving in a class active during the animation*/
+	position: absolute;
+	bottom: 0px;
 
 	.red {
 		color: $terminal-bar-red;
@@ -143,42 +152,53 @@ pre.ascii-text {
 	.terminal-line {
 		position: relative;
 		display: inline-flex;
-    width: 100%;
-    .terminal-text-container {
-      display: inline-block;
-      font-size: 0;
-      margin-left: 5px;
-      overflow-x: hidden;
-      .terminal-text {
-        overflow-x: hidden;
-        font-size: $font-size;
-        display: inline-block;
-        top: 0;
-		    white-space: nowrap;
-        animation: typing 1.5s steps(10, end) forwards paused;
-      }
+		width: 100%;
+		.terminal-text-container {
+			display: inline-block;
+			font-size: 0;
+			margin-left: 5px;
+			overflow-x: hidden;
+			.terminal-text {
+				overflow-x: hidden;
+				font-size: $font-size;
+				display: inline-block;
+				top: 0;
+				white-space: nowrap;
+				animation: typing 1.2s steps(10, end) forwards paused;
+			}
 		}
 	}
-	
-  .line1 .terminal-text-container {
-	  width: 91px;
-  }
-  
-  .line2 .terminal-text-container {
-	  width: 66px;
-  }
-  
-  .line3 .terminal-text-container {
-	  width: 92px;
-  }
 
-  .white-cursor {
-    display: inline-block;
-    background-color: $white;
-    width: 5px;
-    margin-left: 2px;
-    height: $font-size;
-  }
+	.line1 .terminal-text-container {
+		width: 91px;
+	}
+
+	.line2 .terminal-text-container {
+		width: 66px;
+		.terminal-text {
+			animation: typing 1s steps(7, end) forwards paused;
+		}
+	}
+
+	.line3 .terminal-text-container {
+		width: 248px;
+		.terminal-text {
+			animation: typing 2s steps(27, end) forwards paused;
+		}
+	}
+
+	.white-cursor {
+		display: inline-block;
+		background-color: $white;
+		width: 5px;
+		margin-left: 2px;
+		height: $font-size;
+	}
+
+	.website-content.command-init {
+		top: calc(#{$title-bar-height} + #{$border-width * 2});
+		height: calc(100% - #{$title-bar-height} - #{$bottom-bar-height} - #{$border-width * 4});
+	}
 }
 
 .terminal-content {

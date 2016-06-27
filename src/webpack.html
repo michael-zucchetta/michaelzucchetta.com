@@ -39,11 +39,15 @@
 					</div>
 					<div class="terminal-line line3" style="display: none">
 						<div>total 12</div>
-						<div>-rw-r--r--   3 michaelzucchetta </div>
+						<div>dr--r--r--  6 michaelzucchetta root 4096 Jan 1 1970 <span class="directory">conquer-the-world</span></div>
+						<div>drwxrwxrwx  23 michaelzucchetta root 4096 June 30 04:23 <span class="directory-full">format-laptop</span></div>
+						<div>dr--r--r--  102 michaelzucchetta root 4096 Feb 5 2014 <span class="directory">lib</span></div>
+						<div>-rwxr-xr-x  1 michaelzucchetta michaelzucchetta 373 June 27 14:31 <span class="executable">boot-michaelzucchetta.sh</span></div>
+
 						<span class="terminal-line">
 							[user@michaelzucchetta.com scripts] $: 
 							<span class="terminal-text-container">
-								<span class="terminal-text">sh init.sh</span>
+								<span class="terminal-text">sh boot-michaelzucchetta.sh</span>
                 <span class="white-cursor"> </span>
               </span>
 						</span>
@@ -112,11 +116,12 @@
 				<div id="view-container" ui-view></div>
 			</div>
 			<div class="notes noselect">
-						<span>23412.8 GiB</span> | 
+						<span>213412.8 GiB</span> | 
 						<span class="green">DHCP: yes</span> | 
 						<span class="red">VPN: no</span> | 
 						<span class="green">W: yes</span> | 
-						<span class="green">W: {{ $ctrl.userIP }} (your region: {{ $ctrl.regionIP }})</span> | 
+						<span class="green" ng-if="$ctrl.regionIP">W: {{ ::$ctrl.userIP }} (your region: {{ ::$ctrl.regionIP }})</span>
+						<span class="green" ng-if="!$ctrl.regionIP">W: {{ $ctrl.userIP }} (your country: {{ $ctrl.countryIP }})</span> | 
 						<span class="white">Michael Zucchetta<span> |
 						<span class="red" >michael.zucchetta@gmail.com</span> | 
 						<span class="green">Dublin, Ireland</span> | 
