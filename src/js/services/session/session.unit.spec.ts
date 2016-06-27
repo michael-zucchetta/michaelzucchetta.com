@@ -1,5 +1,5 @@
 import ISession from 'domains/session';
-import Session from './session';
+import Session from './session.service';
 
 describe('test session\'s factory', () => {
 	let session: ISession;

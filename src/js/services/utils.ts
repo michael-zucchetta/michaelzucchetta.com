@@ -1,7 +1,7 @@
 import StringUtils from 'js/services/string-utils';
 import IMenuEl from 'domains/menu';
 
-class Utils {
+export default class Utils {
 
 	public static initializeMenu(rawMenu: IMenuEl[]): IMenuEl[] {
 		let menu: IMenuEl[] = [];
@@ -30,5 +30,3 @@ class Utils {
 		return newString;
 	}
 }
-
-export default Utils;

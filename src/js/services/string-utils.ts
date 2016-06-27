@@ -1,6 +1,6 @@
-import RegexUtils from 'js/services/regex-utils';
+import RegexUtils from './regex-utils';
 
-class StringUtils {
+export default class StringUtils {
 
 	public static removeNewLines(inputString: string): string {
 		let newString: string = inputString.replace(RegexUtils.newLines, '');
@@ -23,5 +23,3 @@ class StringUtils {
 	}
 
 }
-
-export default StringUtils;

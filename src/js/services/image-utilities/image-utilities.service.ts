@@ -1,8 +1,6 @@
-import Constants from './constants';
-import './file-utilities';
 import RGB from 'domains/rgb';
 
-class ImagesUtilities {
+class ImageUtilities {
 
 	constructor(private $q: ng.IQService, private $interval: ng.IIntervalService, private FilesUtilities) {}
 
@@ -55,8 +53,8 @@ class ImagesUtilities {
 	}
 }
 
-let imagesUtilitiesFactory: Function = ($q: ng.IQService, $interval: ng.IIntervalService, FilesUtilities) => {
-	return new ImagesUtilities($q, $interval, FilesUtilities);
+let imageUtilitiesFactory: Function = ($q: ng.IQService, $interval: ng.IIntervalService, FilesUtilities) => {
+	return new ImageUtilities($q, $interval, FilesUtilities);
 };
 
-export default imagesUtilitiesFactory;
+export default imageUtilitiesFactory;

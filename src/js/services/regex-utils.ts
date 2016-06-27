@@ -1,5 +1,4 @@
-
-class RegexUtils {
+export default class RegexUtils {
 
 	public static newLines: RegExp = new RegExp('\\n', 'g');
 
@@ -10,5 +9,3 @@ class RegexUtils {
 	public static backslashes: RegExp = new RegExp('\\\\', 'g');
 
 }
-
-export default RegexUtils;

@@ -1,3 +1,5 @@
-import session from './session';
+import Session from './session.service';
 
-export default session;
+export default angular.module('session', [])
+	.service('Session', Session)
+	.name;
