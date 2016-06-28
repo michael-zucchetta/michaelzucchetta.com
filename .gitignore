@@ -11,6 +11,7 @@ node_modules/**/*.target
 node_modules/**/.deps/
 node_modules/**/build/Makefile
 node_modules/**/**/build/Makefile
+bower_components/**
 *.swp
 *.swo
 *.html~
@@ -31,3 +32,4 @@ tscommand-*.tmp.txt
 .tscache
 src/**/.*.ts
 typings/**/*
+*.dist/*

@@ -22,6 +22,8 @@ interface IMenuEl {
 	active: boolean;
 
 	children?: IMenuEl[];
+
+	definition: any;
 }
 
 export default IMenuEl;

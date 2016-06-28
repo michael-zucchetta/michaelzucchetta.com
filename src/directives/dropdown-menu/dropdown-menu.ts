@@ -1,51 +1,65 @@
-import Constants from 'js/services/Constants';
-import 'js/services/dao-facade';
+import Constants from 'js/services/constants';
+
+interface IMyScope extends ng.IScope {
+  activeClass: string;
+
+  unactiveClass: string;
+}
 
 class DropdownMenuCtrl {
 
+	private prefix: string;
+
+	private showMenu: boolean;
+
+	// add ng-click to the element that has the directive
+	public showHideMenu(): void {
+		this.showMenu = !this.showMenu;
+	}
+
 	constructor() {
-		let vm: any = this;
-		vm.prefix = Constants.FUNCTION_PREFIX;
-		// add ng-click to the element that has the directive
-		vm.showHideMenu = (): void => {
-			vm.showMenu = !vm.showMenu
-		};
+		this.prefix = Constants.FUNCTION_PREFIX;
 	}
 }
 
-let dropDownMenuDirective: Function = ($http, $compile, $timeout, DaoFacade) => {
-	return {
-		restrict: 'A',
-		template: (element, attrs) => {
-					element.attr('ng-click', 'showHideMenu()');
-		},
-		css: '/directives/dropdown-menu/dropdown-menu.css',
-		controller: DropdownMenuCtrl,
-		link: (scope, element) => {
-			$http.get('/directives/dropdown-menu/dropdown-menu.html').then((template) => {
-				let templateHtml = $(template.data);
-				let compiledTemplate = $compile(templateHtml)(scope);
-				element.after(compiledTemplate);
-				element.removeAttr('dropdown-menu');
-				$compile(element)(scope);
+class DropdownMenuDirective implements ng.IDirective {
 
-				$timeout(() => {
-					// +1 is the border of the menu
-					let newTop = $(element).outerHeight() + 1;
-					$(compiledTemplate).css('right', 0);
-					$(compiledTemplate).css('top', newTop + 1);
-					$(compiledTemplate).css('z-index', 100);
-				});
+	public scope: any;
 
-				// init the menu
-				DaoFacade.getMenu().then((response) => {
-					scope.menuEls = response;
-				});
-			});
-		}
+	constructor(private $http: ng.IHttpService, private $compile: ng.ICompileService, private $timeout: ng.ITimeoutService, private DaoFacade) {
+		this.scope = {
+			menuEls: '=dropdownMenu',
+		};
+	}
+
+	restrict = 'A';
+
+	template = (element: ng.IAugmentedJQuery) => {
+		element.attr('ng-click', 'showHideMenu()');
+		return require('directives/dropdown-menu/dropdown-menu.html');
 	};
-};
 
-dropDownMenuDirective.$inject = ['$http', '$compile', '$timeout', 'DaoFacade'];
+	css = require('directives/dropdown-menu/dropdown-menu.scss');
 
-export default angular.module(Constants.MAIN_MODULE).directive(dropDownMenuDirective);
+	controller = DropdownMenuCtrl;
+
+	controllerAs = '$ctrl';
+
+	link = (scope: any, element: ng.IAugmentedJQuery) => {
+		this.$timeout(() => {
+			// +1 is the border of the menu
+			// let newTop = $(element).outerHeight() + 1;
+			// $(element).children().css('right', 0);
+			// $(element).children().css('top', newTop + 1);
+			// $(element).children().css('z-index', 100);
+		});
+	};
+
+	static factory(): ng.IDirectiveFactory {
+		const directive = ($http, $compile, $timeout, DaoFacade) => new DropdownMenuDirective($http, $compile, $timeout, DaoFacade);
+		directive.$inject = ['$http', '$compile', '$timeout', 'DaoFacade'];
+		return directive;
+	}
+}
+
+export default DropdownMenuDirective;

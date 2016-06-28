@@ -1,5 +1,5 @@
 import 'js/services/utils';
-import Constants from 'js/services/Constants';
+import Constants from 'js/services/constants';
 
 class FormatJsonCtrl {
 
@@ -7,7 +7,7 @@ class FormatJsonCtrl {
 
 	constructor(private UtilitiesService) {
 	}
-	
+
 	public unformatJson() {
 		let formattedJson = this.UtilitiesService.removeFormattationFromString(this.unformattedJson);
 		this.unformattedJson = JSON.stringify(formattedJson);

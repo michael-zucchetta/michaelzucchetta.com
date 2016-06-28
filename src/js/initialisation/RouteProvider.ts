@@ -1,4 +1,4 @@
-import Constants from 'js/services/Constants';
+import Constants from 'js/services/constants';
 import MenuEl from 'domains/menu';
 // move angular bootstrap to another class
 // let serviceModule = angular.module('RouteResolverServices', ['ngRoute', 'angularCSS']);
@@ -21,37 +21,20 @@ let RouteProvider: Function = ($stateProvider, $urlRouterProvider, $controllerPr
 	register.factory = $provide.factory;
 	register.service = $provide.service;
 	let routeDecorator: any = ($delegate: any) => {
-			let $route: any = $delegate;
-			$route.state =  $stateProvider.state;
-			// default view
-			$stateProvider.state('home', {
-				url: '/home.html',
-				templateUrl: 'home.html',
-				controller: require('js/ctrl/init.ctrl')
+		let $route: any = $delegate;
+		$route.state =  $stateProvider.state;
+
+		$route.setRouteDinamically = (menu: MenuEl[]): void => {
+			let route = $route.route;
+			_.each(menu, (menuItem: MenuEl) => {
+				if (menuItem.active) {
+					$route.state(menuItem.name, menuItem.definition);
+				}
 			});
+			// $route.reload();
+		};
 
-			$route.state = (name: string) => {
-				$stateProvider.state(name);
-				return this;
-			};
-
-			$route.otherwise = (path: string) => {
-				$urlRouterProvider.otherwise(path);
-				return this;
-			};
-			$route.otherwise(Constants.DEFAULT_PAGE);
-
-			$route.setRouteDinamically = (menu: MenuEl[]): void => {
-				let route = $route.route;
-				_.each(menu, (menuItem: MenuEl) => {
-					if (menuItem.active) {
-						$route.state(menuItem.name, menuItem.status);
-					}
-				});
-				$route.reload();
-			};
-
-			return $route;
+		return $route;
 
 	};
 

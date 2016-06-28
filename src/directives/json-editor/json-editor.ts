@@ -1,3 +1,4 @@
+import IComponentOptionsCss from 'domains/angular-component-css';
 import TextEditor from 'js/classes/TextEditor';
 
 class JsonEditorCtrl {
@@ -65,11 +66,8 @@ class JsonEditorCtrl {
 }
 
 JsonEditorCtrl.$inject = ['$timeout', '$interval'];
-interface IComponentOptionsCss extends ng.IComponentOptions {
-	css: string;
-};
+
 let jsonEditorOpts: IComponentOptionsCss = {
-	// restrict: 'E',
 	bindings: {
 		jsonText: '='
 	},
@@ -77,5 +75,6 @@ let jsonEditorOpts: IComponentOptionsCss = {
 	templateUrl: '/directives/json-editor/json-editor.html',
 	controller: JsonEditorCtrl
 };
+
 export default angular.module('michaelzucchetta')
 	.component('jsonEditor', jsonEditorOpts);

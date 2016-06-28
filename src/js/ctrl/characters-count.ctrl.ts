@@ -1,17 +1,17 @@
-import Constants from 'js/services/Constants';
-		
+import Constants from 'js/services/constants';
+
 class CharactersCountCtrl {
-	
+
 	public analysedText: string;
 
 	private charactersCount: number;
 
 	private wordsCount: number;
-	
+
 	// load file in word/txt/html
 	public countCharsAndWords(): void {
 		this.charactersCount = this.analysedText.length;
-		this.wordsCount = this.analysedText.split(" ").length;
+		this.wordsCount = this.analysedText.split(' ').length;
 	}
 }
 

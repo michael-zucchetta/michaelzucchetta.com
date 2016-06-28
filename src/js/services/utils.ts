@@ -1,6 +1,7 @@
-import StringUtils from 'js/services/StringUtils';
+import StringUtils from 'js/services/string-utils';
 import IMenuEl from 'domains/menu';
-class Utils {
+
+export default class Utils {
 
 	public static initializeMenu(rawMenu: IMenuEl[]): IMenuEl[] {
 		let menu: IMenuEl[] = [];
@@ -18,7 +19,7 @@ class Utils {
 				return;
 			}
 		});
-		return menu;
+		return _.compact(menu);
 	}
 
 	public static removeFormattationFromString(inputString: string): string {
@@ -29,5 +30,3 @@ class Utils {
 		return newString;
 	}
 }
-
-export default Utils;

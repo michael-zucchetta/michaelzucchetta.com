@@ -1,0 +1,24 @@
+<div class="pick-colors">
+	<div class="header">
+		<label class="title col-xs-12 col-md-12">{{$ctrl.loadPicLabel}}</label>
+		
+		<div class="form-container">
+			<div class="input-pic col-xs-12 col-md-4">
+				Upload picture:
+				<input id="load-pic" type="file" ngf-select ng-model="imageFile" ng-change="$ctrl.uploadPicture()" accept="image/*"/>
+			</div>
+			<div class="result-pic col-xs-12 col-md-8">
+				<span class="result-value" ng-if="pixelValue">
+					<div>Press 'z' for zooming while having the mouse over the image and press SHIFT + 'z' to zoom out (it restores the previous zoom)</div>
+					<div>Selected value: r: {{$ctrl.pixelValue.r}} g: {{$ctrl.pixelValue.g}} b: {{$ctrl.pixelValue.b}} opacity: {{$ctrl.pixelValue.opacity}}</div>
+					<div>
+						Hex value: {{$ctrl.pixelHexValue}}
+						| Result: <input id="result-color" type="color" disabled/>
+						Result with opacity applied: <span ></span>
+					</div>
+				</span>
+			</div>
+		</div>
+	</div>
+	<canvas id="uploaded-picture" tabindex="1" ng-click="$ctrl.clickCanvas($event)" ng-keypress="$ctrl.zoomCanvas($event)"></canvas>
+</div>

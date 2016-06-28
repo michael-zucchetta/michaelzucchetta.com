@@ -1,0 +1,14 @@
+import Constants from 'js/services/constants';
+import PickColorsCtrl from './pick-colors.ctrl';
+import IComponentOptionsCss from 'domains/angular-component-css';
+import services from 'js/services';
+
+let pickColorsOpts: IComponentOptionsCss = {
+	template: require('./pick-colors.html'),
+	css: require('./pick-colors.scss'),
+	controller: PickColorsCtrl,
+};
+
+export default angular.module('pickColors', [services])
+	.component('pickColors', pickColorsOpts)
+	.name;

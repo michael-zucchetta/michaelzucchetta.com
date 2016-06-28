@@ -1,0 +1,302 @@
+// @import "compass/css3";
+$black: black;
+$white: white;
+$dark-gray: #212121;
+$dark-gray-border: #303030;
+$blue-bar-active: #285577;
+$blue-bar-active-border: #457294;
+$terminal-green: #008F10;
+$black-status: #030100;
+$terminal-bar-red: #E31D13;
+$terminal-bar-green: #1CBA22;
+$terminal-bar-height: 18px;
+
+$bottom-bar-height: 20px;
+$title-bar-height: 100px;
+$border-width: 3px;
+
+$content-min-height: 200px;
+$terminal-font: monospace;
+$font-size: 13px;
+$link-color: #00ffff;
+
+
+@mixin animation($str) {
+	-webkit-animation: #{$str};
+	-moz-animation: #{$str};
+	-ms-animation: #{$str};
+	-o-animation: #{$str};
+	animation: #{$str};      
+}
+
+@mixin keyframes($animation-name) {
+	@-webkit-keyframes #{$animation-name} {
+		@content;
+	}
+	@-moz-keyframes #{$animation-name} {
+		@content;
+	}  
+	@-ms-keyframes #{$animation-name} {
+		@content;
+	}
+	@-o-keyframes #{$animation-name} {
+		@content;
+	}  
+	@keyframes #{$animation-name} {
+		@content;
+	}
+}
+
+html {
+	height: 100%;
+	/*overflow hidden prevents scroll on non scrollable pages in iOS*/
+	overflow: hidden;
+}
+
+body {
+	margin: 0;
+	height: 100%;
+	font-family: $terminal-font;
+	&.hidden-body {
+		visibility: hidden;
+	}
+}
+
+.website-container {
+	height: 100%;
+}
+
+.website-content {
+	width: calc(100 - 2 * #{border-width});
+	height: calc(100% - #{$bottom-bar-height} - #{$title-bar-height} - #{$border-width * 4});
+	min-height: $content-min-height;
+	#view-container {
+		margin-left: 10px;
+		min-height: calc(#{$content-min-height} - #{$terminal-bar-height});
+		height: calc(100% - #{$terminal-bar-height});
+		overflow: auto;
+	}
+}
+
+
+.noselect {
+	-webkit-touch-callout: none; /* iOS Safari */
+	-webkit-user-select: none;   /* Chrome/Safari/Opera */
+	-khtml-user-select: none;    /* Konqueror */
+	-moz-user-select: none;      /* Firefox */
+	-ms-user-select: none;       /* Internet Explorer/Edge */
+	user-select: none;           /* Non-prefixed version, currently */
+}
+
+.terminal {
+	background-color: $black;
+	color: $white;
+	.terminal-bar {
+		height: $terminal-bar-height;
+		font-family: $terminal-font;
+		cursor: default;
+		span {
+			margin-left: 5px;
+		}
+	}
+	&.unactive {
+		border: $border-width solid $dark-gray-border;
+		.terminal-bar {
+			background-color: $dark-gray;
+		}
+	}
+
+	&.active {
+		border: $border-width solid $blue-bar-active-border;
+		.terminal-bar {
+			background-color: $blue-bar-active;
+		}
+	}
+}
+
+.title {
+	width: calc(100% - #{$border-width*2});
+	height: $title-bar-height;
+	&.command-init {
+		position: absolute;
+		visibility: visible;
+		top: 0px;
+	}
+}
+
+pre.ascii-text {
+	background-color: transparent;
+	border: none;
+	font-size: 4.5px;
+	display: inline-flex;
+	color: $terminal-green;
+	font-weight: bold;
+	&.extra {
+		font-size: 10px;
+		font-family: 'Ubuntu Mono', Menlo, Monaco, Consolas, 'Courier New', monospace;
+		margin: auto auto auto 20px;
+	}
+}
+
+.notes {
+	height: $bottom-bar-height;
+	width: 100%;
+	text-align: right;
+	color: $white;
+	font-family: $terminal-font;
+	background-color: $black-status;
+	word-spacing: -5px;
+	cursor: default;
+
+	&.command-init {
+		position: absolute;
+		bottom: 0px;
+	}
+
+	.red {
+		color: $terminal-bar-red;
+	}
+
+	.green {
+		color: $terminal-bar-green;
+	}
+
+	span:last-child {
+		margin-right: 2px;
+	}
+}
+
+.container {
+	width: 100%;
+	height: 100%;
+	background: black;
+
+	a {
+		color: $link-color;
+	}
+}
+
+.animation-initial {
+	position: absolute;
+
+	.website-content {
+		position: relative;
+		height: calc(100% - #{$bottom-bar-height} - #{$border-width * 2});
+		width: calc(100% - #{$border-width * 2});
+		@include animation(fadein 1.2s forwards paused);
+		// for safari
+		-webkit-animation-name: fadein;
+		-webkit-animation-duration: 1.2s;
+		-webkit-animation-fill-mode: forwards;
+		-webkit-animation-play-state: paused;
+	}
+
+	.terminal-line {
+		position: relative;
+		display: inline-flex;
+		width: 100%;
+		.terminal-text-container {
+			display: inline-block;
+			font-size: 0;
+			margin-left: 5px;
+			overflow-x: hidden;
+			.terminal-text {
+				overflow-x: hidden;
+				font-size: $font-size;
+				display: inline-block;
+				top: 0;
+				white-space: nowrap;
+			}
+		}
+	}
+
+	.terminal-text-container {
+		.terminal-text {
+			// for safari
+			-webkit-animation-name: typing;
+			-webkit-animation-fill-mode: forwards;
+			-webkit-animation-play-state: paused;
+		}
+	}
+
+	.line1 .terminal-text-container {
+		width: 91px;
+		.terminal-text {
+			@include animation(typing 1.2s steps(10, end) forwards paused);
+			-webkit-animation-duration: 1.2s;
+			-webkit-animation-timing-function: steps(10, end);
+		}
+	}
+
+	.line2 .terminal-text-container {
+		width: 66px;
+		.terminal-text {
+			@include animation(typing 1s steps(7, end) forwards paused);
+			-webkit-animation-duration: 1s;
+			-webkit-animation-timing-function: steps(8, end);
+		}
+	}
+
+	.line3 .terminal-text-container {
+		width: 248px;
+		.terminal-text {
+			@include animation(typing 2s steps(27, end) forwards paused);
+			-webkit-animation-duration: 2s;
+			-webkit-animation-timing-function: steps(27, end);
+		}
+	}
+
+	.line4 .terminal-text-container {
+		width: 52px;
+		.terminal-text {
+			@include animation(typing 1.0s steps(5, end) forwards paused);
+			-webkit-animation-duration: 1s;
+			-webkit-animation-timing-function: steps(5, end);
+		}
+	}
+
+	.line5 .terminal-text-container {
+		width: 139px;
+	}
+
+	.white-cursor {
+		display: inline-block;
+		background-color: $white;
+		width: 5px;
+		margin-left: 2px;
+		height: $font-size;
+	}
+
+	.website-content.command-init {
+		top: calc(#{$title-bar-height} + #{$border-width * 2});
+		height: calc(100% - #{$title-bar-height} - #{$bottom-bar-height} - #{$border-width * 4});
+	}
+}
+
+.terminal-content {
+	position: absolute;
+	/*bottom: 5px;*/
+	left: 3px;
+}
+
+@include keyframes(fadein) {
+	50% { visibility: hidden; }
+	100%   { visibility: visible; }
+}
+
+@include keyframes(typing) {
+	from {width: 0%;}
+	to { width: 85%;} 
+}
+
+.table {
+	display: table-cell;
+
+	.row {
+		display: table-row;
+		div {
+			display: table-cell;
+			padding: 0 5px 0 5px;
+		}
+	}
+}

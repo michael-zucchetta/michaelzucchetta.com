@@ -19,7 +19,8 @@ var httpServer = http.createServer(function(request, response) {
 		console.log(err, data);
 		if (err) {
 			response.writeHead(404);
-			response.end(JSON.stringify(err));
+			//response.end(JSON.stringify(err));
+			response.end();
 			return;
 		}
 		if (data) {

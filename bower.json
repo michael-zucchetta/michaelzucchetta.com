@@ -1,15 +1,16 @@
 {
 	"name": "michaelzucchetta-libs",
 	"description": "",
-	"dependencies": {
+	"devDependencies": {
 		"jquery": "*",
 		"angularjs": "*",
 		"angular-mocks": "*",
-		"ui-router": "*",
+		"ui-router": "^1.0.0-alpha.5",
 		"angular-route": "*",
-		"angular-resource": "*",
+		"ng-file-upload": "*",
 		"angular-css": "*",
 		"ng-file-upload": "*",
+		"ocLazyLoad": "*",
 		"bootstrap": "*",
 		"lodash": "*",
       "requirejs": "*"

@@ -13,18 +13,24 @@ module.exports = function(grunt) {
 			"prod": {
 				options: {
 					production: true
-		    		}
+				}
 			}
 		},
+		concurrent: {
+			debug: ['watch:sass', 'watch:html', 'watch:json', 'webpack-dev-server'],
+			options: {
+				logConcurrentOutput: true,
+			},
+		},
 		instrument: {
-		        ignore: [],                   /* [1] */
+			ignore: [],                   /* [1] */
 			files: [
-			    {
+			{
 				src: 'src/**/*.js',       /* [2] */
 				expand: true,
 				cwd: 'lib',           /* [3] */
 				dest: 'test/src'      /* [4] */
-			    }
+			}
 			]
 		},
 		report: {
@@ -81,7 +87,13 @@ module.exports = function(grunt) {
 				configFile: "config/karma.unittest.ts.conf.js"
 			}
 		},
-		protractor: {
+    run: {
+      "webpack-dev": {
+        cmd: 'npm',
+        args: ['run', 'dev'],
+      }
+    },
+    protractor: {
 			e2e: {
 				configFile: "config/protractor.e2e.conf.js"
 			}
@@ -108,28 +120,28 @@ module.exports = function(grunt) {
 					event: ["changed", "deleted", "newer"]
 				}
 			},
-			sass_after_creation: {
+			sass_added: {
 				files: ["src/**/*.sass"],
 				tasks: ["newer:sass:dest"],
 				options: {
 					event: ["added"]
 				}
 			},
-			sass_watch: {
+			sass: {
 				files: ["src/**/*.scss"],
 				tasks: ["newer:sass:dest"],
 				options: {
 					event: ["changed", "deleted"]
 				}
 			},
-			json_html: {
+			json: {
 				files: ["src/**/*.json"],
 				tasks: ["newer:copy:json"],			
 				options: {
 					event: ["changed", "added", "deleted"]
 				}
 			},
-			copy_html: {
+			html: {
 				files: ["src/**/*.html"],
 				tasks: ["newer:copy:html"],			
 				options: {
@@ -156,7 +168,30 @@ module.exports = function(grunt) {
 			files: {
 				src: ["src/**/*.ts"]
 			}
-		}
+		},
+		webpack: {
+			options: require("./webpack.config.js"),
+			start: {
+				keepalive: true,
+				inline: true,
+				failOnError: false,
+				watch: true,
+			},
+		},
+		"webpack-dev-server": {
+			options: {
+        			webpack: require("./webpack.config.js"),
+				contentBase: 'dist/',
+				port: 12310,
+				host: 'localhost',
+			},
+			start: {
+				keepalive: true,
+				hot: true,
+				failOnError: false,
+				inline: true,
+			}, 
+		},
 	});
 	//Loading before the others
 	grunt.loadNpmTasks("grunt-npm-install");
@@ -168,13 +203,16 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks("grunt-contrib-jshint");
 	grunt.loadNpmTasks("grunt-contrib-sass");
 	grunt.loadNpmTasks("grunt-contrib-watch");
+	grunt.loadNpmTasks("grunt-concurrent");
 	grunt.loadNpmTasks("grunt-istanbul");
 	grunt.loadNpmTasks("grunt-karma");
 	grunt.loadNpmTasks("grunt-newer");
 	grunt.loadNpmTasks("grunt-protractor-runner");
+	grunt.loadNpmTasks("grunt-run");
 	grunt.loadNpmTasks("grunt-ts");
 	grunt.loadNpmTasks("grunt-tslint");
 	grunt.loadNpmTasks("grunt-typings");
+	grunt.loadNpmTasks('grunt-webpack');
 
 	grunt.registerTask("bower-install", function() {
 		grunt.task.run(["bower-install-simple"]);
@@ -191,8 +229,8 @@ module.exports = function(grunt) {
 		grunt.task.run(["ts", "tslint"]);
 	});
 
-	//grunt.registerTask("default", [/*"npm-install", "bower-install", "clean",*/ "tree", "coffee", "build-requirejs", "concat", "jsbeautifier", "copy", "sass"/*, "jshint"*/]);
 	grunt.registerTask("test", ["default", "karma"]);
 	grunt.registerTask("dev", ["default", "watch"]);
-	grunt.registerTask("default", ["bower-install", "typings", "copy", "sass", "clean", "ts", "watch"]);
+	// grunt.registerTask("default", ["bower-install", "typings", "copy", "sass", "clean", "ts", "watch"]);
+	grunt.registerTask("default", ["bower-install", "clean", "copy", "sass", "concurrent"]);
 }

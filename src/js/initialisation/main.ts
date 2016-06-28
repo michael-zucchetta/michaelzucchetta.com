@@ -1,19 +1,21 @@
-import angular = require('angular');
-import Constants from 'js/services/Constants';
+import Constants from 'js/services/constants';
 import RouteProvider from 'js/initialisation/RouteProvider';
+import services from 'js/services';
+import components from 'components';
+import directives from 'directives';
 
 // move angular bootstrap to another class
 // must be a provider since it will be injected into module.config()
- let routeProviderService: ng.IModule = angular.module(Constants.ROUTE_PROVIDER, ['ui.router']);
+let routeProviderService: ng.IModule = angular.module(Constants.ROUTE_PROVIDER, ['ui.router', 'angularCSS']);
 routeProviderService.config(RouteProvider);
-let module: ng.IModule = angular.module(Constants.MAIN_MODULE, [Constants.ROUTE_PROVIDER]);
-console.log(Constants.MAIN_MODULE);
+let module: ng.IModule = angular.module(Constants.MAIN_MODULE, [Constants.ROUTE_PROVIDER, 'angularCSS', 'ngFileUpload', services, components, directives]);
 // removing the function argument in the run invocation results in an error 
-module.run([() => {}]);
+module.run([() => {
+}]);
 
 class AngularBootstrap implements ng.IAngularBootstrapConfig {
 
-	constructor($stateProvider, $locationProvider: ng.ILocationProvider, $controllerProvider: ng.IControllerProvider, $provide: ng.auto.IProvideService, $compileProvider: ng.ICompileProvider) {
+	constructor($stateProvider, $locationProvider: ng.ILocationProvider, $controllerProvider: ng.IControllerProvider, $provide: ng.auto.IProvideService, $compileProvider: ng.ICompileProvider, $urlRouterProvider) {
 		let app: ng.IModule = module;
 		// http://www.bennadel.com/blog/2554-loading-angularjs-components-with-requirejs-after-application-bootstrap.htm
 		angular.extend(app, {
@@ -61,7 +63,11 @@ class AngularBootstrap implements ng.IAngularBootstrapConfig {
 	}
 };
 
-AngularBootstrap.$inject = ['$stateProvider', '$locationProvider', '$controllerProvider', '$provide', '$compileProvider'];
+AngularBootstrap.$inject = ['$stateProvider', '$locationProvider', '$controllerProvider', '$provide', '$compileProvider', '$urlRouterProvider'];
 
 module.config(AngularBootstrap);
-angular.element().ready(() => angular.bootstrap(document, [Constants.MAIN_MODULE]));
+
+export default angular.module(Constants.MAIN_MODULE).name;
+angular.element().ready(() => {
+	angular.bootstrap(document, [Constants.MAIN_MODULE]);
+});
