@@ -18,6 +18,33 @@ $border-width: 3px;
 $content-min-height: 200px;
 $terminal-font: monospace;
 $font-size: 13px;
+
+@mixin animation($str) {
+  -webkit-animation: #{$str};
+  -moz-animation: #{$str};
+  -ms-animation: #{$str};
+  -o-animation: #{$str};
+  animation: #{$str};      
+}
+
+@mixin keyframes($animation-name) {
+    @-webkit-keyframes #{$animation-name} {
+        @content;
+    }
+    @-moz-keyframes #{$animation-name} {
+        @content;
+    }  
+    @-ms-keyframes #{$animation-name} {
+        @content;
+    }
+    @-o-keyframes #{$animation-name} {
+        @content;
+    }  
+    @keyframes #{$animation-name} {
+        @content;
+    }
+}
+
 html {
 	height: 100%;
 	/*overflow hidden prevents scroll on non scrollable pages in iOS*/
@@ -86,7 +113,7 @@ body {
 }
 
 .title {
-	width: 100%;
+	width: calc(100% - #{$border-width*2});
 	height: $title-bar-height;
 	&.command-init {
 		position: absolute;
@@ -118,9 +145,11 @@ pre.ascii-text {
 	background-color: $black-status;
 	word-spacing: -5px;
 	cursor: default;
-	/*consider moving in a class active during the animation*/
-	position: absolute;
-	bottom: 0px;
+	
+  &.command-init {
+    position: absolute;
+	  bottom: 0px;
+  }
 
 	.red {
 		color: $terminal-bar-red;
@@ -135,18 +164,20 @@ pre.ascii-text {
 	}
 }
 
+.container {
+  width: 100%;
+  height: 100%;
+  background: black;
+}
+
 .animation-initial {
 	position: absolute;
-	width: 100%;
-	height: 100%;
-	background: black;
-	z-index: -1;	
 
 	.website-content {
 		position: relative;
 		height: calc(100% - #{$bottom-bar-height} - #{$border-width * 2});
 		width: calc(100% - #{$border-width * 2});
-		animation: fadein 0.8s forwards paused;
+		@include animation(fadein 0.8s forwards paused);
 	}
 
 	.terminal-line {
@@ -164,7 +195,7 @@ pre.ascii-text {
 				display: inline-block;
 				top: 0;
 				white-space: nowrap;
-				animation: typing 1.2s steps(10, end) forwards paused;
+				@include animation(typing 1.2s steps(10, end) forwards paused);
 			}
 		}
 	}
@@ -176,16 +207,27 @@ pre.ascii-text {
 	.line2 .terminal-text-container {
 		width: 66px;
 		.terminal-text {
-			animation: typing 1s steps(7, end) forwards paused;
+			@include animation(typing 1s steps(7, end) forwards paused);
 		}
 	}
 
 	.line3 .terminal-text-container {
 		width: 248px;
 		.terminal-text {
-			animation: typing 2s steps(27, end) forwards paused;
+			@include animation(typing 2s steps(27, end) forwards paused);
 		}
 	}
+	
+	.line4 .terminal-text-container {
+		width: 52px;
+		.terminal-text {
+			@include animation(typing 1.0s steps(5, end) forwards paused);
+		}
+	}
+	
+  .line5 .terminal-text-container {
+		width: 139px;
+  }
 
 	.white-cursor {
 		display: inline-block;
@@ -203,16 +245,28 @@ pre.ascii-text {
 
 .terminal-content {
 	position: absolute;
-	bottom: 5px;
+	/*bottom: 5px;*/
 	left: 3px;
 }
 
-@keyframes fadein {
+@include keyframes(fadein) {
 	50% { visibility: hidden; }
 	100%   { visibility: visible; }
 }
 
-@keyframes typing {
+@include keyframes(typing) {
 	from {width: 0%;}
 	to { width: 85%;} 
-} 
+}
+
+.table {
+  display: table-cell;
+
+  .row {
+    display: table-row;
+    div {
+      display: table-cell;
+      padding: 0 5px 0 5px;
+    }
+  }
+}

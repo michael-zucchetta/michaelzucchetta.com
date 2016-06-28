@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+	<head>
+                <title>Michael Zucchetta's Website</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+	</head>
+	<body>
+		<div class="website-container">
+			<div class="website-title col-xs-8 col-md-8" animate-text="michaelzucchetta.com">
+			</div>
+			<div class="menu-container col-xs-4 col-md-4 pull-right">
+				<span class="icon-container" dropdown-menu>
+					<span class="icon"></span>
+				</span>
+			</div>
+			<div class="website-content col-xs-12 col-md-12">
+				<div id="view-container" ui-view></div>
+			</div>
+			<div class="notes col-xs-12 col-md-12">Michael Zucchetta - michael.zucchetta@gmail.com - Dublin, Ireland
+				<span class="links">
+					<span ng-repeat="link in myLinks" ng-class="{{link.class}}">
+						<a target="_blank" ng-href="{{link.link}}" ng-bind="link.text"></a>
+					</span>
+				</span>
+			</div>
+		</div>
+		<script type="text/javascript" src="/lib/requirejs/require.js" data-main="/js/initialisation/bootstrap.js"></script>
+		<link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css"></link>
+		<!--link rel="stylesheet" href="/css/main.css"></link-->
+		<link rel="stylesheet" href="/css/theme.css"></link>
+	</body>
+</html>
