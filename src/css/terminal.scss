@@ -18,31 +18,33 @@ $border-width: 3px;
 $content-min-height: 200px;
 $terminal-font: monospace;
 $font-size: 13px;
+$link-color: #00ffff;
+
 
 @mixin animation($str) {
-  -webkit-animation: #{$str};
-  -moz-animation: #{$str};
-  -ms-animation: #{$str};
-  -o-animation: #{$str};
-  animation: #{$str};      
+	-webkit-animation: #{$str};
+	-moz-animation: #{$str};
+	-ms-animation: #{$str};
+	-o-animation: #{$str};
+	animation: #{$str};      
 }
 
 @mixin keyframes($animation-name) {
-    @-webkit-keyframes #{$animation-name} {
-        @content;
-    }
-    @-moz-keyframes #{$animation-name} {
-        @content;
-    }  
-    @-ms-keyframes #{$animation-name} {
-        @content;
-    }
-    @-o-keyframes #{$animation-name} {
-        @content;
-    }  
-    @keyframes #{$animation-name} {
-        @content;
-    }
+	@-webkit-keyframes #{$animation-name} {
+		@content;
+	}
+	@-moz-keyframes #{$animation-name} {
+		@content;
+	}  
+	@-ms-keyframes #{$animation-name} {
+		@content;
+	}
+	@-o-keyframes #{$animation-name} {
+		@content;
+	}  
+	@keyframes #{$animation-name} {
+		@content;
+	}
 }
 
 html {
@@ -145,11 +147,11 @@ pre.ascii-text {
 	background-color: $black-status;
 	word-spacing: -5px;
 	cursor: default;
-	
-  &.command-init {
-    position: absolute;
-	  bottom: 0px;
-  }
+
+	&.command-init {
+		position: absolute;
+		bottom: 0px;
+	}
 
 	.red {
 		color: $terminal-bar-red;
@@ -165,9 +167,13 @@ pre.ascii-text {
 }
 
 .container {
-  width: 100%;
-  height: 100%;
-  background: black;
+	width: 100%;
+	height: 100%;
+	background: black;
+
+	a {
+		color: $link-color;
+	}
 }
 
 .animation-initial {
@@ -177,7 +183,12 @@ pre.ascii-text {
 		position: relative;
 		height: calc(100% - #{$bottom-bar-height} - #{$border-width * 2});
 		width: calc(100% - #{$border-width * 2});
-		@include animation(fadein 0.8s forwards paused);
+		@include animation(fadein 1.2s forwards paused);
+		// for safari
+		-webkit-animation-name: fadein;
+		-webkit-animation-duration: 1.2s;
+		-webkit-animation-fill-mode: forwards;
+		-webkit-animation-play-state: paused;
 	}
 
 	.terminal-line {
@@ -195,19 +206,34 @@ pre.ascii-text {
 				display: inline-block;
 				top: 0;
 				white-space: nowrap;
-				@include animation(typing 1.2s steps(10, end) forwards paused);
 			}
+		}
+	}
+
+	.terminal-text-container {
+		.terminal-text {
+			// for safari
+			-webkit-animation-name: typing;
+			-webkit-animation-fill-mode: forwards;
+			-webkit-animation-play-state: paused;
 		}
 	}
 
 	.line1 .terminal-text-container {
 		width: 91px;
+		.terminal-text {
+			@include animation(typing 1.2s steps(10, end) forwards paused);
+			-webkit-animation-duration: 1.2s;
+			-webkit-animation-timing-function: steps(10, end);
+		}
 	}
 
 	.line2 .terminal-text-container {
 		width: 66px;
 		.terminal-text {
 			@include animation(typing 1s steps(7, end) forwards paused);
+			-webkit-animation-duration: 1s;
+			-webkit-animation-timing-function: steps(8, end);
 		}
 	}
 
@@ -215,19 +241,23 @@ pre.ascii-text {
 		width: 248px;
 		.terminal-text {
 			@include animation(typing 2s steps(27, end) forwards paused);
+			-webkit-animation-duration: 2s;
+			-webkit-animation-timing-function: steps(27, end);
 		}
 	}
-	
+
 	.line4 .terminal-text-container {
 		width: 52px;
 		.terminal-text {
 			@include animation(typing 1.0s steps(5, end) forwards paused);
+			-webkit-animation-duration: 1s;
+			-webkit-animation-timing-function: steps(5, end);
 		}
 	}
-	
-  .line5 .terminal-text-container {
+
+	.line5 .terminal-text-container {
 		width: 139px;
-  }
+	}
 
 	.white-cursor {
 		display: inline-block;
@@ -260,13 +290,13 @@ pre.ascii-text {
 }
 
 .table {
-  display: table-cell;
+	display: table-cell;
 
-  .row {
-    display: table-row;
-    div {
-      display: table-cell;
-      padding: 0 5px 0 5px;
-    }
-  }
+	.row {
+		display: table-row;
+		div {
+			display: table-cell;
+			padding: 0 5px 0 5px;
+		}
+	}
 }

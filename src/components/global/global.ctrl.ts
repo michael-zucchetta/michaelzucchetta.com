@@ -43,8 +43,7 @@ export default class GlobalCtrl {
 		let line1Text: any = document.querySelector('.line1 .terminal-text');
 		let line1Cursor: any = document.querySelector('.line1 .white-cursor');
 		let websiteContent: any = document.querySelector('.website-content');
-    websiteContent.style.animationPlayState = 'running';
-		websiteContent.style.webkitAnimationPlayState = 'running';
+		websiteContent.style.animationPlayState = 'running';
 		websiteContent.addEventListener('animationend', () => {
 			setTimeout(() => {
 				line1Text.style.animationPlayState = 'running';
@@ -87,7 +86,7 @@ export default class GlobalCtrl {
 				line4Text.style.animationPlayState = 'running';
 			}, 200);
 		});
-		
+
 		let line5: any = document.querySelector('.line5');
 		let line5Text: any = document.querySelector('.line5 .terminal-text');
 		line4.addEventListener('animationend', () => {
@@ -108,15 +107,15 @@ export default class GlobalCtrl {
 					el.classList.remove('command-init');
 				});
 				animation.style.display = 'none';
-        let websiteContainer: any = document.querySelector('.website-container');
-        websiteContainer.style.visibility = 'visible';
-        let websiteContent: any = document.querySelector('.website-content.hidden');
-        websiteContent.style.visibility = 'visible';
-        title.style.visibility = 'visible';
-        let animationContainer: any = document.querySelector('.animation-initial');
-        animationContainer.classList.remove('animation-initial');
-			  websiteContent.classList.add('active');
-      }, 200);
+				let websiteContainer: any = document.querySelector('.website-container');
+				websiteContainer.style.visibility = 'visible';
+				let websiteContent: any = document.querySelector('.website-content.hidden');
+				websiteContent.style.visibility = 'visible';
+				title.style.visibility = 'visible';
+				let animationContainer: any = document.querySelector('.animation-initial');
+				animationContainer.classList.remove('animation-initial');
+				websiteContent.classList.add('active');
+			}, 200);
 		});
 	}
 
