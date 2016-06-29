@@ -9,6 +9,14 @@ import TextEditor from 'js/classes/TextEditor';
 
 describe ('Test TextEditor class', () => {
 
+
+	let createKeyboardEvent: Function = (charKey: string): KeyboardEvent => {
+		return new KeyboardEvent('keydown', {
+			key: charKey.charAt(0),
+			keyCode: charKey.charAt(0),
+		});
+	};
+
 	let editor: TextEditor;
 	let display: HTMLDivElement;
 	let textarea: HTMLTextAreaElement;
@@ -77,8 +85,9 @@ describe ('Test TextEditor class', () => {
 		editor = new TextEditor('#displayId' + nth, '#textareaId' + nth, '.containerClass' + nth, 'cell' + nth);
 
 		// to define Object.defineProperty(charEvent, 'keyCode', 'a'.charCodeAt(0));
-		Utils.setKey(charEvent, 'a'.charCodeAt(0));
-
+		
+		//Utils.setKey(charEvent, 'a'.charCodeAt(0));
+		charEvent = createKeyboardEvent('a');
 		Utils.setKey(newCharEvent, newKey);
 		Utils.setKey(charEventDel, delKey);
 
