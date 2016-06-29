@@ -4,7 +4,6 @@ import Utils from 'js/services/utils';
 
 describe('StringUtils methos', () => {
 
-
 	it ('Removing new lines from string', () => {
 		let stringText: string = 'test \n test \n test';
 		let newString: string = StringUtils.removeNewLines(stringText);

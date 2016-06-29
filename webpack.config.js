@@ -24,7 +24,6 @@ module.exports = {
 			'angular-mocks': __dirname + '/lib/angular-mocks/angular-mocks',
 			'ui-router': __dirname + '/lib/ui-router/release/angular-ui-router.min',
 			'angular-css': __dirname + '/lib/angular-css/index',
-			'oclazyload': __dirname + '/node_modules/oclazyload/dist/ocLazyLoad',
 			'lodash': __dirname + '/lib/lodash/dist/lodash.min',
 			'ng-file-upload': __dirname + '/lib/ng-file-upload/ng-file-upload.min',
 			'jQuery': __dirname + '/lib/jquery/dist/jquery.min',

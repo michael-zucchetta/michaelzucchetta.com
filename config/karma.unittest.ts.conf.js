@@ -7,9 +7,27 @@ module.exports = function(config) {
 		frameworks: ['jasmine-jquery', 'jasmine'],
 	        preprocessors: {
 			//'dist/**/*.ts': ['sourcemap']
-			'index.unit.spec.ts': ['webpack', 'sourcemap'],
+			'dist/**/*.ts': ['sourcemap'],
+			'index.unit.spec.ts': ['webpack'],
+			'src/**/!(spec|mock)/*.ts': ['coverage'],
 		},
-
+		coverageReporter: {
+			dir: 'coverage/',
+			reporters: [{
+			  type: 'html',
+			  subdir: 'html',
+			}, {
+			  type: 'text-summary',
+			}],
+			check: {
+				global: {
+					statements: 95,
+					branches: 95,
+					functions: 95,
+					lines: 95,
+				},
+			},
+		},
 		webpack: {
 			module: webpackConfig.module,			
 			resolve: webpackConfig.resolve,
@@ -17,6 +35,7 @@ module.exports = function(config) {
 
 		files: [
 			'index.unit.spec.ts',
+			'**/*.json',
 		],
 		// list of files to exclude
 		exclude: [
@@ -35,7 +54,7 @@ module.exports = function(config) {
 		},
 
 		// web server port
-		port: 9876,
+		port: 9897,
 
 		// enable / disable colors in the output (reporters and logs)
 		colors: true,
@@ -68,6 +87,7 @@ module.exports = function(config) {
 			require('karma-jasmine-html-reporter-livereload'),
 			require('karma-jasmine'),
 			require('karma-jasmine-jquery'),
+			require('karma-coverage'),
 			require('karma-chrome-launcher'),
 			require('karma-firefox-launcher'),
 			require('karma-phantomjs-launcher'),

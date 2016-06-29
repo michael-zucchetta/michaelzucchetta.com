@@ -1,4 +1,3 @@
-import BasicInfoDao from 'js/services/basic-info-dao';
 import UtilitiesService from 'js/services/utils';
 
 class DaoFacade {
@@ -6,11 +5,14 @@ class DaoFacade {
 	constructor(private BasicInfoDao, private $state) {
 	}
 
+	resolveMenu(menu) {
+		this.$state.setRouteDinamically(menu);
+		return UtilitiesService.initializeMenu(menu);
+	}
+
 	public getMenu() {
-		return this.BasicInfoDao.getMenu().then((menu) => {
-			this.$state.setRouteDinamically(menu);
-			return UtilitiesService.initializeMenu(menu);
-		});
+		return this.BasicInfoDao.getMenu()
+			.then((menu) => this.resolveMenu(menu));
 	}
 
 }

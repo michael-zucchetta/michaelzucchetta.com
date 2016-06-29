@@ -1,24 +1,28 @@
 import Constants from 'js/services/constants';
-import 'js/services/rest-proxy';
 
 export class BasicInfoDao {
+
+	private linksEndpoint: string = 'js/mocks/links.json';
+
+	private menuEndpoint: string = 'js/mocks/menu.json';
+
+	// geoplugin.com
+	private ipInfoEndpoint: string = 'http://www.geoplugin.net  /json.gp?jsoncallback=angular.callbacks._0';
 
 	constructor(private RestProxy) {
 	}
 
 	public getLinks() {
-		// temporary
-		return this.RestProxy.handleGetCall('js/mocks/links.json');
+		return this.RestProxy.handleGetCall(this.linksEndpoint);
 	}
-
+	
 	public getMenu() {
-		return this.RestProxy.handleGetCall('js/mocks/menu.json');
+		return this.RestProxy.handleGetCall(this.menuEndpoint);
 	}
 	
 	public getIP(): string {
 		// geoplugin.com
-		let endpoint = 'http://www.geoplugin.net/json.gp?jsoncallback=angular.callbacks._0';
-		return this.RestProxy.handleJsonpCall(endpoint);
+		return this.RestProxy.handleJsonpCall(this.ipInfoEndpoint);
 	}
 
 }

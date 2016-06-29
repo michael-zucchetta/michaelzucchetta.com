@@ -1,7 +1,7 @@
 export default class Utils {
 
-	public static setKey: Function = (keyEvent: KeyboardEvent, key: number) : void => {
-		keyEvent.key = Number(key).toString();
+	public static setKey: Function = (keyEvent: any, key: number) : void => {
+		Object.defineProperty(keyEvent key, {value: Number(key).toString()});
 	};
 
 }
