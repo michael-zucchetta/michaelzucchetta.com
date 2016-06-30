@@ -4,7 +4,8 @@ import 'ui-router';
 import 'lodash';
 import 'jQuery';
 
-window.$ = jQuery;
+// this is for compiler warning
+Object.defineProperty(window, '$', {value: jQuery});
 
 const testsContext = require.context('.', true, /\.unit.spec$/);
 testsContext.keys().forEach(testsContext);

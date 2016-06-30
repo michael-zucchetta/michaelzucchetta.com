@@ -10,10 +10,10 @@ import TextEditor from 'js/classes/TextEditor';
 describe ('Test TextEditor class', () => {
 
 
-	let createKeyboardEvent: Function = (charKey: string): KeyboardEvent => {
+	let createKeyboardEvent: Function = (charKey: string | number): KeyboardEvent => {
+		let charAssigned: string = (typeof charKey === 'string'? charKey.charCodeAt(0) : charKey).toString();
 		return new KeyboardEvent('keydown', {
-			key: charKey.charAt(0),
-			keyCode: charKey.charAt(0),
+			key: charAssigned,
 		});
 	};
 
@@ -86,17 +86,17 @@ describe ('Test TextEditor class', () => {
 
 		// to define Object.defineProperty(charEvent, 'keyCode', 'a'.charCodeAt(0));
 		
-		//Utils.setKey(charEvent, 'a'.charCodeAt(0));
+		//createKeyboardEvent(charEvent, 'a'.charCodeAt(0));
 		charEvent = createKeyboardEvent('a');
-		Utils.setKey(newCharEvent, newKey);
-		Utils.setKey(charEventDel, delKey);
+		newCharEvent = createKeyboardEvent(newKey);
+		charEventDel = createKeyboardEvent(delKey);
 
-		Utils.setKey(leftArrowEvent, leftKey);
-		Utils.setKey(rightArrowEvent, rightKey);
-		Utils.setKey(downArrowEvent, downKey);
-		Utils.setKey(upArrowEvent, upKey);
+		leftArrowEvent = createKeyboardEvent(leftKey);
+		rightArrowEvent = createKeyboardEvent(rightKey);
+		downArrowEvent = createKeyboardEvent(downKey);
+		upArrowEvent = createKeyboardEvent(upKey);
 
-		Utils.setKey(uselessCharEvent, 99);
+		uselessCharEvent = createKeyboardEvent(99);
 	};
 
 	describe('Test TextEditor class', () => {
@@ -202,13 +202,13 @@ describe ('Test TextEditor class', () => {
 			editor.initEditor();
 			editor.insertChar(charEvent);
 			carelXPos++;
-			Utils.setKey(charEvent, 'b'.charCodeAt(0));
+			charEvent = createKeyboardEvent('b');
 			editor.insertChar(charEvent);
 			carelXPos++;
-			Utils.setKey(charEvent, 'c'.charCodeAt(0));
+			charEvent = createKeyboardEvent('c');
 			editor.insertChar(charEvent);
 			carelXPos++;
-			Utils.setKey(charEvent, 'd'.charCodeAt(0));
+			charEvent = createKeyboardEvent('d');
 			editor.insertChar(charEvent);
 			carelXPos++;
 

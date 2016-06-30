@@ -3,6 +3,7 @@
 	"description": "Personal web site with RequireJS, AngularJS, Sass, NodeJS configured",
 	"devDependencies": {
 		"chromedriver": "^2.21.2",
+		"compression": "^1.6.2",
 		"css-loader": "^0.23.1",
 		"express": "^4.13.3",
 		"bower": "^1.7.9",

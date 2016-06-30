@@ -7,7 +7,7 @@ export class BasicInfoDao {
 	private menuEndpoint: string = 'js/mocks/menu.json';
 
 	// geoplugin.com
-	private ipInfoEndpoint: string = 'http://www.geoplugin.net  /json.gp?jsoncallback=angular.callbacks._0';
+	private ipInfoEndpoint: string = 'http://www.geoplugin.net/json.gp?jsoncallback=angular.callbacks._0';
 
 	constructor(private RestProxy) {
 	}

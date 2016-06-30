@@ -1,13 +1,17 @@
 var express = require('express'),
 	fs = require('fs'),
-	http = require("http"),
-	mime = require("mime");
+	http = require('http'),
+	mime = require('mime'),
+	compression = require('compression');
 var app = express();
+app.use(compression());
+console.log(__dirname + '/dist');
+app.use(express.static(__dirname + '/dist'));
 
 var basePath = "/dist";
 var port = process.env.PORT || 8000;
 
-var httpServer = http.createServer(function(request, response) {
+app.use(function(request, response) {
 	console.log("Request is: " + request.url);
 	//Set to the default page
 	request.url = request.url === "/" ? "/index.html" : request.url;
@@ -37,5 +41,6 @@ var httpServer = http.createServer(function(request, response) {
 	response.writeHead(code, mime.lookup(requestedPath));
 	response.end("");
 });
+var httpServer = http.createServer(app);
 httpServer.listen(port);
 console.log("Initialisation on port: " + port);
