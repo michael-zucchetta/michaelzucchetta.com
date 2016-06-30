@@ -3,7 +3,6 @@
         "align": [
             true,
             "parameters",
-            "arguments",
             "statements"
         ],
         "ban": false,
@@ -135,7 +134,9 @@
             true,
             "check-format",
             "allow-leading-underscore",
-            "ban-keywords"
+            "allow-trailing-underscore",
+	    "allow-pascal-case",
+	    "ban-keywords"
         ],
         "whitespace": [
             true,

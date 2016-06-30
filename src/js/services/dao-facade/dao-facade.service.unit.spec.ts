@@ -8,7 +8,7 @@ const {
 } = angular.mock;
 
 describe('Test dao facade service', () => {
-	
+
 	let $daoFacade;
 	let $q;
 	let $scope;
@@ -23,8 +23,7 @@ describe('Test dao facade service', () => {
 	beforeEach(inject((_BasicInfoDao_, _$q_, _$rootScope_, _$httpBackend_) => {
 		BasicInfoDao = _BasicInfoDao_;
 		$state = {
-			setRouteDinamically(menu) {
-			}
+			setRouteDinamically(menu) => {}
 		};
 		$daoFacade = DaoFacade(_BasicInfoDao_, $state);
 		$q = _$q_;

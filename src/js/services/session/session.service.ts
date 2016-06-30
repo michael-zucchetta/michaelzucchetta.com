@@ -1,4 +1,3 @@
-import Constants from 'js/services/constants';
 import ISession from 'domains/session';
 
 class Session implements ISession {

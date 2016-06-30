@@ -4,17 +4,17 @@ class ImageUtilities {
 
 	constructor(private $q: ng.IQService, private $interval: ng.IIntervalService, private FilesUtilities) {}
 
-	public loadImage(file, callback) {
+	public loadImage(file: File, callback: Function): void {
 		this.FilesUtilities.loadFile(file).then((resolvedFile) => {
-			let img = this.createImage(resolvedFile.target.result);
+			let img: HTMLImageElement = this.createImage(resolvedFile.target.result);
 			this.onCompleteImg(img)
 				.then(() => callback(img));
 		});
 	}
 
-	public onCompleteImg(img): ng.IPromise<boolean> {
-		let deferred = this.$q.defer();
-		let cancelInterval = this.$interval(() => {
+	public onCompleteImg(img: HTMLImageElement): ng.IPromise<boolean> {
+		let deferred: ng.IDeferred<boolean> = this.$q.defer();
+		let cancelInterval: ng.IPromise<any> = this.$interval(() => {
 			if (img.complete) {
 				this.$interval.cancel(cancelInterval);
 				deferred.resolve(true);
@@ -23,8 +23,8 @@ class ImageUtilities {
 		return deferred.promise;
 	}
 
-	public createImage(hash: string) {
-		let image = new Image();
+	public createImage(hash: string): HTMLImageElement {
+		let image: HTMLImageElement = new Image();
 		image.src = hash;
 		return image;
 	}
@@ -34,7 +34,7 @@ class ImageUtilities {
 	}
 
 	public calculateVal(val: number, opacity: number): string {
-		let hexVal;
+		let hexVal: string;
 		if (val * opacity) {
 			hexVal = (val * opacity).toString(16);
 		}
@@ -48,12 +48,12 @@ class ImageUtilities {
 	}
 
 	public fromRgbToHex(point: RGB): string {
-		let opacity = this.floatOpacity(point.opacity);
+		let opacity: number = this.floatOpacity(point.opacity);
 		return '#' + this.calculateVal(point.r, opacity) + this.calculateVal(point.g, opacity) + this.calculateVal(point.b, opacity);
 	}
 }
 
-let imageUtilitiesFactory: Function = ($q: ng.IQService, $interval: ng.IIntervalService, FilesUtilities) => {
+let imageUtilitiesFactory: Function = ($q: ng.IQService, $interval: ng.IIntervalService, FilesUtilities: any): ImageUtilities => {
 	return new ImageUtilities($q, $interval, FilesUtilities);
 };
 

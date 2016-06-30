@@ -97,11 +97,12 @@ export default class GlobalCtrl {
 				line4.style.display = 'none';
 				line5.style.display = 'block';
 				line5Text.style.animationPlayState = 'running';
-			});
+			}, 100);
 		});
 
 		line5.addEventListener('animationend', () => {
 			setTimeout(() => {
+				console.log('ciaoooo');
 				let list = document.querySelectorAll('.command-init');
 				_.each(list, (el) => {
 					el.classList.remove('command-init');

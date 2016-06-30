@@ -6,18 +6,16 @@ module.exports = function(config) {
 		basePath: '../src/',
 		frameworks: ['jasmine-jquery', 'jasmine'],
 	        preprocessors: {
-			//'dist/**/*.ts': ['sourcemap']
-			'dist/**/*.ts': ['sourcemap'],
-			'index.unit.spec.ts': ['webpack'],
-			'src/**/!(spec|mock)/*.ts': ['coverage'],
+			'index.unit.spec.ts': ['webpack', 'sourcemap'],
+			'src/**/*.ts': ['coverage'],
 		},
+
 		coverageReporter: {
 			dir: 'coverage/',
 			reporters: [{
-			  type: 'html',
-			  subdir: 'html',
-			}, {
-			  type: 'text-summary',
+				type: 'json',
+				subdir: '.', 
+				file: 'coverage-final.json'
 			}],
 			check: {
 				global: {
@@ -28,13 +26,25 @@ module.exports = function(config) {
 				},
 			},
 		},
+
+		remapIstanbulReporter: {
+			src: 'coverage/coverage-final.json',
+			reports: {
+				html: 'coverage'
+			},
+			timeoutNotCreated: 1000,
+			timeoutNoMoreFiles: 1000
+		},
+
 		webpack: {
 			module: webpackConfig.module,			
 			resolve: webpackConfig.resolve,
+			devtool: 'inline-source-map',
 		},
 
 		files: [
 			'index.unit.spec.ts',
+			{pattern: '**/*ts', included: false},
 			'**/*.json',
 		],
 		// list of files to exclude
@@ -42,6 +52,7 @@ module.exports = function(config) {
 		],
 
 		// test results reporter to use
+		// reporters: ['progress', 'coverage', 'karma-remap-istanbul', 'html'],
 		reporters: ['progress', 'html'],
 
 		// used to see the page on the browser
@@ -87,6 +98,7 @@ module.exports = function(config) {
 			require('karma-jasmine-html-reporter-livereload'),
 			require('karma-jasmine'),
 			require('karma-jasmine-jquery'),
+			require('karma-remap-istanbul'),
 			require('karma-coverage'),
 			require('karma-chrome-launcher'),
 			require('karma-firefox-launcher'),

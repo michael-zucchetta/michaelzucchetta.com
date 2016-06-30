@@ -67,14 +67,4 @@ class JsonEditorCtrl {
 
 JsonEditorCtrl.$inject = ['$timeout', '$interval'];
 
-let jsonEditorOpts: IComponentOptionsCss = {
-	bindings: {
-		jsonText: '='
-	},
-	css: '/directives/json-editor/json-editor.css',
-	templateUrl: '/directives/json-editor/json-editor.html',
-	controller: JsonEditorCtrl
-};
-
-export default angular.module('michaelzucchetta')
-	.component('jsonEditor', jsonEditorOpts);
+export default JsonEditorCtrl;

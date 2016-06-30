@@ -257,6 +257,11 @@ pre.ascii-text {
 
 	.line5 .terminal-text-container {
 		width: 139px;
+		.terminal-text {
+			@include animation(typing 1.0s steps(15, end) forwards paused);
+			-webkit-animation-duration: 1s;
+			-webkit-animation-timing-function: steps(15, end);
+		}
 	}
 
 	.white-cursor {
