@@ -33,8 +33,10 @@ tscommand-*.tmp.txt
 src/**/.*.ts
 typings/**/*
 *.dist/*
-backend/target*
-backend/libexec*
-backend/bin*
-backend/*
+backend/example/*
+backend/core-app/bin/*
+backend/core-app/target/*
+backend/core-app/logs/*
+backend/core-app/public/*
+backend/core-app/libexec/*
 src/coverage/*
