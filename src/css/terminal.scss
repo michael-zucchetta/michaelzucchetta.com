@@ -131,10 +131,16 @@ pre.ascii-text {
 	display: inline-flex;
 	color: $terminal-green;
 	font-weight: bold;
+	/* this and the one inside the span below is for safari/Edge */
+	white-space: nowrap;
 	&.extra {
 		font-size: 10px;
 		font-family: 'Ubuntu Mono', Menlo, Monaco, Consolas, 'Courier New', monospace;
 		margin: auto auto auto 20px;
+	}
+
+	span {
+		white-space: pre-wrap;
 	}
 }
 
