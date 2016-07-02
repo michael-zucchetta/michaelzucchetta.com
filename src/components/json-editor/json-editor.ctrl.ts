@@ -1,4 +1,4 @@
-import IComponentOptionsCss from 'domains/angular-component-css';
+import mz from 'domains';
 import TextEditor from 'js/classes/TextEditor';
 
 class JsonEditorCtrl {

@@ -1,32 +1,32 @@
-import Constants from '../constants';
+import mz from 'domains';
 
-class FilesUtilities {
+class FilesUtilities implements mz.IFileUtilities {
 
-	constructor(private $q) {
+	constructor(private $q: ng.IQService) {
 	}
-	
-	public loadFile(file) {
-		let deferred = this.$q.defer();
-		let reader = new FileReader();
+
+	public loadFile(file: Blob): ng.IPromise<Event> {
+		let deferred: ng.IDeferred<Event> = this.$q.defer();
+		let reader: FileReader = new FileReader();
 		reader.readAsDataURL(file);
-		reader.onload = (_file) => deferred.resolve(_file);
+		reader.onload = (_file: Event) => deferred.resolve(_file);
 		return deferred.promise;
 	}
 
-	public fromImgToBase64(img) {
-		let canvas = document.createElement('canvas');
+	public fromImgToBase64(img: any): void {
+		let canvas: HTMLCanvasElement = document.createElement('canvas');
 		canvas.width = img.width;
 		canvas.height = canvas.height;
-		let ctx = canvas.getContext('2d');
+		let ctx: CanvasRenderingContext2D = canvas.getContext('2d');
 		ctx.drawImage(img, 0, 0);
-		let dataURL = canvas.toDataURL(img.type);
-		dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+		let dataURL: any = canvas.toDataURL(img.type);
+		dataURL.replace(/^data:image\/(png|jpg);base64,/, '');
 	}
 }
 
-let fileUtilitiesFactory = ($q) => {
+let fileUtilitiesFactory: Function = ($q: ng.IQService): mz.IFileUtilities => {
 	return new FilesUtilities($q);
-}
+};
 
 fileUtilitiesFactory.$inject = ['$q'];
 

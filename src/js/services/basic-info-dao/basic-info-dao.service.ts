@@ -1,6 +1,6 @@
-import Constants from 'js/services/constants';
+import mz from 'domains';
 
-export class BasicInfoDao {
+export class BasicInfoDao implements mz.IBasicInfoDao {
 
 	private linksEndpoint: string = 'js/mocks/links.json';
 

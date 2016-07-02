@@ -1,9 +1,9 @@
 import Constants from 'js/services/constants';
 import PickColorsCtrl from './pick-colors.ctrl';
-import IComponentOptionsCss from 'domains/angular-component-css';
 import services from 'js/services';
+import mz from 'domains';
 
-let pickColorsOpts: IComponentOptionsCss = {
+let pickColorsOpts: mz.IComponentOptionsCss = {
 	template: require('./pick-colors.html'),
 	css: require('./pick-colors.scss'),
 	controller: PickColorsCtrl,

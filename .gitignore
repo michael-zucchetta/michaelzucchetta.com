@@ -40,3 +40,4 @@ backend/core-app/logs/*
 backend/core-app/public/*
 backend/core-app/libexec/*
 src/coverage/*
+src/domains.index.ts

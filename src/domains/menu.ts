@@ -1,19 +1,9 @@
-interface IStatus {
-
-	url: string;
-
-	templateUrl: string;
-
-	controller: Function;
-
-}
-
 interface IMenuEl {
 	id: number;
 
 	name: string;
 
-	status: IStatus;
+	status: mz.IStatus;
 	
 	order: number;
 
@@ -25,5 +15,3 @@ interface IMenuEl {
 
 	definition: any;
 }
-
-export default IMenuEl;

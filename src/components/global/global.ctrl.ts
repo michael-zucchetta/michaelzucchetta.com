@@ -1,10 +1,10 @@
-import IMenuEl from 'domains/menu';
+import mz from 'domains';
 
 export default class GlobalCtrl {
 
 	private myLinks;
 
-	private menu: IMenuEl[];
+	private menu: mz.IMenuEl[];
 
 	public dateString: string;
 
@@ -14,7 +14,7 @@ export default class GlobalCtrl {
 
 	private countryIP: string;
 
-	constructor(private BasicInfoDao, private DaoFacade, private $interval, private $timeout) {
+	constructor(private BasicInfoDao, private DaoFacade: mz.IDaoFacade, private $interval: ng.IIntervalService, private $timeout: ng.ITimeoutService) {
 		this.myLinks = [];
 		this.menu = [];
 		this.$interval(() => this.getTodayDate(), 1000);
@@ -25,12 +25,12 @@ export default class GlobalCtrl {
 		.then(links => this.myLinks = links);
 
 		this.DaoFacade.getMenu()
-		.then(menuEls => {
+		.then((menuEls: mz.IMenuEl[]) => {
 			this.menu = menuEls;
 		});
 
 		this.BasicInfoDao.getIP()
-		.then((ipData) => {
+		.then((ipData: any) => {
 			this.userIP = ipData.geoplugin_request;
 			this.regionIP = ipData.geoplugin_region;
 			this.countryIP = ipData.geoplugin_countryName;
@@ -102,9 +102,8 @@ export default class GlobalCtrl {
 
 		line5.addEventListener('animationend', () => {
 			setTimeout(() => {
-				console.log('ciaoooo');
-				let list = document.querySelectorAll('.command-init');
-				_.each(list, (el) => {
+				let list: NodeListOf<Element>  = document.querySelectorAll('.command-init');
+				_.each(list, (el: Element) => {
 					el.classList.remove('command-init');
 				});
 				animation.style.display = 'none';
@@ -120,17 +119,19 @@ export default class GlobalCtrl {
 		});
 	}
 
-	public getClass() {
+	public getClass(): string {
 		return 'forforOAa';
 	}
 
 	private getTodayDate(): void {
-		let todayDate = new Date();
-		this.dateString = `${todayDate.getFullYear()}-${this.getTwoDigits(todayDate.getMonth())}-${this.getTwoDigits(todayDate.getDate())} ${this.getTwoDigits(todayDate.getHours())}:${this.getTwoDigits(todayDate.getMinutes())}:${this.getTwoDigits(todayDate.getSeconds())}`;
+		let todayDate: Date = new Date();
+		this.dateString = `${todayDate.getFullYear()}-${this.getTwoDigits(todayDate.getMonth())}-${this.getTwoDigits(todayDate.getDate())}` + 
+			`${this.getTwoDigits(todayDate.getHours())}:${this.getTwoDigits(todayDate.getMinutes())}:` +
+			`${this.getTwoDigits(todayDate.getSeconds())}`;
 	}
 
 	getTwoDigits(digit: number): string {
-		let digitString = digit.toString();
+		let digitString: string = digit.toString();
 		return digitString.length == 1 && '0' + digitString || digitString;
 	}
 }

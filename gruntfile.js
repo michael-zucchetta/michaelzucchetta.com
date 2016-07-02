@@ -54,9 +54,18 @@ module.exports = function(grunt) {
 					"lib/angular-css/angular-css.min.js"
 				],
 				dest: "dist/libs.js"
-			}
-		},
-		copy: {
+			},
+			"build-ts-interfaces": {
+				options: {
+					separator: '\nexport ',
+					banner: 'namespace mz {\nexport ',
+					footer: '}\nexport default mz;',
+				},
+				src: ['src/domains/**/*ts', '!src/domains/index.ts', 'src/**/*interface.ts'],
+				dest: 'src/domains/index.ts',
+			},
+	       },
+	       copy: {
 			html: {
 				expand: true,
 				cwd: "src/",
@@ -87,13 +96,13 @@ module.exports = function(grunt) {
 				configFile: "config/karma.unittest.ts.conf.js"
 			}
 		},
-    run: {
-      "webpack-dev": {
-        cmd: 'npm',
-        args: ['run', 'dev'],
-      }
-    },
-    protractor: {
+		run: {
+			"webpack-dev": {
+				cmd: 'npm',
+				args: ['run', 'dev'],
+			}
+		},
+		protractor: {
 			e2e: {
 				configFile: "config/protractor.e2e.conf.js"
 			}
@@ -180,7 +189,7 @@ module.exports = function(grunt) {
 		},
 		"webpack-dev-server": {
 			options: {
-        			webpack: require("./webpack.config.js"),
+				webpack: require("./webpack.config.js"),
 				contentBase: 'dist/',
 				port: 12310,
 				host: 'localhost',
@@ -218,13 +227,6 @@ module.exports = function(grunt) {
 		grunt.task.run(["bower-install-simple"]);
 	});
 
-	grunt.registerTask("build-requirejs", function() {
-		var dependencies = grunt.file.read(filesPath);
-		dependencies = dependencies.substring(1, dependencies.length - 1).replace(/\.js/g, "");
-		console.log("created dependencies files for requirejs!");
-		grunt.file.write(filesPath, dependencies);
-	});
-
 	grunt.registerTask("compile-and-lint", function() {
 		grunt.task.run(["ts", "tslint"]);
 	});
@@ -232,5 +234,5 @@ module.exports = function(grunt) {
 	grunt.registerTask("test", ["default", "karma"]);
 	grunt.registerTask("dev", ["default", "watch"]);
 	// grunt.registerTask("default", ["bower-install", "typings", "copy", "sass", "clean", "ts", "watch"]);
-	grunt.registerTask("default", ["bower-install", "clean", "copy", "sass", "concurrent"]);
+	grunt.registerTask("default", ["bower-install", "clean", "copy", "concat:build-ts-interfaces", "sass", "concurrent"]);
 }

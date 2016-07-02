@@ -4,5 +4,3 @@ interface RGB {
 	g: number;
 	opacity: number;
 }
-
-export default RGB;

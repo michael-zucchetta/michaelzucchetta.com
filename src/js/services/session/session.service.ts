@@ -1,6 +1,6 @@
-import ISession from 'domains/session';
+import mz from 'domains';
 
-class Session implements ISession {
+class Session implements mz.ISession {
 
 	private sessionData: any;
 
@@ -18,7 +18,7 @@ class Session implements ISession {
 
 }
 
-let sessionFactory: Function = (): ISession => {
+let sessionFactory: Function = (): mz.ISession => {
 	return new Session();
 };
 

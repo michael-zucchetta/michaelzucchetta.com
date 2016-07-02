@@ -1,7 +1,7 @@
-import IComponentOptionsCss from 'domains/angular-component-css';
+import mz from 'domains';
 import AnimateTextCtrl from './animate-text.ctrl';
 
-let animateTextOpts: IComponentOptionsCss = {
+let animateTextOpts: mz.IComponentOptionsCss = {
 	bindings: {
 		dataText: '@animateText'
 	},

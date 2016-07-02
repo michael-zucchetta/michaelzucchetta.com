@@ -1,5 +1,6 @@
 import Constants from 'js/services/constants';
-import MenuEl from 'domains/menu';
+import mz from 'domains';
+
 // move angular bootstrap to another class
 // let serviceModule = angular.module('RouteResolverServices', ['ngRoute', 'angularCSS']);
 // must be a provider since it will be injected into module.config()
@@ -24,9 +25,9 @@ let RouteProvider: Function = ($stateProvider, $urlRouterProvider, $controllerPr
 		let $route: any = $delegate;
 		$route.state =  $stateProvider.state;
 
-		$route.setRouteDinamically = (menu: MenuEl[]): void => {
+		$route.setRouteDinamically = (menu: mz.IMenuEl[]): void => {
 			let route = $route.route;
-			_.each(menu, (menuItem: MenuEl) => {
+			_.each(menu, (menuItem: mz.IMenuEl) => {
 				if (menuItem.active) {
 					$route.state(menuItem.name, menuItem.definition);
 				}

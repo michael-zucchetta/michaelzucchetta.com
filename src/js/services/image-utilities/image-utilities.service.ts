@@ -1,11 +1,11 @@
-import RGB from 'domains/rgb';
+import mz from 'domains';
 
 class ImageUtilities {
 
-	constructor(private $q: ng.IQService, private $interval: ng.IIntervalService, private FilesUtilities) {}
+	constructor(private $q: ng.IQService, private $interval: ng.IIntervalService, private FilesUtilities: mz.IFileUtilities) {}
 
 	public loadImage(file: File, callback: Function): void {
-		this.FilesUtilities.loadFile(file).then((resolvedFile) => {
+		this.FilesUtilities.loadFile(file).then((resolvedFile: any) => {
 			let img: HTMLImageElement = this.createImage(resolvedFile.target.result);
 			this.onCompleteImg(img)
 				.then(() => callback(img));
@@ -47,7 +47,7 @@ class ImageUtilities {
 		return hexVal;
 	}
 
-	public fromRgbToHex(point: RGB): string {
+	public fromRgbToHex(point: mz.RGB): string {
 		let opacity: number = this.floatOpacity(point.opacity);
 		return '#' + this.calculateVal(point.r, opacity) + this.calculateVal(point.g, opacity) + this.calculateVal(point.b, opacity);
 	}

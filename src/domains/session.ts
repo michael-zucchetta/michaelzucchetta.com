@@ -4,5 +4,3 @@ interface ISession {
 
 	setAttr(name: string, obj: any) : void;
 }
-
-export default ISession;

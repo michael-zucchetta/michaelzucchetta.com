@@ -27,7 +27,7 @@
         "src/components/json-editor/json-editor.unit.spec.ts",
         "src/directives/text-editor/text-editor.ts",
         "src/domains/angular-component-css.ts",
-        "src/domains/menu.ts",
+        "src/domains/index.ts",
         "src/domains/rgb.ts",
         "src/domains/session.ts",
         "src/js/classes/BaseClass.ts",

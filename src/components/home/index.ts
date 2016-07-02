@@ -1,10 +1,11 @@
 import Constants from 'js/services/constants';
 import HomeCtrl from './home.ctrl';
-import IComponentsOptionsCss from 'domains/angular-component-css';
 import services from 'js/services/index';
 import routes from './routes';
 
-let homeOpts: IComponentsOptionsCss = {
+import mz from 'domains';
+
+let homeOpts: mz.IComponentOptionsCss = {
 	template: require('./home.html'),
 	controller: HomeCtrl,
 };

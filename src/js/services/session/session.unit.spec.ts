@@ -1,8 +1,8 @@
-import ISession from 'domains/session';
+import mz from 'domains';
 import Session from './session.service';
 
 describe('test session\'s factory', () => {
-	let session: ISession;
+	let session: mz.ISession;
 	beforeEach(() => session = Session());
 
 	it('test session set/get attribute', () => {

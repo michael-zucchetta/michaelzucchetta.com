@@ -3,6 +3,4 @@ interface IComponentOptionsCss extends ng.IComponentOptions {
 
 	template?: any;
 
-};
-
-export default IComponentOptionsCss;
+}

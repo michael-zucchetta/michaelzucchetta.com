@@ -1,7 +1,8 @@
 import JsonEditorCtrl from './json-editor.ctrl';
-import IComponentOptionsCss from 'domains/angular-component-css';
 
-let jsonEditorOpts: IComponentOptionsCss = {
+import mz from 'domains';
+
+let jsonEditorOpts: mz.IComponentOptionsCss = {
         bindings: {
                 jsonText: '='
         },
