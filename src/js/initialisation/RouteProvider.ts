@@ -1,4 +1,3 @@
-import Constants from 'js/services/constants';
 import mz from 'domains';
 
 // move angular bootstrap to another class
@@ -6,7 +5,15 @@ import mz from 'domains';
 // must be a provider since it will be injected into module.config()
 // serviceModule.provider('RouteResolverService', new RouteResolver());
 
-class Register {
+interface IRegister {
+	controller: Function;
+	directive: Function;
+	filter: Function;
+	factory: any;
+	service: any;
+}
+
+class Register implements IRegister {
 	public controller: Function;
 	public directive: Function;
 	public filter: Function;
@@ -14,8 +21,13 @@ class Register {
 	public service: any;
 }
 
-let RouteProvider: Function = ($stateProvider, $urlRouterProvider, $controllerProvider: ng.IControllerProvider, $compileProvider: ng.ICompileProvider, $filterProvider: ng.IFilterProvider, $provide: ng.auto.IProvideService): Register => {
-	let register = new Register();
+let RouteProvider: Function = ($stateProvider: angular.ui.IStateProvider,
+				$urlRouterProvider: angular.ui.IUrlRouterProvider,
+				$controllerProvider: ng.IControllerProvider,
+				$compileProvider: ng.ICompileProvider,
+				$filterProvider: ng.IFilterProvider,
+				$provide: ng.auto.IProvideService): Register => {
+	let register: IRegister = new Register();
 	register.controller = $controllerProvider.register;
 	register.directive = $compileProvider.directive;
 	register.filter = $filterProvider.register;
@@ -26,7 +38,6 @@ let RouteProvider: Function = ($stateProvider, $urlRouterProvider, $controllerPr
 		$route.state =  $stateProvider.state;
 
 		$route.setRouteDinamically = (menu: mz.IMenuEl[]): void => {
-			let route = $route.route;
 			_.each(menu, (menuItem: mz.IMenuEl) => {
 				if (menuItem.active) {
 					$route.state(menuItem.name, menuItem.definition);

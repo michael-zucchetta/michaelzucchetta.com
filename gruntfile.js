@@ -59,7 +59,7 @@ module.exports = function(grunt) {
 				options: {
 					separator: '\nexport ',
 					banner: 'namespace mz {\nexport ',
-					footer: '}\nexport default mz;',
+					footer: '}\nexport default mz;\n',
 				},
 				src: ['src/domains/**/*ts', '!src/domains/index.ts', 'src/**/*interface.ts'],
 				dest: 'src/domains/index.ts',

@@ -8,14 +8,27 @@ import directives from 'directives';
 // must be a provider since it will be injected into module.config()
 let routeProviderService: ng.IModule = angular.module(Constants.ROUTE_PROVIDER, ['ui.router', 'angularCSS']);
 routeProviderService.config(RouteProvider);
-let module: ng.IModule = angular.module(Constants.MAIN_MODULE, [Constants.ROUTE_PROVIDER, 'angularCSS', 'ngFileUpload', services, components, directives]);
+let module: ng.IModule = angular.module(Constants.MAIN_MODULE,
+				[Constants.ROUTE_PROVIDER,
+					'angularCSS',
+					'ngFileUpload',
+					services,
+					components,
+					directives
+				]);
 // removing the function argument in the run invocation results in an error 
 module.run([() => {
+	// disable tslint error
 }]);
 
 class AngularBootstrap implements ng.IAngularBootstrapConfig {
 
-	constructor($stateProvider, $locationProvider: ng.ILocationProvider, $controllerProvider: ng.IControllerProvider, $provide: ng.auto.IProvideService, $compileProvider: ng.ICompileProvider, $urlRouterProvider) {
+	constructor($stateProvider: angular.ui.IStateProvider,
+			$locationProvider: ng.ILocationProvider,
+			$controllerProvider: ng.IControllerProvider,
+			$provide: ng.auto.IProvideService,
+			$compileProvider: ng.ICompileProvider,
+			$urlRouterProvider: angular.ui.IUrlRouterProvider) {
 		let app: ng.IModule = module;
 		// http://www.bennadel.com/blog/2554-loading-angularjs-components-with-requirejs-after-application-bootstrap.htm
 		angular.extend(app, {
@@ -63,7 +76,8 @@ class AngularBootstrap implements ng.IAngularBootstrapConfig {
 	}
 };
 
-AngularBootstrap.$inject = ['$stateProvider', '$locationProvider', '$controllerProvider', '$provide', '$compileProvider', '$urlRouterProvider'];
+AngularBootstrap.$inject = ['$stateProvider', '$locationProvider',
+	'$controllerProvider', '$provide', '$compileProvider', '$urlRouterProvider'];
 
 module.config(AngularBootstrap);
 

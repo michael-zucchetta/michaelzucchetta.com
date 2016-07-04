@@ -9,25 +9,25 @@ export class BasicInfoDao implements mz.IBasicInfoDao {
 	// geoplugin.com
 	private ipInfoEndpoint: string = 'http://www.geoplugin.net/json.gp?jsoncallback=angular.callbacks._0';
 
-	constructor(private RestProxy) {
+	constructor(private RestProxy: mz.IRestProxy) {
 	}
 
-	public getLinks() {
+	public getLinks(): ng.IPromise<any> {
 		return this.RestProxy.handleGetCall(this.linksEndpoint);
 	}
-	
-	public getMenu() {
+
+	public getMenu(): ng.IPromise<any> {
 		return this.RestProxy.handleGetCall(this.menuEndpoint);
 	}
-	
-	public getIP(): string {
+
+	public getIP(): ng.IPromise<any> {
 		// geoplugin.com
 		return this.RestProxy.handleJsonpCall(this.ipInfoEndpoint);
 	}
 
 }
 
-let basicInfoDaoFactory: Function = (RestProxy) => {
+let basicInfoDaoFactory: Function = (RestProxy: mz.IRestProxy): mz.IBasicInfoDao => {
 	return new BasicInfoDao(RestProxy);
 };
 

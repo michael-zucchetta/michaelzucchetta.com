@@ -1,15 +1,16 @@
 import 'js/services/utils';
 import Constants from 'js/services/constants';
+import mz from 'domains';
 
 class FormatJsonCtrl {
 
 	private unformattedJson: string;
 
-	constructor(private UtilitiesService) {
+	constructor(private UtilitiesService: mz.IUtils) {
 	}
 
-	public unformatJson() {
-		let formattedJson = this.UtilitiesService.removeFormattationFromString(this.unformattedJson);
+	public unformatJson(): void {
+		let formattedJson: string = this.UtilitiesService.removeFormattationFromString(this.unformattedJson);
 		this.unformattedJson = JSON.stringify(formattedJson);
 	}
 }

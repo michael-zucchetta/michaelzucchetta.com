@@ -1,4 +1,6 @@
-class RestProxy {
+import mz from 'domains';
+
+class RestProxy implements  mz.IRestProxy {
 
 	private getCall: Function = this.$http.get;
 
@@ -7,11 +9,11 @@ class RestProxy {
 	constructor(private $q: ng.IQService, private $http: ng.IHttpService) {
 	}
 
-	public handleGetCall(): ng.IPromise<any> {
+	public handleGetCall(args: any): ng.IPromise<any> {
 		return this.deferredCall(Array.prototype.concat.apply([this.getCall], arguments));
 	}
 
-	public handleJsonpCall(): ng.IPromise<any> {
+	public handleJsonpCall(args: any): ng.IPromise<any> {
 		return this.deferredCall(Array.prototype.concat.apply([this.jsonpCall], arguments));
 	}
 

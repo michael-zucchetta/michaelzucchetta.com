@@ -1,5 +1,6 @@
+import mz from 'domains';
 
-class Canvas {
+export default class Canvas {
 
 	private pixInterval: number = 4;
 
@@ -51,13 +52,13 @@ class Canvas {
 			this.drawImage();
 		};
 		window.addEventListener('resize', this.resizeCanvas, false);
-		document.addEventListener('mousemove', (event) => {
+		document.addEventListener('mousemove', (event: MouseEvent) => {
 			this.mouseX = (event.pageX - $(this.canvas).offset().left);
 			this.mouseY = (event.pageY - $(this.canvas).offset().top);
 		});
 	}
 
-	private drawCanvas(canvas): void {
+	private drawCanvas(canvas: HTMLCanvasElement): void {
 		this.ctx.clearRect(0, 0, this.width, this.height);
 		this.ctx.save();
 		this.ctx.drawImage(canvas, 0, 0);
@@ -72,7 +73,7 @@ class Canvas {
 		return this.scale;
 	}
 
-	set Scale(scale) {
+	set Scale(scale: number) {
 		this.scale = scale;
 	}
 
@@ -93,7 +94,7 @@ class Canvas {
 		}
 	}
 
-	private drawImage(action?): void {
+	private drawImage(action?: Function): void {
 		this.ctx.clearRect(0, 0, this.width, this.height);
 		this.ctx.save();
 		if (action instanceof Function) {
@@ -105,7 +106,7 @@ class Canvas {
 		this.ctx.restore();
 	}
 
-	private getPixelValue(y: number, x: number) {
+	private getPixelValue(y: number, x: number): mz.RGB {
 		let offset: number = y * this.pixInterval * this.pixels.width + x * this.pixInterval;
 		return {
 			r: this.pixels.data[offset + 0],

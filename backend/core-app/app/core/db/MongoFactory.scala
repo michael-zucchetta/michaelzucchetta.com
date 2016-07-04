@@ -1,16 +1,16 @@
 package core.db; 
 
 import com.mongodb.casbah.MongoCollection
-import com.mongodb.casbah.MongoConnection
+import com.mongodb.casbah.MongoClient
 
 object MongoFactory {
     private val SERVER = "localhost"
     private val PORT   = 27017
     private val DATABASE = "michaelzucchetta"
-    val connection = MongoConnection(SERVER, PORT)
+    val connection = MongoClient(SERVER, PORT)
     // val collection = connection(DATABASE)(COLLECTION)
     
-    def getConnection(): MongoConnection = {
+    def getConnection(): MongoClient = {
       return connection;
     }
     

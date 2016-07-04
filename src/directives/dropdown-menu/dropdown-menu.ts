@@ -1,4 +1,5 @@
 import Constants from 'js/services/constants';
+import mz from 'domains';
 
 interface IMyScope extends ng.IScope {
   activeClass: string;
@@ -56,7 +57,8 @@ class DropdownMenuDirective implements ng.IDirective {
 	};
 
 	static factory(): ng.IDirectiveFactory {
-		const directive = ($http, $compile, $timeout, DaoFacade) => new DropdownMenuDirective($http, $compile, $timeout, DaoFacade);
+		const directive = ($http: ng.IHttpService, $compile: ng.ICompileService,
+					$timeout: ng.ITimeoutService, DaoFacade: mz.IDaoFacade) => new DropdownMenuDirective($http, $compile, $timeout, DaoFacade);
 		directive.$inject = ['$http', '$compile', '$timeout', 'DaoFacade'];
 		return directive;
 	}

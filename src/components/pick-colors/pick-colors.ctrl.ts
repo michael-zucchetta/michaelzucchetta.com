@@ -1,3 +1,4 @@
+import Canvas from 'js/classes/canvas';
 
 class PickColorsCtrl {
 
@@ -40,7 +41,7 @@ class PickColorsCtrl {
 		this.backupCanvases.push(canvasBackup);
 	}
 
-	public clickCanvas($event) {
+	public clickCanvas($event: MouseEvent) {
 		this.pixelValue = this.canvas.getPixelValue($event.offsetY, $event.offsetX);
 		this.pixelHexValue = this.ImagesUtilities.fromRgbToHex(this.pixelValue);
 		this.$timeout(() => (<HTMLInputElement> document.getElementById('result-color')).value = this.pixelHexValue);

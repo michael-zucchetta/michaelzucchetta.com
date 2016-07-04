@@ -4,14 +4,13 @@ class ZEvent {
 	public target: any;
 }
 
-import Utils from 'tests/utils/utils';
 import TextEditor from 'js/classes/TextEditor';
 
 describe ('Test TextEditor class', () => {
 
 
 	let createKeyboardEvent: Function = (charKey: string | number): KeyboardEvent => {
-		let charAssigned: string = (typeof charKey === 'string'? charKey.charCodeAt(0) : charKey).toString();
+		let charAssigned: string = (typeof charKey === 'string' ? charKey.charCodeAt(0) : charKey).toString();
 		return new KeyboardEvent('keydown', {
 			key: charAssigned,
 		});
@@ -85,8 +84,8 @@ describe ('Test TextEditor class', () => {
 		editor = new TextEditor('#displayId' + nth, '#textareaId' + nth, '.containerClass' + nth, 'cell' + nth);
 
 		// to define Object.defineProperty(charEvent, 'keyCode', 'a'.charCodeAt(0));
-		
-		//createKeyboardEvent(charEvent, 'a'.charCodeAt(0));
+
+		// createKeyboardEvent(charEvent, 'a'.charCodeAt(0));
 		charEvent = createKeyboardEvent('a');
 		newCharEvent = createKeyboardEvent(newKey);
 		charEventDel = createKeyboardEvent(delKey);

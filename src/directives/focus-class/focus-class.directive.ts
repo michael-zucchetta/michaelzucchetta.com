@@ -9,7 +9,8 @@ class FocusCtrl {
 
 	private active: boolean;
 
-	static $inject = ["$scope"]
+	static $inject: string[] = ['$scope'];
+
 	constructor(private $scope: IMyScope) {
 	}
 
@@ -28,19 +29,22 @@ class FocusCtrl {
 
 class FocusClass implements ng.IDirective {
 
-	transclude = true;
-
-	replace = true;
-
-	restrict = 'A';
-
 	public scope: any;
+
+	public transclude: boolean;
+
+	public replace: boolean;
+
+	public restrict: string; 	
 
 	constructor() {
 		this.scope = {
 			activeClass: '@active',
 			unactiveClass: '@unactive',
 		};
+		this.transclude = true;
+		this.replace = true;
+		this.restrict = 'A';
 	}
 
 	template: any = require('./focus-class.html');
@@ -50,6 +54,7 @@ class FocusClass implements ng.IDirective {
 	controllerAs = '$ctrl';
 
 	link = (scope: IMyScope) => {
+		// temporary comment for tslint
 	}
 
 	static factory(): ng.IDirectiveFactory {

@@ -4,7 +4,7 @@ interface IMenuEl {
 	name: string;
 
 	status: mz.IStatus;
-	
+
 	order: number;
 
 	parentId?: number;

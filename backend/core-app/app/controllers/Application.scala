@@ -17,7 +17,17 @@ object Application extends Controller {
   
   def secondEndpoint = Action {
     val connection = mongoFactory.getConnection()
-    Ok("working 3")
+    val dbs = connection.getDatabaseNames()
+    var buildDbNames = ""
+    for(db <- dbs){
+      buildDbNames += db + "\n"
+    }
+    Ok("working 3 \n" + buildDbNames)
+  }
+
+  def thirdEndpoint = Action {
+    val collection = mongoFactory.getCollection("test")
+    Ok("working 4")
   }
 
 }

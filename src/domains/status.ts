@@ -1,9 +1,9 @@
 interface IStatus {
 
-        url: string;
+	url: string;
 
-        templateUrl: string;
+	templateUrl: string;
 
-        controller: Function;
+	controller: Function;
 
 }

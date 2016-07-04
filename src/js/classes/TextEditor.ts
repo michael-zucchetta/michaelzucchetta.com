@@ -271,7 +271,7 @@ export default class TextEditor {
 
 
 	public doubleClickEditor($event) {
-		console.log("double click", $event);
+		console.log('double click', $event);
 	}
 
 	private getLastRowIndex(): number {

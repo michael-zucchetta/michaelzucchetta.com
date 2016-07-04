@@ -6,15 +6,9 @@ export interface IComponentOptionsCss extends ng.IComponentOptions {
 
 }
 
-export interface IBasicInfoDao {
-
-	getLinks(): ng.IPromise<any>;
-
-	getMenu(): ng.IPromise<any>;
-
-}
-
 export interface IDaoFacade {
+	resolveMenu(menu: any): mz.IMenuEl[];
+
 	getMenu(): ng.IPromise<mz.IMenuEl[]>;
 }
 
@@ -24,7 +18,7 @@ export interface IMenuEl {
 	name: string;
 
 	status: mz.IStatus;
-	
+
 	order: number;
 
 	parentId?: number;
@@ -47,16 +41,28 @@ export interface ISession {
 
 	getAttr(name: string): any;
 
-	setAttr(name: string, obj: any) : void;
+	setAttr(name: string, obj: any): void;
+}
+
+export interface IState extends angular.ui.IState {
+	setRouteDinamically(menu: mz.IMenuEl[]): void;
 }
 
 export interface IStatus {
 
-        url: string;
+	url: string;
 
-        templateUrl: string;
+	templateUrl: string;
 
-        controller: Function;
+	controller: Function;
+
+}
+
+export interface IBasicInfoDao {
+
+	getLinks(): ng.IPromise<any>;
+
+	getMenu(): ng.IPromise<any>;
 
 }
 
@@ -64,6 +70,19 @@ export interface IFileUtilities {
 	loadFile(file: Blob): ng.IPromise<Event>;
 
 	fromImgToBase64(img: HTMLImageElement): void;
+}
+
+export interface IRestProxy {
+	handleGetCall(args: any): ng.IPromise<any>;
+
+	handleJsonpCall(args: any): ng.IPromise<any>;
+
+}
+
+export interface IUtils {
+	initializeMenu(rawMenu: mz.IMenuEl[]): mz.IMenuEl[];
+
+	removeFormattationFromString(inputString: string): string;
 }
 }
 export default mz;

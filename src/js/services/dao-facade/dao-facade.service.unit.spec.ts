@@ -4,17 +4,15 @@ import UtilitiesService from 'js/services/utils';
 
 import mz from 'domains';
 
-const {
-	module,
-	inject,
-} = angular.mock;
+let module: any = angular.mock.module;
+let inject: any = angular.mock.inject;
 
 describe('Test dao facade service', () => {
 
-	let $daoFacade: mz.IDaoService;
-	let $q: Ing.IQService;
+	let $daoFacade: mz.IDaoFacade;
+	let $q: ng.IQService;
 	let $scope: ng.IScope;
-	let $state: angular.ui.IState;
+	let $state: mz.IState;
 	let $httpBackend: ng.IHttpBackendService;
 	let BasicInfoDao: mz.IBasicInfoDao;
 
@@ -22,10 +20,13 @@ describe('Test dao facade service', () => {
 
 	beforeEach(module(DaoFacadeModule));
 
-	beforeEach(inject((_BasicInfoDao_: mz.IBasicInfoDao, _$q_: ng.IQService, _$rootScope_: ng.IRootScopeService, _$httpBackend_: ng.IHttpBackendService) => {
+	beforeEach(inject((_BasicInfoDao_: mz.IBasicInfoDao, _$q_: ng.IQService,
+			_$rootScope_: ng.IRootScopeService, _$httpBackend_: ng.IHttpBackendService) => {
 		BasicInfoDao = _BasicInfoDao_;
 		$state = {
-			setRouteDinamically: (menu: mz.IMenuEl[]): void => {},
+			setRouteDinamically: (menu: mz.IMenuEl[]): void => {
+				// disable tslint error
+			},
 		};
 		$daoFacade = DaoFacade(_BasicInfoDao_, $state);
 		$q = _$q_;

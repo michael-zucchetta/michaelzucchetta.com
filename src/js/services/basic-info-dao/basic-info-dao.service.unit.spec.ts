@@ -1,20 +1,19 @@
 import BasicInfoDaoModule from './index';
-
 import BasicInfoDao from './basic-info-dao.service';
 
-const {
-	module,
-	inject,
-} = angular.mock;
+import mz from 'domains';
+
+let module: any = angular.mock.module;
+let inject: any = angular.mock.inject;
 
 describe('Test basic info dao service', () => {
-	
-	let $basicInfoDao;
-	let $restProxy;
-	
+
+	let $basicInfoDao: mz.IBasicInfoDao;
+	let $restProxy: mz.IRestProxy;
+
 	beforeEach(module(BasicInfoDaoModule));
 
-	beforeEach(inject((_RestProxy_) => {
+	beforeEach(inject((_RestProxy_: mz.IRestProxy) => {
 		$restProxy = _RestProxy_;
 		$basicInfoDao = BasicInfoDao($restProxy);
 	}));
@@ -24,13 +23,13 @@ describe('Test basic info dao service', () => {
 		$basicInfoDao.getLinks();
 		expect($restProxy.handleGetCall).toHaveBeenCalledWith($basicInfoDao.linksEndpoint);
 	});
-	
+
 	it('test getMenu()', () => {
 		spyOn($restProxy, 'handleGetCall');
 		$basicInfoDao.getMenu();
 		expect($restProxy.handleGetCall).toHaveBeenCalledWith($basicInfoDao.menuEndpoint);
 	});
-	
+
 	it('test getIP()', () => {
 		spyOn($restProxy, 'handleJsonpCall');
 		$basicInfoDao.getIP();
