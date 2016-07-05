@@ -2,9 +2,9 @@ import Constants from 'js/services/constants';
 import mz from 'domains';
 
 interface IMyScope extends ng.IScope {
-  activeClass: string;
+	activeClass: string;
 
-  unactiveClass: string;
+	unactiveClass: string;
 }
 
 class DropdownMenuCtrl {
@@ -27,26 +27,27 @@ class DropdownMenuDirective implements ng.IDirective {
 
 	public scope: any;
 
-	constructor(private $http: ng.IHttpService, private $compile: ng.ICompileService, private $timeout: ng.ITimeoutService, private DaoFacade) {
+	constructor(private $http: ng.IHttpService, private $compile: ng.ICompileService,
+			private $timeout: ng.ITimeoutService, private DaoFacade: mz.IDaoFacade) {
 		this.scope = {
 			menuEls: '=dropdownMenu',
 		};
 	}
 
-	restrict = 'A';
+	public restrict: string = 'A';
 
-	template = (element: ng.IAugmentedJQuery) => {
+	public template: any = (element: ng.IAugmentedJQuery) => {
 		element.attr('ng-click', 'showHideMenu()');
 		return require('directives/dropdown-menu/dropdown-menu.html');
-	};
+	}
 
-	css = require('directives/dropdown-menu/dropdown-menu.scss');
+	public css: any = require('directives/dropdown-menu/dropdown-menu.scss');
 
-	controller = DropdownMenuCtrl;
+	public controller: Function = DropdownMenuCtrl;
 
-	controllerAs = '$ctrl';
+	public controllerAs: string = '$ctrl';
 
-	link = (scope: any, element: ng.IAugmentedJQuery) => {
+	link: Function = (scope: any, element: ng.IAugmentedJQuery): void => {
 		this.$timeout(() => {
 			// +1 is the border of the menu
 			// let newTop = $(element).outerHeight() + 1;

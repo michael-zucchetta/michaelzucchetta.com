@@ -1,4 +1,4 @@
-interface RGB {
+interface IRGB {
 	r: number;
 	b: number;
 	g: number;

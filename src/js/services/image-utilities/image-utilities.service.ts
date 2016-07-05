@@ -47,7 +47,7 @@ class ImageUtilities {
 		return hexVal;
 	}
 
-	public fromRgbToHex(point: mz.RGB): string {
+	public fromRgbToHex(point: mz.IRGB): string {
 		let opacity: number = this.floatOpacity(point.opacity);
 		return '#' + this.calculateVal(point.r, opacity) + this.calculateVal(point.g, opacity) + this.calculateVal(point.b, opacity);
 	}

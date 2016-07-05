@@ -30,7 +30,7 @@ export interface IMenuEl {
 	definition: any;
 }
 
-export interface RGB {
+export interface IRGB {
 	r: number;
 	b: number;
 	g: number;
@@ -64,6 +64,7 @@ export interface IBasicInfoDao {
 
 	getMenu(): ng.IPromise<any>;
 
+	getIP(): ng.IPromise<any>;
 }
 
 export interface IFileUtilities {

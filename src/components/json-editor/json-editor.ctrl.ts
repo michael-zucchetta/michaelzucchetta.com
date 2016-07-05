@@ -1,5 +1,12 @@
-import mz from 'domains';
 import TextEditor from 'js/classes/TextEditor';
+
+class TextPortion {
+        public y1: number;
+        public x1: number;
+        public y2: number;
+        public x2: number;
+        public text: string;
+}
 
 class JsonEditorCtrl {
 
@@ -28,10 +35,10 @@ class JsonEditorCtrl {
 		angular.element(document).ready(() => this.initEditor());
 	}
 
-	public setPosition($event: ng.IAngularEvent): void {
+	public setPosition($event): void {
 		let setPosition = (): void => {
 			// checking if any text has been selected
-			let selectedText: string = window.getSelection().toString();
+			let selectedText: any = window.getSelection().toString();
 			if (selectedText) {
 				this.editor.selectText(selectedText);
 			} else if (!this.noSingleClick) {
@@ -57,7 +64,7 @@ class JsonEditorCtrl {
 
 	public selectWord($event): void {
 		this.noSingleClick = true;
-		console.log("double click", $event);
+		console.log('double click', $event);
 		this.editor.doubleClickEditor($event);
 		// prevent single click to be triggered
 		this.$timeout(() => this.noSingleClick = false);

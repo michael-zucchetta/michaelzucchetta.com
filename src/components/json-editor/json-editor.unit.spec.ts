@@ -9,14 +9,14 @@ export default describe ('Test jsonEditor component', () => {
 		component: ng.IModule,
 		$timeout: ng.ITimeoutService,
 		$interval: ng.IIntervalService;
-	
+
 	beforeEach(() => {
 		module(jsonEditorModule);
 		inject(($controller: ng.IControllerService, $rootScope: ng.IRootScopeService, _$timeout_: ng.ITimeoutService, _$interval_: ng.IIntervalService) => {
 			controller = $controller;
 			rootScope = $rootScope;
 			$timeout = _$timeout_;
-			$interval = _$interval_; 
+			$interval = _$interval_;
 		});
 	});
 

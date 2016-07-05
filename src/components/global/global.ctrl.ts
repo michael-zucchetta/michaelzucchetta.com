@@ -14,7 +14,8 @@ export default class GlobalCtrl {
 
 	private countryIP: string;
 
-	constructor(private BasicInfoDao, private DaoFacade: mz.IDaoFacade, private $interval: ng.IIntervalService, private $timeout: ng.ITimeoutService) {
+	constructor(private BasicInfoDao, private DaoFacade: mz.IDaoFacade,
+			private $interval: ng.IIntervalService, private $timeout: ng.ITimeoutService) {
 		this.myLinks = [];
 		this.menu = [];
 		this.$interval(() => this.getTodayDate(), 1000);
@@ -36,7 +37,7 @@ export default class GlobalCtrl {
 			this.countryIP = ipData.geoplugin_countryName;
 		});
 
-		var body: any = document.querySelector('body');
+		let body: any = document.querySelector('body');
 		body.style.visibility = 'visible';
 
 		let line1: any = document.querySelector('.line1');
@@ -125,14 +126,14 @@ export default class GlobalCtrl {
 
 	private getTodayDate(): void {
 		let todayDate: Date = new Date();
-		this.dateString = `${todayDate.getFullYear()}-${this.getTwoDigits(todayDate.getMonth())}-${this.getTwoDigits(todayDate.getDate())}` + 
+		this.dateString = `${todayDate.getFullYear()}-${this.getTwoDigits(todayDate.getMonth())}-${this.getTwoDigits(todayDate.getDate())}` +
 			`${this.getTwoDigits(todayDate.getHours())}:${this.getTwoDigits(todayDate.getMinutes())}:` +
 			`${this.getTwoDigits(todayDate.getSeconds())}`;
 	}
 
 	getTwoDigits(digit: number): string {
 		let digitString: string = digit.toString();
-		return digitString.length == 1 && '0' + digitString || digitString;
+		return digitString.length === 1 && '0' + digitString || digitString;
 	}
 }
 

@@ -7,9 +7,7 @@ interface IMyScope extends ng.IScope {
 
 class FocusCtrl {
 
-	private active: boolean;
-
-	static $inject: string[] = ['$scope'];
+	public static $inject: string[] = ['$scope'];
 
 	constructor(private $scope: IMyScope) {
 	}
@@ -18,13 +16,15 @@ class FocusCtrl {
 		this.active = true;
 	}
 
-	public setUnactive(): void{
+	public setUnactive(): void {
 		this.active = false;
 	}
 
-	public getClass() {
-		return this.active? this.$scope.activeClass : this.$scope.unactiveClass;
+	public getClass(): string {
+		return this.active ? this.$scope.activeClass : this.$scope.unactiveClass;
 	}
+
+	private active: boolean;
 }
 
 class FocusClass implements ng.IDirective {
@@ -35,7 +35,7 @@ class FocusClass implements ng.IDirective {
 
 	public replace: boolean;
 
-	public restrict: string; 	
+	public restrict: string;
 
 	constructor() {
 		this.scope = {
@@ -47,13 +47,13 @@ class FocusClass implements ng.IDirective {
 		this.restrict = 'A';
 	}
 
-	template: any = require('./focus-class.html');
+	public template: any = require('./focus-class.html');
 
-	controller = FocusCtrl;
+	public controller: Function = FocusCtrl;
 
-	controllerAs = '$ctrl';
+	public controllerAs: string = '$ctrl';
 
-	link = (scope: IMyScope) => {
+	public link: Function = (scope: IMyScope) => {
 		// temporary comment for tslint
 	}
 

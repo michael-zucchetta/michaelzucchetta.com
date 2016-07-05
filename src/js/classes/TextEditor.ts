@@ -146,7 +146,7 @@ export default class TextEditor {
 		}
 	};
 
-	public selectText(selectedText): void {
+	public selectText(selectedText: TextPortion): void {
 		this.selectedText = selectedText;
 	}
 
@@ -211,7 +211,7 @@ export default class TextEditor {
 
 	public handleKeyDown($event: KeyboardEvent): void {
 		// add tests for this
-		let key = Keys.getKeyFromEvent($event);
+		let key: number = Keys.getKeyFromEvent($event);
 		if (Keys.isArrowKey(key)) {
 			this.moveArrow($event, key);
 		} else if (Keys.isDelKey(key)) {
@@ -270,7 +270,7 @@ export default class TextEditor {
 	}
 
 
-	public doubleClickEditor($event) {
+	public doubleClickEditor($event: Event): void {
 		console.log('double click', $event);
 	}
 

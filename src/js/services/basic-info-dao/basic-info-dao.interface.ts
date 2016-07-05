@@ -4,4 +4,5 @@ interface IBasicInfoDao {
 
 	getMenu(): ng.IPromise<any>;
 
+	getIP(): ng.IPromise<any>;
 }
