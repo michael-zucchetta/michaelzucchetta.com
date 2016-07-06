@@ -1,9 +1,16 @@
+'use strict';
 namespace mz {
 export interface IComponentOptionsCss extends ng.IComponentOptions {
 	css?: any;
 
 	template?: any;
 
+}
+
+export interface IClipboardEvent extends Event {
+	originalEvent: IClipboardEvent;
+
+	clipboardData?: DataTransfer;
 }
 
 export interface IDaoFacade {

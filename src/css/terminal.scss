@@ -47,6 +47,16 @@ $link-color: #00ffff;
 	}
 }
 
+@include keyframes(fadein) {
+	50% { visibility: hidden; }
+	100%   { visibility: visible; }
+}
+
+@include keyframes(typing) {
+	from {width: 0%;}
+	to { width: 85%;} 
+}
+
 html {
 	height: 100%;
 	/*overflow hidden prevents scroll on non scrollable pages in iOS*/
@@ -64,12 +74,17 @@ body {
 
 .website-container {
 	height: 100%;
+	
+	.menu-container {
+		position: absolute;
+	}
 }
 
 .website-content {
-	width: calc(100 - 2 * #{border-width});
+	width: calc(100% - #{2 * $border-width});
 	height: calc(100% - #{$bottom-bar-height} - #{$title-bar-height} - #{$border-width * 4});
 	min-height: $content-min-height;
+	
 	#view-container {
 		margin-left: 10px;
 		min-height: calc(#{$content-min-height} - #{$terminal-bar-height});
@@ -289,16 +304,6 @@ pre.ascii-text {
 	position: absolute;
 	/*bottom: 5px;*/
 	left: 3px;
-}
-
-@include keyframes(fadein) {
-	50% { visibility: hidden; }
-	100%   { visibility: visible; }
-}
-
-@include keyframes(typing) {
-	from {width: 0%;}
-	to { width: 85%;} 
 }
 
 .table {

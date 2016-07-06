@@ -13,6 +13,14 @@ class DropdownMenuCtrl {
 
 	private showMenu: boolean;
 
+	public css: any = require('directives/dropdown-menu/dropdown-menu.scss');
+
+	public controller: Function = DropdownMenuCtrl;
+
+	public controllerAs: string = '$ctrl';
+
+	public restrict: string = 'A';
+
 	// add ng-click to the element that has the directive
 	public showHideMenu(): void {
 		this.showMenu = !this.showMenu;
@@ -34,18 +42,10 @@ class DropdownMenuDirective implements ng.IDirective {
 		};
 	}
 
-	public restrict: string = 'A';
-
 	public template: any = (element: ng.IAugmentedJQuery) => {
 		element.attr('ng-click', 'showHideMenu()');
 		return require('directives/dropdown-menu/dropdown-menu.html');
 	}
-
-	public css: any = require('directives/dropdown-menu/dropdown-menu.scss');
-
-	public controller: Function = DropdownMenuCtrl;
-
-	public controllerAs: string = '$ctrl';
 
 	link: Function = (scope: any, element: ng.IAugmentedJQuery): void => {
 		this.$timeout(() => {
@@ -58,7 +58,7 @@ class DropdownMenuDirective implements ng.IDirective {
 	};
 
 	static factory(): ng.IDirectiveFactory {
-		const directive = ($http: ng.IHttpService, $compile: ng.ICompileService,
+		const directive: ng.IDirectiveFactory = ($http: ng.IHttpService, $compile: ng.ICompileService,
 					$timeout: ng.ITimeoutService, DaoFacade: mz.IDaoFacade) => new DropdownMenuDirective($http, $compile, $timeout, DaoFacade);
 		directive.$inject = ['$http', '$compile', '$timeout', 'DaoFacade'];
 		return directive;

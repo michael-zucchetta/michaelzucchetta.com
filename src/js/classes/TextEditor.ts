@@ -1,4 +1,5 @@
 import Keys from 'js/classes/Keys';
+import mz from 'domains';
 
 class CarelPos {
 	public left: number;
@@ -93,7 +94,7 @@ export default class TextEditor {
 		});
 	}
 
-	public clickEditor($event): void {
+	public clickEditor($event: any): void {
 		// x/cellWidth is the partial cell position, with round it's the cell number
 		this.cellX = Math.round($event.offsetX / this.cellWidth);
 
@@ -257,8 +258,8 @@ export default class TextEditor {
 		}
 	}
 
-	public pasteText($event): void {
-		let event = $event.originalEvent || $event;
+	public pasteText($event: mz.IClipboardEvent): void {
+		let event: mz.IClipboardEvent = $event.originalEvent || $event;
 		let pastedText: string = event.clipboardData.getData('text/plain');
 		_.each(pastedText, (char: string) => {
 			this.addCharacterToEditor(char.charCodeAt(0));
