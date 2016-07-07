@@ -26,8 +26,6 @@ export default class Canvas {
 
 	private img: HTMLImageElement;
 
-	private resizeCanvas: EventListener;
-
 	private pixels: any;
 
 	constructor(private canvasId: string) {
@@ -35,22 +33,6 @@ export default class Canvas {
 		this.canvas = document.getElementById(this.canvasId);
 		this.scale = 1;
 		this.ctx = this.canvas.getContext('2d');
-		this.resizeCanvas = (): void => {
-			// to be removed, it should not stay here
-			let canvasParent: HTMLElement = this.canvas.parentNode;
-			let siblingsEls: JQuery = $(this.canvas).siblings();
-			let siblingsHeight: number = _.reduce(siblingsEls, (sum: number, siblingEl: HTMLElement) => sum + siblingEl.clientHeight);
-			// to be checked
-			this.width = this.canvas.width = canvasParent.clientWidth;
-			this.height = this.canvas.height = canvasParent.clientHeight - siblingsHeight - this.marginHeight;
-			if (this.scale === 1 && (this.img.width > this.width || this.img.height > this.height)) {
-				// first resize, so first interaction
-				this.scaleX = this.width / this.img.width;
-				this.scaleY = this.height / this.img.height;
-				this.scale = Math.min(this.scaleX, this.scaleY);
-			}
-			this.drawImage();
-		};
 		window.addEventListener('resize', this.resizeCanvas, false);
 		document.addEventListener('mousemove', (event: MouseEvent) => {
 			this.mouseX = (event.pageX - $(this.canvas).offset().left);
@@ -123,6 +105,23 @@ export default class Canvas {
 		this.height = this.img.height;
 		this.canvas.width = this.width;
 		this.canvas.height = this.height;
-		this.resizeCanvas(undefined);
+		this.resizeCanvas();
+	}
+
+	resizeCanvas(): void {
+		// to be removed, it should not stay here
+		let canvasParent: HTMLElement = this.canvas.parentNode;
+		let siblingsEls: JQuery = $(this.canvas).siblings();
+		let siblingsHeight: number = _.reduce(siblingsEls, (sum: number, siblingEl: HTMLElement) => sum + siblingEl.clientHeight);
+		// to be checked
+		this.width = this.canvas.width = canvasParent.clientWidth;
+		this.height = this.canvas.height = canvasParent.clientHeight - siblingsHeight - this.marginHeight;
+		if (this.scale === 1 && (this.img.width > this.width || this.img.height > this.height)) {
+			// first resize, so first interaction
+			this.scaleX = this.width / this.img.width;
+			this.scaleY = this.height / this.img.height;
+			this.scale = Math.min(this.scaleX, this.scaleY);
+		}
+		this.drawImage();
 	}
 }

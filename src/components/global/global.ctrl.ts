@@ -56,27 +56,11 @@ export default class GlobalCtrl {
 				line1Text.style.webkitAnimationPlayState = 'running';
 			}, 200);
 		});
+		this.setAnimationListener('line', 2);
+		this.setAnimationListener('line', 3);
 
-		let line2: any = document.querySelector('.line2');
-		let line2Text: any = document.querySelector('.line2 .terminal-text');
-		line1.addEventListener('animationend', () => {
-			setTimeout(() => {
-				line1Cursor.style.visibility = 'hidden';
-				line2.style.display = 'block';
-				line2Text.style.animationPlayState = 'running';
-			}, 200);
-		});
-
-		let line2Cursor: any = document.querySelector('.line2 .white-cursor');
 		let line3: any = document.querySelector('.line3');
 		let line3Text: any = document.querySelector('.line3 .terminal-text');
-		line2.addEventListener('animationend', () => {
-			setTimeout(() => {
-				line2Cursor.style.visibility = 'hidden';
-				line3.style.display = 'block';
-				line3Text.style.animationPlayState = 'running';
-			}, 200);
-		});
 
 		let animation: any = document.querySelector('.website-content.terminal');
 		let title: any = document.querySelector('.title.terminal');
@@ -97,10 +81,10 @@ export default class GlobalCtrl {
 		let line5Text: any = document.querySelector('.line5 .terminal-text');
 		line4.addEventListener('animationend', () => {
 			setTimeout(() => {
-				line1.style.display = 'none';
-				line2.style.display = 'none';
-				line3.style.display = 'none';
-				line4.style.display = 'none';
+				this.hideLine(1);
+				this.hideLine(2);
+				this.hideLine(3);
+				this.hideLine(4);
 				line5.style.display = 'block';
 				line5Text.style.animationPlayState = 'running';
 			}, 100);
@@ -123,6 +107,28 @@ export default class GlobalCtrl {
 				websiteContent.classList.add('active');
 			}, 200);
 		});
+	}
+
+	setAnimationListener(suffix: string, lineNumber: number): void {
+		const lineClass: string = '.' + suffix + lineNumber;
+		const prevLineClass: string = '.' + suffix + (lineNumber - 1);
+		let line: any = document.querySelector(lineClass);
+                let lineText: any = document.querySelector(lineClass + ' .terminal-text');
+		let prevLine: any = document.querySelector(prevLineClass);
+                let prevLineCursor: any = document.querySelector(prevLineClass + ' .white-cursor');
+		prevLine.addEventListener('animationend', () => {
+			setTimeout(() => {
+				prevLineCursor.style.visibility = 'hidden';
+				line.style.display = 'block';
+				lineText.style.animationPlayState = 'running';
+		  	}, 200);
+		});
+	}
+
+	hideLine(lineNumber: number): void {
+		const lineClass = '.line' + lineNumber;
+		let element: any = document.querySelector(lineClass);
+		element.style.display = 'none';
 	}
 
 	public getClass(): string {

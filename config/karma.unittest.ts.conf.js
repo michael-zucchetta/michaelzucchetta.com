@@ -7,7 +7,7 @@ module.exports = function(config) {
 		frameworks: ['jasmine-jquery', 'jasmine'],
 	        preprocessors: {
 			'index.unit.spec.ts': ['webpack', 'sourcemap', 'coverage'],
-			'src/**/*.ts': ['coverage'],
+			// '**/!(*spec).ts': ['coverage'],
 		},
 
 		coverageReporter: {
@@ -39,11 +39,12 @@ module.exports = function(config) {
 		webpack: {
 			module: webpackConfig.module,			
 			resolve: webpackConfig.resolve,
-			devtool: '#inline-source-map',
+			devtool: '#source-map',
 		},
 
 		files: [
 			'index.unit.spec.ts',
+			{pattern: '**/*.map', included: false},
 			{pattern: '**/*ts', included: false},
 			'**/*.json',
 		],
@@ -54,7 +55,7 @@ module.exports = function(config) {
 		// test results reporter to use
 		// reporters: ['progress', 'coverage', 'karma-remap-istanbul', 'html'],
 		reporters: ['progress', 'html', 'coverage', 
-			//'karma-remap-istanbul'
+			'karma-remap-istanbul'
 		],
 
 		// used to see the page on the browser
@@ -100,12 +101,12 @@ module.exports = function(config) {
 			require('karma-jasmine-html-reporter-livereload'),
 			require('karma-jasmine'),
 			require('karma-jasmine-jquery'),
-			require('karma-remap-istanbul'),
-			require('karma-coverage'),
 			require('karma-chrome-launcher'),
 			require('karma-firefox-launcher'),
 			require('karma-phantomjs-launcher'),
 			require('karma-sourcemap-loader'),
+			require('karma-coverage'),
+			require('karma-remap-istanbul'),
 		],
 	});
 };
