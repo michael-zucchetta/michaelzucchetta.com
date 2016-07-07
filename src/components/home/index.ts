@@ -1,4 +1,3 @@
-import Constants from 'js/services/constants';
 import HomeCtrl from './home.ctrl';
 import services from 'js/services/index';
 import routes from './routes';
@@ -10,7 +9,7 @@ let homeOpts: mz.IComponentOptionsCss = {
 	controller: HomeCtrl,
 };
 
-export default angular.module('home', ['ui.router', Constants.SERVICE_MODULE])
+export default angular.module('home', ['ui.router', services])
 	.config(routes)
 	.component('home', homeOpts)
 	.name;

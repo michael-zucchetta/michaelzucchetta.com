@@ -1,11 +1,11 @@
 import TextEditor from 'js/classes/TextEditor';
 
 class TextPortion {
-        public y1: number;
-        public x1: number;
-        public y2: number;
-        public x2: number;
-        public text: string;
+	public y1: number;
+	public x1: number;
+	public y2: number;
+	public x2: number;
+	public text: string;
 }
 
 class JsonEditorCtrl {
@@ -30,7 +30,7 @@ class JsonEditorCtrl {
 		let display: JQuery = $('#json-display');
 		this.textarea = $('#json-input');
 		let container: JQuery = $('json-input-container');
-		
+
 		this.editor = new TextEditor('#json-display', '#json-input', '.json-input-container', 'cell');
 		angular.element(document).ready(() => this.initEditor());
 	}
@@ -48,13 +48,13 @@ class JsonEditorCtrl {
 		this.$timeout(setPosition, 10);
 	}
 
-	public insertCharacter ($event): void { //: ng.IAngularEvent): void {
+	public insertCharacter ($event): void { // : ng.IAngularEvent): void {
 		// a character has been inserted
 		this.editor.insertChar($event);
 		this.jsonText = this.editor.textValue;
 	}
 
-	public handleKeyDown($event): void { //: ng.IAngularEvent): void {
+	public handleKeyDown($event): void { // : ng.IAngularEvent): void {
 		this.$timeout(() => this.editor.handleKeyDown($event));
 	}
 

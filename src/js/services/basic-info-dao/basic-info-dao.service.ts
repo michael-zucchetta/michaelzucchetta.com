@@ -2,12 +2,12 @@ import mz from 'domains';
 
 export class BasicInfoDao implements mz.IBasicInfoDao {
 
-	private linksEndpoint: string = 'js/mocks/links.json';
+	linksEndpoint: string = 'js/mocks/links.json';
 
-	private menuEndpoint: string = 'js/mocks/menu.json';
+	menuEndpoint: string = 'js/mocks/menu.json';
 
 	// geoplugin.com
-	private ipInfoEndpoint: string = 'http://www.geoplugin.net/json.gp?jsoncallback=angular.callbacks._0';
+	ipInfoEndpoint: string = 'http://www.geoplugin.net/json.gp?jsoncallback=angular.callbacks._0';
 
 	constructor(private RestProxy: mz.IRestProxy) {
 	}

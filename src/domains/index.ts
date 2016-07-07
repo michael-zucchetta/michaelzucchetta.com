@@ -1,4 +1,3 @@
-'use strict';
 namespace mz {
 export interface IComponentOptionsCss extends ng.IComponentOptions {
 	css?: any;
@@ -67,6 +66,12 @@ export interface IStatus {
 
 export interface IBasicInfoDao {
 
+	linksEndpoint: string;
+
+	menuEndpoint: string;
+
+	ipInfoEndpoint: string;
+
 	getLinks(): ng.IPromise<any>;
 
 	getMenu(): ng.IPromise<any>;
@@ -80,7 +85,26 @@ export interface IFileUtilities {
 	fromImgToBase64(img: HTMLImageElement): void;
 }
 
+export interface IImageUtilities {
+	loadImage(file: File, callback: Function): void;
+
+	onCompleteImg(img: HTMLImageElement): ng.IPromise<boolean>;
+
+	createImage(hash: string): HTMLImageElement;
+
+	floatOpacity(opacity: number): number;
+
+	calculateVal(val: number, opacity: number): string;
+
+	fromRgbToHex(point: mz.IRGB): string;
+}
+
 export interface IRestProxy {
+
+	handleGetCall(args: any): ng.IPromise<any>; 
+
+	deferredCall(args: any[]): ng.IPromise<any>;
+
 	handleGetCall(args: any): ng.IPromise<any>;
 
 	handleJsonpCall(args: any): ng.IPromise<any>;

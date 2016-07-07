@@ -14,7 +14,7 @@ export default class GlobalCtrl {
 
 	private countryIP: string;
 
-	constructor(private BasicInfoDao, private DaoFacade: mz.IDaoFacade,
+	constructor(private BasicInfoDao: mz.IBasicInfoDao, private DaoFacade: mz.IDaoFacade,
 			private $interval: ng.IIntervalService, private $timeout: ng.ITimeoutService) {
 		this.myLinks = [];
 		this.menu = [];
@@ -23,15 +23,15 @@ export default class GlobalCtrl {
 
 	public $onInit(): void {
 		this.BasicInfoDao.getLinks()
-		.then(links => this.myLinks = links);
+			.then(links => this.myLinks = links);
 
 		this.DaoFacade.getMenu()
-		.then((menuEls: mz.IMenuEl[]) => {
+			.then((menuEls: mz.IMenuEl[]) => {
 			this.menu = menuEls;
 		});
 
 		this.BasicInfoDao.getIP()
-		.then((ipData: any) => {
+			.then((ipData: any) => {
 			this.userIP = ipData.geoplugin_request;
 			this.regionIP = ipData.geoplugin_region;
 			this.countryIP = ipData.geoplugin_countryName;
@@ -115,7 +115,7 @@ export default class GlobalCtrl {
 				animation.style.display = 'none';
 				let websiteContainer: any = document.querySelector('.website-container');
 				websiteContainer.style.visibility = 'visible';
-				let websiteContent: any = document.querySelector('.website-content.hidden');
+				websiteContent = document.querySelector('.website-container .website-content');
 				websiteContent.style.visibility = 'visible';
 				title.style.visibility = 'visible';
 				let animationContainer: any = document.querySelector('.animation-initial');
@@ -136,7 +136,7 @@ export default class GlobalCtrl {
 			`${this.getTwoDigits(todayDate.getSeconds())}`;
 	}
 
-	getTwoDigits(digit: number): string {
+	private getTwoDigits(digit: number): string {
 		let digitString: string = digit.toString();
 		return digitString.length === 1 && '0' + digitString || digitString;
 	}

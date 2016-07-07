@@ -1,9 +1,9 @@
 class Asciify {
 	constructor() {
-	
+		// disable tslint error
 	}
 
-	static Factory() {
+	public static Factory(): ng.IDirectiveFactory {
 		return new Aciify();
 	}
 

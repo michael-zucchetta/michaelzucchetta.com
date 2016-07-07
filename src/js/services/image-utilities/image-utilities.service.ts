@@ -1,6 +1,6 @@
 import mz from 'domains';
 
-class ImageUtilities {
+class ImageUtilities implements mz.IImageUtilities {
 
 	constructor(private $q: ng.IQService, private $interval: ng.IIntervalService, private FilesUtilities: mz.IFileUtilities) {}
 

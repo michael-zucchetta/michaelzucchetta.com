@@ -1,5 +1,5 @@
 import GlobalCtrl from './global.ctrl';
 
 export default angular.module('global', [])
-	.controller('GlobalCtrl', GlobalCtrl)
-	.name; 
+.controller('GlobalCtrl', GlobalCtrl)
+.name;

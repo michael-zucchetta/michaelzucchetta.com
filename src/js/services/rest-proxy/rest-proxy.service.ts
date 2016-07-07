@@ -21,7 +21,7 @@ class RestProxy implements  mz.IRestProxy {
 		return response.data && response.data.data || response.data;
 	}
 
-	private deferredCall(args: any[]): ng.IPromise<any> {
+	deferredCall(args: any[]): ng.IPromise<any> {
 		let fn: any = Array.prototype.shift.call(args);
 		let deferred: ng.IDeferred<any> = this.$q.defer();
 		fn.apply(undefined, args).then((response: any) => {

@@ -1,6 +1,7 @@
 class HomeCtrl {
 
 	constructor() {
+		// disable tslint error	
 	}
 }
 

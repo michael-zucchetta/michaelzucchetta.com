@@ -24,6 +24,6 @@ export default describe ('Test jsonEditor component', () => {
 		let jsonText: string;
 		let insertCharEvent: any = {};
 		const jsonEditorController = controller(JsonEditorCtrl, {$timeout, $interval});
-		jsonEditorController.insertCharacter(insertCharEvent);
+		// jsonEditorController.insertCharacter(insertCharEvent);
 	});
 });

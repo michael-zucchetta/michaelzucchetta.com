@@ -1,4 +1,5 @@
 import Canvas from 'js/classes/canvas';
+import mz from 'domains';
 
 class PickColorsCtrl {
 
@@ -6,34 +7,33 @@ class PickColorsCtrl {
 
 	private backupCanvases: any[];
 
-	private imageFile;
+	private imageFile: File;
 
-	private pixelValue: number;
+	private pixelValue: mz.IRGB;
 
 	private loadPicLabel: string;
 
 	private pixelHexValue: string;
 
-	constructor(private $timeout, private ImagesUtilities) {
+	constructor(private $timeout: ng.ITimeoutService, private ImagesUtilities: mz.IImageUtilities) {
 	}
 
-	public uploadPicture() {
+	public uploadPicture(): void {
 		if (!this.imageFile) {
 			return;
 		}
-		let file = this.imageFile;
 		this.canvas = new Canvas('uploaded-picture');
-		this.ImagesUtilities.loadImage(file, img => this.canvas.loadImage(img));
+		this.ImagesUtilities.loadImage(this.imageFile, (img: HTMLImageElement) => this.canvas.loadImage(img));
 	}
 
-	public initPickColors() {
+	public initPickColors(): void {
 		this.canvas = undefined;
 		this.loadPicLabel = 'Load picture:';
 		this.backupCanvases = [];
 	}
 
-	public createCanvasBackup() {
-		let canvasBackup = document.createElement('canvas');
+	public createCanvasBackup(): void {
+		let canvasBackup: HTMLCanvasElement = document.createElement('canvas');
 		canvasBackup.width = this.canvas.width;
 		canvasBackup.height = this.canvas.height;
 		let ctx: CanvasRenderingContext2D = canvasBackup.getContext('2d');
@@ -41,13 +41,13 @@ class PickColorsCtrl {
 		this.backupCanvases.push(canvasBackup);
 	}
 
-	public clickCanvas($event: MouseEvent) {
+	public clickCanvas($event: MouseEvent): void {
 		this.pixelValue = this.canvas.getPixelValue($event.offsetY, $event.offsetX);
 		this.pixelHexValue = this.ImagesUtilities.fromRgbToHex(this.pixelValue);
 		this.$timeout(() => (<HTMLInputElement> document.getElementById('result-color')).value = this.pixelHexValue);
 	}
 
-	public zoomCanvas($event) {
+	public zoomCanvas($event: KeyboardEvent): void {
 		// magic number: To be changed so it is enabled on body and check if the event is within the canvas
 		if ($event.keyCode === 122) {
 			this.createCanvasBackup();

@@ -1,4 +1,3 @@
-import Constants from 'js/services/constants';
 import PickColorsCtrl from './pick-colors.ctrl';
 import services from 'js/services';
 import mz from 'domains';

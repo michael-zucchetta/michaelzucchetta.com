@@ -7,7 +7,7 @@ module.exports = {
 		vendor: ['angular', 'ui-router', 'angular-css', 'ng-file-upload', 'lodash', 'jQuery'],
 	},
 	context: __dirname + '/src/',
-	devtool: 'source-map',
+	devtool: '#inline-source-map',
 	output: {
 		path: __dirname + '/dist/',
 		filename: 'bundle.js',

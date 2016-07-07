@@ -6,12 +6,12 @@ module.exports = function(config) {
 		basePath: '../src/',
 		frameworks: ['jasmine-jquery', 'jasmine'],
 	        preprocessors: {
-			'index.unit.spec.ts': ['webpack', 'sourcemap'],
+			'index.unit.spec.ts': ['webpack', 'sourcemap', 'coverage'],
 			'src/**/*.ts': ['coverage'],
 		},
 
 		coverageReporter: {
-			dir: 'coverage/',
+			dir: '../coverage/',
 			reporters: [{
 				type: 'json',
 				subdir: '.', 
@@ -39,7 +39,7 @@ module.exports = function(config) {
 		webpack: {
 			module: webpackConfig.module,			
 			resolve: webpackConfig.resolve,
-			devtool: 'inline-source-map',
+			devtool: '#inline-source-map',
 		},
 
 		files: [
@@ -53,7 +53,9 @@ module.exports = function(config) {
 
 		// test results reporter to use
 		// reporters: ['progress', 'coverage', 'karma-remap-istanbul', 'html'],
-		reporters: ['progress', 'html'],
+		reporters: ['progress', 'html', 'coverage', 
+			//'karma-remap-istanbul'
+		],
 
 		// used to see the page on the browser
 		htmlReporter: {

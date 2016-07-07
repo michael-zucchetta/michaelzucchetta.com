@@ -47,7 +47,7 @@ class DropdownMenuDirective implements ng.IDirective {
 		return require('directives/dropdown-menu/dropdown-menu.html');
 	}
 
-	link: Function = (scope: any, element: ng.IAugmentedJQuery): void => {
+	public link: Function = (scope: any, element: ng.IAugmentedJQuery): void => {
 		this.$timeout(() => {
 			// +1 is the border of the menu
 			// let newTop = $(element).outerHeight() + 1;
@@ -57,7 +57,7 @@ class DropdownMenuDirective implements ng.IDirective {
 		});
 	};
 
-	static factory(): ng.IDirectiveFactory {
+	public static factory(): ng.IDirectiveFactory {
 		const directive: ng.IDirectiveFactory = ($http: ng.IHttpService, $compile: ng.ICompileService,
 					$timeout: ng.ITimeoutService, DaoFacade: mz.IDaoFacade) => new DropdownMenuDirective($http, $compile, $timeout, DaoFacade);
 		directive.$inject = ['$http', '$compile', '$timeout', 'DaoFacade'];
