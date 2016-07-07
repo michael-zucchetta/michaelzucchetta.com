@@ -2,9 +2,9 @@ import mz from 'domains';
 
 class RestProxy implements  mz.IRestProxy {
 
-	private getCall: Function = this.$http.get;
+	getCall: Function = this.$http.get;
 
-	private jsonpCall: Function = this.$http.jsonp;
+	jsonpCall: Function = this.$http.jsonp;
 
 	constructor(private $q: ng.IQService, private $http: ng.IHttpService) {
 	}

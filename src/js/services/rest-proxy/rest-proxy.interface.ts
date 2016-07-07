@@ -1,4 +1,8 @@
 interface IRestProxy {
+	
+	getCall: Function;
+
+	jsonpCall: Function;
 
 	handleGetCall(args: any): ng.IPromise<any>; 
 

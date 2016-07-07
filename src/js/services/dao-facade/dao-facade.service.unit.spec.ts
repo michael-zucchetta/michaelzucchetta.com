@@ -32,21 +32,17 @@ describe('Test dao facade service', () => {
 		$q = _$q_;
 		$scope = _$rootScope_.$new();
 		$httpBackend = _$httpBackend_;
-		$httpBackend.expectGET('js/mocks/menu.json').respond(200);
 	}));
 
 	it ('test get Menu()', () => {
-		let deferred: ng.IDeferred<any> = $q.defer();
 		let resultValue: mz.IMenuEl[];
 		let menu: any = getJSONFixture('menu.json');
-		deferred.resolve(menu);
+		$httpBackend.expectGET('js/mocks/menu.json').respond(menu);
 		spyOn($state, 'setRouteDinamically');
-		spyOn(BasicInfoDao, 'getMenu').and.returnValue(deferred.promise);
-		$daoFacade.getMenu()
-			.then((response: any) => {
-				resultValue = $daoFacade.resolveMenu(response);
+		$daoFacade.getMenu().then((response: any) => {
+				resultValue = response;
 			});
-		$scope.$apply();
+		$httpBackend.flush();
 		expect(UtilitiesService.initializeMenu(menu)).toEqual(resultValue);
 		expect($state.setRouteDinamically).toHaveBeenCalled();
 	});
