@@ -1,4 +1,4 @@
-describe ('e2e test for pick colors', () => {
+/* describe ('e2e test for pick colors', () => {
 	let websiteUrl = 'http://localhost:8000';
 	let sleep = (delay) => {
 		let start = new Date().getTime();
@@ -45,3 +45,4 @@ describe ('e2e test for pick colors', () => {
 		});
 	});
 });
+*/

@@ -28,4 +28,8 @@ describe('test canvas class', () => {
 		});
 	});
 
+	it('test loadImage with string', () => {
+		let img: HTMLImageElement = document.createElement('img');;
+		canvas.loadImage(img);
+	});
 });

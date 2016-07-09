@@ -6,8 +6,8 @@ module.exports = function(config) {
 		basePath: '../src/',
 		frameworks: ['jasmine-jquery', 'jasmine'],
 	        preprocessors: {
-			'index.unit.spec.ts': ['webpack', 'sourcemap', 'coverage'],
-			// '**/!(*spec).ts': ['coverage'],
+			'index.unit.spec.ts': ['webpack', 'sourcemap', 'sourcemap-writer'],
+			'coverage.ts': ['webpack', 'sourcemap', 'coverage'],
 		},
 
 		coverageReporter: {
@@ -30,21 +30,16 @@ module.exports = function(config) {
 		remapIstanbulReporter: {
 			src: 'coverage/coverage-final.json',
 			reports: {
-				html: 'coverage'
+				html: 'coverage',
 			},
 			timeoutNotCreated: 1000,
 			timeoutNoMoreFiles: 1000
 		},
 
-		webpack: {
-			module: webpackConfig.module,			
-			resolve: webpackConfig.resolve,
-			devtool: '#source-map',
-		},
+		webpack: webpackConfig,
 
 		files: [
 			'index.unit.spec.ts',
-			{pattern: '**/*.map', included: false},
 			{pattern: '**/*ts', included: false},
 			'**/*.json',
 		],
@@ -105,6 +100,7 @@ module.exports = function(config) {
 			require('karma-firefox-launcher'),
 			require('karma-phantomjs-launcher'),
 			require('karma-sourcemap-loader'),
+			require('karma-sourcemap-writer'),
 			require('karma-coverage'),
 			require('karma-remap-istanbul'),
 		],
