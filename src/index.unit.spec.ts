@@ -1,8 +1,8 @@
-require('angular');
-require('angular-mocks');
-require('ui-router');
-require('lodash');
-require('jQuery');
+// require('angular');
+// require('angular-mocks');
+// require('ui-router');
+// require('lodash');
+// require('jQuery');
 
 // this is for compiler warning
 Object.defineProperty(window, '$', {value: jQuery});

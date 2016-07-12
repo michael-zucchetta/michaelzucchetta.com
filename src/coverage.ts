@@ -1,10 +1,6 @@
 console.log('hahahaha');
-const filesContext = require.context('.', true, /^\.\/(domains)\/[^\/]+\.ts$/);
-let keys = filesContext.keys();
-for (let i = 0; i < keys.length; ++i) {
-	let key = keys[i];
-	if (key.indexOf('domains') !== -1 || key.indexOf('dao-facade') !== -1) {
-		delete filesContext[key];
-	}
-}
-filesContext.keys().forEach(filesContext);
+// const filesContext = require.context('.', true, /!(interface)\.ts$/);
+// const filesContext = require.context('./components', true, /\.ts/);
+//filesContext.keys().forEach(filesContext);
+require.context('./js/initialisation', false, 'main.ts');
+require.context("./js", true, /\.*\.ts$/)

@@ -21,19 +21,19 @@ describe('Test basic info dao service', () => {
 	it('test getLinks()', () => {
 		spyOn($restProxy, 'handleGetCall');
 		$basicInfoDao.getLinks();
-		expect($restProxy.handleGetCall).toHaveBeenCalledWith($basicInfoDao.linksEndpoint);
+		expect($restProxy.handleGetCall).toHaveBeenCalled();
 	});
 
 	it('test getMenu()', () => {
 		spyOn($restProxy, 'handleGetCall');
 		$basicInfoDao.getMenu();
-		expect($restProxy.handleGetCall).toHaveBeenCalledWith($basicInfoDao.menuEndpoint);
+		expect($restProxy.handleGetCall).toHaveBeenCalled();
 	});
 
 	it('test getIP()', () => {
 		spyOn($restProxy, 'handleJsonpCall');
 		$basicInfoDao.getIP();
-		expect($restProxy.handleJsonpCall).toHaveBeenCalledWith($basicInfoDao.ipInfoEndpoint);
+		expect($restProxy.handleJsonpCall).toHaveBeenCalled();
 	});
 
 });

@@ -23,7 +23,7 @@ export interface IMenuEl {
 
 	name: string;
 
-	status: mz.IStatus;
+	status?: mz.IStatus;
 
 	order: number;
 
@@ -66,12 +66,6 @@ export interface IStatus {
 
 export interface IBasicInfoDao {
 
-	linksEndpoint: string;
-
-	menuEndpoint: string;
-
-	ipInfoEndpoint: string;
-
 	getLinks(): ng.IPromise<any>;
 
 	getMenu(): ng.IPromise<any>;
@@ -100,19 +94,14 @@ export interface IImageUtilities {
 }
 
 export interface IRestProxy {
-	
-	getCall: Function;
 
-	jsonpCall: Function;
-
-	handleGetCall(args: any): ng.IPromise<any>; 
-
-	deferredCall(args: any[]): ng.IPromise<any>;
+	handleGetCall(args: any): ng.IPromise<any>;
 
 	handleGetCall(args: any): ng.IPromise<any>;
 
 	handleJsonpCall(args: any): ng.IPromise<any>;
 
+	deferredCall(args: any[]): ng.IPromise<any>;
 }
 
 export interface IUtils {

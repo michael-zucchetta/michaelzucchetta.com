@@ -1,13 +1,14 @@
 var webpackConfig = require('../webpack.config');
 
 module.exports = function(config) {
-	config.set({
-		//Neded for avoiding absolute Path
+	var configuration = {
+		//Needed for avoiding absolute Path
 		basePath: '../src/',
 		frameworks: ['jasmine-jquery', 'jasmine'],
-	        preprocessors: {
-			'index.unit.spec.ts': ['webpack', 'sourcemap', 'sourcemap-writer'],
-			'coverage.ts': ['webpack', 'sourcemap', 'coverage'],
+		preprocessors: {
+			'index.unit.spec.ts': ['webpack', 'sourcemap', 'coverage'],
+			'**/*.ts': ['sourcemap'],
+			// 'coverage.ts': ['webpack', 'coverage'],
 		},
 
 		coverageReporter: {
@@ -31,14 +32,24 @@ module.exports = function(config) {
 			src: 'coverage/coverage-final.json',
 			reports: {
 				html: 'coverage',
+				'text': null,
 			},
 			timeoutNotCreated: 1000,
 			timeoutNoMoreFiles: 1000
 		},
 
-		webpack: webpackConfig,
+		webpack: {
+			resolve: webpackConfig.resolve,
+			module: webpackConfig.module,
+			verbose: true,
+			devtool: 'inline-source-map',
+		},
 
 		files: [
+			'../lib/angular/angular.min.js',
+			'../lib/angular-mocks/angular-mocks.js',
+			'../lib/ui-router/release/angular-ui-router.min.js',
+			'../lib/lodash/dist/lodash.min.js',
 			'index.unit.spec.ts',
 			{pattern: '**/*ts', included: false},
 			'**/*.json',
@@ -50,7 +61,7 @@ module.exports = function(config) {
 		// test results reporter to use
 		// reporters: ['progress', 'coverage', 'karma-remap-istanbul', 'html'],
 		reporters: ['progress', 'html', 'coverage', 
-			'karma-remap-istanbul'
+			// 'karma-remap-istanbul'
 		],
 
 		// used to see the page on the browser
@@ -104,5 +115,12 @@ module.exports = function(config) {
 			require('karma-coverage'),
 			require('karma-remap-istanbul'),
 		],
-	});
+	};
+	/* configuration.webpack.module.postLoaders = [{
+		test: /\.ts$/,
+		exclude: /(node_modules|lib)/,
+		loader: 'istanbul-instrumenter'
+	}];
+	*/
+	config.set(configuration);
 };

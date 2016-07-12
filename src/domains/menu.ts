@@ -3,7 +3,7 @@ interface IMenuEl {
 
 	name: string;
 
-	status: mz.IStatus;
+	status?: mz.IStatus;
 
 	order: number;
 

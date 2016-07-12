@@ -3,22 +3,22 @@ import mz from 'domains';
 
 export default class Utils {
 
+	public static addElementToMenu(menuCollector: mz.IMenuEl[], element: mz.IMenuEl): mz.IMenuEl[] {
+		if (element && !element.parentId) {
+			menuCollector[element.id] = angular.copy(element);
+		} else {
+			if (!menuCollector[element.parentId].children) {
+				menuCollector[element.parentId].children = [];
+			}
+			menuCollector[element.parentId].children.push(element);
+		}
+
+		return menuCollector;
+	}
+
 	public static initializeMenu(rawMenu: mz.IMenuEl[]): mz.IMenuEl[] {
 		let menu: mz.IMenuEl[] = [];
-		rawMenu.forEach((element: mz.IMenuEl) => {
-			if (!element.parentId) {
-				menu[element.id] = angular.copy(element);
-			} else {
-				if (!menu[element.parentId].children) {
-					menu[element.parentId].children = [];
-				}
-				menu[element.parentId].children.push(element);
-			}
-
-			if (element.id in menu) {
-				return;
-			}
-		});
+		_.reduce(rawMenu, Utils.addElementToMenu, menu);
 		return _.compact(menu);
 	}
 

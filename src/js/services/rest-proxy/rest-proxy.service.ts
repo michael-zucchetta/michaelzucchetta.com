@@ -1,17 +1,14 @@
-import mz from 'domains';
+class RestProxy {
 
-class RestProxy implements  mz.IRestProxy {
+	private getCall: Function = this.$http.get;
 
-	getCall: Function = this.$http.get;
-
-	jsonpCall: Function = this.$http.jsonp;
+	private jsonpCall: Function = this.$http.jsonp;
 
 	constructor(private $q: ng.IQService, private $http: ng.IHttpService) {
 	}
 
 	public handleGetCall(args: any): ng.IPromise<any> {
-		return this.deferredCall(Array.prototype.concat.apply([this.getCall], arguments));
-	}
+		return this.deferredCall(Array.prototype.concat.apply([this.getCall], arguments)); }
 
 	public handleJsonpCall(args: any): ng.IPromise<any> {
 		return this.deferredCall(Array.prototype.concat.apply([this.jsonpCall], arguments));
@@ -21,7 +18,7 @@ class RestProxy implements  mz.IRestProxy {
 		return response.data && response.data.data || response.data;
 	}
 
-	deferredCall(args: any[]): ng.IPromise<any> {
+	public deferredCall(args: any[]): ng.IPromise<any> {
 		let fn: any = Array.prototype.shift.call(args);
 		let deferred: ng.IDeferred<any> = this.$q.defer();
 		fn.apply(undefined, args).then((response: any) => {
