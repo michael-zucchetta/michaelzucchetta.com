@@ -28,8 +28,6 @@
         "src/directives/text-editor/text-editor.ts",
         "src/domains/angular-component-css.ts",
         "src/domains/index.ts",
-        "src/domains/rgb.ts",
-        "src/domains/session.ts",
         "src/js/classes/BaseClass.ts",
         "src/js/classes/Constants.ts",
         "src/js/classes/Keys.ts",

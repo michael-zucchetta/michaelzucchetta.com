@@ -24,7 +24,7 @@ class ImageUtilities implements mz.IImageUtilities {
 	}
 
 	public createImage(hash: string): HTMLImageElement {
-		let image: HTMLImageElement = new Image();
+		const image: HTMLImageElement = new Image();
 		image.src = hash;
 		return image;
 	}

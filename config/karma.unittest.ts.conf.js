@@ -6,7 +6,7 @@ module.exports = function(config) {
 		basePath: '../src/',
 		frameworks: ['jasmine-jquery', 'jasmine'],
 		preprocessors: {
-			'index.unit.spec.ts': ['sourcemap', 'webpack'],
+			'index.unit.spec.ts': ['coverage', 'sourcemap', 'webpack'],
 			// '**/*(!spec).ts': ['coverage'],
 			'coverage.ts': ['coverage', 'webpack'],
 		},

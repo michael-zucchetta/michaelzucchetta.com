@@ -22,21 +22,6 @@ module.exports = function(grunt) {
 				logConcurrentOutput: true,
 			},
 		},
-		instrument: {
-			ignore: [],                   /* [1] */
-			files: [
-			{
-				src: 'src/**/*.js',       /* [2] */
-				expand: true,
-				cwd: 'lib',           /* [3] */
-				dest: 'test/src'      /* [4] */
-			}
-			]
-		},
-		report: {
-			reports: ['html', 'text-summary'],    /* [5] */
-			dest: 'coverage'                      /* [6] */
-		},
 		concat: {
 			"build-ts": {
 				src: [
@@ -185,6 +170,7 @@ module.exports = function(grunt) {
 				inline: true,
 				failOnError: false,
 				watch: true,
+				devtool: 'source-map',	
 			},
 		},
 		"webpack-dev-server": {
@@ -213,7 +199,6 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks("grunt-contrib-sass");
 	grunt.loadNpmTasks("grunt-contrib-watch");
 	grunt.loadNpmTasks("grunt-concurrent");
-	grunt.loadNpmTasks("grunt-istanbul");
 	grunt.loadNpmTasks("grunt-karma");
 	grunt.loadNpmTasks("grunt-newer");
 	grunt.loadNpmTasks("grunt-protractor-runner");

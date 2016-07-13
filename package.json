@@ -79,6 +79,7 @@
   },
   "scripts": {
     "run": "npm run webpack",
+    "server": "nohup forever start server.js &",
     "build": "webpack",
     "dev": "webpack-dev-server --inline --host=localhost --content-base='/dist/' --port 12310",
     "http": "forever server.js",

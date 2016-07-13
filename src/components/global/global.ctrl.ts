@@ -45,9 +45,11 @@ export default class GlobalCtrl {
 		let line1Cursor: any = document.querySelector('.line1 .white-cursor');
 		let websiteContent: any = document.querySelector('.website-content');
 		setTimeout(() => {
-			// for safari	
+			// for safari
 			websiteContent.style.animationPlayState = 'running';
 			websiteContent.style.webkitAnimationPlayState = 'running';
+			// for IE11
+			websiteContent.style.mzAnimationPlayState = 'running';
 		});
 
 		websiteContent.addEventListener('animationend', () => {
