@@ -4,13 +4,11 @@ module.exports = function(config) {
 	var configuration = {
 		//Needed for avoiding absolute Path
 		basePath: '../src/',
-		frameworks: ['jasmine-jquery', 'jasmine',
-			'source-map-support'
-		],
+		frameworks: ['jasmine-jquery', 'jasmine'],
 		preprocessors: {
-			'index.unit.spec.ts': ['coverage', 'sourcemap', 'webpack'],
+			'index.unit.spec.ts': ['sourcemap', 'webpack'],
 			// '**/*(!spec).ts': ['coverage'],
-			// 'coverage.ts': ['webpack', 'coverage'],
+			'coverage.ts': ['coverage', 'webpack'],
 		},
 
 		coverageReporter: {
@@ -46,7 +44,9 @@ module.exports = function(config) {
 			resolve: webpackConfig.resolve,
 			module: webpackConfig.module,
 			verbose: true,
-		      	devtool: 'inline-source-map',
+		      	// devtool: 'inline-source-map',
+		      	// to debug, eval is necessary
+			devtool: 'eval',
 		      	separateStylesheet: true,
 		      	debug: true,
 		      	devServer: true,
@@ -61,6 +61,7 @@ module.exports = function(config) {
 			'../lib/ui-router/release/angular-ui-router.min.js',
 			'../lib/lodash/dist/lodash.min.js',
 			'index.unit.spec.ts',
+			'coverage.ts',
 			{pattern: '**/*ts', included: false},
 			'**/*.json',
 		],

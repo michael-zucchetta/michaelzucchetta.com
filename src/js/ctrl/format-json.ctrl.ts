@@ -1,5 +1,4 @@
 import 'js/services/utils';
-import Constants from 'js/services/constants';
 import mz from 'domains';
 
 class FormatJsonCtrl {
@@ -17,5 +16,6 @@ class FormatJsonCtrl {
 
 FormatJsonCtrl.$inject = ['UtilitiesService'];
 
-export default angular.module(Constants.MAIN_MODULE).
-	controller('FormatJsonCtrl', FormatJsonCtrl);
+export default angular.module('FormatJson', []).
+	controller('FormatJsonCtrl', FormatJsonCtrl)
+	.name;

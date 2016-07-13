@@ -1,5 +1,3 @@
-import Constants from 'js/services/constants';
-
 class CharactersCountCtrl {
 
 	public analysedText: string;
@@ -15,5 +13,6 @@ class CharactersCountCtrl {
 	}
 }
 
-export default angular.module(Constants.MAIN_MODULE)
-	.controller('CharactersCountCtrl', CharactersCountCtrl);
+export default angular.module('CharactersCount', [])
+	.controller('CharactersCountCtrl', CharactersCountCtrl)
+	.name;

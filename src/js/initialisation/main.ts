@@ -81,7 +81,9 @@ AngularBootstrap.$inject = ['$stateProvider', '$locationProvider',
 
 module.config(AngularBootstrap);
 
-export default angular.module(Constants.MAIN_MODULE).name;
+/* necessary for lazyLoad, momentarily disabled
 angular.element().ready(() => {
-	angular.bootstrap(document, [Constants.MAIN_MODULE]);
+	// angular.bootstrap(document, [Constants.MAIN_MODULE]);
 });
+*/
+export default angular.module(Constants.MAIN_MODULE).name;

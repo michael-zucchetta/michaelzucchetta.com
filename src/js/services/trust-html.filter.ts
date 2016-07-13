@@ -1,10 +1,9 @@
-import Constants from 'js/services/constants';
-
 let trustHtmlFilter: Function = ($sce: ng.ISCEService): Function => {
 	return (value: string, type: string) => $sce.trustAs(type || 'html', value);
 };
 
 trustHtmlFilter.$inject = ['$sce'];
 
-export default angular.module(Constants.MAIN_MODULE)
-	.filter('TrustHtmlFilter', trustHtmlFilter);
+export default angular.module('TrustHtmlFilter', [])
+	.filter('TrustHtmlFilter', trustHtmlFilter)
+	.name;
