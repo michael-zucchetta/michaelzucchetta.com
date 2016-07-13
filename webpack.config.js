@@ -35,6 +35,12 @@ module.exports = {
 			{ test: /\.html$/, loader: 'html-loader' },
 			{ test: /\.scss$/, loaders: ['style', 'css','sass'] },
 		],
+		preLoaders: [
+      			{
+        			test: /\.js$/,
+        			loader: "source-map-loader",
+      			}
+    		]
 	},
 	resolveLoader: {
 		root: [

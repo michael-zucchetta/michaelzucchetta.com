@@ -8,5 +8,5 @@
 Object.defineProperty(window, '$', {value: jQuery});
 
 // const testsContext: __WebpackModuleApi.RequireContext = require.context('.', true, /\.unit.spec$/);
-const testsContext = require.context('.', true, /\.unit.spec$/);
+const testsContext = require.context('.', true, /\.unit\.spec.ts/);
 testsContext.keys().forEach(testsContext);

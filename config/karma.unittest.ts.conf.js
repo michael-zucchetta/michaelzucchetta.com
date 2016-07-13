@@ -4,16 +4,20 @@ module.exports = function(config) {
 	var configuration = {
 		//Needed for avoiding absolute Path
 		basePath: '../src/',
-		frameworks: ['jasmine-jquery', 'jasmine'],
+		frameworks: ['jasmine-jquery', 'jasmine',
+			'source-map-support'
+		],
 		preprocessors: {
-			'index.unit.spec.ts': ['webpack', 'sourcemap', 'coverage'],
-			'**/*.ts': ['sourcemap'],
+			'index.unit.spec.ts': ['coverage', 'sourcemap', 'webpack'],
+			// '**/*(!spec).ts': ['coverage'],
 			// 'coverage.ts': ['webpack', 'coverage'],
 		},
 
 		coverageReporter: {
 			dir: '../coverage/',
-			reporters: [{
+			reporters: [
+			{ type: 'text-summary' },
+			{
 				type: 'json',
 				subdir: '.', 
 				file: 'coverage-final.json'
@@ -29,12 +33,12 @@ module.exports = function(config) {
 		},
 
 		remapIstanbulReporter: {
-			src: 'coverage/coverage-final.json',
+			src: './coverage/coverage-final.json',
 			reports: {
-				html: 'coverage',
+				html: './coverage/report/',
 				'text': null,
 			},
-			timeoutNotCreated: 1000,
+			timeoutNotCreated: 5000,
 			timeoutNoMoreFiles: 1000
 		},
 
@@ -42,7 +46,13 @@ module.exports = function(config) {
 			resolve: webpackConfig.resolve,
 			module: webpackConfig.module,
 			verbose: true,
-			devtool: 'inline-source-map',
+		      	devtool: 'inline-source-map',
+		      	separateStylesheet: true,
+		      	debug: true,
+		      	devServer: true,
+		      	noHappypack: true,
+		      	testEnv: true,
+			verbose: true,
 		},
 
 		files: [
@@ -59,9 +69,8 @@ module.exports = function(config) {
 		],
 
 		// test results reporter to use
-		// reporters: ['progress', 'coverage', 'karma-remap-istanbul', 'html'],
 		reporters: ['progress', 'html', 'coverage', 
-			// 'karma-remap-istanbul'
+			'karma-remap-istanbul'
 		],
 
 		// used to see the page on the browser
@@ -111,7 +120,8 @@ module.exports = function(config) {
 			require('karma-firefox-launcher'),
 			require('karma-phantomjs-launcher'),
 			require('karma-sourcemap-loader'),
-			require('karma-sourcemap-writer'),
+			require('karma-source-map-support'),
+			// require('karma-sourcemap-writer'),
 			require('karma-coverage'),
 			require('karma-remap-istanbul'),
 		],
@@ -122,5 +132,21 @@ module.exports = function(config) {
 		loader: 'istanbul-instrumenter'
 	}];
 	*/
+	configuration.webpack.module.postLoaders =  [
+	   {
+                test: /\.(js|ts)$/,
+                loader: 'istanbul-instrumenter-loader',
+                exclude: [
+                    /node_modules/,
+                    /tests/,
+                    /\.(e2e|spec)\.ts$/
+                ]
+            },
+	/*{ //delays coverage til after tests are run, fixing transpiled source coverage error
+         test: /\.(js|ts)$/,
+         exclude: /(node_modules)\//,
+         loader: 'sourcemap-istanbul-instrumenter?force-sourcemap',
+       }*/
+       ];
 	config.set(configuration);
 };
