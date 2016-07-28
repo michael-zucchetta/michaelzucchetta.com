@@ -20,3 +20,6 @@ Then:
 - grunt dev for running grunt in dev mode: watch for coffee, sass, jshint is active
 - grunt karma for running grunt with karma
 - grunt protractor for running protractor once
+
+
+The graphics are a tentative to reproduce how i3 looks like https://i3wm.org/

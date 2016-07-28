@@ -19,7 +19,7 @@ describe('test canvas class', () => {
 	});
 
 	it('test getPixelValue of the first pixel', () => {
-		let pixel: mz.IRGB = canvas.getPixelValue(0, 0);
+		const pixel: mz.IRGB = canvas.getPixelValue(0, 0);
 		expect(pixel).toEqual({
 			r: 200,
 			g: 0,
@@ -29,7 +29,7 @@ describe('test canvas class', () => {
 	});
 
 	it('test loadImage with string', () => {
-		let img: HTMLImageElement = document.createElement('img');;
+		const img: HTMLImageElement = document.createElement('img');
 		canvas.loadImage(img);
 	});
 });

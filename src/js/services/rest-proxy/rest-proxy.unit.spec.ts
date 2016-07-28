@@ -17,7 +17,7 @@ describe('test RestProxy', () => {
 	beforeEach(module(restProxyModule));
 
 	beforeEach(inject((_RestProxy_: mz.IRestProxy, _$rootScope_: ng.IRootScopeService,
-			_$q_: ng.IQService, _$httpBackend_: ng.IHttpBackendService, _$http_) => {
+			_$q_: ng.IQService, _$httpBackend_: ng.IHttpBackendService, _$http_: ng.IHttpService) => {
 		$restProxy = _RestProxy_;
 		$rootScope = _$rootScope_;
 		$q = _$q_;

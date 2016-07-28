@@ -38,8 +38,8 @@ export interface IMenuEl {
 
 export interface IRGB {
 	r: number;
-	b: number;
 	g: number;
+	b: number;
 	opacity: number;
 }
 

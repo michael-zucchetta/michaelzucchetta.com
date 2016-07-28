@@ -1,7 +1,7 @@
 import mz from 'domains';
 
 export class BasicInfoDao {
-	
+
 	private linksEndpoint: string = 'js/mocks/links.json';
 
 	private menuEndpoint: string = 'js/mocks/menu.json';

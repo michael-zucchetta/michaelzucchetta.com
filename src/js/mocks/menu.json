@@ -1,5 +1,17 @@
 [
 	{
+		"id": 0,
+		"name": "Home",
+		"title": "Home",
+		"order": "1",
+		"parentId": null,
+		"active": true,
+		"definition": {
+			"url": "/home.html",
+			"component": "home"
+		}
+	},
+	{
 		"id": 1,
 		"name": "AboutMe",
 		"title": "About Me",
@@ -22,9 +34,21 @@
 	},
 	{
 		"id": 3,
+		"name": "ConvertHexToRgb",
+		"title": "Hexadecimal to RGB converter",
+		"order": 1,
+		"parentId": 2,
+		"active": true,
+		"definition": {
+			"url": "/hex-rgb-converter.html",
+			"component": "hexRgbConverter"
+		}
+	},
+	{
+		"id": 8,
 		"name": "PickColors",
 		"title": "Pick color from image",
-		"order": 1,
+		"order": 9,
 		"parentId": 2,
 		"active": true,
 		"definition": {

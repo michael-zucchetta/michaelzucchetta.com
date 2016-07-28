@@ -4,8 +4,8 @@ import mz from 'domains';
 
 describe('Test Utils', () => {
 
-	let menuItem1;
-	let menuItem2;
+	let menuItem1: mz.IMenuEl;
+	let menuItem2: mz.IMenuEl;
 
 	beforeEach(() => {
 		menuItem1 = {
@@ -28,8 +28,8 @@ describe('Test Utils', () => {
 
 	it('test addElementToMenu', () => {
 		let rawMenu: mz.IMenuEl[] = [];
-		const resultMenu = Utils.addElementToMenu(rawMenu, menuItem1);
-		let compareMenu = []
+		const resultMenu: mz.IMenuEl[] = Utils.addElementToMenu(rawMenu, menuItem1);
+		let compareMenu: mz.IMenuEl[] = [];
 		compareMenu[1] = menuItem1;
 		expect(resultMenu).toEqual(compareMenu);
 	});
@@ -37,15 +37,16 @@ describe('Test Utils', () => {
 	it('test addElementToMenu with parentId', () => {
 		let rawMenu: mz.IMenuEl[] = [];
 		rawMenu[1] = menuItem1;
-		const resultMenu = Utils.addElementToMenu(rawMenu, menuItem2);
+		const resultMenu: mz.IMenuEl[] = Utils.addElementToMenu(rawMenu, menuItem2);
 		let compareMenu: mz.IMenuEl[] = [];
 		compareMenu[1] = menuItem1;
 		compareMenu[1].children = [menuItem2];
+		expect(resultMenu).toEqual(compareMenu);
 	});
 
 	it('test initializeMenu', () => {
 		let rawMenu: mz.IMenuEl[] = [];
-		const menuItem2: mz.IMenuEl = {
+		menuItem2 = {
 			id: 2,
 			parentId: 1,
 			name: 'Menu Element 2',

@@ -77,6 +77,9 @@ body {
 	
 	.menu-container {
 		position: absolute;
+		height: calc(100% - #{$bottom-bar-height} - #{$border-width * 2});
+		top: 0px;
+		background-color: $black;
 	}
 }
 
@@ -157,6 +160,9 @@ pre.ascii-text {
 	span {
 		white-space: pre-wrap;
 		display: inline-table;
+		&.ascii-space {
+			display: inline-block;
+		}
 	}
 }
 

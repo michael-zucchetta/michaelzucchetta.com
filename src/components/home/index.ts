@@ -10,6 +10,6 @@ let homeOpts: mz.IComponentOptionsCss = {
 };
 
 export default angular.module('home', ['ui.router', services])
-	.config(routes)
+//	.config(routes)
 	.component('home', homeOpts)
 	.name;

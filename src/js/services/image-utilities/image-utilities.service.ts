@@ -2,10 +2,10 @@ import mz from 'domains';
 
 class ImageUtilities implements mz.IImageUtilities {
 
-	constructor(private $q: ng.IQService, private $interval: ng.IIntervalService, private FilesUtilities: mz.IFileUtilities) {}
+	constructor(private $q: ng.IQService, private $interval: ng.IIntervalService, private FileUtilities: mz.IFileUtilities) {}
 
 	public loadImage(file: File, callback: Function): void {
-		this.FilesUtilities.loadFile(file).then((resolvedFile: any) => {
+		this.FileUtilities.loadFile(file).then((resolvedFile: any) => {
 			let img: HTMLImageElement = this.createImage(resolvedFile.target.result);
 			this.onCompleteImg(img)
 				.then(() => callback(img));
@@ -48,13 +48,13 @@ class ImageUtilities implements mz.IImageUtilities {
 	}
 
 	public fromRgbToHex(point: mz.IRGB): string {
-		let opacity: number = this.floatOpacity(point.opacity);
+		const opacity: number = this.floatOpacity(point.opacity);
 		return '#' + this.calculateVal(point.r, opacity) + this.calculateVal(point.g, opacity) + this.calculateVal(point.b, opacity);
 	}
 }
 
-let imageUtilitiesFactory: Function = ($q: ng.IQService, $interval: ng.IIntervalService, FilesUtilities: any): ImageUtilities => {
-	return new ImageUtilities($q, $interval, FilesUtilities);
+let imageUtilitiesFactory: Function = ($q: ng.IQService, $interval: ng.IIntervalService, FileUtilities: any): ImageUtilities => {
+	return new ImageUtilities($q, $interval, FileUtilities);
 };
 
 export default imageUtilitiesFactory;

@@ -40,6 +40,7 @@ let RouteProvider: Function = ($stateProvider: angular.ui.IStateProvider,
 		$route.setRouteDinamically = (menu: mz.IMenuEl[]): void => {
 			_.each(menu, (menuItem: mz.IMenuEl) => {
 				if (menuItem.active) {
+					console.log('putting element in menu', menuItem);
 					$route.state(menuItem.name, menuItem.definition);
 				}
 			});

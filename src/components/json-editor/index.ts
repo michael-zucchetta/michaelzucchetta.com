@@ -2,12 +2,12 @@ import JsonEditorCtrl from './json-editor.ctrl';
 
 import mz from 'domains';
 
-let jsonEditorOpts: mz.IComponentOptionsCss = {
+const jsonEditorOpts: mz.IComponentOptionsCss = {
 	bindings: {
 		jsonText: '='
 	},
 	css: require('./json-editor.scss'),
-	templateUrl: ('./json-editor.html'),
+	templateUrl: require('./json-editor.html'),
 	controller: JsonEditorCtrl
 };
 
