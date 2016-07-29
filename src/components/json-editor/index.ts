@@ -7,7 +7,7 @@ const jsonEditorOpts: mz.IComponentOptionsCss = {
 		jsonText: '='
 	},
 	css: require('./json-editor.scss'),
-	templateUrl: require('./json-editor.html'),
+	template: require('./json-editor.html'),
 	controller: JsonEditorCtrl
 };
 

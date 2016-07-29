@@ -3,13 +3,32 @@
 	<div>
 		<span>Hexadecimal value:</span>
 		<span>
-			<input type="text" ng-model="hexValue"/>
+			<input type="text"
+	  			max="7"
+      				min="4"
+	  			ng-pattern="$ctrl.hexValueRegex"
+				ng-paste="$ctrl.pasteHexValue($event)"
+	  			ng-model="$ctrl.inputHexValue"/>
 		</span>
 	</div>
 	<div>
 		<span>RGB result:</span>
-		<span>
-			<input type="text" ng-model="hexValue"/>
+		<span class="rgb-result">
+			<span>
+				r:
+				<input type="text" type="number" min="0" max="255"
+					ng-model="$ctrl.resultRgbValue.r"/>
+			</span>
+			<span>
+				g:
+				<input type="text" type="number" min="0" max="255"
+					ng-model="$ctrl.resultRgbValue.g"/>
+			</span>
+			<span>
+				b:
+				<input type="text" type="number" min="0" max="255"
+					ng-model="$ctrl.resultRgbValue.b"/>
+			</span>
 		</span>
 	</div>
 </div>

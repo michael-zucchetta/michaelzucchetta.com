@@ -4,6 +4,7 @@ import mz from 'domains';
 
 const hexRgbConverterComponent: mz.IComponentOptionsCss = {
 	template: require('./hex-rgb-converter.html'),
+	css: require('./hex-rgb-converter.scss'),
 	controller: hexRgbConverterController,
 	controllerAs: '$ctrl',
 };
