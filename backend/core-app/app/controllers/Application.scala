@@ -6,7 +6,7 @@ import core.db.MongoFactory;
 object Application extends Controller {
 
   val mongoFactory = MongoFactory;
-
+  
   def index = Action {
     Ok(views.html.main())
   }
@@ -14,14 +14,12 @@ object Application extends Controller {
   def firstEndpoint = Action {
     Ok("working 2.1" + mongoFactory.getString())
   }
-  
+
   def secondEndpoint = Action {
     val connection = mongoFactory.getConnection()
     val dbs = connection.getDatabaseNames()
     var buildDbNames = ""
-    for(db <- dbs){
-      buildDbNames += db + "\n"
-    }
+    buildDbNames = dbs.reduceLeft(_ + _ + "\n")
     Ok("working 3 \n" + buildDbNames)
   }
 
