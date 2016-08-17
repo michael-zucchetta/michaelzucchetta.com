@@ -13,7 +13,7 @@ libraryDependencies ++= Seq(
     "org.slf4j" % "slf4j-simple" % "1.6.4",
     "javax.inject" % "javax.inject" % "1",
     "org.mindrot" % "jbcrypt" % "0.3m",
-    "be.objectify" %% "deadbolt-scala" % "2.4.3"
+    "be.objectify" %% "deadbolt-scala" % "2.5.0"
 )
 
 
