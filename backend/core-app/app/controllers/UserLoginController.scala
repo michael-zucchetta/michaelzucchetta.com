@@ -1,5 +1,7 @@
 package controllers
 
+import auth.MyDeadboltHandler
+
 import be.objectify.deadbolt.scala.{ActionBuilders, DeadboltActions}
 
 import org.mindrot.jbcrypt.BCrypt
@@ -21,7 +23,7 @@ import javax.inject.Inject
 
 case class Login(var _id: Option[String], name: String, surname: String, email: String, var password: String, var confirmed: Boolean, var activated: Boolean)
 
-	class UserLoginController @Inject()(deadbolt: DeadboltActions)  extends Controller {
+	class UserLoginController @Inject()(deadbolt: DeadboltActions, actionBuilder: ActionBuilders)  extends Controller {
 
 		implicit val loginFormat = Json.format[Login]
 
@@ -34,10 +36,19 @@ case class Login(var _id: Option[String], name: String, surname: String, email: 
 		def checkHash(str: String, strHashed: String): Boolean = {
 			BCrypt.checkpw(str,strHashed)
 		}
+                
+                def index = deadbolt.WithAuthRequest()() { authRequest =>
+                    Future {
+                      new MyDeadboltHandler
+                      Ok("si")
+                      //Ok((new MyDeadboltHandler)(authRequest))
+                    }
+                }
 
-		def getLogin() = deadbolt.SubjectNotPresent()() { authRequest =>
+		def getLogin() = deadbolt.SubjectPresent()() { authRequest =>
 			Future {
-				Ok("ciao")
+				
+                          Ok("ciao")
 			}
 		}
 		def createUser() = deadbolt.Restrict(List(Array("foo")))() { implicit request =>

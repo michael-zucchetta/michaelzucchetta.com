@@ -7,6 +7,10 @@ import models.User
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent._
 
+/**
+ *
+ * @author Steve Chaloner (steve@objectify.be)
+ */
 class MyDeadboltHandler(dynamicResourceHandler: Option[DynamicResourceHandler] = None) extends DeadboltHandler {
 
   def beforeAuthCheck[A](request: Request[A]) = Future(None)
@@ -17,10 +21,11 @@ class MyDeadboltHandler(dynamicResourceHandler: Option[DynamicResourceHandler] =
 
   override def getSubject[A](request: AuthenticatedRequest[A]): Future[Option[Subject]] = {
     // e.g. request.session.get("user")
-    Future(Some(new User("steve")))
+    //Future(Some(new User("steve")))
+    Future(None)
   }
 
   def onAuthFailure[A](request: AuthenticatedRequest[A]): Future[Result] = {
-    Future {Results.Forbidden("forbidden")}
+    Future {Results.Forbidden("")}
   }
 }

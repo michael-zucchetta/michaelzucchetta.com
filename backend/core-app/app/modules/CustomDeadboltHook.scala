@@ -1,11 +1,10 @@
-
 package modules
 
 import be.objectify.deadbolt.scala.{DeadboltExecutionContextProvider, TemplateFailureListener}
 import be.objectify.deadbolt.scala.cache.HandlerCache
 import play.api.inject.{Binding, Module}
 import play.api.{Configuration, Environment}
-import security.{CustomDeadboltExecutionContextProvider, MyHandlerCache, MyCustomTemplateFailureListener}
+import auth.{CustomDeadboltExecutionContextProvider, MyHandlerCache, MyCustomTemplateFailureListener}
 
 /**
  * @author Steve Chaloner (steve@objectify.be)

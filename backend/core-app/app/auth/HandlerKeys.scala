@@ -2,6 +2,9 @@ package auth
 
 import be.objectify.deadbolt.scala.HandlerKey
 
+/**
+ * @author Steve Chaloner (steve@objectify.be)
+ */
 object HandlerKeys {
 
   val defaultHandler = Key("defaultHandler")

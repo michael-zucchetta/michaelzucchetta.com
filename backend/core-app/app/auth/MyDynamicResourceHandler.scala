@@ -7,6 +7,10 @@ import play.api.mvc.Request
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
+/**
+ *
+ * @author Steve Chaloner (steve@objectify.be)
+ */
 class MyDynamicResourceHandler extends DynamicResourceHandler
 {
   override def isAllowed[A](name: String, meta: Option[Any], handler: DeadboltHandler, request: AuthenticatedRequest[A]): Future[Boolean] = {

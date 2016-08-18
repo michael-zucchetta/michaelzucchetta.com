@@ -7,6 +7,11 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 
+/**
+ *
+ * @author Steve Chaloner (steve@objectify.be)
+ */
+
 object MyAlternativeDynamicResourceHandler extends DynamicResourceHandler {
   override def isAllowed[A](name: String,
     meta: Option[Any],
