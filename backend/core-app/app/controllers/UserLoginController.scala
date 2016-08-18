@@ -35,7 +35,7 @@ case class Login(var _id: Option[String], name: String, surname: String, email: 
 			BCrypt.checkpw(str,strHashed)
 		}
 
-		def getLogin() = deadbolt.Restrict(List(Array("foo")))() { implicit request =>
+		def getLogin() = deadbolt.SubjectNotPresent()() { authRequest =>
 			Future {
 				Ok("ciao")
 			}
