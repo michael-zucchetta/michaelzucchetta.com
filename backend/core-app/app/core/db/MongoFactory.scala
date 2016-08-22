@@ -7,6 +7,10 @@ object MongoFactory {
     private val SERVER = "localhost"
     private val PORT   = 27017
     private val DATABASE = "michaelzucchetta"
+   
+    private val mongoDriver = new reactivemongo.api.MongoDriver
+    private val mongoConnection = mongoDriver.connection(List("localhost:27017"))
+    
     val connection = MongoClient(SERVER, PORT)
     // val collection = connection(DATABASE)(COLLECTION)
     

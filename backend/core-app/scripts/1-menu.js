@@ -1,5 +1,4 @@
 db.menu.insert([{
-	_id: NumberLong(1),
 	name : "Home",
 	title: "Home",
 	order: NumberInt(1),
@@ -12,7 +11,6 @@ db.menu.insert([{
 	},
 },
 {
-	_id: NumberLong(2),
 	name: "AboutMe",
 	title: "About Me",
 	order: NumberInt(2),
@@ -25,7 +23,6 @@ db.menu.insert([{
 	},
 },
 {
-	_id: NumberLong(3),
 	name: "Utilities",
 	title: "Utilities",
 	order: NumberInt(3),
@@ -34,7 +31,6 @@ db.menu.insert([{
 	enabled: false,
 },
 {
-	_id: NumberLong(4),
 	name: "ConvertHexToRgb",
 	title: "Hexadecimal to RGB converter",
 	order: NumberInt(1),
@@ -47,7 +43,6 @@ db.menu.insert([{
 	},
 },
 {
-	_id: NumberLong(8),
 	name: "PickColors",
 	title: "Pick colors from image",
 	order: NumberInt(2),
@@ -60,7 +55,6 @@ db.menu.insert([{
 	},
 },
 {
-	_id: NumberLong(9),
 	name: "FormatJson",
 	title: "Json Formatter",
 	order: NumberInt(3),
@@ -73,7 +67,6 @@ db.menu.insert([{
 	},
 },
 {
-	_id: NumberLong(10),
 	name: "CharactersCount",
 	title: "Count characters/words",
 	order: NumberInt(4),
@@ -82,7 +75,6 @@ db.menu.insert([{
 	enabled: false,
 },
 {
-	_id: NumberLong(11),
 	name: "Experiments",
 	title: "Experiments",
 	order: NumberInt(3),
@@ -91,7 +83,6 @@ db.menu.insert([{
 	enabled: false,
 },
 {
-	_id: NumberInt(12),
 	name: "ImageFilters",
 	title: "Image Filters",
 	order: NumberInt(1),

@@ -15,7 +15,7 @@ POST /api/menu		controllers.MenuController.addMenuElement
 
 POST /api/login		controllers.UserLoginController.createUser
 GET /api/login		controllers.UserLoginController.getLogin
-GET /api/autn		controllers.UserLoginController.index
+GET /api/auth		controllers.UserLoginController.index
 
 GET /.+		controllers.NotFoundRouter.notFoundPage
 # Map static resources from the /public folder to the /assets URL path
