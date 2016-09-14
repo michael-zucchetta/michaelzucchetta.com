@@ -22,4 +22,10 @@ Then:
 - grunt protractor for running protractor once
 
 
-The graphics are a tentative to reproduce how i3 looks like https://i3wm.org/
+The graphics are an attempt to reproduce how i3 looks like https://i3wm.org/
+
+
+- add tracking to the backend
+- json editor with file upload
+- menu
+- cv con accesso via Linkedinu

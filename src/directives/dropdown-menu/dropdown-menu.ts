@@ -26,14 +26,26 @@ class DropdownMenuCtrl {
 		this.showMenu = !this.showMenu;
 	}
 
-	constructor() {
+	constructor(private $scope: any) {
+		this.$scope.$watch('menuEls.length', () => {
+			angular.forEach(this.$scope.menuEls, (menuEl) => {
+				menuEl.showHideMenu = () => {
+					angular.forEach(menuEl.children, (child) => {
+						child.visible = !child.visible;
+					});
+				};			
+			});
+		});
 		this.prefix = Constants.FUNCTION_PREFIX;
+
 	}
 }
 
 class DropdownMenuDirective implements ng.IDirective {
 
 	public scope: any;
+
+	public controller: Function = DropdownMenuCtrl;
 
 	constructor(private $http: ng.IHttpService, private $compile: ng.ICompileService,
 			private $timeout: ng.ITimeoutService, private DaoFacade: mz.IDaoFacade) {

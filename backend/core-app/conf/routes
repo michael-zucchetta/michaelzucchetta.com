@@ -12,10 +12,14 @@ GET     /testn3                     controllers.Application.thirdEndpoint
 GET /api/menu		controllers.MenuController.retrieveMenu
 POST /api/menu		controllers.MenuController.addMenuElement
 
+# tracking
+
+POST /api/tracker	controllers.TrackerController.trackFirstAccess
 
 POST /api/login		controllers.UserLoginController.createUser
 GET /api/login		controllers.UserLoginController.getLogin
 GET /api/auth		controllers.UserLoginController.index
+
 
 GET /.+		controllers.NotFoundRouter.notFoundPage
 # Map static resources from the /public folder to the /assets URL path

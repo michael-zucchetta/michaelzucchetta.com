@@ -20,6 +20,10 @@ $terminal-font: monospace;
 $font-size: 13px;
 $link-color: #00ffff;
 
+$menu-container-width: 300px;
+
+$double-border: $border-width * 2;
+$four-border: $border-width * 4;
 
 @mixin animation($str) {
 	-webkit-animation: #{$str};
@@ -74,12 +78,24 @@ body {
 
 .website-container {
 	height: 100%;
-	
+		
 	.menu-container {
 		position: absolute;
+		width: $menu-container-width;
 		height: calc(100% - #{$bottom-bar-height} - #{$border-width * 2});
 		top: 0px;
 		background-color: $black;
+		&.menu-visible {
+			visibility: visible;
+			.dropdown-menu-container {
+				visibility: visible;
+			}
+		}
+	}
+
+	.menu-container.menu-visible ~ .website-title, .title.terminal, .website-content {
+		width: calc(100% - #{$menu-container-width} - #{$four-border});
+		float: right;
 	}
 }
 

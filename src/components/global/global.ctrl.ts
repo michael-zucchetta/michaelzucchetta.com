@@ -55,12 +55,14 @@ export default class GlobalCtrl {
 		this.DaoFacade.getMenu()
 			.then((menuEls: mz.IMenuEl[]) => {
 			this.menu = menuEls;
-			if(this.$location.url() === '') {
+			if (this.$location.url() === '') {
 				this.$state.go('Home');
 				return;
 			}
 			const state: mz.IMenuEl = this.findMenuEl(this.menu, this.$location.url());
-
+			const menuContainer: any = document.querySelector('.menu-container');
+			// tmp for development
+			menuContainer.classList.add("menu-visible");
 			this.$state.go(state.definition.name);
 		});
 
@@ -160,7 +162,7 @@ export default class GlobalCtrl {
 
 	private getTodayDate(): void {
 		let todayDate: Date = new Date();
-		this.dateString = `${todayDate.getFullYear()}-${this.getTwoDigits(todayDate.getMonth())}-${this.getTwoDigits(todayDate.getDate())}` +
+		this.dateString = `${todayDate.getFullYear()}-${this.getTwoDigits(todayDate.getMonth())}-${this.getTwoDigits(todayDate.getDate())} - ` +
 			`${this.getTwoDigits(todayDate.getHours())}:${this.getTwoDigits(todayDate.getMinutes())}:` +
 			`${this.getTwoDigits(todayDate.getSeconds())}`;
 	}
