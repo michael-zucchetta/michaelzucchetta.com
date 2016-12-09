@@ -1,29 +1,16 @@
 package controllers
 
-import play.api.libs.json.Json
-import play.api.libs.json.JsSuccess
-import play.api.libs.json.JsResult
-import play.api.libs.json.JsString
-import play.api.libs.json.Format
-import play.api.libs.json.JsError
-import play.api.libs.json.Reads
-import play.api.libs.json.JsPath
-import play.api.libs.json.JsValue
-import play.api.libs.json.Reads._
-import play.api.mvc.{Action, Controller}
-
-import reactivemongo.bson.BSONObjectID
-import play.modules.reactivemongo.json.BSONFormats.BSONObjectIDFormat
-
-import com.mongodb.BasicDBObject
-
-import core.db.MongoFactory
 import com.mongodb.casbah.Imports.MongoDBObject
 import com.mongodb.casbah.MongoCollection
-import play.api.libs.functional.syntax._
+import core.db.MongoFactory
+import play.api.libs.json.{JsError, JsSuccess, Json}
+import play.api.mvc.{Action, Controller}
+import reactivemongo.bson.BSONObjectID
+import play.modules.reactivemongo.json._
+import reactivemongo.play.json.BSONFormats._
 
 case class MenuDefinition(url: String, component: String)
-case class MenuElement(var _id: Option[BSONObjectID], name: String, title: String, order: Int, active: Boolean, enabled: Boolean, parentId: Option[Long], definition: Option[MenuDefinition])
+case class MenuElement(_id: Option[BSONObjectID], name: String, title: String, order: Int, active: Boolean, enabled: Boolean, parentId: Option[Long], definition: Option[MenuDefinition])
 
 class MenuController extends Controller {
   
@@ -39,7 +26,7 @@ class MenuController extends Controller {
     } yield menuElement.toString
     val realMenu = tmpMenu.map(Json.parse(_).as[MenuElement])
       .filter(_.enabled)
-      Ok(Json.toJson(realMenu))
+    Ok(Json.toJson(realMenu))
   }
 
   def addMenuElement() = Action { implicit request =>
@@ -51,18 +38,23 @@ class MenuController extends Controller {
       menuElement.validate[MenuElement] match {
         case s: JsSuccess[MenuElement] => {
           val menuList: MongoCollection = MongoFactory.getCollection(menuCollection)
-          var newMenuEl = s.get
-          if (newMenuEl._id == None) {
-            val lastMenuEl = menuList
-              .find()
-              .sort(MongoDBObject("_id" -> -1))
-              .limit(1)
-              .next
-              .toString
-              val lastId = Json.parse(lastMenuEl).as[MenuElement]._id
-              newMenuEl._id = Some(BSONObjectID.generate)
-          }
-          menuList.insert(MongoDBObject(Json.toJson(newMenuEl).toString))
+          s.map(menuEl => {
+            val newMenuEl = menuEl._id match {
+              case Some(id) =>
+                menuEl
+              case None =>
+                MenuElement(
+                  _id = Some(BSONObjectID.generate),
+                  name = menuEl.name,
+                  title = menuEl.title,
+                  order = menuEl.order,
+                  active = menuEl.active,
+                  enabled = menuEl.enabled,
+                  parentId = menuEl.parentId,
+                  definition = menuEl.definition)
+            }
+            menuList.insert(MongoDBObject(Json.toJson(newMenuEl).toString))
+          })
           Ok("OK")
         }
         case e: JsError => {

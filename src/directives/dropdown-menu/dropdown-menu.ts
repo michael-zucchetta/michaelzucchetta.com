@@ -13,17 +13,17 @@ class DropdownMenuCtrl {
 
 	private showMenu: boolean;
 
+	private showWholeMenu: boolean;
+
 	public css: any = require('directives/dropdown-menu/dropdown-menu.scss');
-
-	public controller: Function = DropdownMenuCtrl;
-
-	public controllerAs: string = '$ctrl';
-
-	public restrict: string = 'A';
 
 	// add ng-click to the element that has the directive
 	public showHideMenu(): void {
 		this.showMenu = !this.showMenu;
+	}
+	
+	public showHideWholeMenu(): void {
+		this.$scope.showWholeMenu = !this.$scope.showWholeMenu;
 	}
 
 	constructor(private $scope: any) {
@@ -37,11 +37,14 @@ class DropdownMenuCtrl {
 			});
 		});
 		this.prefix = Constants.FUNCTION_PREFIX;
-
 	}
 }
 
 class DropdownMenuDirective implements ng.IDirective {
+	
+	public controllerAs: string = '$ctrl';
+	
+	public restrict: string = 'A';
 
 	public scope: any;
 
@@ -51,11 +54,11 @@ class DropdownMenuDirective implements ng.IDirective {
 			private $timeout: ng.ITimeoutService, private DaoFacade: mz.IDaoFacade) {
 		this.scope = {
 			menuEls: '=dropdownMenu',
+			showWholeMenu: '=showWholeMenu',
 		};
 	}
 
 	public template: any = (element: ng.IAugmentedJQuery) => {
-		element.attr('ng-click', 'showHideMenu()');
 		return require('directives/dropdown-menu/dropdown-menu.html');
 	}
 

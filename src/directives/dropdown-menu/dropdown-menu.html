@@ -1,4 +1,13 @@
 <div class="dropdown-menu-container" ng-class="{'hidden': !$ctrl.showMenu}">
+	<div class="icon-container">
+		<a class="mobile-menu" href="#" ng-click="$ctrl.showHideWholeMenu()">
+		  <span class="open">
+		    <span></span>
+		    <span></span>
+		    <span></span>
+		  </span>
+		</a>
+	</div>
 	<div class="menu-item"> <a>michaelzucchetta.com/</a></div>
 	<div class="menu-item" ng-repeat="item in menuEls">
 		<span class="arrow">▶</span>

@@ -110,7 +110,8 @@
 							user@michaelzucchetta.com:/home/user/
 						</span>
 					</div>
-					<span class="icon-container" dropdown-menu="$ctrl.menu">
+					P: {{ $ctrl.showWholeMenu }}
+					<span class="icon-container" dropdown-menu="$ctrl.menu" show-whole-menu="$ctrl.showWholeMenu">
 						<span class="icon"></span>
 					</span>
 				</div>
@@ -169,7 +170,7 @@
 					</div>
 					<div id="view-container" ui-view></div>
 				</div>
-				<div class="notes noselect command-init">
+				<div class="notes noselect command-init website-footer">
 					<span>213412.8 GiB</span> | 
 					<span class="green">DHCP: yes</span> | 
 					<span class="red">VPN: no</span> | 

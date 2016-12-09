@@ -11,7 +11,7 @@ Install npm and do the following (as they are used in package):
 - ./node_modules/protractor/bin/webdriver-manager update
 - npm install -g grunt-cli
 Install gem
-- isntall libsass // temp
+- install libsass // temp
 - gem install sass
 - gem install compass
 - npm install -g typings (for using it for adding dependencies)

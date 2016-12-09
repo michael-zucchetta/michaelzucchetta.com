@@ -21,11 +21,23 @@ export default class GlobalCtrl {
 
 	private websiteContent;
 
+	private showWholeMenu: boolean;
+
 	constructor(private BasicInfoDao: mz.IBasicInfoDao, private DaoFacade: mz.IDaoFacade,
-			private $interval: ng.IIntervalService, private $timeout: ng.ITimeoutService, private $state: angular.ui.IStateService, private $location: ng.ILocationService) {
+			private $interval: ng.IIntervalService, private $timeout: ng.ITimeoutService, private $state: angular.ui.IStateService, private $location: ng.ILocationService, private $scope: any) {
 		this.myLinks = [];
 		this.menu = [];
 		this.$interval(() => this.getTodayDate(), 1000);
+		this.showWholeMenu = false;
+		const menuContainer: any = document.querySelector('.menu-container');
+		$scope.$watch(() => this.showWholeMenu, () => {
+			if (!this.showWholeMenu) {
+				menuContainer.classList.remove('menu-visible');
+			} else {
+				menuContainer.classList.add('menu-visible');
+			}
+		});
+
 	}
 
 	private findMenuEl(menu: mz.IMenuEl[], url: string): mz.IMenuEl {
@@ -189,4 +201,4 @@ export default class GlobalCtrl {
 	}
 }
 
-GlobalCtrl.$inject = ['BasicInfoDao', 'DaoFacade', '$interval', '$timeout', '$state', '$location'];
+GlobalCtrl.$inject = ['BasicInfoDao', 'DaoFacade', '$interval', '$timeout', '$state', '$location', '$scope'];

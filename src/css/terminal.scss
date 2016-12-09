@@ -93,8 +93,12 @@ body {
 		}
 	}
 
-	.menu-container.menu-visible ~ .website-title, .title.terminal, .website-content {
+	.menu-container.menu-visible ~ .website-title, .menu-container.menu-visible ~ .title.terminal, .menu-container.menu-visible ~ .website-content {
 		width: calc(100% - #{$menu-container-width} - #{$four-border});
+		float: right;
+	}
+
+	.website-footer {
 		float: right;
 	}
 }

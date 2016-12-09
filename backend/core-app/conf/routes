@@ -3,24 +3,24 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index
-GET     /test                       controllers.Application.firstEndpoint
-GET     /testn2                     controllers.Application.secondEndpoint
-GET     /testn3                     controllers.Application.thirdEndpoint
+#GET     /                           controllers.Application.index
+#GET     /test                       controllers.Application.firstEndpoint
+#GET     /testn2                     controllers.Application.secondEndpoint
+#GET     /testn3                     controllers.Application.thirdEndpoint
 
 # api rest calls
 GET /api/menu		controllers.MenuController.retrieveMenu
-POST /api/menu		controllers.MenuController.addMenuElement
+#POST /api/menu		controllers.MenuController.addMenuElement
 
 # tracking
 
 POST /api/tracker	controllers.TrackerController.trackFirstAccess
 
-POST /api/login		controllers.UserLoginController.createUser
-GET /api/login		controllers.UserLoginController.getLogin
-GET /api/auth		controllers.UserLoginController.index
+#POST /api/login		controllers.UserLoginController.createUser
+#GET /api/login		controllers.UserLoginController.getLogin
+#GET /api/auth		controllers.UserLoginController.index
 
 
 GET /.+		controllers.NotFoundRouter.notFoundPage
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.versioned(path = "/public", file)
+#GET     /assets/*file               controllers.Assets.versioned(path = "/public", file)
