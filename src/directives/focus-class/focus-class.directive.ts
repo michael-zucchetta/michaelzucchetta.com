@@ -22,8 +22,10 @@ class FocusCtrl {
 		this.active = false;
 	}
 
-	public getClass(): string {
-		return this.active ? this.$scope.activeClass : this.$scope.unactiveClass;
+	public getClass(): string[] {
+		return [
+			this.active ? this.$scope.activeClass : this.$scope.unactiveClass,
+		];
 	}
 }
 
@@ -43,22 +45,27 @@ class FocusClass implements ng.IDirective {
 
 	public controllerAs: string = '$ctrl';
 
-	constructor() {
+	constructor(private $compile) {
 		this.scope = {
 			activeClass: '@active',
 			unactiveClass: '@unactive',
+			ngClass: '@ngClass',
 		};
 		this.transclude = true;
 		this.replace = true;
 		this.restrict = 'A';
 	}
 
-	public link: Function = (scope: IMyScope) => {
-		// temporary comment for tslint
+	public compile: any = (element, attrs) => {
+	      attrs.ngClass = attrs.ngClass? '[' + attrs.ngClass.replace('} ', '},') + ']' : attrs.ngClass;
+	}
+
+	public link: any = (scope, element: ng.IAugmentedJQuery) => {
 	}
 
 	public static factory(): ng.IDirectiveFactory {
-		const directive: ng.IDirectiveFactory = () => new FocusClass();
+		const directive: ng.IDirectiveFactory = (compile) => new FocusClass(compile);
+		directive.$inject = ['$compile'];
 		return directive;
 	}
 

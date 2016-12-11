@@ -104,13 +104,12 @@
 				</div>
 			</div>
 			<div class="website-container">
-				<div class="menu-container hidden terminal" focus-class active="active" unactive="unactive">
+				<div class="menu-container hidden terminal" ng-class="{'menu-visible': $ctrl.showWholeMenu}" focus-class active="active" unactive="unactive">
 					<div class="terminal-bar noselect">
 						<span>
 							user@michaelzucchetta.com:/home/user/
 						</span>
 					</div>
-					P: {{ $ctrl.showWholeMenu }}
 					<span class="icon-container" dropdown-menu="$ctrl.menu" show-whole-menu="$ctrl.showWholeMenu">
 						<span class="icon"></span>
 					</span>

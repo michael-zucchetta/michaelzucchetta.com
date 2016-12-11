@@ -28,16 +28,7 @@ export default class GlobalCtrl {
 		this.myLinks = [];
 		this.menu = [];
 		this.$interval(() => this.getTodayDate(), 1000);
-		this.showWholeMenu = false;
-		const menuContainer: any = document.querySelector('.menu-container');
-		$scope.$watch(() => this.showWholeMenu, () => {
-			if (!this.showWholeMenu) {
-				menuContainer.classList.remove('menu-visible');
-			} else {
-				menuContainer.classList.add('menu-visible');
-			}
-		});
-
+		this.showWholeMenu = true;
 	}
 
 	private findMenuEl(menu: mz.IMenuEl[], url: string): mz.IMenuEl {
@@ -72,9 +63,7 @@ export default class GlobalCtrl {
 				return;
 			}
 			const state: mz.IMenuEl = this.findMenuEl(this.menu, this.$location.url());
-			const menuContainer: any = document.querySelector('.menu-container');
-			// tmp for development
-			menuContainer.classList.add("menu-visible");
+			this.showWholeMenu = true;
 			this.$state.go(state.definition.name);
 		});
 
