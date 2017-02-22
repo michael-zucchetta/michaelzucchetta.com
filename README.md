@@ -6,6 +6,7 @@ https://github.com/VundleVim/Vundle.vim
 
 Install npm and do the following (as they are used in package):
 
+- npm install -g webpack
 - npm install -g karma-cli
 - npm install -g protractor
 - ./node_modules/protractor/bin/webdriver-manager update
