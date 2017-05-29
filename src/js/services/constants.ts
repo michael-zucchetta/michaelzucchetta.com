@@ -1,5 +1,5 @@
 let constants: any = {
-	'FUNCTIONS_PREFIX': 'functionalities',
+	'FUNCTIONALITIES_PREFIX': 'functionalities',
 	'MENU_JSON': '/js/mocks/menu.json',
 	'DEFAULT_PAGE': 'home.html',
 	'MAIN_MODULE': 'michaelzucchetta',

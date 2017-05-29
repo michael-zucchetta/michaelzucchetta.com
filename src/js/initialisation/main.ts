@@ -73,6 +73,7 @@ class AngularBootstrap implements ng.IAngularBootstrapConfig {
 		// note: You can do the same thing with the "filter"
 		// and the "$filterProvider"; but, I don't really use
 		// custom filters.
+		$locationProvider.hashPrefix('');
 	}
 };
 

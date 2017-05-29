@@ -10,13 +10,14 @@
 	</div>
 	<div class="menu-item"> <a>michaelzucchetta.com/</a></div>
 	<div class="menu-item" ng-repeat="item in menuEls">
-		<span class="arrow">▶</span>
-		<a class="menu-label" href="{{'#/' + prefix + '/' + item.id}}" ng-if="item.active" ng-click="item.showHideMenu()">{{item.title}}</a>
+		<span class="arrow" ng-if="!item.subMenuVisible || !item.children">▶</span>
+		<span class="arrow" ng-if="item.subMenuVisible && item.children">▼</span>
+		<a class="menu-label" ng-href="{{'#/' + $ctrl.prefix + '/' + item.id}}" ng-if="item.active" ng-click="item.showHideMenu()">{{item.title}}</a>
 		<span class="menu-label" ng-if="!item.active" ng-bind="item.title" ng-click="item.showHideMenu()"></span>
 		<div class="submenu-item"
        			ng-show="subItem.visible"
 			ng-repeat="subItem in item.children">
-			<a href="{{'#/' + prefix + '/' + subItem.id}}" ng-click="$ctrl.showHideMenu()">{{subItem.title}}</a>
+			<a ng-href="{{'#/' + $ctrl.prefix + '/' + subItem.id}}" ng-click="$ctrl.showHideMenu()">{{subItem.title}}</a>
 		</div>
 	</div>
 </div>

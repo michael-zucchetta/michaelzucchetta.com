@@ -163,7 +163,7 @@ export default class GlobalCtrl {
 
 	private getTodayDate(): void {
 		let todayDate: Date = new Date();
-		this.dateString = `${todayDate.getFullYear()}-${this.getTwoDigits(todayDate.getMonth())}-${this.getTwoDigits(todayDate.getDate())} - ` +
+		this.dateString = `${todayDate.getFullYear()}-${this.getTwoDigits(todayDate.getMonth() + 1)}-${this.getTwoDigits(todayDate.getDate())} - ` +
 			`${this.getTwoDigits(todayDate.getHours())}:${this.getTwoDigits(todayDate.getMinutes())}:` +
 			`${this.getTwoDigits(todayDate.getSeconds())}`;
 	}

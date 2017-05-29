@@ -30,13 +30,14 @@ class DropdownMenuCtrl {
 		this.$scope.$watch('menuEls.length', () => {
 			angular.forEach(this.$scope.menuEls, (menuEl) => {
 				menuEl.showHideMenu = () => {
+					menuEl.subMenuVisible = !menuEl.subMenuVisible;
 					angular.forEach(menuEl.children, (child) => {
 						child.visible = !child.visible;
 					});
 				};			
 			});
 		});
-		this.prefix = Constants.FUNCTION_PREFIX;
+		this.prefix = Constants.FUNCTIONALITIES_PREFIX;
 	}
 }
 

@@ -1,35 +1,58 @@
-name := """core-app"""
+import com.typesafe.sbt.packager.archetypes.JavaAppPackaging
 
-version := "1.0-SNAPSHOT"
+enablePlugins(JavaAppPackaging)
 
-scalaVersion := "2.11.8"
+inThisBuild(
+  List(
+    scalaVersion := "2.11.11",
+    organization := "com.michaelzucchetta",
+    scalacOptions ++= Seq(
+      "-deprecation",
+      "-feature",
+      "-language:existentials",
+      "-language:higherKinds",
+      "-language:implicitConversions",
+      "-language:postfixOps",
+      "-unchecked",
+      "-Xlint",
+      "-Yno-adapted-args",
+      "-Ywarn-dead-code",
+      "-Ywarn-numeric-widen",
+      "-Ywarn-value-discard",
+      "-Xfuture"
+    )
+  ))
 
-lazy val commonSettings = Seq(
-    scalaVersion := "2.11.8"
-)
-lazy val http4sVersion = "0.14.6"
+val circeVersion = "0.7.1"
+val doobieVersion = "0.4.1"
+val http4sVersion = "0.17.0-M1"
 
-val reactiveMongoVer = "0.11.14"
+lazy val root = project
+  .in(file("."))
+  .enablePlugins(GitVersioning)
+  .settings(
+    git.useGitDescribe := true,
+    name := "michaelzucchetta.com",
+    libraryDependencies ++= Seq(
+      "io.circe"                   %% "circe-core"                     % circeVersion,
+      "io.circe"                   %% "circe-generic"                  % circeVersion,
+      "io.circe"                   %% "circe-parser"                   % circeVersion,
+      "io.circe"                   %% "circe-generic-extras"           % circeVersion,
+      "org.http4s"                 %% "http4s-dsl"                     % http4sVersion,
+      "org.http4s"                 %% "http4s-blaze-server"            % http4sVersion,
+      "org.http4s"                 %% "http4s-blaze-client"            % http4sVersion,
+      "org.log4s"                  %% "log4s"                          % "1.3.4",
+      "org.tpolecat"               %% "doobie-hikari-cats"             % doobieVersion,
+      "org.tpolecat"               %% "doobie-postgres-cats"           % doobieVersion,
+      "org.tpolecat"               %% "doobie-core-cats"               % doobieVersion,
+      "org.tpolecat"               %% "doobie-scalatest-cats"          % doobieVersion,
 
-// add tests to classpath
-scalaSource in Test := baseDirectory.value / "tests"
-
-libraryDependencies ++= Seq(
-    "org.mongodb" %% "casbah" % "3.1.1",
-    "javax.inject" % "javax.inject" % "1",
-    "org.mindrot" % "jbcrypt" % "0.3m",
-    "be.objectify" %% "deadbolt-scala" % "2.5.0",
-    "org.reactivemongo" %% "play2-reactivemongo" % reactiveMongoVer,
-    "com.typesafe.scala-logging" %% "scala-logging" % "3.4.0",
-    "ch.qos.logback" % "logback-classic" % "1.1.3",
-    "org.http4s" %% "http4s-dsl" % http4sVersion,
-    "org.http4s" %% "http4s-blaze-server" % http4sVersion,
-    "org.http4s" %% "http4s-blaze-client" % http4sVersion,
-    "org.scalatest" %% "scalatest" % "3.0.0" % "test",
-    "org.mockito" % "mockito-all" % "1.10.19" % "test"
+      "org.scalatest"              %% "scalatest"                      % "3.0.0" % "test",
+      "org.mockito"                %  "mockito-all"                    % "1.10.19" % "test"
+    ),
+    javaOptions in Universal ++= Seq(
+      "-J-Xms500m",
+      "-J-Xmx500m"
+    )
   )
 
-
-lazy val root = project.in(file("."))
-  .settings()
-  .enablePlugins(PlayScala)
