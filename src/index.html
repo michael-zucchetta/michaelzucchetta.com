@@ -120,8 +120,14 @@
 							user@michaelzucchetta.com:/home/user/
 						</span>
 					</div>
-					<div class="open-menu-container">
-
+					<div class="open-menu-container" ng-if="!$ctrl.showWholeMenu">
+						<a class="mobile-menu" href="#" ng-click="$ctrl.showHideWholeMenu()">
+						  <span class="open">
+						    <span></span>
+						    <span></span>
+						    <span></span>
+						  </span>
+						</a>
 					</div>
 					<pre class="ascii-text" style="display: none">
 					<span ng-include="'directives/asciify/M.html'"></span>
@@ -142,7 +148,7 @@
 					<span ng-include="'directives/asciify/A.html'"></span>
 					<span ng-include="'directives/asciify/B.html'"></span>
 					</pre>
-					<pre class="ascii-text extra">
+					<pre class="ascii-text extra" ng-class="{'extra-pushed': !$ctrl.showWholeMenu}">
 					<span ng-include="'directives/asciify/font1/M.html'"></span>
 					<span ng-include="'directives/asciify/font1/I.html'"></span>
 					<span ng-include="'directives/asciify/font1/C.html'"></span>

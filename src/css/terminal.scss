@@ -87,8 +87,9 @@ body {
 		background-color: $black;
 		&.menu-visible {
 			visibility: visible;
-			.dropdown-menu-container {
-				visibility: visible;
+			&.fade.ng-enter {
+				transition:0.5s linear all;
+				opacity:0;
 			}
 		}
 	}
@@ -160,6 +161,52 @@ body {
 		visibility: visible;
 		top: 0px;
 	}
+
+	.mobile-menu {
+		background-color: #212121;
+		border: 2px solid #303030;
+		border-radius: 3px 3px 3px 3px;
+		box-shadow: 0 0 3px rgba(125, 193, 68, 0.5);
+		color: #595959;
+		cursor: pointer;
+		display: block;
+		font-size: 14px;
+		font-weight: bold;
+		line-height: 30px;
+		min-height: 30px;
+		min-width: 20px;
+		padding: 2px 10px;
+		position: absolute;
+		text-shadow: 0 1px 0 #FFFFFF;
+		top: 20px;
+		margin-top: 5px;
+		margin-left: 7px;
+		.open span {
+		    background: none repeat scroll 0 0 #898989;
+		    border-radius: 2px 2px 2px 2px;
+		    box-shadow: 0 1px 0 #FFFFFF;
+		    display: block;
+		    height: 3px;
+		    margin: 5px 0;
+		    width: 20px;
+		}
+		&:hover {
+			box-shadow: 0 0 3px rgba(155, 213, 98, 0.5);
+		}
+		&:active {
+			background-color: #285577;
+			border-color: #457294;
+			box-shadow: 0 0 0 transparent, 0 -1px 0 rgba(255, 255, 255, 0) inset;
+			text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+		}
+		&:focus {
+		    box-shadow: 0 0 3px rgba(125, 193, 68, 0.5);
+		}
+		&:active span {
+			background-color: white;
+			box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+                }
+	}
 }
 
 pre.ascii-text {
@@ -174,6 +221,10 @@ pre.ascii-text {
 	&.extra {
 		font-size: 10px;
 		font-family: 'Ubuntu Mono', Menlo, Monaco, Consolas, 'Courier New', monospace;
+		margin: auto auto auto 20px;
+	}
+
+	&.extra-pushed {
 		margin: auto auto auto 60px;
 	}
 
