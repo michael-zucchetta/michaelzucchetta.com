@@ -87,10 +87,6 @@ body {
 		background-color: $black;
 		&.menu-visible {
 			visibility: visible;
-			&.fade.ng-enter {
-				transition:0.5s linear all;
-				opacity:0;
-			}
 		}
 	}
 
