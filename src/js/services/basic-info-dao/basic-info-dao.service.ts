@@ -1,5 +1,4 @@
 import mz from 'domains';
-
 export class BasicInfoDao {
 
 	private linksEndpoint: string = 'js/mocks/links.json';
@@ -22,7 +21,8 @@ export class BasicInfoDao {
 
 	public getIP(): ng.IPromise<any> {
 		// geoplugin.com
-		return this.RestProxy.handleJsonpCall(this.ipInfoEndpoint);
+		let callback: any = {'jsonpCallbackParam': 'callback'};
+		return this.RestProxy.handleGetCall(this.ipInfoEndpoint);
 	}
 
 }

@@ -1,8 +1,8 @@
 package config
 
+import scala.concurrent.duration.FiniteDuration
 import doobie.hikari.hikaritransactor.HikariTransactor
 import fs2.Task
-import scala.concurrent.duration.FiniteDuration
 
 
 case class DbCredentials(url: String,
@@ -13,7 +13,7 @@ case class DbCredentials(url: String,
                          connectionTimeout: FiniteDuration)
 
 class PosgresDao(dbCredentials: DbCredentials) {
-  def xaTransactor(): Task[HikariTransactor[Task]] = {
+  val hikariTransactorTask: Task[HikariTransactor[Task]] =
     for {
       xa <- HikariTransactor[Task](
         driverClassName = "org.postgresql.Driver",
@@ -27,5 +27,13 @@ class PosgresDao(dbCredentials: DbCredentials) {
           ds.setConnectionTimeout(dbCredentials.connectionTimeout.toMillis)
         })
     } yield xa
+
+  def getHikariTransactor(): Task[HikariTransactor[Task]] = hikariTransactorTask
+
+  def releaseConnection(): Task[Unit] = {
+    for {
+      hikaryTransactor <- hikariTransactorTask
+      unit <- hikaryTransactor.shutdown
+    } yield unit
   }
 }

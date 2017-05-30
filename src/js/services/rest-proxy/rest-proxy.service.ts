@@ -8,10 +8,7 @@ class RestProxy {
 	}
 
 	public handleGetCall(args: any): ng.IPromise<any> {
-		return this.deferredCall(Array.prototype.concat.apply([this.getCall], arguments)); }
-
-	public handleJsonpCall(args: any): ng.IPromise<any> {
-		return this.deferredCall(Array.prototype.concat.apply([this.jsonpCall], arguments));
+		return this.deferredCall(Array.prototype.concat.apply([this.getCall], arguments)); 
 	}
 
 	private data(response: any): any {
