@@ -5,6 +5,7 @@ import com.typesafe.config.{Config => ConfigFile}
 package object config {
 
   implicit class ConfigWithOption(config: ConfigFile) {
+
     def getOptionString(path: String) = {
       getOption[String](path, config.getString)
     }

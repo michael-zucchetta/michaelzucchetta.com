@@ -17,20 +17,19 @@ object Config {
     Stream.eval(Task.delay(GeoPluginService(geoPluginUrl, httpClient)))
   }
 
-  
-  /*
-  val hikariTransactorStream = configStream.flatMap(config => {
-    val doobieConnectionManager = Task.delay(DoobieConnectionManager(config))
-    Stream.bracket(doobieConnectionManager)((d: DoobieConnectionManager) => Stream.eval(d.getHikariTransactor()), (d: DoobieConnectionManager) => d.releaseConnection())
-  })*/
-
+  private def transactor(config: ConfigFile) = {
+    val doobieConnectionManager = Task.delay(PostgresDao(config))
+    Stream.bracket(doobieConnectionManager)((d: PostgresDao) => Stream.eval(d.getHikariTransactor()), (d: PostgresDao) => d.releaseConnection())
+  }
 
   val stream = for {
     config <- Stream.eval(Task.delay(ConfigFactory.load()))
     client <- httpClient()
-    geoPluginClient <- geoPluginService(config, client)
-  } yield (config, client, geoPluginClient)
-  val configStream = stream.map { case (config, _, _) => config }
-  val httpClientStream = stream.map { case (_, httpClient, _) => httpClient }
-  val geoPluginServiceStream = stream.map { case (_, _, geoPluginService) => geoPluginService }
+    geoPluginClient = geoPluginService(config, client)
+    potgresTransactor = transactor(config)
+  } yield (config, client, geoPluginClient, potgresTransactor)
+  val configStream = stream.map { case (config, _, _, _) => config }
+  val httpClientStream = stream.map { case (_, httpClient, _, _) => httpClient }
+  val geoPluginServiceStream = stream.flatMap { case (_, _, geoPluginService, _) => geoPluginService }
+  val potgresTransactorStream = stream.flatMap { case (_, _, _, transactor) => transactor }
 }
