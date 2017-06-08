@@ -1,15 +1,20 @@
 package config
 
 import com.typesafe.config.{ConfigFactory, Config => ConfigFile}
-import fs2.{Stream, Task}
+import dao.TrackingDb
+import doobie.util.transactor.Transactor
+import fs2.{Strategy, Stream, Task}
 import org.http4s.client.Client
-import org.http4s.client.blaze.{BlazeClient, PooledHttp1Client}
+import org.http4s.client.blaze.PooledHttp1Client
 import services.GeoPluginService
+
+
+case class DbStrategy(strategy: Strategy)
 
 object Config {
   private def httpClient() = {
     val client = Task.delay(PooledHttp1Client())
-    Stream.bracket(client)((c: Client) => Stream.eval(Task.delay(c)), (c: Client) => c.shutdown)
+    Stream.bracket(client)((c: Client) => Stream.emit(c), (c: Client) => c.shutdown)
   }
 
   private def geoPluginService(config: ConfigFile, httpClient: Client) = {
@@ -19,17 +24,29 @@ object Config {
 
   private def transactor(config: ConfigFile) = {
     val doobieConnectionManager = Task.delay(PostgresDao(config))
-    Stream.bracket(doobieConnectionManager)((d: PostgresDao) => Stream.eval(d.getHikariTransactor()), (d: PostgresDao) => d.releaseConnection())
+    Stream.bracket(doobieConnectionManager)((d: PostgresDao) => Stream.emit(d.getHikariTransactor()), (d: PostgresDao) => d.releaseConnection())
+  }
+
+  private def dbStrategy(config: ConfigFile): DbStrategy = {
+    val threadNumber = config.getOptionInt("db.strategy.threads").getOrElse(2)
+    DbStrategy(Strategy.fromFixedDaemonPool(threadNumber))
+  }
+
+  private def trackingDb(transactorTask: Task[Transactor[Task]], dbStrategy: DbStrategy) = {
+    Stream.eval(Task.delay(TrackingDb(transactorTask)(dbStrategy)))
   }
 
   val stream = for {
     config <- Stream.eval(Task.delay(ConfigFactory.load()))
     client <- httpClient()
     geoPluginClient = geoPluginService(config, client)
-    potgresTransactor = transactor(config)
-  } yield (config, client, geoPluginClient, potgresTransactor)
+    postgresTransactor <- transactor(config)
+    trackingDb <- trackingDb(postgresTransactor, dbStrategy(config))
+  } yield {
+    (config, client, geoPluginClient, trackingDb)
+  }
   val configStream = stream.map { case (config, _, _, _) => config }
   val httpClientStream = stream.map { case (_, httpClient, _, _) => httpClient }
   val geoPluginServiceStream = stream.flatMap { case (_, _, geoPluginService, _) => geoPluginService }
-  val potgresTransactorStream = stream.flatMap { case (_, _, _, transactor) => transactor }
+  val trackingDbStream = stream.map { case (_, _, _, trackingDb) => trackingDb }
 }

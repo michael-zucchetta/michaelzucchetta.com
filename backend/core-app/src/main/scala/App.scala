@@ -1,4 +1,5 @@
 import config._
+import dao.TrackingDb
 import fs2.{Strategy, Stream, Task}
 import org.http4s.server.blaze._
 import org.http4s.util.StreamApp
@@ -6,10 +7,11 @@ import services.GeoPluginService
         
 object App extends StreamApp {
   
-  def httpServer(port: Int, geoPluginService: GeoPluginService) = {
-    val routes = new Routes(geoPluginService)
+  def httpServer(port: Int, geoPluginService: GeoPluginService, trackingDb: TrackingDb) = {
+    val routes = new Routes(geoPluginService, trackingDb)
     BlazeBuilder
       .bindHttp(port, "0.0.0.0")
+      //.withSSL()
       .mountService(routes.websiteService, "/")
       .serve
   }
@@ -20,7 +22,8 @@ object App extends StreamApp {
     //}, _.shutdown)
     for {
       geoPluginService <- Config.geoPluginServiceStream
-      server <- httpServer(8080, geoPluginService)
+      trackingDb <- Config.trackingDbStream
+      server <- httpServer(8080, geoPluginService, trackingDb)
     } yield server
   }
 }
