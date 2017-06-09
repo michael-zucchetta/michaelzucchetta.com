@@ -6,7 +6,7 @@ import doobie.util.transactor.Transactor
 import fs2.{Strategy, Stream, Task}
 import org.http4s.client.Client
 import org.http4s.client.blaze.PooledHttp1Client
-import services.GeoPluginService
+import services.{GeoPluginService, TrackingService}
 
 
 case class DbStrategy(strategy: Strategy)
@@ -42,11 +42,12 @@ object Config {
     geoPluginClient = geoPluginService(config, client)
     postgresTransactor <- transactor(config)
     trackingDb <- trackingDb(postgresTransactor, dbStrategy(config))
+    trackingService <- Stream.emit(TrackingService(trackingDb))
   } yield {
-    (config, client, geoPluginClient, trackingDb)
+    (config, client, geoPluginClient, trackingService)
   }
   val configStream = stream.map { case (config, _, _, _) => config }
   val httpClientStream = stream.map { case (_, httpClient, _, _) => httpClient }
   val geoPluginServiceStream = stream.flatMap { case (_, _, geoPluginService, _) => geoPluginService }
-  val trackingDbStream = stream.map { case (_, _, _, trackingDb) => trackingDb }
+  val trackingServiceStream = stream.map { case (_, _, _, trackingService) => trackingService }
 }

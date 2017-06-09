@@ -2,20 +2,31 @@ var express = require('express'),
 	fs = require('fs'),
 	http = require('http'),
 	mime = require('mime'),
-	compression = require('compression');
+	compression = require('compression'),
+	httpRequest = require('request');
+
 var app = express();
 app.use(compression());
 console.log(__dirname + '/dist');
 app.use(express.static(__dirname + '/dist'));
 
 var basePath = "/dist";
-var port = process.env.PORT || 8000;
+var port = process.env.PORT || 8888;
+
+let servicePath = '/service/';
 
 app.use(function(request, response) {
-	console.log("Request is: " + request.url);
-	//Set to the default page
+	console.log(`Request is:  ${request.url}: ${Object.keys(request)}`);
 	request.url = request.url === "/" ? "/index.html" : request.url;
-	if ( request.url.indexOf("/lib/") !== 0 && request.url.indexOf("/src/") !== 0 ) {
+	if ( request.url.indexOf(servicePath) == 0 ) {
+		// request going to the BE
+		// TBD: list of endpoints available
+		let serverRequest = `http://localhost:9999/${request.url.replace(servicePath, '')}`;
+		console.log(`Request changed to ${serverRequest}`);
+		httpRequest(serverRequest, (error, response, body) => {
+			console.log('error', error);
+		});
+	} else if ( request.url.indexOf("/lib/") !== 0 && request.url.indexOf("/src/") !== 0 ) {
 		request.url = basePath + request.url;
 	}
 	var requestedPath = __dirname + request.url;

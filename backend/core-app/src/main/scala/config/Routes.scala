@@ -10,9 +10,10 @@ import models.TrackingActionRequest
 import org.http4s._
 import org.http4s.dsl._
 import org.http4s.circe._
-import services.GeoPluginService
+import org.http4s.util.CaseInsensitiveString
+import services.{GeoPluginService, TrackingService}
 
-case class Routes(geoPluginService: GeoPluginService, trackingDb: TrackingDb) {
+case class Routes(geoPluginService: GeoPluginService, trackingService: TrackingService) {
   implicit val config: Configuration = Configuration.default.withSnakeCaseKeys
 
   private def returnResult[T](resultEither: Either[Response, T])(implicit encoder: Encoder[T]): Task[Response] =
@@ -29,13 +30,16 @@ case class Routes(geoPluginService: GeoPluginService, trackingDb: TrackingDb) {
       for {
         resultEither <- geoPluginService.getGeoLocalizationByIp(ipAddress)
         response <- returnResult(resultEither)
-      } yield response
+      } yield {
+        response
+      }
     case req@POST -> Root / "track_action" =>
       for {
         trackingActionRequest <- req.as(jsonOf[TrackingActionRequest])
         ipAddress = trackingActionRequest.ipAddress.getOrElse("")
-        geoData <- geoPluginService.getGeoLocalizationByIp(ipAddress)
-        response <- Ok("result")
+        geoDataEither <- geoPluginService.getGeoLocalizationByIp(ipAddress)
+        result <- Task.delay( geoDataEither.map( geoData => trackingService.trackAccessAction(trackingActionRequest, geoData, req.headers.get(CaseInsensitiveString("referer"))).unsafeRun() ) )
+        response <- returnResult(result)
       } yield response
   }
 }

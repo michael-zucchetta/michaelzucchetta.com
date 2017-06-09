@@ -22,6 +22,8 @@ Then:
 - grunt karma for running grunt with karma
 - grunt protractor for running protractor once
 
+Run http server:
+- npm install -g forever
 
 The graphics are an attempt to reproduce how i3 looks like https://i3wm.org/
 
