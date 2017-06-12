@@ -37,9 +37,10 @@ case class PostgresDao(config: ConfigFile) {
     } yield xa
 
   private def credentialsTask() = for {
-    url <- config.getOptionString("postgresql.url")
-    maxPoolSize <- config.getOptionInt("postgresql.maxPoolSize")
-    connectionTimeout <- config.getOptionInt("postgresql.connectionTimeout")
+    url <- config.getOptionString("postgres.url")
+    _ = println(url)
+    maxPoolSize <- config.getOptionInt("postgres.maxPoolSize")
+    connectionTimeout <- config.getOptionInt("postgres.connectionTimeout")
     user <- config.getOptionString("postgres.user")
     password <- config.getOptionString("postgres.password")
   } yield DbCredentials(url, user, password, maxPoolSize, connectionTimeout millis)

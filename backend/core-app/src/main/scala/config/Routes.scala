@@ -1,10 +1,9 @@
 package config
 
-import dao.TrackingDb
 import fs2.Task
 import io.circe._
 import io.circe.syntax._
-import io.circe.generic.auto._
+import io.circe.generic.extras.auto._
 import io.circe.generic.extras.Configuration
 import models.TrackingActionRequest
 import org.http4s._

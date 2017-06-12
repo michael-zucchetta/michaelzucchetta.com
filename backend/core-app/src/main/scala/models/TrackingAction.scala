@@ -17,4 +17,4 @@ case class TrackingAction(
 case class TrackingActionRequest(
                                   ipAddress: Option[String],
                                   provenience: Option[String]
-                                )1
+                                )
