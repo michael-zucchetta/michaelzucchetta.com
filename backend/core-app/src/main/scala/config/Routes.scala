@@ -10,10 +10,12 @@ import org.http4s._
 import org.http4s.dsl._
 import org.http4s.circe._
 import org.http4s.util.CaseInsensitiveString
+import org.log4s.getLogger
 import services.{GeoPluginService, TrackingService}
 
 case class Routes(geoPluginService: GeoPluginService, trackingService: TrackingService) {
   implicit val config: Configuration = Configuration.default.withSnakeCaseKeys
+  private[this] val logger = getLogger
 
   private def returnResult[T](resultEither: Either[Response, T])(implicit encoder: Encoder[T]): Task[Response] =
     resultEither match {
@@ -23,15 +25,14 @@ case class Routes(geoPluginService: GeoPluginService, trackingService: TrackingS
         Task.now(status)
     }
 
-  val websiteService = HttpService {
+
+  def routes(request: Request): Task[MaybeResponse] = request match {
     case req@GET -> Root / "get_geo_data" =>
       val ipAddress = req.params.get("ip_address").getOrElse("")
       for {
         resultEither <- geoPluginService.getGeoLocalizationByIp(ipAddress)
         response <- returnResult(resultEither)
-      } yield {
-        response
-      }
+      } yield response
     case req@POST -> Root / "track_action" =>
       for {
         trackingActionRequest <- req.as(jsonOf[TrackingActionRequest])
@@ -40,5 +41,15 @@ case class Routes(geoPluginService: GeoPluginService, trackingService: TrackingS
         result <- Task.delay( geoDataEither.map( geoData => trackingService.trackAccessAction(trackingActionRequest, geoData, req.headers.get(CaseInsensitiveString("referer"))).unsafeRun() ) )
         response <- returnResult(result)
       } yield response
+    case req =>
+      logger.warn(s"rout not found for $req")
+      NotFound("Not found")
+  }
+
+  def websiteService: HttpService = Service {
+    case req =>
+      val host = req.headers.get(CaseInsensitiveString("host"))
+      logger.info(s"Host is $host")
+      routes(req)
   }
 }

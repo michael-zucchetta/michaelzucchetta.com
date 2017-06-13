@@ -1,6 +1,5 @@
 package services
 
-
 import java.net.MalformedURLException
 
 import fs2.Task

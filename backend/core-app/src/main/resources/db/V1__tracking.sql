@@ -6,7 +6,8 @@ create table tracking_actions (
   provenience varchar(200),
   ip_address varchar(50) not null,
   country varchar(50),
-  city varchar(50)
+  city varchar(50),
+  email varchar(200)
 );
 
 grant select, insert, update, delete on tracking_actions to michaelzucchetta;
