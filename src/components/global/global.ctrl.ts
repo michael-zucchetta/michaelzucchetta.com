@@ -21,8 +21,10 @@ export default class GlobalCtrl {
 
 	private websiteContent;
 
+	private showWholeMenu: boolean;
+
 	constructor(private BasicInfoDao: mz.IBasicInfoDao, private DaoFacade: mz.IDaoFacade,
-			private $interval: ng.IIntervalService, private $timeout: ng.ITimeoutService, private $state: angular.ui.IStateService, private $location: ng.ILocationService) {
+			private $interval: ng.IIntervalService, private $timeout: ng.ITimeoutService, private $state: angular.ui.IStateService, private $location: ng.ILocationService, private $scope: any) {
 		this.myLinks = [];
 		this.menu = [];
 		this.$interval(() => this.getTodayDate(), 1000);
@@ -55,12 +57,12 @@ export default class GlobalCtrl {
 		this.DaoFacade.getMenu()
 			.then((menuEls: mz.IMenuEl[]) => {
 			this.menu = menuEls;
-			if(this.$location.url() === '') {
+			if (this.$location.url() === '') {
 				this.$state.go('Home');
 				return;
 			}
 			const state: mz.IMenuEl = this.findMenuEl(this.menu, this.$location.url());
-
+			this.showWholeMenu = true;
 			this.$state.go(state.definition.name);
 		});
 
@@ -160,9 +162,13 @@ export default class GlobalCtrl {
 
 	private getTodayDate(): void {
 		let todayDate: Date = new Date();
-		this.dateString = `${todayDate.getFullYear()}-${this.getTwoDigits(todayDate.getMonth())}-${this.getTwoDigits(todayDate.getDate())}` +
+		this.dateString = `${todayDate.getFullYear()}-${this.getTwoDigits(todayDate.getMonth() + 1)}-${this.getTwoDigits(todayDate.getDate())} - ` +
 			`${this.getTwoDigits(todayDate.getHours())}:${this.getTwoDigits(todayDate.getMinutes())}:` +
 			`${this.getTwoDigits(todayDate.getSeconds())}`;
+	}
+
+	public showHideWholeMenu(): void {
+		this.showWholeMenu = !this.showWholeMenu;
 	}
 
 	private getTwoDigits(digit: number): string {
@@ -187,4 +193,4 @@ export default class GlobalCtrl {
 	}
 }
 
-GlobalCtrl.$inject = ['BasicInfoDao', 'DaoFacade', '$interval', '$timeout', '$state', '$location'];
+GlobalCtrl.$inject = ['BasicInfoDao', 'DaoFacade', '$interval', '$timeout', '$state', '$location', '$scope'];

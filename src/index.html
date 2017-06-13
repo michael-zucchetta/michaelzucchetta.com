@@ -104,11 +104,30 @@
 				</div>
 			</div>
 			<div class="website-container">
+				<div class="menu-container hidden terminal" ng-class="{'menu-visible': $ctrl.showWholeMenu}" focus-class active="active" unactive="unactive">
+					<div class="terminal-bar noselect">
+						<span>
+							user@michaelzucchetta.com:/home/user/
+						</span>
+					</div>
+					<span class="icon-container" dropdown-menu="$ctrl.menu" show-whole-menu="$ctrl.showWholeMenu">
+						<span class="icon"></span>
+					</span>
+				</div>
 				<div class="title terminal noselect hidden" focus-class active="active" unactive="unactive">
 					<div class="terminal-bar noselect">
 						<span>
 							user@michaelzucchetta.com:/home/user/
 						</span>
+					</div>
+					<div class="open-menu-container" ng-if="!$ctrl.showWholeMenu">
+						<a class="mobile-menu" href="#" ng-click="$ctrl.showHideWholeMenu()">
+						  <span class="open">
+						    <span></span>
+						    <span></span>
+						    <span></span>
+						  </span>
+						</a>
 					</div>
 					<pre class="ascii-text" style="display: none">
 					<span ng-include="'directives/asciify/M.html'"></span>
@@ -129,7 +148,7 @@
 					<span ng-include="'directives/asciify/A.html'"></span>
 					<span ng-include="'directives/asciify/B.html'"></span>
 					</pre>
-					<pre class="ascii-text extra">
+					<pre class="ascii-text extra" ng-class="{'extra-pushed': !$ctrl.showWholeMenu}">
 					<span ng-include="'directives/asciify/font1/M.html'"></span>
 					<span ng-include="'directives/asciify/font1/I.html'"></span>
 					<span ng-include="'directives/asciify/font1/C.html'"></span>
@@ -151,16 +170,6 @@
 				</div>
 				<div class="website-title hidden" animate-text="michaelzucchetta.com">
 				</div>
-				<div class="menu-container hidden terminal" focus-class active="active" unactive="unactive">
-					<div class="terminal-bar noselect">
-						<span>
-							user@michaelzucchetta.com:/home/user/
-						</span>
-					</div>
-					<span class="icon-container" dropdown-menu="$ctrl.menu">
-						<span class="icon"></span>
-					</span>
-				</div>
 				<div class="website-content terminal hidden" focus-class active="active" unactive="unactive">
 					<div class="terminal-bar noselect">
 						<span>
@@ -169,7 +178,7 @@
 					</div>
 					<div id="view-container" ui-view></div>
 				</div>
-				<div class="notes noselect command-init">
+				<div class="notes noselect command-init website-footer">
 					<span>213412.8 GiB</span> | 
 					<span class="green">DHCP: yes</span> | 
 					<span class="red">VPN: no</span> | 

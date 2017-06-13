@@ -1,10 +1,19 @@
-<div class="dropdown-menu-container" ng-class="{'hidden': !$ctrl.showMenu}">
+<div class="dropdown-menu-container">
+	<div class="icon-container">
+		<a class="mobile-menu" href="#" ng-click="$ctrl.showHideWholeMenu()">
+			X
+		</a>
+	</div>
+	<div class="menu-item"> <a>michaelzucchetta.com/</a></div>
 	<div class="menu-item" ng-repeat="item in menuEls">
-		<a href="{{'#/' + prefix + '/' + item.id}}" ng-if="item.active" ng-click="$ctrl.showHideMenu()">{{item.title}}</a>
-		<span ng-if="!item.active" ng-bind="item.title"></span>
+		<span class="arrow" ng-if="!item.subMenuVisible || !item.children">▶</span>
+		<span class="arrow" ng-if="item.subMenuVisible && item.children">▼</span>
+		<a class="menu-label" ui-sref="{{item.name}}" ng-if="item.active" ng-click="item.showHideMenu()">{{item.title}}</a>
+		<span class="menu-label" ng-if="!item.active" ng-bind="item.title" ng-click="item.showHideMenu()"></span>
 		<div class="submenu-item"
+       			ng-show="subItem.visible"
 			ng-repeat="subItem in item.children">
-			<a href="{{'#/' + prefix + '/' + subItem.id}}" ng-click="showHideMenu()">{{subItem.title}}</a>
+			<a ui-sref="{{'#/' + $ctrl.prefix + '/' + subItem.id}}" ng-click="$ctrl.showHideMenu()">{{subItem.title}}</a>
 		</div>
 	</div>
 </div>

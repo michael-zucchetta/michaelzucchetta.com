@@ -13,37 +13,53 @@ class DropdownMenuCtrl {
 
 	private showMenu: boolean;
 
+	private showWholeMenu: boolean;
+
 	public css: any = require('directives/dropdown-menu/dropdown-menu.scss');
-
-	public controller: Function = DropdownMenuCtrl;
-
-	public controllerAs: string = '$ctrl';
-
-	public restrict: string = 'A';
 
 	// add ng-click to the element that has the directive
 	public showHideMenu(): void {
 		this.showMenu = !this.showMenu;
 	}
+	
+	public showHideWholeMenu(): void {
+		this.$scope.showWholeMenu = !this.$scope.showWholeMenu;
+	}
 
-	constructor() {
-		this.prefix = Constants.FUNCTION_PREFIX;
+	constructor(private $scope: any) {
+		this.$scope.$watch('menuEls.length', () => {
+			angular.forEach(this.$scope.menuEls, (menuEl) => {
+				menuEl.showHideMenu = () => {
+					menuEl.subMenuVisible = !menuEl.subMenuVisible;
+					angular.forEach(menuEl.children, (child) => {
+						child.visible = !child.visible;
+					});
+				};			
+			});
+		});
+		this.prefix = Constants.FUNCTIONALITIES_PREFIX;
 	}
 }
 
 class DropdownMenuDirective implements ng.IDirective {
+	
+	public controllerAs: string = '$ctrl';
+	
+	public restrict: string = 'A';
 
 	public scope: any;
+
+	public controller: Function = DropdownMenuCtrl;
 
 	constructor(private $http: ng.IHttpService, private $compile: ng.ICompileService,
 			private $timeout: ng.ITimeoutService, private DaoFacade: mz.IDaoFacade) {
 		this.scope = {
 			menuEls: '=dropdownMenu',
+			showWholeMenu: '=showWholeMenu',
 		};
 	}
 
 	public template: any = (element: ng.IAugmentedJQuery) => {
-		element.attr('ng-click', 'showHideMenu()');
 		return require('directives/dropdown-menu/dropdown-menu.html');
 	}
 

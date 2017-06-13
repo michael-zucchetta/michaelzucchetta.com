@@ -33,7 +33,7 @@ describe('Test basic info dao service', () => {
 	it('test getIP()', () => {
 		spyOn($restProxy, 'handleJsonpCall');
 		$basicInfoDao.getIP();
-		expect($restProxy.handleJsonpCall).toHaveBeenCalled();
+		expect($restProxy.handleGetCall).toHaveBeenCalled();
 	});
 
 });

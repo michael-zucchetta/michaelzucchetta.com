@@ -28,7 +28,8 @@ class AngularBootstrap implements ng.IAngularBootstrapConfig {
 			$controllerProvider: ng.IControllerProvider,
 			$provide: ng.auto.IProvideService,
 			$compileProvider: ng.ICompileProvider,
-			$urlRouterProvider: angular.ui.IUrlRouterProvider) {
+			$urlRouterProvider: angular.ui.IUrlRouterProvider,
+			$qProvider: any) {
 		let app: ng.IModule = module;
 		// http://www.bennadel.com/blog/2554-loading-angularjs-components-with-requirejs-after-application-bootstrap.htm
 		angular.extend(app, {
@@ -73,11 +74,13 @@ class AngularBootstrap implements ng.IAngularBootstrapConfig {
 		// note: You can do the same thing with the "filter"
 		// and the "$filterProvider"; but, I don't really use
 		// custom filters.
+		$locationProvider.hashPrefix('');
+			$qProvider.errorOnUnhandledRejections(false);
 	}
 };
 
 AngularBootstrap.$inject = ['$stateProvider', '$locationProvider',
-	'$controllerProvider', '$provide', '$compileProvider', '$urlRouterProvider'];
+	'$controllerProvider', '$provide', '$compileProvider', '$urlRouterProvider', '$qProvider'];
 
 module.config(AngularBootstrap);
 
