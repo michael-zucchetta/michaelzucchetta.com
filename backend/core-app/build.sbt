@@ -30,7 +30,7 @@ val http4sVersion = "0.17.0-M3"
 
 lazy val root = project
   .in(file("."))
-  .enablePlugins(GitVersioning)
+  .enablePlugins(JavaAppPackaging, GitVersioning)
   .settings(
     git.useGitDescribe := true,
     name := "michaelzucchetta.com",
@@ -55,11 +55,13 @@ lazy val root = project
       "org.tpolecat"               %% "doobie-hikari-cats"             % doobieVersion,
       "org.tpolecat"               %% "doobie-postgres-cats"           % doobieVersion,
       "org.tpolecat"               %% "doobie-core-cats"               % doobieVersion,
-      "org.tpolecat"               %% "doobie-scalatest-cats"          % doobieVersion,
 
-      "org.scalatest"              %% "scalatest"                      % "3.0.0" % "test",
-      "org.mockito"                %  "mockito-all"                    % "1.10.19" % "test"
+      "org.tpolecat"               %% "doobie-scalatest-cats"          % doobieVersion  % "test",
+      "org.scalatest"              %% "scalatest"                      % "3.0.0"        % "test",
+      "org.mockito"                %  "mockito-all"                    % "1.10.19"      % "test"
     ),
+    dockerBaseImage := "arch_linux_with_java_ssh",
+    dockerExposedPorts := Seq(8080),
     javaOptions in Universal ++= Seq(
       "-J-Xms500m",
       "-J-Xmx500m"
