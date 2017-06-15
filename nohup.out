@@ -1,0 +1,237 @@
+[33mwarn[39m:    --minUptime not set. Defaulting to: 1000ms
+[33mwarn[39m:    --spinSleepTime not set. Your script will exit if it does not stay up for at least 1000ms
+/home/none/work/michaelzucchetta.com/server.js:16
+let servicePath = '/service/';
+^^^
+
+SyntaxError: Block-scoped declarations (let, const, function, class) not yet supported outside strict mode
+    at exports.runInThisContext (vm.js:53:16)
+    at Module._compile (module.js:414:25)
+    at Object.Module._extensions..js (module.js:442:10)
+    at Module.load (module.js:356:32)
+    at Function.Module._load (module.js:311:12)
+    at Function.Module.runMain (module.js:467:10)
+    at startup (node.js:134:18)
+    at node.js:961:3
+error: Forever detected script exited with code: 1
+[33mwarn[39m:    --minUptime not set. Defaulting to: 1000ms
+[33mwarn[39m:    --spinSleepTime not set. Your script will exit if it does not stay up for at least 1000ms
+/home/none/work/michaelzucchetta.com/dist
+Initialisation on port: 8888
+Request is:  /vendor.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+Request is:  /bundle.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+{ [Error: ENOENT: no such file or directory, open '/home/none/work/michaelzucchetta.com/dist/vendor.js']
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/none/work/michaelzucchetta.com/dist/vendor.js' } undefined
+_http_outgoing.js:401
+    throw new Error('Can\'t render headers after they are sent to the client.');
+    ^
+
+Error: Can't render headers after they are sent to the client.
+    at ServerResponse.OutgoingMessage._renderHeaders (_http_outgoing.js:401:11)
+    at ServerResponse.writeHead (_http_server.js:184:20)
+    at ServerResponse.writeHead (/home/none/work/michaelzucchetta.com/node_modules/on-headers/index.js:55:19)
+    at ReadFileContext.callback (/home/none/work/michaelzucchetta.com/server.js:43:13)
+    at FSReqWrap.readFileAfterOpen [as oncomplete] (fs.js:303:13)
+error: Forever detected script exited with code: 1
+error: Script restart attempt #1
+/home/none/work/michaelzucchetta.com/dist
+Initialisation on port: 8888
+[33mwarn[39m:    --minUptime not set. Defaulting to: 1000ms
+[33mwarn[39m:    --spinSleepTime not set. Your script will exit if it does not stay up for at least 1000ms
+/home/none/work/michaelzucchetta.com/dist
+Initialisation on port: 8888
+Request is:  /vendor.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+Request is:  /bundle.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+Request is:  /vendor.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+Request is:  /bundle.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+Request is:  /favicon.ico: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+Request is:  /vendor.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+Request is:  /bundle.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+Request is:  /vendor.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+Request is:  /bundle.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+Request is:  /favicon.ico: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+[33mwarn[39m:    --minUptime not set. Defaulting to: 1000ms
+[33mwarn[39m:    --spinSleepTime not set. Your script will exit if it does not stay up for at least 1000ms
+/home/none/work/michaelzucchetta.com/dist
+Initialisation on port: 8888
+Request is:  /vendor.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+Request is:  /bundle.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+{ [Error: ENOENT: no such file or directory, open '/home/none/work/michaelzucchetta.com/dist/vendor.js']
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/none/work/michaelzucchetta.com/dist/vendor.js' } undefined
+{ [Error: ENOENT: no such file or directory, open '/home/none/work/michaelzucchetta.com/dist/bundle.js']
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/none/work/michaelzucchetta.com/dist/bundle.js' } undefined
+Request is:  /vendor.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+{ [Error: ENOENT: no such file or directory, open '/home/none/work/michaelzucchetta.com/dist/vendor.js']
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/none/work/michaelzucchetta.com/dist/vendor.js' } undefined
+Request is:  /bundle.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+{ [Error: ENOENT: no such file or directory, open '/home/none/work/michaelzucchetta.com/dist/bundle.js']
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/none/work/michaelzucchetta.com/dist/bundle.js' } undefined
+Request is:  /favicon.ico: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+{ [Error: ENOENT: no such file or directory, open '/home/none/work/michaelzucchetta.com/dist/favicon.ico']
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/none/work/michaelzucchetta.com/dist/favicon.ico' } undefined
+Request is:  /vendor.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+{ [Error: ENOENT: no such file or directory, open '/home/none/work/michaelzucchetta.com/dist/vendor.js']
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/none/work/michaelzucchetta.com/dist/vendor.js' } undefined
+Request is:  /bundle.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+{ [Error: ENOENT: no such file or directory, open '/home/none/work/michaelzucchetta.com/dist/bundle.js']
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/none/work/michaelzucchetta.com/dist/bundle.js' } undefined
+Request is:  /vendor.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+{ [Error: ENOENT: no such file or directory, open '/home/none/work/michaelzucchetta.com/dist/vendor.js']
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/none/work/michaelzucchetta.com/dist/vendor.js' } undefined
+Request is:  /bundle.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+{ [Error: ENOENT: no such file or directory, open '/home/none/work/michaelzucchetta.com/dist/bundle.js']
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/none/work/michaelzucchetta.com/dist/bundle.js' } undefined
+[33mwarn[39m:    --minUptime not set. Defaulting to: 1000ms
+[33mwarn[39m:    --spinSleepTime not set. Your script will exit if it does not stay up for at least 1000ms
+/home/none/work/michaelzucchetta.com/dist
+Initialisation on port: 8888
+Request is:  /vendor.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+Request is:  /bundle.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+ReferenceError: res is not defined
+    at /home/none/work/michaelzucchetta.com/server.js:26:3
+    at Layer.handle [as handle_request] (/home/none/work/michaelzucchetta.com/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/none/work/michaelzucchetta.com/node_modules/express/lib/router/index.js:312:13)
+    at /home/none/work/michaelzucchetta.com/node_modules/express/lib/router/index.js:280:7
+    at Function.process_params (/home/none/work/michaelzucchetta.com/node_modules/express/lib/router/index.js:330:12)
+    at next (/home/none/work/michaelzucchetta.com/node_modules/express/lib/router/index.js:271:10)
+    at SendStream.error (/home/none/work/michaelzucchetta.com/node_modules/serve-static/index.js:120:7)
+    at emitOne (events.js:77:13)
+    at SendStream.emit (events.js:169:7)
+    at SendStream.error (/home/none/work/michaelzucchetta.com/node_modules/send/index.js:245:17)
+ReferenceError: res is not defined
+    at /home/none/work/michaelzucchetta.com/server.js:26:3
+    at Layer.handle [as handle_request] (/home/none/work/michaelzucchetta.com/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/none/work/michaelzucchetta.com/node_modules/express/lib/router/index.js:312:13)
+    at /home/none/work/michaelzucchetta.com/node_modules/express/lib/router/index.js:280:7
+    at Function.process_params (/home/none/work/michaelzucchetta.com/node_modules/express/lib/router/index.js:330:12)
+    at next (/home/none/work/michaelzucchetta.com/node_modules/express/lib/router/index.js:271:10)
+    at SendStream.error (/home/none/work/michaelzucchetta.com/node_modules/serve-static/index.js:120:7)
+    at emitOne (events.js:77:13)
+    at SendStream.emit (events.js:169:7)
+    at SendStream.error (/home/none/work/michaelzucchetta.com/node_modules/send/index.js:245:17)
+Request is:  /vendor.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+ReferenceError: res is not defined
+    at /home/none/work/michaelzucchetta.com/server.js:26:3
+    at Layer.handle [as handle_request] (/home/none/work/michaelzucchetta.com/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/none/work/michaelzucchetta.com/node_modules/express/lib/router/index.js:312:13)
+    at /home/none/work/michaelzucchetta.com/node_modules/express/lib/router/index.js:280:7
+    at Function.process_params (/home/none/work/michaelzucchetta.com/node_modules/express/lib/router/index.js:330:12)
+    at next (/home/none/work/michaelzucchetta.com/node_modules/express/lib/router/index.js:271:10)
+    at SendStream.error (/home/none/work/michaelzucchetta.com/node_modules/serve-static/index.js:120:7)
+    at emitOne (events.js:77:13)
+    at SendStream.emit (events.js:169:7)
+    at SendStream.error (/home/none/work/michaelzucchetta.com/node_modules/send/index.js:245:17)
+Request is:  /bundle.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+ReferenceError: res is not defined
+    at /home/none/work/michaelzucchetta.com/server.js:26:3
+    at Layer.handle [as handle_request] (/home/none/work/michaelzucchetta.com/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/none/work/michaelzucchetta.com/node_modules/express/lib/router/index.js:312:13)
+    at /home/none/work/michaelzucchetta.com/node_modules/express/lib/router/index.js:280:7
+    at Function.process_params (/home/none/work/michaelzucchetta.com/node_modules/express/lib/router/index.js:330:12)
+    at next (/home/none/work/michaelzucchetta.com/node_modules/express/lib/router/index.js:271:10)
+    at SendStream.error (/home/none/work/michaelzucchetta.com/node_modules/serve-static/index.js:120:7)
+    at emitOne (events.js:77:13)
+    at SendStream.emit (events.js:169:7)
+    at SendStream.error (/home/none/work/michaelzucchetta.com/node_modules/send/index.js:245:17)
+[33mwarn[39m:    --minUptime not set. Defaulting to: 1000ms
+[33mwarn[39m:    --spinSleepTime not set. Your script will exit if it does not stay up for at least 1000ms
+/home/none/work/michaelzucchetta.com/dist
+Initialisation on port: 8888
+Request is:  /vendor.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+Request is:  /bundle.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+Request is:  /vendor.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+Request is:  /bundle.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+Request is:  /vendor.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+Request is:  /bundle.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+Request is:  /vendor.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+Request is:  /bundle.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+Request is:  /vendor.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+Request is:  /bundle.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+Request is:  /vendor.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+Request is:  /bundle.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+Request is:  /vendor.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+Request is:  /bundle.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+Request is:  /vendor.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+Request is:  /bundle.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+Request is:  /vendor.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+Request is:  /bundle.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+Request is:  /vendor.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+Request is:  /bundle.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+Request is:  /vendor.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+Request is:  /bundle.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+[33mwarn[39m:    --minUptime not set. Defaulting to: 1000ms
+[33mwarn[39m:    --spinSleepTime not set. Your script will exit if it does not stay up for at least 1000ms
+/home/none/work/michaelzucchetta.com/dist
+Initialisation on port: 8888
+Request is:  /vendor.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+Request is:  /bundle.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+Request is:  /vendor.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+Request is:  /bundle.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+Request is:  /vendor.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+Request is:  /bundle.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+[33mwarn[39m:    --minUptime not set. Defaulting to: 1000ms
+[33mwarn[39m:    --spinSleepTime not set. Your script will exit if it does not stay up for at least 1000ms
+/home/none/work/michaelzucchetta.com/dist
+Initialisation on port: 8888
+Request is:  /vendor.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+Trying to access in unsecure mode
+Request is:  /bundle.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+Trying to access in unsecure mode
+Request is:  /vendor.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+Trying to access in unsecure mode
+Request is:  /bundle.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+Trying to access in unsecure mode
+[33mwarn[39m:    --minUptime not set. Defaulting to: 1000ms
+[33mwarn[39m:    --spinSleepTime not set. Your script will exit if it does not stay up for at least 1000ms
+/home/none/work/michaelzucchetta.com/dist
+Initialisation on port: 8888
+Request is:  /vendor.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+Trying to access in unsecure mode
+Request is:  /bundle.js: _readableState,readable,domain,_events,_eventsCount,_maxListeners,socket,connection,httpVersionMajor,httpVersionMinor,httpVersion,complete,headers,rawHeaders,trailers,rawTrailers,upgrade,url,method,statusCode,statusMessage,client,_consuming,_dumped,next,baseUrl,originalUrl,_parsedUrl,params,query,res,_parsedOriginalUrl
+Trying to access in unsecure mode
+{ [Error: ENOENT: no such file or directory, open '/home/none/work/michaelzucchetta.com/dist/vendor.js']
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/none/work/michaelzucchetta.com/dist/vendor.js' } undefined
+_http_outgoing.js:401
+    throw new Error('Can\'t render headers after they are sent to the client.');
+    ^
+
+Error: Can't render headers after they are sent to the client.
+    at ServerResponse.OutgoingMessage._renderHeaders (_http_outgoing.js:401:11)
+    at ServerResponse.writeHead (_http_server.js:184:20)
+    at ServerResponse.writeHead (/home/none/work/michaelzucchetta.com/node_modules/on-headers/index.js:55:19)
+    at ReadFileContext.callback (/home/none/work/michaelzucchetta.com/server.js:47:13)
+    at FSReqWrap.readFileAfterOpen [as oncomplete] (fs.js:303:13)
+error: Forever detected script exited with code: 1

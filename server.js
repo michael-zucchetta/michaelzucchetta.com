@@ -1,9 +1,15 @@
+'use strict';
+
 var express = require('express'),
 	fs = require('fs'),
+	https = require('https'),
 	http = require('http'),
 	mime = require('mime'),
+	tls = require('tls'),
 	compression = require('compression'),
 	httpRequest = require('request');
+var sslKey = fs.readFileSync('michaelzucchetta-key.pem');
+var sslCert = fs.readFileSync('michaelzucchetta-cert.pem')
 
 var app = express();
 app.use(compression());
@@ -15,7 +21,13 @@ var port = process.env.PORT || 8888;
 
 let servicePath = '/service/';
 
-app.use(function(request, response) {
+var options = {
+	key  : sslKey, 
+	cert : sslCert 
+};
+
+
+let handler = (request, response) => {
 	console.log(`Request is:  ${request.url}: ${Object.keys(request)}`);
 	request.url = request.url === "/" ? "/index.html" : request.url;
 	if ( request.url.indexOf(servicePath) == 0 ) {
@@ -51,7 +63,8 @@ app.use(function(request, response) {
 	var code = 200;
 	response.writeHead(code, mime.lookup(requestedPath));
 	response.end("");
-});
-var httpServer = http.createServer(app);
-httpServer.listen(port);
+};
+
+tls.createServer(options, handler).listen(8000);
+
 console.log("Initialisation on port: " + port);
