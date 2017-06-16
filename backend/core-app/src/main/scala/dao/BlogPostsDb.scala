@@ -16,7 +16,9 @@ case class BlogPostsDb(transactorTask: Task[Transactor[Task]])(implicit val dbSt
 
   object sql {
     val commentsParameters = fr"""(comment_uuid, author, comment_text, tracking_action_uuid, comment_date, post_uuid)"""
-
+    implicit val (unliftedUUIDArrayType,    liftedUUIDArrayType)    = boxedPair[java.util.Instant]   ("instant", "_instant")
+    // does not work
+    type BlogPostRaw = (UUID, Seq[Instant]) //(UUID, String, String, String, Instant, Vector[UUID], Vector[String], Vector[Instant])//, Vector[Option[String]])
     def insertBlogPost(bp: BlogPost): Update0 =
       sql"""
           insert into blog_posts
