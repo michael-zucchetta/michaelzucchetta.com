@@ -8,16 +8,27 @@ var express = require('express'),
 var app = express();
 app.use(compression());
 console.log(__dirname + '/dist');
-app.use(express.static(__dirname + '/dist'));
 
 var basePath = "/dist";
-var port = process.env.PORT || 8888;
+var port = process.env.PORT || 80;
 
 let servicePath = '/service/';
 
 app.use(function(request, response) {
-	console.log(`Request is:  ${request.url}: ${Object.keys(request)}`);
+	console.log(`Request is:
+		       Protocol: ${request.protocol}
+			Host: ${request.headers.host}
+			Referer: ${request.headers.referrer}
+			secure: ${request.secure}
+		secure2: ${request.headers['x-forwarded-proto']}
+			${request.url}: ${Object.keys(request)}`);
+	// ovh does use DNS redirection => https is not matched hence x-forward-proto is used
+	if ( (!request.isSecure && request.headers['x-forwarded-proto'] !== 'https') && request.headers.host.indexOf('michaelzucchetta.com') !== -1 ) {
+		response.redirect(301, `https://${request.headers.host}${request.url}`);
+		return;
+	}
 	request.url = request.url === "/" ? "/index.html" : request.url;
+	
 	if ( request.url.indexOf(servicePath) == 0 ) {
 		// request going to the BE
 		// TBD: list of endpoints available
@@ -52,6 +63,13 @@ app.use(function(request, response) {
 	response.writeHead(code, mime.lookup(requestedPath));
 	response.end("");
 });
+
+app.use(express.static(__dirname + '/dist'));
+
+app.use(function(err, req, res, next) {
+	    console.log(err);
+});
+
 var httpServer = http.createServer(app);
 httpServer.listen(port);
 console.log("Initialisation on port: " + port);

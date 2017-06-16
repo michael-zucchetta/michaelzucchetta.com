@@ -8,7 +8,7 @@ create table blog_posts (
 	post_uuid uuid not null primary key,
 	author varchar(200) not null,
 	post_title varchar(200) not null,
-	post text not null,
+	post_text text not null,
 	post_date timestamp not null,
 	tags uuid references tags(tag_uuid)
 );
@@ -16,10 +16,12 @@ create table blog_posts (
 grant select, insert, update, delete on blog_posts to michaelzucchetta;
 
 
-create table blog_post_comment (
+create table blog_post_comments (
 	comment_uuid uuid not null primary key,
+	author: varchar(200),
 	comment_text text not null,
-	tracking_action uuid not null references tracking_actions(tracking_uuid),
+	tracking_action_uuid uuid not null references tracking_actions(tracking_uuid),
+	comment_date timestamp not null,
 	post_uuid uuid not null references blog_posts(post_uuid)
 );
 
