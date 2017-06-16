@@ -8,8 +8,6 @@ var express = require('express'),
 	tls = require('tls'),
 	compression = require('compression'),
 	httpRequest = require('request');
-var sslKey = fs.readFileSync('michaelzucchetta-key.pem');
-var sslCert = fs.readFileSync('michaelzucchetta-cert.pem')
 
 var app = express();
 app.use(compression());
@@ -26,7 +24,7 @@ app.use(function(request, response) {
 			Host: ${request.headers.host}
 			Referer: ${request.headers.referrer}
 			secure: ${request.secure}
-		secure2: ${request.headers['x-forwarded-proto']}
+			secureForwardProto: ${request.headers['x-forwarded-proto']}
 			${request.url}: ${Object.keys(request)}`);
 	// ovh does use DNS redirection => https is not matched hence x-forward-proto is used
 	if ( (!request.isSecure && request.headers['x-forwarded-proto'] !== 'https') && request.headers.host.indexOf('michaelzucchetta.com') !== -1 ) {

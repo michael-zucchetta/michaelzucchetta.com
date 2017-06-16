@@ -3,12 +3,13 @@ package models
 import java.util.UUID
 import java.time.Instant
 
-case class BlogSpot(
+case class BlogPost(
                     postUuid: UUID = UUID.randomUUID(),
                     author: String,
                     postTitle: String,
                     postText: String,
-                    postDate: Instant = Instant.now()
+                    postDate: Instant = Instant.now(),
+                    comments: Vector[BlogPostComment]
                   )
 
 case class BlogPostComment(
