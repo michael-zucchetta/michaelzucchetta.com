@@ -46,3 +46,6 @@ src/domains.index.ts
 backend/core-app/src/main/resources/application.conf
 *.log
 target/*
+.idea
+nohup.out
+server.log

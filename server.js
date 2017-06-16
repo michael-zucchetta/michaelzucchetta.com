@@ -10,7 +10,7 @@ app.use(compression());
 console.log(__dirname + '/dist');
 
 var basePath = "/dist";
-var port = process.env.PORT || 80;
+var port = process.env.PORT || 8888;
 
 let servicePath = '/service/';
 
