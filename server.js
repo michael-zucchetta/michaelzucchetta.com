@@ -1,9 +1,15 @@
+'use strict';
+
 var express = require('express'),
 	fs = require('fs'),
+	https = require('https'),
 	http = require('http'),
 	mime = require('mime'),
+	tls = require('tls'),
 	compression = require('compression'),
 	httpRequest = require('request');
+var sslKey = fs.readFileSync('michaelzucchetta-key.pem');
+var sslCert = fs.readFileSync('michaelzucchetta-cert.pem')
 
 var app = express();
 app.use(compression());

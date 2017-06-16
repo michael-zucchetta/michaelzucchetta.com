@@ -38,6 +38,7 @@ lazy val root = project
       "co.fs2"                     %% "fs2-core"                       % "0.9.6",
       "co.fs2"                     %% "fs2-cats"                       % "0.3.0",
       "com.typesafe"               %  "config"                         % "1.3.1",
+      "com.nulab-inc"              %% "scala-oauth2-core"              % "1.3.0",
       "io.circe"                   %% "circe-core"                     % circeVersion,
       "io.circe"                   %% "circe-generic"                  % circeVersion,
       "io.circe"                   %% "circe-parser"                   % circeVersion,
