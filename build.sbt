@@ -29,7 +29,7 @@ val doobieVersion = "0.4.1"
 val http4sVersion = "0.17.0-M3"
 
 lazy val root = project
-  .in(file("."))
+  .in(file("./backend/"))
   .enablePlugins(JavaAppPackaging, GitVersioning)
   .settings(
     git.useGitDescribe := true,
@@ -61,7 +61,7 @@ lazy val root = project
       "org.scalatest"              %% "scalatest"                      % "3.0.0"        % "test",
       "org.mockito"                %  "mockito-all"                    % "1.10.19"      % "test"
     ),
-    dockerBaseImage := "arch_linux_with_java_ssh",
+    dockerBaseImage := "arch_linux_java_ssh_npm",
     dockerExposedPorts := Seq(8080),
     javaOptions in Universal ++= Seq(
       "-J-Xms500m",
