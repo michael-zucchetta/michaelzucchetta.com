@@ -49,7 +49,11 @@
 		position: absolute;
 		right: 15px;
 		top: 20px;
-		
+
+		div {
+			margin-top: 5px;
+		}
+
 		&:hover {
 			box-shadow: 0 0 3px rgba(155, 213, 98, 0.5);
 		}

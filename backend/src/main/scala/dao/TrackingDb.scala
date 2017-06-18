@@ -9,8 +9,6 @@ import fs2.Task
 import models.TrackingAction
 import org.log4s.getLogger
 
-
-
 case class TrackingDb(transactorTask: Task[Transactor[Task]])(implicit val dbStrategy: DbStrategy) {
   private[this] val logger = getLogger
 

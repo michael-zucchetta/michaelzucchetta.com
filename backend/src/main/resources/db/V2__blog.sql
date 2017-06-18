@@ -18,21 +18,21 @@ grant select, insert, update, delete on blog_posts to michaelzucchetta;
 
 create table blog_post_comments (
 	comment_uuid uuid not null primary key,
-	author: varchar(200),
+	author varchar(200),
 	comment_text text not null,
 	tracking_action_uuid uuid not null references tracking_actions(tracking_uuid),
 	comment_date timestamp not null,
 	post_uuid uuid not null references blog_posts(post_uuid)
 );
 
-grant select, insert, update, delete on blog_post_comment to michaelzucchetta;
+grant select, insert, update, delete on blog_post_comments to michaelzucchetta;
 
 /* such as about me */
-create page_post (
+create table page_posts (
 	page_post uuid not null primary key,
 	post_title varchar(300),
 	post_text text not null,
 	post_date text not null	
 );
 
-grant select, insert, update, delete on page_post to michaelzucchetta;
+grant select, insert, update, delete on page_posts to michaelzucchetta;

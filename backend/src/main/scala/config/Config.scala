@@ -1,12 +1,13 @@
 package config
 
 import com.typesafe.config.{ConfigFactory, Config => ConfigFile}
-import dao.TrackingDb
+import config.Config.dbStrategy
+import dao.{BlogPostsDb, TrackingDb}
 import doobie.util.transactor.Transactor
 import fs2.{Strategy, Stream, Task}
 import org.http4s.client.Client
 import org.http4s.client.blaze.PooledHttp1Client
-import services.{GeoPluginService, TrackingService}
+import services.{BlogPostsService, GeoPluginService, TrackingService}
 
 
 case class DbStrategy(strategy: Strategy)
@@ -36,18 +37,26 @@ object Config {
     Stream.eval(Task.delay(TrackingDb(transactorTask)(dbStrategy)))
   }
 
+  private def blogPostsDb(transactor: Task[Transactor[Task]], dbStrategy: DbStrategy) = {
+    Stream.eval(Task.delay(BlogPostsDb(transactor)(dbStrategy)))
+  }
+
   val stream = for {
     config <- Stream.eval(Task.delay(ConfigFactory.load()))
     client <- httpClient()
     geoPluginClient = geoPluginService(config, client)
     postgresTransactor <- transactor(config)
-    trackingDb <- trackingDb(postgresTransactor, dbStrategy(config))
+    strategy = dbStrategy(config)
+    trackingDb <- trackingDb(postgresTransactor, strategy)
     trackingService <- Stream.emit(TrackingService(trackingDb))
+    blogPostsDb <- blogPostsDb(postgresTransactor, strategy)
+    blogPostsService <- Stream.emit(BlogPostsService(blogPostsDb))
   } yield {
-    (config, client, geoPluginClient, trackingService)
+    (config, client, geoPluginClient, trackingService, blogPostsService)
   }
-  val configStream = stream.map { case (config, _, _, _) => config }
-  val httpClientStream = stream.map { case (_, httpClient, _, _) => httpClient }
-  val geoPluginServiceStream = stream.flatMap { case (_, _, geoPluginService, _) => geoPluginService }
-  val trackingServiceStream = stream.map { case (_, _, _, trackingService) => trackingService }
+  val configStream = stream.map { case (config, _, _, _, _) => config }
+  val httpClientStream = stream.map { case (_, httpClient, _, _, _) => httpClient }
+  val geoPluginServiceStream = stream.flatMap { case (_, _, geoPluginService, _, _) => geoPluginService }
+  val trackingServiceStream = stream.map { case (_, _, _, trackingService, _) => trackingService }
+  val blogPostsServiceStream = stream.map { case (_, _, _, _, blogPostsService) => blogPostsService }
 }
