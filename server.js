@@ -2,10 +2,8 @@
 
 var express = require('express'),
 	fs = require('fs'),
-	https = require('https'),
 	http = require('http'),
 	mime = require('mime'),
-	tls = require('tls'),
 	compression = require('compression'),
 	httpRequest = require('request');
 
