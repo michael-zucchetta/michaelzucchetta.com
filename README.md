@@ -31,4 +31,8 @@ The graphics are an attempt to reproduce how i3 looks like https://i3wm.org/
 - add tracking to the backend
 - json editor with file upload
 - menu
-- cv con accesso via Linkedinu
+- cv con accesso via Linkedin
+
+
+# for the dock image
+npm install -g compression express mime

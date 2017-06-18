@@ -3,10 +3,10 @@
 	"description": "",
 	"devDependencies": {
 		"jquery": "*",
-		"angularjs": "*",
-		"angular-mocks": "*",
+		"angularjs": "1.6.4",
+		"angular-mocks": "1.6.4",
 		"ui-router": "*",
-		"angular-route": "*",
+		"angular-route": "1.6.4",
 		"ng-file-upload": "*",
 		"angular-css": "*",
 		"ng-file-upload": "*",

@@ -75,7 +75,7 @@ class AngularBootstrap implements ng.IAngularBootstrapConfig {
 		// and the "$filterProvider"; but, I don't really use
 		// custom filters.
 		$locationProvider.hashPrefix('');
-			$qProvider.errorOnUnhandledRejections(false);
+		$qProvider.errorOnUnhandledRejections(false);
 	}
 };
 

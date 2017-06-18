@@ -1,5 +1,6 @@
 import NativePackagerHelper._
 import com.typesafe.sbt.packager.archetypes.JavaAppPackaging
+import com.typesafe.sbt.packager.docker._
 
 enablePlugins(JavaAppPackaging)
 
@@ -28,9 +29,10 @@ val circeVersion = "0.8.0"
 val doobieVersion = "0.4.1"
 val http4sVersion = "0.17.0-M3"
 
+
 lazy val root = project
   .in(file("./backend/"))
-  .enablePlugins(JavaAppPackaging, GitVersioning)
+  .enablePlugins(JavaAppPackaging, GitVersioning, DockerPlugin)
   .settings(
     git.useGitDescribe := true,
     name := "michaelzucchetta.com",
@@ -61,11 +63,25 @@ lazy val root = project
       "org.scalatest"              %% "scalatest"                      % "3.0.0"        % "test",
       "org.mockito"                %  "mockito-all"                    % "1.10.19"      % "test"
     ),
-    dockerBaseImage := "arch_linux_java_ssh_npm",
-    dockerExposedPorts := Seq(8080),
+    dockerBaseImage := "arch_final",
+    dockerExposedPorts := Seq(8080, 80),
     javaOptions in Universal ++= Seq(
       "-J-Xms500m",
       "-J-Xmx500m"
-    )
-  )
-
+    ),
+    mappings in Universal ++= directory("./dist"),
+    mappings in Universal += file("./server.js") -> "server.js",
+    mappings in Universal += file("./docker-run.sh") -> "docker-run.sh",
+    dockerCommands ++= Seq(
+    	// setting the run script executable
+      Cmd("RUN", "ls -tr"),
+      Cmd("RUN", "chmod +x docker-run.sh"),
+      Cmd("RUN", "npm link request"),
+      Cmd("RUN", "npm link fs"),
+      Cmd("RUN", "npm link http"),
+      Cmd("RUN", "npm link express"),
+      Cmd("RUN", "npm link mime"),
+      Cmd("RUN", "npm link compression")
+    ),
+    dockerEntrypoint := Seq("/opt/docker/docker-run.sh")
+)
