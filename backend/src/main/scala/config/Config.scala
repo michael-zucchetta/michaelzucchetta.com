@@ -13,6 +13,8 @@ import services.{BlogPostsService, GeoPluginService, TrackingService}
 case class DbStrategy(strategy: Strategy)
 
 object Config {
+  val strategy = Strategy.fromFixedDaemonPool(10)
+
   private def httpClient() = {
     val client = Task.delay(PooledHttp1Client())
     Stream.bracket(client)((c: Client) => Stream.emit(c), (c: Client) => c.shutdown)
