@@ -11,7 +11,9 @@ import org.http4s.dsl._
 import org.http4s.circe._
 import org.http4s.util.CaseInsensitiveString
 import org.log4s.getLogger
-import services.{GeoPluginService, TrackingService}
+import services.{AuthHandler, GeoPluginService, TrackingService}
+
+import scalaoauth2.provider.AuthorizationRequest
 
 case class Routes(geoPluginService: GeoPluginService, trackingService: TrackingService) {
   implicit val config: Configuration = Configuration.default.withSnakeCaseKeys
@@ -41,6 +43,19 @@ case class Routes(geoPluginService: GeoPluginService, trackingService: TrackingS
         result <- Task.delay( geoDataEither.map( geoData => trackingService.trackAccessAction(trackingActionRequest, geoData, req.headers.get(CaseInsensitiveString("referer"))).unsafeRun() ) )
         response <- returnResult(result)
       } yield response
+    case req@POST -> Root / "auth" =>
+      // will use http4s authedservice
+      import scala.concurrent.ExecutionContext.Implicits.global
+      implicit val strategy = Config.strategy
+      for{
+        authResult <- Task.fromFuture(services.AuthService().handleRequest(new AuthorizationRequest(Map.empty[String, Seq[String]], Map.empty[String, Seq[String]]), AuthHandler()))
+        response <- NotImplemented("yet")
+      } yield {
+        logger.info(s"${authResult}")
+        response
+      }
+
+      // issueAccessToken(services.AuthService)
     case req =>
       logger.warn(s"rout not found for $req")
       NotFound("Not found")

@@ -12,7 +12,7 @@ import scalaoauth2.provider._
 
 import collection.JavaConverters._
 
-case class AuthService() extends DataHandler[User] {
+case class AuthHandler() extends DataHandler[User] {
   private[this] case class AuthData(
                                      username: String,
                                      password: String,
@@ -98,4 +98,8 @@ case class AuthService() extends DataHandler[User] {
   override def deleteAuthCode(code: String): Future[Unit] = ???
 
   override def findAuthInfoByRefreshToken(refreshToken: String): Future[Option[AuthInfo[User]]] = ???
+}
+
+case class AuthService() extends TokenEndpoint {
+
 }
