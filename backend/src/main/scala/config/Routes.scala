@@ -11,11 +11,11 @@ import org.http4s.dsl._
 import org.http4s.circe._
 import org.http4s.util.CaseInsensitiveString
 import org.log4s.getLogger
-import services.{AuthHandler, GeoPluginService, TrackingService}
+import services.{AuthHandler, GeoPluginService, TrackingService, AuthService}
 
 import scalaoauth2.provider.AuthorizationRequest
 
-case class Routes(geoPluginService: GeoPluginService, trackingService: TrackingService) {
+case class Routes(geoPluginService: GeoPluginService, trackingService: TrackingService, authService: AuthService) {
   implicit val config: Configuration = Configuration.default.withSnakeCaseKeys
   private[this] val logger = getLogger
 
@@ -51,7 +51,7 @@ case class Routes(geoPluginService: GeoPluginService, trackingService: TrackingS
       val parametersAsMap = req.multiParams
       logger.info(s"${headersAsMap}")
       for{
-        authResult <- Task.fromFuture(services.AuthService().handleRequest(new AuthorizationRequest(headersAsMap, parametersAsMap), AuthHandler()))
+        authResult <- Task.fromFuture(authService.tokenEndpoint.handleRequest(new AuthorizationRequest(headersAsMap, parametersAsMap), AuthHandler()))
         response <- NotImplemented("yet")
       } yield {
         logger.info(s"${authResult match {case Left(s) => logger.info(s"ohi ohi ${s.description -> s.errorType}");s}}, ${Thread.currentThread().getStackTrace().mkString("\n")}")

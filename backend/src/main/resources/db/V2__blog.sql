@@ -4,6 +4,18 @@ create table tags (
 
 grant select, insert, update, delete on tags to michaelzucchetta;
 
+/*create extension pgcrypto;*/
+
+/* PW hash stored with SELECT crypt('YourPasswordGoesHere', gen_salt('bf', 10));*/
+create table users (
+	user_uuid uuid not null primary key,
+	email varchar(200) not null,
+	username varchar(200) not null,
+	password_hash varchar(300) not null
+);
+
+grant select, insert, update, delete on users to michaelzucchetta;
+
 create table blog_posts (
 	post_uuid uuid not null primary key,
 	author varchar(300) not null,
@@ -40,14 +52,12 @@ create table page_posts (
 
 grant select, insert, update, delete on page_posts to michaelzucchetta;
 
-create extension pgcrypto;
-
-/* PW hash stored with SELECT crypt('YourPasswordGoesHere', gen_salt('bf', 10));*/
-create table users (
-	user_uuid uuid not null primary key,
-	email varchar(200) not null,
-	user varchar(200) not null,
-	password_hash varchar(300) not null
+create table auth_codes (
+	user_uuid uuid not null references users(user_uuid),
+	timestamp_inserted timestamp not null default now(),
+	expired boolean not null default false,
+	redirect_url varchar(200) not null,
+	auth_code varchar(200) not null
 );
 
-grant select, insert, update, delete on users to michaelzucchetta;
+grant select, insert, update, delete on auth_codes to michaelzucchetta;
