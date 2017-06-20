@@ -4,7 +4,8 @@ import java.util.Date
 import java.util.UUID
 import java.util.concurrent.ConcurrentHashMap
 
-import fs2.Task
+import dao.UsersDb
+import fs2.{Strategy, Task}
 import models.User
 import org.http4s.Headers
 import org.log4s.getLogger
@@ -109,7 +110,7 @@ case class AuthHandler() extends DataHandler[User] {
   override def findAuthInfoByRefreshToken(refreshToken: String): Future[Option[AuthInfo[User]]] = ???
 }
 
-case class AuthService() {
+case class AuthService(usersDb: UsersDb) {
   // https://github.com/tsuyoshizawa/scala-oauth2-provider-example-skinny-orm/blob/master/app/controllers/OAuthController.scala
   val tokenEndpoint = new TokenEndpoint {
     override val handlers = Map(
@@ -135,6 +136,8 @@ case class AuthService() {
     */
 
   def issueAccessToken[A, U](handler: AuthorizationHandler[U])(implicit request: org.http4s.Request) = {
+    import scala.concurrent.ExecutionContext.Implicits.global
+    implicit val s = Strategy.fromFixedDaemonPool(2)
     val authorizationRequest = toAuthorizationRequest(request)
     Task.fromFuture {
       tokenEndpoint.handleRequest(authorizationRequest, handler).map {
