@@ -27,7 +27,6 @@ case class Routes(geoPluginService: GeoPluginService, trackingService: TrackingS
         Task.now(status)
     }
 
-
   def routes(request: Request): Task[MaybeResponse] = request match {
     case req@GET -> Root / "get_geo_data" =>
       val ipAddress = req.params.get("ip_address").getOrElse("")
@@ -47,15 +46,19 @@ case class Routes(geoPluginService: GeoPluginService, trackingService: TrackingS
       // will use http4s authedservice
       import scala.concurrent.ExecutionContext.Implicits.global
       implicit val strategy = Config.strategy
+
+      val headersAsMap = req.headers.toVector.map(header => header.name.toString -> Seq(header.value)).toMap
+      val parametersAsMap = req.multiParams
+      logger.info(s"${headersAsMap}")
       for{
-        authResult <- Task.fromFuture(services.AuthService().handleRequest(new AuthorizationRequest(Map.empty[String, Seq[String]], Map.empty[String, Seq[String]]), AuthHandler()))
+        authResult <- Task.fromFuture(services.AuthService().handleRequest(new AuthorizationRequest(headersAsMap, parametersAsMap), AuthHandler()))
         response <- NotImplemented("yet")
       } yield {
-        logger.info(s"${authResult}")
+        logger.info(s"${authResult match {case Left(s) => logger.info(s"ohi ohi ${s.description -> s.errorType}");s}}, ${Thread.currentThread().getStackTrace().mkString("\n")}")
         response
       }
 
-      // issueAccessToken(services.AuthService)
+      // GrantHandler.issueAccessToken(services.AuthService)
     case req =>
       logger.warn(s"rout not found for $req")
       NotFound("Not found")
