@@ -4,12 +4,14 @@ import java.util.Date
 import java.util.UUID
 import java.util.concurrent.ConcurrentHashMap
 
+import fs2.Task
 import models.User
+import org.http4s.Headers
 import org.log4s.getLogger
 
 import scala.concurrent.Future
 import scala.concurrent.duration.DurationInt
-import scalaoauth2.provider._
+import scalaoauth2.provider.{AuthorizationRequest, _}
 import collection.JavaConverters._
 
 // see here:
@@ -107,6 +109,38 @@ case class AuthHandler() extends DataHandler[User] {
   override def findAuthInfoByRefreshToken(refreshToken: String): Future[Option[AuthInfo[User]]] = ???
 }
 
-case class AuthService() extends TokenEndpoint {
+case class AuthService() {
+  // https://github.com/tsuyoshizawa/scala-oauth2-provider-example-skinny-orm/blob/master/app/controllers/OAuthController.scala
+  val tokenEndpoint = new TokenEndpoint {
+    override val handlers = Map(
+      OAuthGrantType.AUTHORIZATION_CODE -> new AuthorizationCode(),
+      OAuthGrantType.REFRESH_TOKEN -> new RefreshToken(),
+      OAuthGrantType.CLIENT_CREDENTIALS -> new ClientCredentials(),
+      OAuthGrantType.PASSWORD -> new Password()
+    )
+  }
+  private def toAuthorizationRequest(request: org.http4s.Request): AuthorizationRequest = {
+    val headers = request.headers.toVector.map(header => header.name.toString() -> Seq(header.value)).toMap
+    val params = request.multiParams
+    new AuthorizationRequest(headers, params)
+  }
 
+  /**
+  def issueAccessToken[A, U](handler: AuthorizationHandler[U])(implicit request: Request[A], ctx: ExecutionContext): Future[Result] = {
+    tokenEndpoint.handleRequest(request, handler).map {
+      case Left(e) => new Status(e.statusCode)(responseOAuthErrorJson(e)).withHeaders(responseOAuthErrorHeader(e))
+      case Right(r) => Ok(Json.toJson(responseAccessToken(r))).withHeaders("Cache-Control" -> "no-store", "Pragma" -> "no-cache")
+    }
+  }
+    */
+
+  def issueAccessToken[A, U](handler: AuthorizationHandler[U])(implicit request: org.http4s.Request) = {
+    val authorizationRequest = toAuthorizationRequest(request)
+    Task.fromFuture {
+      tokenEndpoint.handleRequest(authorizationRequest, handler).map {
+        case Left(e) => Left(e)
+        case Right(result) => Right(result.accessToken)
+      }
+    }
+  }
 }
