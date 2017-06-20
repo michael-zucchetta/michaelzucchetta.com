@@ -5,14 +5,19 @@ import java.util.UUID
 import java.util.concurrent.ConcurrentHashMap
 
 import models.User
+import org.log4s.getLogger
 
 import scala.concurrent.Future
 import scala.concurrent.duration.DurationInt
 import scalaoauth2.provider._
-
 import collection.JavaConverters._
 
+// see here:
+// https://github.com/nulab/play2-oauth2-provider/blob/master/src/main/scala/scalaoauth2/provider/OAuth2Provider.scala
+
 case class AuthHandler() extends DataHandler[User] {
+  private[this] val logger = getLogger
+
   private[this] case class AuthData(
                                      username: String,
                                      password: String,
@@ -55,9 +60,11 @@ case class AuthHandler() extends DataHandler[User] {
   }
 
   override def validateClient(maybeCredential: Option[ClientCredential], request: AuthorizationRequest): Future[Boolean] = {
+    logger.info(s"maybe credentials are $maybeCredential")
     val result = maybeCredential match {
       case Some(credentials) =>
-        clients.exists (client => client.clientId == credentials.clientId && client.clientSecret == credentials.clientSecret)
+        logger.info(s"credentials validation is ${clients(0).clientId} ${clients(0).clientSecret} vs ${credentials.clientId} and ${credentials.clientSecret}")
+        clients.exists (client => client.clientId == credentials.clientId && client.clientSecret == credentials.clientSecret.get)
       case None =>
         false
     }
