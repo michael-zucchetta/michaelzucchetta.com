@@ -6,13 +6,14 @@ grant select, insert, update, delete on tags to michaelzucchetta;
 
 /*create extension pgcrypto;*/
 
-/* PW hash stored with SELECT crypt('YourPasswordGoesHere', gen_salt('bf', 10));*/
-insert into users (user_uuid, email, username, password_hash) values ('808b3093-9865-460a-a094-a3ecc8b6d062', '', '', crypt('pw', gen_salt('bf', 10)));
+/* PW hash stored with SELECT crypt('YourPasswordGoesHere', gen_salt('bf', 10), 1);*/
+/*insert into users (user_uuid, email, username, password_hash) values ('808b3093-9865-460a-a094-a3ecc8b6d062', '', '', crypt('pw', gen_salt('bf', 10)));*/
 create table users (
 	user_uuid uuid not null primary key,
 	email varchar(200) not null,
 	username varchar(200) not null,
-	password_hash varchar(300) not null
+	password_hash varchar(300) not null,
+	client_id varchar(300) not null
 );
 
 grant select, insert, update, delete on users to michaelzucchetta;
