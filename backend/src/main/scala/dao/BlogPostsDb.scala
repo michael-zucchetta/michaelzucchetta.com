@@ -23,9 +23,9 @@ case class BlogPostsDb(transactorTask: Task[Transactor[Task]])(implicit val dbSt
     def insertBlogPost(bp: BlogPost): Update0 =
       sql"""
           insert into blog_posts
-            (post_uuid, author, post_title, post_text, post_date)
+            (post_uuid, author, post_title, post_text, post_date, post_status)
               values
-            (${bp.postUuid}, ${bp.author}, ${bp.postTitle}, ${bp.postText}, ${bp.postDate}) 
+            (${bp.postUuid}, ${bp.author}, ${bp.postTitle}, ${bp.postText}, ${bp.postDate}, 'draft') 
          """.update
 
     def insertBlogComment(c: BlogPostComment): Update0 = 
@@ -42,6 +42,7 @@ case class BlogPostsDb(transactorTask: Task[Transactor[Task]])(implicit val dbSt
           select """ ++ blogParameters ++ fr""",
             array_agg(c.comment_uuid), array_agg(c.comment_text), array_agg(c.comment_date), array_agg(c.author), array_agg(c.post_uuid)
           from blog_posts bp inner join blog_post_comments c on bp.post_uuid = c.post_uuid
+          where bp.post_status = 'published'
           group by """ ++ blogParameters ++ fr"""
           order by bp.post_date desc
           limit 5
