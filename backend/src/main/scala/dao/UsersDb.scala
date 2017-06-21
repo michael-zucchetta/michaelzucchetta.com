@@ -6,6 +6,8 @@ import doobie.postgres.pgtypes._
 import fs2.Task
 import models.{User, UserAuthCode}
 import org.log4s.getLogger
+import java.time.Instant
+import java.util.UUID
 
 case class UsersDb(transactorTask: Task[Transactor[Task]])(implicit val dbStrategy: DbStrategy) {
   private[this] val logger = getLogger
@@ -13,6 +15,9 @@ case class UsersDb(transactorTask: Task[Transactor[Task]])(implicit val dbStrate
   implicit val strategy = dbStrategy.strategy
 
   object sql {
+    private def crypt(value: String) =
+      fr"""crypt($value, gen_salt('bf', 15))"""
+
     def readUsers(): Query0[User] =
       sql"""
             select user_uuid, user, email, password_hash from users
@@ -20,12 +25,12 @@ case class UsersDb(transactorTask: Task[Transactor[Task]])(implicit val dbStrate
 
     // add batch to delete these
     def insertAuthCode(ac: UserAuthCode): Update0 =
-      sql"""
+      (fr"""
             insert into auth_codes
               (user_uuid, redirect_url, auth_code)
             values
-              (${ac.userUuid}, ${ac.redirectUrl}, crypt(${ac.authCode}, gen_salt('bf', 15)))
-        """.update
+              (${ac.userUuid}, ${ac.redirectUrl},""" ++ crypt(ac.authCode) ++
+              fr""")""").update
 
     def deleteAuthCode(ac: UserAuthCode): Update0 =
       sql"""
@@ -37,15 +42,31 @@ case class UsersDb(transactorTask: Task[Transactor[Task]])(implicit val dbStrate
       sql"""
             update auth_codes
             set expired = true
-            where auth_code = ${ac.authCode}
+            where user_uuid = ${ac.userUuid} and expired = false
         """.update
 
     def readAuthCode(ac: UserAuthCode): Query0[Boolean] =
-      sql"""
+      (fr"""
             select
-              expired = false and auth_code = crypt(${ac.authCode}, gen_salt('bf', 15))
-            from auth_codes
-        """.query[Boolean]
+              expired = false and auth_code = """ ++ crypt(ac.authCode) ++
+        fr"""
+             from auth_codes
+        """).query[Boolean]
+
+    def authenticateUser(username: String, password: String): Query0[Boolean] =
+       (fr"""
+             select u.username = $username and u.password_hash = crypt($password, u.password_hash)
+             from users u"""
+         ).query[Boolean]
+
+    def getUserUuidFromUsername(username: String): Query0[UUID] = {
+      sql"""
+            select user_uuid
+            from users
+            where
+              username = $username
+        """.query[UUID]
+    }
   }
 
   object io {
@@ -87,6 +108,22 @@ case class UsersDb(transactorTask: Task[Transactor[Task]])(implicit val dbStrate
         isCodeValid <- isCodeValidTask
       } yield isCodeValid
     }
+
+    def authenticateUser(username: String, password: String) = {
+      for {
+        transactor <- transactorTask
+        authenticationResultTask <- Task.start(sql.authenticateUser(username, password).unique.transact(transactor))
+        authenticationResult <- authenticationResultTask
+      } yield authenticationResult
+    }
+
+    def getUserUuid(username: String) = {
+      for {
+        transactor <- transactorTask
+        userUuidTask <- Task.start(sql.getUserUuidFromUsername(username).unique.transact(transactor))
+        userUuid <- userUuidTask
+      } yield userUuid
+    }
   }
 
   def getUsers() =
@@ -97,4 +134,21 @@ case class UsersDb(transactorTask: Task[Transactor[Task]])(implicit val dbStrate
 
   def compareAuthCode(ac: UserAuthCode) =
     io.isAuthCodeValid(ac)
+
+  def authenticateUser(username: String, password: String, redirectUrl: String) = {
+    io.authenticateUser(username, password).flatMap {
+      case true =>
+        for {
+          userUuid <- io.getUserUuid(username)
+          authenticationCode = s"${UUID.randomUUID()}-${UUID.randomUUID()}"
+          userAuthCode = UserAuthCode(userUuid, Instant.now(), authenticationCode, s"$redirectUrl$authenticationCode")
+          rowInserted <- io.insertAuthCode(userAuthCode)
+        } yield {
+          logger.info(s"Inserted $rowInserted rows")
+          Right(userAuthCode)
+        }
+      case false =>
+        Task.now(Left(false))
+    }
+  }
 }

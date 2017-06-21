@@ -2,16 +2,19 @@ import config._
 import fs2.{Stream, Task}
 import org.http4s.server.blaze._
 import org.http4s.util.StreamApp
+import routes.{AuthoredRoutes, PublicRoutes}
 import services.{AuthService, GeoPluginService, TrackingService}
         
 object App extends StreamApp {
   
   def httpServer(port: Int, geoPluginService: GeoPluginService, trackingService: TrackingService, authService: AuthService) = {
-    val routes = new Routes(geoPluginService, trackingService, authService)
+    val pubRoutes = new PublicRoutes(geoPluginService, trackingService)
+    val authRoutes = new AuthoredRoutes(authService)
     BlazeBuilder
       .bindHttp(port, "0.0.0.0")
       //.withSSL()
-      .mountService(routes.websiteService, "/")
+      .mountService(authRoutes.websiteService, "/auth")
+      .mountService(pubRoutes.websiteService, "/pub")
       .serve
   }
 
@@ -20,9 +23,9 @@ object App extends StreamApp {
     //  Stream.eval_(Task.async[Nothing](_ => ())(Strategy.sequential))
     //}, _.shutdown)
     for {
-      geoPluginService <- Config.geoPluginServiceStream
-      trackingService <- Config.trackingServiceStream
-      authService <- Config.authServiceStream
+      geoPluginService <- WebConfig.geoPluginServiceStream
+      trackingService <- WebConfig.trackingServiceStream
+      authService <- WebConfig.authServiceStream
       server <- httpServer(8080, geoPluginService, trackingService, authService)
     } yield server
   }

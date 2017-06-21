@@ -9,7 +9,7 @@ import fs2.Task
 import org.scalatest.{Matchers, WordSpec}
 import java.time.Instant
 
-import config.Config
+import config.WebConfig
 import models.{BlogPost, BlogPostComment, TrackingAction}
 
 class BlogPostsDbSpec extends WordSpec with Matchers with QueryChecker {
@@ -18,7 +18,7 @@ class BlogPostsDbSpec extends WordSpec with Matchers with QueryChecker {
     "org.postgresql.Driver", "jdbc:postgresql:michaelzucchetta", "michaelzucchetta", ""
   )
 
-  val blogPostsDb = Config.blogPostsServiceStream.runLog.unsafeRun()(0).blogPostsDb
+  val blogPostsDb = WebConfig.blogPostsServiceStream.runLog.unsafeRun()(0).blogPostsDb
 
   "BlogSpot insert blog post query " should {
     "compile" in {
