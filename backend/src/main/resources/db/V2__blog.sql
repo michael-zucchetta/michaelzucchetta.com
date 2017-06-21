@@ -17,12 +17,16 @@ create table users (
 
 grant select, insert, update, delete on users to michaelzucchetta;
 
+
+create type post_status as enum ('draft', 'published', 'deleted');
+
 create table blog_posts (
 	post_uuid uuid not null primary key,
 	author varchar(300) not null,
 	post_title varchar(300) not null,
 	post_text text not null,
 	post_date timestamp not null,
+	post_status post_status not null,	
 	tags uuid references tags(tag_uuid),
 	user_uuid uuid not null references users(user_uuid)
 );
