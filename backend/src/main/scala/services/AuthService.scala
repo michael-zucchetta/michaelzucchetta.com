@@ -6,8 +6,9 @@ import java.util.concurrent.ConcurrentHashMap
 
 import dao.UsersDb
 import fs2.{Strategy, Task}
-import models.User
-import org.http4s.Headers
+import org.http4s.Response
+import org.http4s.dsl._
+import models.{User, UserAuthCode}
 import org.log4s.getLogger
 
 import scala.concurrent.Future
@@ -110,6 +111,8 @@ case class AuthHandler() extends DataHandler[User] {
   override def findAuthInfoByRefreshToken(refreshToken: String): Future[Option[AuthInfo[User]]] = ???
 }
 
+case class AuthenticationRequest(username: String, password: String)
+
 case class AuthService(usersDb: UsersDb) {
   // https://github.com/tsuyoshizawa/scala-oauth2-provider-example-skinny-orm/blob/master/app/controllers/OAuthController.scala
   val tokenEndpoint = new TokenEndpoint {
@@ -120,6 +123,16 @@ case class AuthService(usersDb: UsersDb) {
       OAuthGrantType.PASSWORD -> new Password()
     )
   }
+
+  def userAuthentication(request: AuthenticationRequest): Task[Either[Response, String]] = {
+    val baseRedirectUrl = s"/auth/confirm_auth_code?authenticationCode="
+    for {
+      authCodeResult <- usersDb.authenticateUser(request.username, request.password, baseRedirectUrl)
+      notFoundResp <- NotFound("Username or password are wrong")
+      response = authCodeResult.left.map(_ => notFoundResp)
+    } yield response.map(userAuthCode => userAuthCode.redirectUrl)
+  }
+
   private def toAuthorizationRequest(request: org.http4s.Request): AuthorizationRequest = {
     val headers = request.headers.toVector.map(header => header.name.toString() -> Seq(header.value)).toMap
     val params = request.multiParams

@@ -3,7 +3,7 @@ package dao
 import java.time.Instant
 import java.util.UUID
 
-import config.Config
+import config.WebConfig
 import doobie.scalatest.QueryChecker
 import doobie.util.iolite.IOLite
 import doobie.util.transactor.DriverManagerTransactor
@@ -15,7 +15,7 @@ class UsersDbSpec extends WordSpec with Matchers with QueryChecker {
     "org.postgresql.Driver", "jdbc:postgresql:michaelzucchetta", "michaelzucchetta", ""
   )
 
-  val usersDb = Config.authServiceStream.runLog.unsafeRun()(0).usersDb
+  val usersDb = WebConfig.authServiceStream.runLog.unsafeRun()(0).usersDb
 
   val userAuthCode = UserAuthCode(UUID.randomUUID(), Instant.now(), UUID.randomUUID().toString, UUID.randomUUID().toString)
 
@@ -46,6 +46,12 @@ class UsersDbSpec extends WordSpec with Matchers with QueryChecker {
   "UsersDb " should {
     "compile read users query" in {
       check(usersDb.sql.readUsers())
+    }
+  }
+
+  "UsersDb " should {
+    "compile authenticate user query" in {
+      check(usersDb.sql.authenticateUser(UUID.randomUUID().toString, UUID.randomUUID().toString))
     }
   }
 }

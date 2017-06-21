@@ -11,7 +11,7 @@ import services.{AuthService, BlogPostsService, GeoPluginService, TrackingServic
 
 case class DbStrategy(strategy: Strategy)
 
-object Config {
+object WebConfig {
   val strategy = Strategy.fromFixedDaemonPool(10)
 
   private def httpClient() = {
@@ -25,7 +25,7 @@ object Config {
   }
 
   private def transactor(config: ConfigFile) = {
-    val doobieConnectionManager = Task.delay(PostgresDao(config))
+    val doobieConnectionManager = Task.now(PostgresDao(config))
     Stream.bracket(doobieConnectionManager)((d: PostgresDao) => Stream.emit(d.getHikariTransactor()), (d: PostgresDao) => d.releaseConnection())
   }
 
