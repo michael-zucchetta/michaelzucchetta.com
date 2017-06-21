@@ -23,6 +23,11 @@ case class AuthoredRoutes(authService: AuthService) {
         authCodeEither <- authService.userAuthentication(authenticationRequest)
         response <- returnResult(authCodeEither)
       } yield response
+    case req@POST -> Root / "confirm_auth_code" =>
+      for {
+        response <- Ok("Ciao")
+        authenticationCode = req.params.get("authentication_code")
+      } yield response
     case req@POST -> Root / "auth" =>
       // will use http4s authedservice
       import scala.concurrent.ExecutionContext.Implicits.global

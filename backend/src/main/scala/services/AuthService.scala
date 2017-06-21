@@ -8,7 +8,7 @@ import dao.UsersDb
 import fs2.{Strategy, Task}
 import org.http4s.Response
 import org.http4s.dsl._
-import models.{User, UserAuthCode}
+import models.{User, UserAuthCode, UserAuthRedirection}
 import org.log4s.getLogger
 
 import scala.concurrent.Future
@@ -124,13 +124,13 @@ case class AuthService(usersDb: UsersDb) {
     )
   }
 
-  def userAuthentication(request: AuthenticationRequest): Task[Either[Response, String]] = {
-    val baseRedirectUrl = s"/auth/confirm_auth_code?authenticationCode="
+  def userAuthentication(request: AuthenticationRequest): Task[Either[Response, UserAuthRedirection]] = {
+    val baseRedirectUrl = s"/auth/confirm_auth_code?authentication_code="
     for {
       authCodeResult <- usersDb.authenticateUser(request.username, request.password, baseRedirectUrl)
       notFoundResp <- NotFound("Username or password are wrong")
       response = authCodeResult.left.map(_ => notFoundResp)
-    } yield response.map(userAuthCode => userAuthCode.redirectUrl)
+    } yield response.map(userAuthCode => UserAuthRedirection(userAuthCode.redirectUrl))
   }
 
   private def toAuthorizationRequest(request: org.http4s.Request): AuthorizationRequest = {
