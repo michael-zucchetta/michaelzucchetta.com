@@ -51,3 +51,4 @@ nohup.out
 server.log
 project/project/*
 project/target/*
+backend/src/main/resources/application.conf
