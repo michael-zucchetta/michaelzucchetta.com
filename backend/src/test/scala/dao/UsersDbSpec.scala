@@ -21,7 +21,7 @@ class UsersDbSpec extends WordSpec with Matchers with QueryChecker {
 
   "UsersDb " should {
     "compile delete auth code query" in {
-      check(usersDb.sql.deleteAuthCode(userAuthCode))
+      check(usersDb.sql.deleteAuthCode(userAuthCode.authCode))
     }
   }
 
@@ -52,6 +52,12 @@ class UsersDbSpec extends WordSpec with Matchers with QueryChecker {
   "UsersDb " should {
     "compile authenticate user query" in {
       check(usersDb.sql.authenticateUser(UUID.randomUUID().toString, UUID.randomUUID().toString))
+    }
+  }
+
+  "UsersDb" should {
+    "compile getUserByAuthCode query" in {
+      check(usersDb.sql.getUserByAuthCode(UUID.randomUUID().toString))
     }
   }
 }

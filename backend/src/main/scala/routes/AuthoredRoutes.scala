@@ -20,6 +20,7 @@ case class AuthoredRoutes(authService: AuthService) {
       logger.info("authenticate")
       for {
         authenticationRequest <- request.as(jsonOf[AuthenticationRequest])
+        // set Basic Base64 for clientId
         authCodeEither <- authService.userAuthentication(authenticationRequest)
         response <- returnResult(authCodeEither)
       } yield response
@@ -41,10 +42,10 @@ case class AuthoredRoutes(authService: AuthService) {
       val parametersAsMap = req.multiParams
       logger.info(s"${headersAsMap}")
       for{
-        authResult <- Task.fromFuture(authService.tokenEndpoint.handleRequest(new AuthorizationRequest(headersAsMap, parametersAsMap), AuthHandler()))
+        //authResult <- Task.fromFuture(authService.tokenEndpoint.handleRequest(new AuthorizationRequest(headersAsMap, parametersAsMap), AuthHandler()))
         response <- NotImplemented("yet")
       } yield {
-        logger.info(s"${authResult match {case Left(s) => logger.info(s"ohi ohi ${s.description -> s.errorType}");s}}, ${Thread.currentThread().getStackTrace().mkString("\n")}")
+        // logger.info(s"${authResult match {case Left(s) => logger.info(s"ohi ohi ${s.description -> s.errorType}");s}}, ${Thread.currentThread().getStackTrace().mkString("\n")}")
         response
       }
 
