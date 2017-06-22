@@ -1,124 +1,19 @@
 package services
 
-import java.util.Date
-import java.util.UUID
-import java.util.concurrent.ConcurrentHashMap
-
 import dao.UsersDb
 import fs2.{Strategy, Task}
-import org.http4s.Response
+import models.UserAuthRedirection
+import org.http4s.{Request, Response}
 import org.http4s.dsl._
-import models.{User, UserAuthRedirection}
-import org.log4s.getLogger
-import org.http4s.Request
 
-import scala.concurrent.Future
-import scala.concurrent.duration.DurationInt
 import scalaoauth2.provider.{AuthorizationRequest, _}
-import collection.JavaConverters._
 
 // see here:
 // https://github.com/nulab/play2-oauth2-provider/blob/master/src/main/scala/scalaoauth2/provider/OAuth2Provider.scala
 
-case class AuthHandler(usersDb: UsersDb) extends DataHandler[User] {
-  private[this] val logger = getLogger
-
-  private[this] case class AuthData(
-                                     username: String,
-                                     password: String,
-                                     clientId: String,
-                                     clientSecret: String,
-                                     authCode: String,
-                                     user: User
-                                   )
-
-  private[this] val accessTokens = new ConcurrentHashMap[String, AccessToken]().asScala
-  private[this] val authInfosByAccessToken = new ConcurrentHashMap[String, AuthInfo[User]]().asScala
-
-  private[this] def makeToken: AccessToken = {
-    AccessToken(
-      token = s"AT-mz-${UUID.randomUUID()}",
-      refreshToken = Some(s"RT-mz-${UUID.randomUUID()}"),
-      scope = None,
-      lifeSeconds = Some(1.hour.toSeconds),
-      createdAt = new Date()
-    )
-  }
-
-  private[this] val clients: Vector[AuthData] = Vector(
-    AuthData(
-      "user_name",
-      "user_password",
-      "1",
-      "",
-      "user_auth_code",
-      User(UUID.randomUUID(), "John Smith", "", "global")
-    )
-  )
-
-  override def findAuthInfoByAccessToken(accessToken: AccessToken): Future[Option[AuthInfo[User]]] = {
-    Future.successful(authInfosByAccessToken.get(accessToken.token))
-  }
-
-  override def findAccessToken(token: String): Future[Option[AccessToken]] = {
-    Future.successful(accessTokens.values.find { at: AccessToken => at.token.equals(token) })
-  }
-
-  override def validateClient(maybeCredential: Option[ClientCredential], request: AuthorizationRequest): Future[Boolean] = {
-    logger.info(s"maybe credentials are $maybeCredential")
-    val result = maybeCredential match {
-      case Some(credentials) =>
-        logger.info(s"credentials validation is ${clients(0).clientId} ${clients(0).clientSecret} vs ${credentials.clientId} and ${credentials.clientSecret}")
-        clients.exists (client => client.clientId == credentials.clientId && client.clientSecret == credentials.clientSecret.getOrElse(""))
-      case None =>
-        false
-    }
-    Future.successful(result)
-  }
-
-  override def findUser(maybeCredential: Option[ClientCredential], request: AuthorizationRequest): Future[Option[User]] = ???
-
-  override def createAccessToken(authInfo: AuthInfo[User]): Future[AccessToken] = {
-    val token = makeToken
-
-    authInfo.clientId.foreach( clientId =>
-      accessTokens += clientId -> token
-    )
-    authInfosByAccessToken += (token.token -> authInfo)
-
-    Future.successful(token)
-  }
-
-  override def getStoredAccessToken(authInfo: AuthInfo[User]): Future[Option[AccessToken]] = {
-    Future.successful(authInfo.clientId.flatMap(accessTokens.get))
-  }
-
-  override def refreshAccessToken(authInfo: AuthInfo[User], refreshToken: String): Future[AccessToken] = ???
-
-  override def findAuthInfoByCode(code: String): Future[Option[AuthInfo[User]]] = {
-    clients.find { case ad => code.equals(ad.authCode) } match {
-      case Some(ad) =>
-        Future.successful(Some(AuthInfo[User](
-          ad.user,
-          Some(ad.clientId),
-          Some("global"),
-          None
-        )))
-      case None => Future.successful(None)
-    }
-  }
-
-  override def deleteAuthCode(code: String): Future[Unit] =
-    usersDb.deleteAuthCode(code)
-      .unsafeRunAsyncFuture()
-      .map(_ => ())
-
-  override def findAuthInfoByRefreshToken(refreshToken: String): Future[Option[AuthInfo[User]]] = ???
-}
-
 case class AuthenticationRequest(username: String, password: String)
 
-case class AuthService(usersDb: UsersDb)
+case class AuthService(usersDb: UsersDb) {
   val authHandler = AuthHandler(usersDb)
   // https://github.com/tsuyoshizawa/scala-oauth2-provider-example-skinny-orm/blob/master/app/controllers/OAuthController.scala
   val tokenEndpoint = new TokenEndpoint {
