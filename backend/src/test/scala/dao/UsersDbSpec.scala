@@ -17,7 +17,7 @@ class UsersDbSpec extends WordSpec with Matchers with QueryChecker {
 
   val usersDb = WebConfig.authServiceStream.runLog.unsafeRun()(0).usersDb
 
-  val userAuthCode = UserAuthCode(UUID.randomUUID(), Instant.now(), UUID.randomUUID().toString, UUID.randomUUID().toString)
+  val userAuthCode = UserAuthCode(UUID.randomUUID(), Instant.now(), UUID.randomUUID().toString, UUID.randomUUID().toString, UUID.randomUUID().toString)
 
   "UsersDb " should {
     "compile delete auth code query" in {

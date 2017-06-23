@@ -85,3 +85,14 @@ lazy val root = project
     ),
     dockerEntrypoint := Seq("/opt/docker/docker-run.sh")
 )
+
+lazy val client = project
+  .in(file("./frontend/"))
+  .enablePlugins(ScalaJSPlugin)
+  .settings(
+    name := "michaelzucchetta.com-client",
+    libraryDependencies ++= Seq(
+      "org.scala-js"     %%% "scalajs-dom"     % "0.9.1",
+      "com.greencatsoft" %%% "scalajs-angular" % "0.7"
+    )
+  )

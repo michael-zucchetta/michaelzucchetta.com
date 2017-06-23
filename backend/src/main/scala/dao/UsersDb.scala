@@ -9,7 +9,7 @@ import org.log4s.getLogger
 import java.time.Instant
 import java.util.UUID
 
-case class UsersDb(transactorTask: Task[Transactor[Task]])(implicit val dbStrategy: DbStrategy) {
+case class UsersDb(transactor: Transactor[Task])(implicit val dbStrategy: DbStrategy) {
   private[this] val logger = getLogger
 
   implicit val strategy = dbStrategy.strategy
@@ -26,8 +26,8 @@ case class UsersDb(transactorTask: Task[Transactor[Task]])(implicit val dbStrate
 
     def readAuthCodes(): Query0[UserAuthCode] =
       sql"""
-            select user_uuid, timestamp_inserted, auth_code, redirect_url
-            from auth_codes
+            select ac.user_uuid, ac.timestamp_inserted, ac.auth_code, ac.redirect_url, u.client_id
+            from auth_codes ac inner join users u on ac.user_uuid = u.user_uuid
         """.query[UserAuthCode]
 
     // add batch to delete these
@@ -42,7 +42,7 @@ case class UsersDb(transactorTask: Task[Transactor[Task]])(implicit val dbStrate
     def deleteAuthCode(authCode: String): Update0 =
       sql"""
             delete from auth_codes
-            where auth_code = ${authCode}
+            where auth_code = crypt(${authCode}, auth_code)
         """.update
 
     def expireAuthCode(ac: UserAuthCode): Update0 =
@@ -65,13 +65,13 @@ case class UsersDb(transactorTask: Task[Transactor[Task]])(implicit val dbStrate
              from users u"""
          ).query[Boolean]
 
-    def getUserUuidFromUsername(username: String): Query0[UUID] = {
+    def getUserByUsername(username: String): Query0[User] = {
       sql"""
-            select user_uuid
+            select user_uuid, username, email, client_id, ''::varchar as secret_client_id
             from users
             where
               username = $username
-        """.query[UUID]
+        """.query[User]
     }
 
     def getUserByAuthCode(code: String): Query0[User] =
@@ -85,7 +85,6 @@ case class UsersDb(transactorTask: Task[Transactor[Task]])(implicit val dbStrate
   object io {
     def getUsers() =
       for {
-        transactor <- transactorTask
         usersTask <- Task.start(sql.readUsers().vector.transact(transactor))
         users <- usersTask
       } yield users
@@ -95,7 +94,6 @@ case class UsersDb(transactorTask: Task[Transactor[Task]])(implicit val dbStrate
       val insertIO = sql.insertAuthCode(ac).run
       val expireAndInsertIO = expireIO |+| insertIO
       for {
-        transactor <- transactorTask
         expireAndInsertTask <- Task.start(expireAndInsertIO.transact(transactor))
         numOfRowsAltered <- expireAndInsertTask
       } yield {
@@ -117,7 +115,6 @@ case class UsersDb(transactorTask: Task[Transactor[Task]])(implicit val dbStrate
 
     def isAuthCodeValid(ac: UserAuthCode) = {
       for {
-        transactor <- transactorTask
         isCodeValidTask <- compareAndDeleteAuthCode(transactor, ac)
         isCodeValid <- isCodeValidTask
       } yield isCodeValid
@@ -125,23 +122,20 @@ case class UsersDb(transactorTask: Task[Transactor[Task]])(implicit val dbStrate
 
     def authenticateUser(username: String, password: String) = {
       for {
-        transactor <- transactorTask
         authenticationResultTask <- Task.start(sql.authenticateUser(username, password).unique.transact(transactor))
         authenticationResult <- authenticationResultTask
       } yield authenticationResult
     }
 
-    def getUserUuid(username: String) = {
+    def getUserByUsername(username: String) = {
       for {
-        transactor <- transactorTask
-        userUuidTask <- Task.start(sql.getUserUuidFromUsername(username).unique.transact(transactor))
-        userUuid <- userUuidTask
-      } yield userUuid
+        userTask <- Task.start(sql.getUserByUsername(username).unique.transact(transactor))
+        user <- userTask
+      } yield user
     }
 
     def deleteAuthCode(authCode: String) = {
       for {
-        transactor <-transactorTask
         resultTask <- Task.start(sql.deleteAuthCode(authCode).run.transact(transactor))
         result <- resultTask
       } yield result
@@ -149,7 +143,6 @@ case class UsersDb(transactorTask: Task[Transactor[Task]])(implicit val dbStrate
 
     def compareAuthCode(ac: UserAuthCode) = {
       for {
-        transactor <- transactorTask
         resultTask <- Task.start(sql.readAuthCode(ac).unique.transact(transactor))
         result <- resultTask
       } yield result
@@ -157,14 +150,12 @@ case class UsersDb(transactorTask: Task[Transactor[Task]])(implicit val dbStrate
 
     def getAuthCodes() =
       for {
-        transactor <- transactorTask
         authCodesTask <- Task.start(sql.readAuthCodes().list.transact(transactor))
         authCodes <- authCodesTask
       } yield authCodes
 
     def getUserByAuthCode(code: String) =
       for {
-        transactor <- transactorTask
         userTask <- Task.start(sql.getUserByAuthCode(code).list.transact(transactor))
         user <- userTask
       } yield user.headOption
@@ -184,9 +175,9 @@ case class UsersDb(transactorTask: Task[Transactor[Task]])(implicit val dbStrate
     io.authenticateUser(username, password).flatMap {
       case true =>
         for {
-          userUuid <- io.getUserUuid(username)
+          user <- io.getUserByUsername(username)
           authenticationCode = s"${UUID.randomUUID()}-${UUID.randomUUID()}"
-          userAuthCode = UserAuthCode(userUuid, Instant.now(), authenticationCode, s"$redirectUrl$authenticationCode")
+          userAuthCode = UserAuthCode(user.userUuid, Instant.now(), authenticationCode, s"$redirectUrl$authenticationCode", user.clientId)
           rowInserted <- io.insertAuthCode(userAuthCode)
         } yield {
           logger.info(s"Inserted $rowInserted rows")

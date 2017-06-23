@@ -104,10 +104,15 @@ case class AuthHandler(usersDb: UsersDb) extends DataHandler[User] {
 
   import scala.concurrent.ExecutionContext.Implicits.global
 
-  override def deleteAuthCode(code: String): Future[Unit] =
+  override def deleteAuthCode(code: String): Future[Unit] = {
+    logger.info(s"Deleting auth code $code")
     usersDb.deleteAuthCode(code)
       .unsafeRunAsyncFuture()
-      .map(_ => ())
+      .map(numRows => {
+        logger.info(s"Deleting $numRows auth codes")
+        ()
+      })
+  }
 
   override def findAuthInfoByRefreshToken(refreshToken: String): Future[Option[AuthInfo[User]]] = ???
 }

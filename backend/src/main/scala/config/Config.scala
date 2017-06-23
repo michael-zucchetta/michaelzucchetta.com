@@ -25,8 +25,10 @@ object WebConfig {
   }
 
   private def transactor(config: ConfigFile) = {
-    val doobieConnectionManager = Task.now(PostgresDao(config))
-    Stream.bracket(doobieConnectionManager)((d: PostgresDao) => Stream.emit(d.getHikariTransactor()), (d: PostgresDao) => d.releaseConnection())
+    // val doobieConnectionManager = Task.now(PostgresDao(config))
+    val doobieConnectionManager = PostgresDao(config)
+    // Stream.bracket(doobieConnectionManager)((d: PostgresDao) => Stream.emit(d.getHikariTransactor()), (d: PostgresDao) => d.releaseConnection())
+    Stream.eval(doobieConnectionManager.getHikariTransactor())
   }
 
   private def dbStrategy(config: ConfigFile): DbStrategy = {
@@ -34,15 +36,15 @@ object WebConfig {
     DbStrategy(Strategy.fromFixedDaemonPool(threadNumber))
   }
 
-  private def trackingDb(transactorTask: Task[Transactor[Task]], dbStrategy: DbStrategy) = {
-    Stream.eval(Task.delay(TrackingDb(transactorTask)(dbStrategy)))
+  private def trackingDb(transactor: Transactor[Task], dbStrategy: DbStrategy) = {
+    Stream.eval(Task.delay(TrackingDb(transactor)(dbStrategy)))
   }
 
-  private def blogPostsDb(transactor: Task[Transactor[Task]], dbStrategy: DbStrategy) = {
+  private def blogPostsDb(transactor: Transactor[Task], dbStrategy: DbStrategy) = {
     Stream.eval(Task.delay(BlogPostsDb(transactor)(dbStrategy)))
   }
 
-  private def usersDb(transactor: Task[Transactor[Task]], dbStrategy: DbStrategy) = {
+  private def usersDb(transactor: Transactor[Task], dbStrategy: DbStrategy) = {
     Stream.eval(Task.delay(UsersDb(transactor)(dbStrategy)))
   }
 

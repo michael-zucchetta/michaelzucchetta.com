@@ -14,7 +14,7 @@ console.log(__dirname + '/dist');
 var basePath = "/dist";
 var port = process.env.PORT || 8888;
 
-let servicePath = '/service/';
+let servicePath = '/services/';
 
 app.use(function(request, response) {
 	console.log(`Request is:
@@ -32,13 +32,17 @@ app.use(function(request, response) {
 	request.url = request.url === "/" ? "/index.html" : request.url;
 	
 	if ( request.url.indexOf(servicePath) == 0 ) {
+		console.log(`calling BE`);
 		// request going to the BE
 		// TBD: list of endpoints available
 		let serverRequest = `http://localhost:9999/${request.url.replace(servicePath, '')}`;
 		console.log(`Request changed to ${serverRequest}`);
-		httpRequest(serverRequest, (error, response, body) => {
-			console.log('error', error);
-		});
+		return httpRequest(serverRequest, (error, resp, body) => {
+			console.log('error', error, resp);
+			response.write(resp.body);
+			response.end();
+			return resp.body;
+		}).end();
 	} else if ( request.url.indexOf("/lib/") !== 0 && request.url.indexOf("/src/") !== 0 ) {
 		request.url = basePath + request.url;
 	}

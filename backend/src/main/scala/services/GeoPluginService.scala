@@ -14,10 +14,10 @@ import org.http4s.circe.jsonOf
 case class GeoPluginService(geoPluginUrl: String, client: Client) {
   private[this] val logger = getLogger
 
-  def getGeoLocalizationByIp(ipAddress: String): Task[Either[Response, GeoData]] = {
+  def getGeoLocalizationByIp(ipAddressOpt: Option[String]): Task[Either[Response, GeoData]] = {
     val uri = Uri.fromString(geoPluginUrl) match {
       case Right(uri) =>
-        uri.withQueryParam("ip", ipAddress)
+        uri.withOptionQueryParam("ip", ipAddressOpt)
       case Left(parseFailure) =>
         logger.error(s"Something wrong with uri $geoPluginUrl: $parseFailure")
         throw new MalformedURLException()

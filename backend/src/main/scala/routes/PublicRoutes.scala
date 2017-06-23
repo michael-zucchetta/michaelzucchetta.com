@@ -14,23 +14,44 @@ import models.TrackingActionRequest
 case class PublicRoutes(geoPluginService: GeoPluginService, trackingService: TrackingService) {
   private[this] val logger = getLogger
 
+  private def getIpAddress(request: Request) = {
+    val ipHeaders = Vector("X-Forwarded-For",
+      "Proxy-Client-IP",
+      "WL-Proxy-Client-IP",
+      "HTTP_X_FORWARDED_FOR",
+      "HTTP_X_FORWARDED",
+      "HTTP_X_CLUSTER_CLIENT_IP",
+      "HTTP_FORWARDED",
+      "HTTP_VIA",
+      "REMOTE_ADDR"
+    )
+    ipHeaders
+      .map(ipHeader => request.headers.get(CaseInsensitiveString(ipHeader)))
+      .find {
+        case Some(ipAddressHeader) => true
+        case None => false
+      }.flatten
+  }
+
   def routes(request: Request): Task[MaybeResponse] = request match {
     case req@GET -> Root / "get_geo_data" =>
-      val ipAddress = req.params.get("ip_address").getOrElse("")
+      logger.info(s"IP address is ${req.headers.get(CaseInsensitiveString("x-forwarded-for"))}")
+      // val ipAddressOpt = req.params.get("ip_address")
+      val ipAddressOpt = getIpAddress(request).map(_.value)
       for {
-        resultEither <- geoPluginService.getGeoLocalizationByIp(ipAddress)
+        resultEither <- geoPluginService.getGeoLocalizationByIp(ipAddressOpt)
         response <- returnResult(resultEither)
       } yield response
     case req@POST -> Root / "track_action" =>
       for {
         trackingActionRequest <- req.as(jsonOf[TrackingActionRequest])
-        ipAddress = trackingActionRequest.ipAddress.getOrElse("")
-        geoDataEither <- geoPluginService.getGeoLocalizationByIp(ipAddress)
+        ipAddressOpt = trackingActionRequest.ipAddress
+        geoDataEither <- geoPluginService.getGeoLocalizationByIp(ipAddressOpt)
         result <- Task.delay( geoDataEither.map( geoData => trackingService.trackAccessAction(trackingActionRequest, geoData, req.headers.get(CaseInsensitiveString("referer"))).unsafeRun() ) )
         response <- returnResult(result)
       } yield response
     case req =>
-      logger.warn(s"rout not found for $req")
+      logger.warn(s"route not found for $req")
       NotFound("Not found")
   }
 
