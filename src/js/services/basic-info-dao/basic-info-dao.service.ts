@@ -19,9 +19,9 @@ export class BasicInfoDao {
 		return this.RestProxy.handleGetCall(this.menuEndpoint);
 	}
 
-	public getIP(ipAddress: string): ng.IPromise<any> {
+	public getIP(): ng.IPromise<any> {
 		// geoplugin.com
-		return this.RestProxy.handleGetCall(`${this.ipInfoEndpoint}?ip=${ipAddress}`);
+		return this.RestProxy.handleGetCall(`${this.ipInfoEndpoint}`);
 	}
 
 }
