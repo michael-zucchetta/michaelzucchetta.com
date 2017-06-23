@@ -26,7 +26,7 @@ object App extends StreamApp {
       geoPluginService <- WebConfig.geoPluginServiceStream
       trackingService <- WebConfig.trackingServiceStream
       authService <- WebConfig.authServiceStream
-      server <- httpServer(8080, geoPluginService, trackingService, authService)
+      server <- httpServer(9999, geoPluginService, trackingService, authService)
     } yield server
   }
 }

@@ -38,7 +38,7 @@ case class PostgresDao(config: ConfigFile) {
 
   private def credentialsTask() = for {
     url <- config.getOptionString("postgres.url")
-    _ = println(url)
+    _ = println(s"URL is $url")
     maxPoolSize <- config.getOptionInt("postgres.maxPoolSize")
     connectionTimeout <- config.getOptionInt("postgres.connectionTimeout")
     user <- config.getOptionString("postgres.user")

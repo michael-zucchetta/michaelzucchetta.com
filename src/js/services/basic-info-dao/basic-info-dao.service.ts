@@ -6,7 +6,7 @@ export class BasicInfoDao {
 	private menuEndpoint: string = 'js/mocks/menu.json';
 
 	// geoplugin.com
-	private ipInfoEndpoint: string = 'http://www.geoplugin.net/json.gp?jsoncallback=angular.callbacks._0';
+	private ipInfoEndpoint: string = '/services/pub/get_geo_data';
 
 	constructor(private RestProxy: mz.IRestProxy) {
 	}
@@ -19,10 +19,9 @@ export class BasicInfoDao {
 		return this.RestProxy.handleGetCall(this.menuEndpoint);
 	}
 
-	public getIP(): ng.IPromise<any> {
+	public getIP(ipAddress: string): ng.IPromise<any> {
 		// geoplugin.com
-		let callback: any = {'jsonpCallbackParam': 'callback'};
-		return this.RestProxy.handleGetCall(this.ipInfoEndpoint);
+		return this.RestProxy.handleGetCall(`${this.ipInfoEndpoint}?ip=${ipAddress}`);
 	}
 
 }

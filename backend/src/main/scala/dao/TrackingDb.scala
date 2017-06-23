@@ -9,7 +9,7 @@ import fs2.Task
 import models.TrackingAction
 import org.log4s.getLogger
 
-case class TrackingDb(transactorTask: Task[Transactor[Task]])(implicit val dbStrategy: DbStrategy) {
+case class TrackingDb(transactor: Transactor[Task])(implicit val dbStrategy: DbStrategy) {
   private[this] val logger = getLogger
 
   object sql {
@@ -26,7 +26,6 @@ case class TrackingDb(transactorTask: Task[Transactor[Task]])(implicit val dbStr
     def writeTrackingAction(ta: TrackingAction) = {
       val connectionIo: ConnectionIO[Int] = sql.writeTrackingAction(ta).run
       for {
-        transactor <- transactorTask
         transaction <- Task.start(connectionIo.transact(transactor))(dbStrategy.strategy)
         rowsInserted <- transaction
       } yield {

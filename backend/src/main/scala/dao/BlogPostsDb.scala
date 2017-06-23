@@ -12,7 +12,7 @@ import java.util.UUID
 import models.{BlogPost, BlogPostComment}
 import org.log4s.getLogger
 
-case class BlogPostsDb(transactorTask: Task[Transactor[Task]])(implicit val dbStrategy: DbStrategy) {
+case class BlogPostsDb(transactor: Transactor[Task])(implicit val dbStrategy: DbStrategy) {
   private[this] val logger = getLogger
 
   object sql {

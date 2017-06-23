@@ -91,5 +91,18 @@
 		"order": 1,
 		"parentId": 5,
 		"active": false
+	},
+	{
+		"id": 7,
+		"name": "Login",
+		"title": "Login",
+		"order": 1,
+		"parentId": null,
+		"active": true,
+		"definition": {
+			"url": "/login.html",
+			"component": "Login"
+		}
 	}
 ]
+
