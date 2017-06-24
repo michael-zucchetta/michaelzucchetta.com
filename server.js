@@ -38,10 +38,12 @@ app.use(function(request, response) {
 		let serverRequest = `http://localhost:9999/${request.url.replace(servicePath, '')}`;
 		console.log(`Request changed to ${serverRequest}`);
 		return httpRequest(serverRequest, (error, resp, body) => {
-			console.log('error', error, resp);
-			response.write(resp.body);
-			response.end();
-			return resp.body;
+			if (resp) {
+				console.log('error', error, resp);
+				response.write(resp.body);
+				response.end();
+				return resp.body;
+			}
 		}).end();
 	} else if ( request.url.indexOf("/lib/") !== 0 && request.url.indexOf("/src/") !== 0 ) {
 		request.url = basePath + request.url;
