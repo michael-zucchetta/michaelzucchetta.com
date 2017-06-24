@@ -1,16 +1,16 @@
-var baseSrcPath = "src/";
-var filesPath = "dist/files.json";
-var tsFilesPath = "dist/tsFiles.json";
+var baseSrcPath = 'src/';
+var filesPath = 'dist/files.json';
+var tsFilesPath = 'dist/tsFiles.json';
 
 module.exports = function(grunt) {
 	// Project configuration.
 	grunt.initConfig({
-		"bower-install-simple": {
+		'bower-install-simple': {
 			options: {
 				color: true,
-				directory: "lib"
+				directory: 'lib'
 			},
-			"prod": {
+			'prod': {
 				options: {
 					production: true
 				}
@@ -23,24 +23,24 @@ module.exports = function(grunt) {
 			},
 		},
 		concat: {
-			"build-ts": {
+			'build-ts': {
 				src: [
-					"dist/js/**/*.js",
-					"dist/directives/**/*.js"
+					'dist/js/**/*.js',
+					'dist/directives/**/*.js'
 				],
-				dest: "dist/app.js"
+				dest: 'dist/app.js'
 			},
-			"build-libs": {
+			'build-libs': {
 				src: [
-					"lib/jquery/dist/jquery.min.js",
-					"lib/lodash/lodash.js",
-					"lib/angular/angular.min.js",
-					"lib/angular-route/angular-route.min.js",
-					"lib/angular-css/angular-css.min.js"
+					'lib/jquery/dist/jquery.min.js',
+					'lib/lodash/lodash.js',
+					'lib/angular/angular.min.js',
+					'lib/angular-route/angular-route.min.js',
+					'lib/angular-css/angular-css.min.js'
 				],
-				dest: "dist/libs.js"
+				dest: 'dist/libs.js'
 			},
-			"build-ts-interfaces": {
+			'build-ts-interfaces': {
 				options: {
 					separator: '\nexport ',
 					banner: 'namespace mz {\nexport ',
@@ -49,47 +49,53 @@ module.exports = function(grunt) {
 				src: ['src/domains/**/*ts', '!src/domains/index.ts', 'src/**/*interface.ts'],
 				dest: 'src/domains/index.ts',
 			},
-	       },
-	       copy: {
+		},
+		copy: {
+			tinymce: {
+				expand: true,
+				cwd: 'lib/tinymce',
+				src: ['themes/**/*', 'skins/**/*', 'plugins/**/*'],
+				dest: 'dist/'
+			},
 			html: {
 				expand: true,
-				cwd: "src/",
-				src: "**/*.html",
-				dest: "dist/"
+				cwd: 'src/',
+				src: '**/*.html',
+				dest: 'dist/'
 			},
 			json: {
 				expand: true,
-				cwd: "src/",
-				src: "**/*.json",
-				dest: "dist/"
+				cwd: 'src/',
+				src: '**/*.json',
+				dest: 'dist/'
 			},
 			img_tests: {
 				expand: true,
-				cwd: "src/tests",
-				src: ["**/*.jpg", "**/*.png", "**/*.jpeg"],
-				dest: "tests/"
+				cwd: 'src/tests',
+				src: ['**/*.jpg', '**/*.png', '**/*.jpeg'],
+				dest: 'tests/'
 			}
 		},
 		jshint: {
-			all: ["dist/**/*.js"]
+			all: ['dist/**/*.js']
 		},
 		clean: {
-			js: ["dist/**/*.js"]
+			js: ['dist/**/*.js']
 		},
-		"karma": {
-			"unit-ts": {
-				configFile: "config/karma.unittest.ts.conf.js"
+		'karma': {
+			'unit-ts': {
+				configFile: 'config/karma.unittest.ts.conf.js'
 			}
 		},
 		run: {
-			"webpack-dev": {
+			'webpack-dev': {
 				cmd: 'npm',
 				args: ['run', 'dev'],
 			}
 		},
 		protractor: {
 			e2e: {
-				configFile: "config/protractor.e2e.conf.js"
+				configFile: 'config/protractor.e2e.conf.js'
 			}
 		},
 		sass: {
@@ -99,72 +105,72 @@ module.exports = function(grunt) {
 				},
 				files: [{
 					expand: true,
-					cwd: "src/",
-					src: ["**/*.scss"],
-					dest: "dist/",
-					ext: ".css"
+					cwd: 'src/',
+					src: ['**/*.scss'],
+					dest: 'dist/',
+					ext: '.css'
 				}]
 			}
 		},
 		watch: {
 			ts: {
-				files: ["src/**/*.ts"],
-				tasks: ["newer:ts:main", "concat:build-ts", "tslint"],
+				files: ['src/**/*.ts'],
+				tasks: ['newer:ts:main', 'concat:build-ts', 'tslint'],
 				options: {
-					event: ["changed", "deleted", "newer"]
+					event: ['changed', 'deleted', 'newer']
 				}
 			},
 			sass_added: {
-				files: ["src/**/*.sass"],
-				tasks: ["newer:sass:dest"],
+				files: ['src/**/*.sass'],
+				tasks: ['newer:sass:dest'],
 				options: {
-					event: ["added"]
+					event: ['added']
 				}
 			},
 			sass: {
-				files: ["src/**/*.scss"],
-				tasks: ["newer:sass:dest"],
+				files: ['src/**/*.scss'],
+				tasks: ['newer:sass:dest'],
 				options: {
-					event: ["changed", "deleted"]
+					event: ['changed', 'deleted']
 				}
 			},
 			json: {
-				files: ["src/**/*.json"],
-				tasks: ["newer:copy:json"],			
+				files: ['src/**/*.json'],
+				tasks: ['newer:copy:json'],			
 				options: {
-					event: ["changed", "added", "deleted"]
+					event: ['changed', 'added', 'deleted']
 				}
 			},
 			html: {
-				files: ["src/**/*.html"],
-				tasks: ["newer:copy:html"],			
+				files: ['src/**/*.html'],
+				tasks: ['newer:copy:html'],			
 				options: {
-					event: ["changed", "added", "deleted"]
+					event: ['changed', 'added', 'deleted']
 				}
 			}
 		},
 		ts: {
 			main: {
 				files: [{
-					src: [baseSrcPath + "**/*.ts"], 
-					dest: "dist/"
+					src: [baseSrcPath + '**/*.ts'], 
+					dest: 'dist/'
 				}],
 				tsconfig: true
 			}
 		},
-		"typings": {
+		'typings': {
 			install: {}
 		},
-		"tslint": {
+		'tslint': {
 			options: {
-				configuration: "tslint.json"
+				configuration: 'tslint.json'
 			},
 			files: {
-				src: ["src/**/*.ts"]
+				src: ['src/**/*.ts']
 			}
 		},
 		webpack: {
-			options: require("./webpack.config.js"),
+			options: require('./webpack.config.js'),
 			start: {
 				keepalive: true,
 				inline: true,
@@ -173,9 +179,9 @@ module.exports = function(grunt) {
 				devtool: 'source-map',	
 			},
 		},
-		"webpack-dev-server": {
+		'webpack-dev-server': {
 			options: {
-				webpack: require("./webpack.config.js"),
+				webpack: require('./webpack.config.js'),
 				contentBase: 'dist/',
 				port: 12310,
 				host: 'localhost',
@@ -189,35 +195,35 @@ module.exports = function(grunt) {
 		},
 	});
 	//Loading before the others
-	grunt.loadNpmTasks("grunt-npm-install");
-	grunt.loadNpmTasks("grunt-bower-install-simple");
-	grunt.loadNpmTasks("grunt-contrib-coffee");
-	grunt.loadNpmTasks("grunt-contrib-concat");
-	grunt.loadNpmTasks("grunt-contrib-copy");
-	grunt.loadNpmTasks("grunt-contrib-clean");
-	grunt.loadNpmTasks("grunt-contrib-jshint");
-	grunt.loadNpmTasks("grunt-contrib-sass");
-	grunt.loadNpmTasks("grunt-contrib-watch");
-	grunt.loadNpmTasks("grunt-concurrent");
-	grunt.loadNpmTasks("grunt-karma");
-	grunt.loadNpmTasks("grunt-newer");
-	grunt.loadNpmTasks("grunt-protractor-runner");
-	grunt.loadNpmTasks("grunt-run");
-	grunt.loadNpmTasks("grunt-ts");
-	grunt.loadNpmTasks("grunt-tslint");
-	grunt.loadNpmTasks("grunt-typings");
+	grunt.loadNpmTasks('grunt-npm-install');
+	grunt.loadNpmTasks('grunt-bower-install-simple');
+	grunt.loadNpmTasks('grunt-contrib-coffee');
+	grunt.loadNpmTasks('grunt-contrib-concat');
+	grunt.loadNpmTasks('grunt-contrib-copy');
+	grunt.loadNpmTasks('grunt-contrib-clean');
+	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-contrib-sass');
+	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-concurrent');
+	grunt.loadNpmTasks('grunt-karma');
+	grunt.loadNpmTasks('grunt-newer');
+	grunt.loadNpmTasks('grunt-protractor-runner');
+	grunt.loadNpmTasks('grunt-run');
+	grunt.loadNpmTasks('grunt-ts');
+	grunt.loadNpmTasks('grunt-tslint');
+	grunt.loadNpmTasks('grunt-typings');
 	grunt.loadNpmTasks('grunt-webpack');
 
-	grunt.registerTask("bower-install", function() {
-		grunt.task.run(["bower-install-simple"]);
+	grunt.registerTask('bower-install', function() {
+		grunt.task.run(['bower-install-simple']);
 	});
 
-	grunt.registerTask("compile-and-lint", function() {
-		grunt.task.run(["ts", "tslint"]);
+	grunt.registerTask('compile-and-lint', function() {
+		grunt.task.run(['ts', 'tslint']);
 	});
 
-	grunt.registerTask("test", ["default", "karma"]);
-	grunt.registerTask("dev", ["default", "watch"]);
-	// grunt.registerTask("default", ["bower-install", "typings", "copy", "sass", "clean", "ts", "watch"]);
-	grunt.registerTask("default", ["bower-install", "clean", "copy", "concat:build-ts-interfaces", "sass", "concurrent"]);
+	grunt.registerTask('test', ['default', 'karma']);
+	grunt.registerTask('dev', ['default', 'watch']);
+	// grunt.registerTask('default', ['bower-install', 'typings', 'copy', 'sass', 'clean', 'ts', 'watch']);
+	grunt.registerTask('default', ['bower-install', 'clean', 'copy', 'concat:build-ts-interfaces', 'sass', 'concurrent']);
 }

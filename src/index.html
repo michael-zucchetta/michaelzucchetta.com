@@ -149,23 +149,27 @@
 					<span ng-include="'directives/asciify/B.html'"></span>
 					</pre>
 					<pre class="ascii-text extra" ng-class="{'extra-pushed': !$ctrl.showWholeMenu}">
-					<span ng-include="'directives/asciify/font1/M.html'"></span>
-					<span ng-include="'directives/asciify/font1/I.html'"></span>
-					<span ng-include="'directives/asciify/font1/C.html'"></span>
-					<span ng-include="'directives/asciify/font1/H.html'"></span>
-					<span ng-include="'directives/asciify/font1/A.html'"></span>
-					<span ng-include="'directives/asciify/font1/E.html'"></span>
-					<span ng-include="'directives/asciify/font1/L.html'"></span>
-					<span class="ascii-space" ng-include="'directives/asciify/font1/_.html'"></span>
-					<span ng-include="'directives/asciify/font1/Z.html'"></span>
-					<span ng-include="'directives/asciify/font1/U.html'"></span>
-					<span ng-include="'directives/asciify/font1/C.html'"></span>
-					<span ng-include="'directives/asciify/font1/C.html'"></span>
-					<span ng-include="'directives/asciify/font1/H.html'"></span>
-					<span ng-include="'directives/asciify/font1/E.html'"></span>
-					<span ng-include="'directives/asciify/font1/T.html'"></span>
-					<span ng-include="'directives/asciify/font1/T.html'"></span>
-					<span ng-include="'directives/asciify/font1/A.html'"></span>
+						<div class="ascii-name">
+							<span class="first-letter" ng-include="'directives/asciify/font1/M.html'"></span>
+							<span class="not-first-letter" ng-include="'directives/asciify/font1/I.html'"></span>
+							<span class="not-first-letter" ng-include="'directives/asciify/font1/C.html'"></span>
+							<span class="not-first-letter" ng-include="'directives/asciify/font1/H.html'"></span>
+							<span class="not-first-letter" ng-include="'directives/asciify/font1/A.html'"></span>
+							<span class="not-first-letter" ng-include="'directives/asciify/font1/E.html'"></span>
+							<span class="not-first-letter" ng-include="'directives/asciify/font1/L.html'"></span>
+						</div>
+						<span class="ascii-space" ng-include="'directives/asciify/font1/_.html'"></span>
+						<div class="ascii-surname">
+							<span class="first-letter" ng-include="'directives/asciify/font1/Z.html'"></span>
+							<span class="not-first-letter" ng-include="'directives/asciify/font1/U.html'"></span>
+							<span class="not-first-letter" ng-include="'directives/asciify/font1/C.html'"></span>
+							<span class="not-first-letter" ng-include="'directives/asciify/font1/C.html'"></span>
+							<span class="not-first-letter" ng-include="'directives/asciify/font1/H.html'"></span>
+							<span class="not-first-letter" ng-include="'directives/asciify/font1/E.html'"></span>
+							<span class="not-first-letter" ng-include="'directives/asciify/font1/T.html'"></span>
+							<span class="not-first-letter" ng-include="'directives/asciify/font1/T.html'"></span>
+							<span class="not-first-letter" ng-include="'directives/asciify/font1/A.html'"></span>
+						</div>
 					</pre>
 				</div>
 				<div class="website-title hidden" animate-text="michaelzucchetta.com">
@@ -196,7 +200,7 @@
 					</span>
 				</div>
 			</div>
-			<script type="text/javascript" src="vendor.js"></script>
+			<script type="text/javascript" src="vendor_admin.js"></script>
 			<script type="text/javascript" src="bundle.js"></script>
 		</div>
 	</body>

@@ -5,7 +5,7 @@
 		"jquery": "*",
 		"angularjs": "1.6.4",
 		"angular-mocks": "1.6.4",
-		"ui-router": "*",
+		"angular-ui-router": "1.0.0-alpha.5",
 		"angular-route": "1.6.4",
 		"ng-file-upload": "*",
 		"angular-css": "*",
@@ -13,7 +13,10 @@
 		"ocLazyLoad": "*",
 		"bootstrap": "*",
 		"lodash": "*",
-		"requirejs": "*"
+		"requirejs": "*",
+		"angular-ui-tinymce": "0.0.18",
+		"ng-quill": "3.2.0",
+		"quill": "0.20.1"
 	},
 	"private": true
 }
