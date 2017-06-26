@@ -43,7 +43,6 @@ src/coverage/*
 coverage/*
 report/*
 src/domains.index.ts
-backend/core-app/src/main/resources/application.conf
 *.log
 target/*
 .idea
@@ -51,4 +50,5 @@ nohup.out
 server.log
 project/project/*
 project/target/*
-backend/src/main/resources/application.conf
+backend/src/main/resources/*.conf
+*.conf
