@@ -51,7 +51,7 @@ object WebConfig {
   val stream = for {
     config <- Stream.eval(Task.delay(ConfigFactory.load()))
     client <- httpClient()
-    geoPluginClient = geoPluginService(config, client)
+    geoPluginClient <- geoPluginService(config, client)
     postgresTransactor <- transactor(config)
     strategy = dbStrategy(config)
     trackingDb <- trackingDb(postgresTransactor, strategy)
@@ -63,11 +63,14 @@ object WebConfig {
   } yield {
     (config, client, geoPluginClient, trackingService, blogPostsService, authService)
   }
+  /*
   val configStream = stream.map { case (config, _, _, _, _, _) => config }
   val httpClientStream = stream.map { case (_, httpClient, _, _, _, _) => httpClient }
   val geoPluginServiceStream = stream.flatMap { case (_, _, geoPluginService, _, _, _) => geoPluginService }
   val trackingServiceStream = stream.map { case (_, _, _, trackingService, _, _) => trackingService }
   val blogPostsServiceStream = stream.map { case (_, _, _, _, blogPostsService, _) => blogPostsService }
   val authServiceStream = stream.map { case (_, _, _, _, _, authService) => authService }
+  */
+  val (configStream, httpClientStream, geoPluginServiceStream, trackingServiceStream, blogPostsServiceStream, authServiceStream) = stream.unzip6
 
 }

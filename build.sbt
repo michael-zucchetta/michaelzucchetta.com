@@ -49,9 +49,9 @@ lazy val root = project
       "org.http4s"                 %% "http4s-blaze-server"            % http4sVersion,
       "org.http4s"                 %% "http4s-blaze-client"            % http4sVersion,
       "org.http4s"                 %% "http4s-circe"                   % http4sVersion,
-      "ch.qos.logback"             % "logback-classic"                 % "1.2.3",
-      "ch.qos.logback"             % "logback-core"                    % "1.2.3",
-      "net.logstash.logback"       % "logstash-logback-encoder"        % "4.9",
+      "ch.qos.logback"             %  "logback-classic"                % "1.2.3",
+      "ch.qos.logback"             %  "logback-core"                   % "1.2.3",
+      "net.logstash.logback"       %  "logstash-logback-encoder"       % "4.9",
       "org.log4s"                  %% "log4s"                          % "1.3.4",
       "org.typelevel"              %% "cats-effect"                    % "0.3",
 
