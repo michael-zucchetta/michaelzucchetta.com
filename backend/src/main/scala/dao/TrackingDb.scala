@@ -35,4 +35,6 @@ case class TrackingDb(transactor: Transactor[Task])(implicit val dbStrategy: DbS
     }
   }
 
+  def writeTrackingAction(ta: TrackingAction) =
+    io.writeTrackingAction(ta)
 }

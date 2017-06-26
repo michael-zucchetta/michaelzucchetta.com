@@ -2,6 +2,7 @@ package services
 
 import java.net.MalformedURLException
 
+import cats.syntax.either._
 import fs2.Task
 import org.http4s.client.Client
 import models.GeoData
@@ -25,7 +26,7 @@ case class GeoPluginService(geoPluginUrl: String, client: Client) {
 
     client.get[Either[Response, GeoData]](uri) {
       case Successful(response) =>
-        response.as(jsonOf[GeoData]).map(geoData => Right(geoData))
+        response.as(jsonOf[GeoData]).map(_.asRight[Response])
       case default =>
         logger.error(s"Something went wrong while calling geo localization service ${default.toString()}")
         InternalServerError("Something went wrong").map(error => Left(error))
