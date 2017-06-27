@@ -19,10 +19,12 @@ case class AuthoredRoutes(authService: AuthService) {
 
 
   def routes(request: Request) = request match {
-    case req@POST -> Root / "authenticate" =>
-      logger.info("authenticate")
+    case req@POST -> Root / "login" =>
+
+      logger.info(s"authenticate ")
       for {
         authenticationRequest <- request.as(jsonOf[AuthenticationRequest])
+        _ = logger.info(s"authenticating username: ${authenticationRequest.username}")
         // set Basic Base64 for clientId
         authCodeEither <- authService.userAuthentication(authenticationRequest)
         response <- returnResult(authCodeEither.right.map(_._2))

@@ -64,6 +64,10 @@ export interface IStatus {
 
 }
 
+export interface IAuth {
+	login(username: string, password: string): ng.IPromise<any>;
+}
+
 export interface IBasicInfoDao {
 
 	getLinks(): ng.IPromise<any>;

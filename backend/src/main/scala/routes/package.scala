@@ -17,5 +17,4 @@ package object routes {
       case Left(status) =>
         Task.now(status)
     }
-
 }

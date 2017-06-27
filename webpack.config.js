@@ -35,7 +35,7 @@ module.exports = {
 			'ng-file-upload': __dirname + '/lib/ng-file-upload/ng-file-upload.min',
 			'jQuery': __dirname + '/lib/jquery/dist/jquery.min',
 			// noParse
-			'quill': 'https://cdnjs.cloudflare.com/ajax/libs/quill/1.2.6/quill.min.js',
+			'quill': __dirname + '/lib/quill/quill.min', //'https://cdnjs.cloudflare.com/ajax/libs/quill/1.2.6/quill.min.js',
 			// 'quill': __dirname + '/lib/quill/quill2',
 			'ng-quill': __dirname + '/lib/ng-quill/dist/ng-quill.min'
 		},

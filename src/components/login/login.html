@@ -1,3 +1,7 @@
 <div id="content">
-OHILA
+	<form id="login-form" ng-submit="$ctrl.login()">
+		<div class="name">User: <input name="username" type="text" ng-required ng-min="8" ng-model="$ctrl.username"/></div>
+		<div class="password">Password: <input name="password" type="password" ng-required ng-min="8" ng-model="$ctrl.password"/></div>
+		<div class="submit"><input type="submit"/></div>
+	</form>
 </div>

@@ -5,7 +5,8 @@ var express = require('express'),
 	http = require('http'),
 	mime = require('mime'),
 	compression = require('compression'),
-	httpRequest = require('request');
+	httpRequest = require('request'),
+	bodyParser = require('body-parser');
 
 var app = express();
 app.use(compression());
@@ -16,10 +17,12 @@ var port = process.env.PORT || 8888;
 
 let servicePath = '/services/';
 
+app.use(bodyParser.json());
+
 app.use(function(request, response) {
 	console.log(`Request is:
-		       Protocol: ${request.protocol}
-			Host: ${request.headers.host}
+		       Protocol: ${request.protocol}	
+		       Host: ${request.headers.host}
 			Referer: ${request.headers.referrer}
 			secure: ${request.secure}
 			secureForwardProto: ${request.headers['x-forwarded-proto']}
@@ -36,8 +39,18 @@ app.use(function(request, response) {
 		// request going to the BE
 		// TBD: list of endpoints available
 		let serverRequest = `http://localhost:9999/${request.url.replace(servicePath, '')}`;
-		console.log(`Request changed to ${serverRequest}`);
-		return httpRequest(serverRequest, (error, resp, body) => {
+		request.uri = serverRequest;
+		// serverRequest.method = request.method;
+		console.log(`Request changed to ${serverRequest} ${Object.keys(request.body)} ${Object.keys(request.body.data)}`);
+		return httpRequest({
+			uri: serverRequest,
+			headers: request.headers,
+			method: request.method,
+			multipart: [{
+				'content-type': 'application/json',
+				body: JSON.stringify(request.body),
+			},],
+		}, (error, resp, body) => {
 			if (resp) {
 				console.log('error', error, resp);
 				response.write(resp.body);
