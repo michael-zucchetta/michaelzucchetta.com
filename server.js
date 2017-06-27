@@ -23,6 +23,7 @@ app.use(function(request, response) {
 	console.log(`Request is:
 		       Protocol: ${request.protocol}	
 		       Host: ${request.headers.host}
+			Headers: ${request.headers['content-type']}
 			Referer: ${request.headers.referrer}
 			secure: ${request.secure}
 			secureForwardProto: ${request.headers['x-forwarded-proto']}
@@ -39,25 +40,24 @@ app.use(function(request, response) {
 		// request going to the BE
 		// TBD: list of endpoints available
 		let serverRequest = `http://localhost:9999/${request.url.replace(servicePath, '')}`;
-		request.uri = serverRequest;
 		// serverRequest.method = request.method;
-		console.log(`Request changed to ${serverRequest} ${Object.keys(request.body)} ${Object.keys(request.body.data)}`);
+		console.log(`Request changed to ${serverRequest} ${Object.keys(request.body)} ${request.body && request.body.username}`);
 		return httpRequest({
 			uri: serverRequest,
-			headers: request.headers,
 			method: request.method,
-			multipart: [{
-				'content-type': 'application/json',
-				body: JSON.stringify(request.body),
-			},],
+			headers: request.headers,
 		}, (error, resp, body) => {
 			if (resp) {
 				console.log('error', error, resp);
-				response.write(resp.body);
+				response.headers = resp.headers;
+				console.log(JSON.stringify(resp.body));
+				response.write(JSON.stringify(resp.body));
 				response.end();
 				return resp.body;
 			}
-		}).end();
+		
+		})
+		.json(request.body)
 	} else if ( request.url.indexOf("/lib/") !== 0 && request.url.indexOf("/src/") !== 0 ) {
 		request.url = basePath + request.url;
 	}

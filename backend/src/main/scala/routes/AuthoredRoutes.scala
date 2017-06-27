@@ -21,7 +21,7 @@ case class AuthoredRoutes(authService: AuthService) {
   def routes(request: Request) = request match {
     case req@POST -> Root / "login" =>
 
-      logger.info(s"authenticate ")
+      logger.info(s"authenticate ${request.headers.map(s => s.toRaw.name.toString() + s.toRaw.value.toString)}")
       for {
         authenticationRequest <- request.as(jsonOf[AuthenticationRequest])
         _ = logger.info(s"authenticating username: ${authenticationRequest.username}")

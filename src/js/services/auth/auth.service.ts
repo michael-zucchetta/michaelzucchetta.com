@@ -11,6 +11,8 @@ class Auth {
 		return this.http.post(this.loginEndpoint, {
 			username: username,
 			password: password,
+		}, {
+			headers: {'Content-Type': 'application/json; charset=utf-8'}
 		}).success((data: any, status, headers) => {
 			let authorizationHeader = headers['Authorization'];
 			console.log(`login successfull with headers ${headers}`);
