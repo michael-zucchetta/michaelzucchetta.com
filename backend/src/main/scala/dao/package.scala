@@ -1,11 +1,14 @@
-import doobie.imports.ConnectionIO
+import cats.kernel.Semigroup
+import doobie.imports._
+
 
 package object dao {
-  implicit class ConnectionIOInt(connectionBase: ConnectionIO[Int]) {
-    def |+|(connectionAddend: ConnectionIO[Int]) = {
+  implicit def connectionIOMonoid = new Semigroup[ConnectionIO[Int]] {
+
+    override def combine(x: ConnectionIO[Int], y: ConnectionIO[Int]): ConnectionIO[Int] = {
       for {
-        res1 <- connectionBase
-        res2 <- connectionAddend
+        res1 <- x
+        res2 <- y
       } yield res1 + res2
     }
   }

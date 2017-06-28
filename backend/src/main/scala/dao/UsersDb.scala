@@ -1,7 +1,9 @@
 package dao
 
+import cats.implicits._
 import config.DbStrategy
 import doobie.imports._
+
 import doobie.postgres.pgtypes._
 import fs2.Task
 import models.{User, UserAuthCode}

@@ -48,12 +48,16 @@ app.use(function(request, response) {
 			headers: request.headers,
 		}, (error, resp, body) => {
 			if (resp) {
-				console.log('error', error, resp);
-				response.headers = resp.headers;
-				console.log(JSON.stringify(resp.body));
+				// console.log('error', error, resp);
+				let headers = resp.headers;
+				Object.keys(headers).forEach((headerName) => {
+					response.setHeader(headerName, headers[headerName]);
+				});
+				// console.log(JSON.stringify(resp.body));
+				console.log("OHIIII", resp.headers);
 				response.write(JSON.stringify(resp.body));
 				response.end();
-				return resp.body;
+				return response;
 			}
 		
 		})
