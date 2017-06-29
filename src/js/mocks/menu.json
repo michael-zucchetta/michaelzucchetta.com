@@ -1,7 +1,7 @@
 [
 	{
 		"id": 0,
-		"name": "nome",
+		"name": "home",
 		"title": "Home",
 		"order": "1",
 		"parentId": null,

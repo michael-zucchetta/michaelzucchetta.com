@@ -35,4 +35,4 @@ The graphics are an attempt to reproduce how i3 looks like https://i3wm.org/
 
 
 # for the dock image
-npm install -g compression express mime
+npm install -g compression express mime body_parser

@@ -58,7 +58,7 @@ export default class GlobalCtrl {
 			.then((menuEls: mz.IMenuEl[]) => {
 			this.menu = menuEls;
 			if (this.$location.url() === '') {
-				this.$state.go('Home');
+				this.$state.go('home');
 				return;
 			}
 			const state: mz.IMenuEl = this.findMenuEl(this.menu, this.$location.url());

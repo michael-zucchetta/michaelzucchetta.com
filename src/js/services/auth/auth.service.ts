@@ -14,15 +14,15 @@ class Auth {
 		}, {
 			headers: {'Content-Type': 'application/json; charset=utf-8'}
 		}).then((response: any) => {
+			console.log(response);
 			let headers = response.headers;
-			let authorizationHeader = headers['Authorization'];
+			let authorizationHeader = headers('Authorization');
 			console.log(`login successfull with headers ${authorizationHeader}`);
 			// according to the Oauth2, this call should be done in another moment when the user confirms 
 			// again. But as it is a user password login, it should be fine
 			this.http ({
 				method: 'POST',
-				url: response.data.redirectionUrl,
-				headers: { 'Authorization': authorizationHeader },
+				url: response.data.redirectionUrl
 			});
 		});
 	}

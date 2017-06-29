@@ -64,6 +64,12 @@ export interface IStatus {
 
 }
 
+export interface IAuthenticationInterceptor {
+	request(config: any): any;
+
+	responseError(rejection: any, response: any): ng.IPromise<any>;
+}
+
 export interface IAuth {
 	login(username: string, password: string): ng.IPromise<any>;
 }
