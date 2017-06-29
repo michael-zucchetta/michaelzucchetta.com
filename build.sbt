@@ -80,6 +80,7 @@ lazy val root = project
       Cmd("RUN", "npm link fs"),
       Cmd("RUN", "npm link http"),
       Cmd("RUN", "npm link express"),
+      Cmd("RUN", "npm link body-parser"),
       Cmd("RUN", "npm link mime"),
       Cmd("RUN", "npm link compression")
     ),
