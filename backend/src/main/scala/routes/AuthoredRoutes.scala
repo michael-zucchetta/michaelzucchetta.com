@@ -38,7 +38,8 @@ case class AuthoredRoutes(authService: AuthService) {
         }
     case req@POST -> Root / "confirm_auth_code" =>
       for {
-        response <- Ok("Ciao")
+        response <- Ok("Ok")
+        responseKO <- Unauthorized("Ok")
         authenticationCode = req.params.get("authentication_code")
         resultAuthorization <- authService.authorizeAuthCode(request)
       } yield resultAuthorization match {
@@ -48,7 +49,7 @@ case class AuthoredRoutes(authService: AuthService) {
             .putHeaders(authorizationBearer)
         case Left(error) =>
           logger.info (s"Auth code result is ${error.description}")
-          response
+          responseKO
       }
     case req@POST -> Root / "auth" =>
       // will use http4s authedservice

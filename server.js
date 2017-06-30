@@ -42,7 +42,7 @@ app.use(function(request, response) {
 		let serverRequest = `http://localhost:9999/${request.url.replace(servicePath, '')}`;
 		// serverRequest.method = request.method;
 		console.log(`Request changed to ${serverRequest} ${Object.keys(request.body)} ${request.body && request.body.username}`);
-		return httpRequest({
+		let builtRequest = httpRequest({
 			uri: serverRequest,
 			method: request.method,
 			headers: request.headers,
@@ -54,14 +54,25 @@ app.use(function(request, response) {
 					response.setHeader(headerName, headers[headerName]);
 				});
 				// console.log(JSON.stringify(resp.body));
-				console.log("OHIIII", resp.headers);
-				response.write(JSON.stringify(resp.body));
+				console.log("OHIIII", resp.headers, resp.body);
+				let body = (() => {
+					if (typeof resp.body === 'string') {
+						return resp.body;
+					} else {
+						return JSON.stringify(resp.body);
+					}
+				})()
+				response.write(body);
 				response.end();
 				return response;
 			}
 		
-		})
-		.json(request.body)
+		});
+		if (builtRequest.method === 'GET') {
+			return builtRequest;
+		} else {
+			return builtRequest.json(request.body)
+		}
 	} else if ( request.url.indexOf("/lib/") !== 0 && request.url.indexOf("/src/") !== 0 ) {
 		request.url = basePath + request.url;
 	}

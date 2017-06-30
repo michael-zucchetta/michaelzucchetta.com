@@ -17,7 +17,7 @@ module.exports = function(grunt) {
 			}
 		},
 		concurrent: {
-			debug: ['watch:sass', 'watch:html', 'watch:json', 'webpack-dev-server'],
+			debug: ['watch:sass', 'watch:html', 'watch:json', 'watch:ts_build', 'webpack-dev-server'],
 			options: {
 				logConcurrentOutput: true,
 			},
@@ -91,7 +91,11 @@ module.exports = function(grunt) {
 			'webpack-dev': {
 				cmd: 'npm',
 				args: ['run', 'dev'],
-			}
+			},
+			build: {
+				cmd: 'npm',
+				args: ['run-script', 'build'],
+			},
 		},
 		protractor: {
 			e2e: {
@@ -113,6 +117,13 @@ module.exports = function(grunt) {
 			}
 		},
 		watch: {
+			ts_build: {
+				files: ['src/**/*.ts'],
+				tasks: ['run:build'],
+				options: {
+					event: ['changed', 'deleted', 'newer', 'added'],
+				},
+			},
 			ts: {
 				files: ['src/**/*.ts'],
 				tasks: ['newer:ts:main', 'concat:build-ts', 'tslint'],
@@ -124,7 +135,7 @@ module.exports = function(grunt) {
 				files: ['src/**/*.sass'],
 				tasks: ['newer:sass:dest'],
 				options: {
-					event: ['added']
+					event: ['added', 'newer']
 				}
 			},
 			sass: {
@@ -225,5 +236,5 @@ module.exports = function(grunt) {
 	grunt.registerTask('test', ['default', 'karma']);
 	grunt.registerTask('dev', ['default', 'watch']);
 	// grunt.registerTask('default', ['bower-install', 'typings', 'copy', 'sass', 'clean', 'ts', 'watch']);
-	grunt.registerTask('default', ['bower-install', 'clean', 'copy', 'concat:build-ts-interfaces', 'sass', 'concurrent']);
+	grunt.registerTask('default', ['bower-install', 'clean', 'copy', 'concat:build-ts-interfaces', 'run:build', 'sass', 'concurrent']);
 }

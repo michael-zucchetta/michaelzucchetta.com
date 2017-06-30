@@ -28,7 +28,7 @@ case class AuthService(usersDb: UsersDb) {
     )
   }
 
-  val baseRedirectUrl = s"/auth/confirm_auth_code?authentication_code="
+  val baseRedirectUrl = s"/services/auth/confirm_auth_code?authentication_code="
 
   def userAuthentication(request: AuthenticationRequest): Task[Either[Response, (String, UserAuthRedirection)]] = {
     for {
@@ -40,7 +40,7 @@ case class AuthService(usersDb: UsersDb) {
 
   def authorizeAuthCode(request: Request) = {
     val code = request.params.get("authentication_code").get
-    val redirectUri =  s"/auth/confirm_auth_code?authentication_code=$code"
+    val redirectUri =  s"$baseRedirectUrl$code"
 
     val additionalParams = Map("code" -> Seq(code), "redirect_uri" -> Seq(redirectUri), "grant_type" -> Seq("authorization_code"))
 

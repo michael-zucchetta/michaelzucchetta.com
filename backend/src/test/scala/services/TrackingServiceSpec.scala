@@ -17,7 +17,7 @@ class TrackingServiceSpec extends WordSpec with MustMatchers with MockitoSugar w
   val trackingService = TrackingService(trackingDbMock)
 
   val trackingActionRequest = TrackingActionRequest(UUID.randomUUID().toString.some, UUID.randomUUID().toString.some)
-  val geoData = GeoData(UUID.randomUUID().toString.some, UUID.randomUUID().toString.some, UUID.randomUUID().toString.some, UUID.randomUUID().toString.some)
+  val geoData = GeoData(UUID.randomUUID().toString, UUID.randomUUID().toString.some, UUID.randomUUID().toString.some, UUID.randomUUID().toString.some, UUID.randomUUID().toString.some)
 
   when(trackingDbMock.writeTrackingAction(any[TrackingAction])).thenReturn(Task.now(1))
   
