@@ -39,7 +39,7 @@ case class AuthoredRoutes(authService: AuthService) {
     case req@POST -> Root / "confirm_auth_code" =>
       for {
         response <- Ok("Ok")
-        responseKO <- Unauthorized("Ok")
+        responseKO <- Ok("KO")
         authenticationCode = req.params.get("authentication_code")
         resultAuthorization <- authService.authorizeAuthCode(request)
       } yield resultAuthorization match {
@@ -67,6 +67,7 @@ case class AuthoredRoutes(authService: AuthService) {
       logger.warn(s"route not found for $req")
       NotFound("Not found")
   }
+  // use AuthedService
 
   def websiteService: HttpService = Service {
     case req =>
