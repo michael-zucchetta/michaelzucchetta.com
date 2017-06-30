@@ -68,6 +68,7 @@ case class AuthoredRoutes(authService: AuthService) {
       NotFound("Not found")
   }
   // use AuthedService
+  // check ProtectedResource oauth2
 
   def websiteService: HttpService = Service {
     case req =>
