@@ -11,7 +11,7 @@ class AuthenticationInterceptor {
 		config.headers = config.headers || {};
 		let localStorage: any = this.$window.localStorage;
 		if (localStorage['token']) {
-			config.headers.Authorization = 'Token ' + localStorage.token;
+			config.headers.Authorization = localStorage.token;
 		}
 		return config;
 	}

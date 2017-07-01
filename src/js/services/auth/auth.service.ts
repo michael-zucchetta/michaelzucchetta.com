@@ -20,11 +20,12 @@ class Auth {
 			console.log(`login successfull with headers ${authorizationHeader}`);
 			// according to the Oauth2, this call should be done in another moment when the user confirms 
 			// again. But as it is a user password login, it should be fine
-			this.http ({
-				method: 'POST',
-				url: response.data.redirectionUrl
-			});
-		});
+			let redirectionUrl: string = response.data.redirection_url;
+			let http: any = this.http;
+			return http.post(redirectionUrl);
+		}).then((response: any) => {
+			console.log('real authentication', response);
+		});;
 	}
 }
 

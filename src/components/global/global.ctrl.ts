@@ -68,9 +68,9 @@ export default class GlobalCtrl {
 
 		this.BasicInfoDao.getIP()
 			.then((ipData: any) => {
-			this.userIP = ipData.geoplugin_request;
-			this.regionIP = ipData.geoplugin_region;
-			this.countryIP = ipData.geoplugin_countryName;
+			this.userIP = ipData.ip_address;
+			this.regionIP = ipData.region;
+			this.countryIP = ipData.country_name;
 		});
 		
 		let body: any = document.querySelector('body');
