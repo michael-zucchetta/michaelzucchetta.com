@@ -42,14 +42,17 @@ case class AuthoredRoutes(authService: AuthService) {
         responseKO <- Ok("KO")
         authenticationCode = req.params.get("authentication_code")
         resultAuthorization <- authService.authorizeAuthCode(request)
-      } yield resultAuthorization match {
-        case Right(result) =>
-          val authorizationBearer = Header("Authorization", s"Bearer ${result.accessToken}")
-          response
-            .putHeaders(authorizationBearer)
-        case Left(error) =>
-          logger.info (s"Auth code result is ${error.description}")
-          responseKO
+      } yield {
+        logger.info("Authentication code check concluded")
+        resultAuthorization match {
+          case Right(result) =>
+            val authorizationBearer = Header("Authorization", s"Bearer ${result.accessToken}")
+            response
+              .putHeaders(authorizationBearer)
+          case Left(error) =>
+            logger.info (s"Auth code result is ${error.description}")
+            responseKO
+        }
       }
     case req@POST -> Root / "auth" =>
       // will use http4s authedservice

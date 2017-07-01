@@ -18,7 +18,7 @@ case class UsersDb(transactor: Transactor[Task])(implicit val dbStrategy: DbStra
 
   object sql {
     private def crypt(value: String) =
-      fr"""crypt($value, gen_salt('bf', 15))"""
+      fr"""crypt($value, gen_salt('bf', 10))"""
 
     def readUsers(): Query0[User] =
       sql"""

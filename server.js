@@ -6,10 +6,12 @@ var express = require('express'),
 	mime = require('mime'),
 	compression = require('compression'),
 	httpRequest = require('request'),
-	bodyParser = require('body-parser');
+	bodyParser = require('body-parser'),
+	timeout = require('connect-timeout'); //express v4;
 
 var app = express();
 app.use(compression());
+app.use(timeout(240000));
 console.log(__dirname + '/dist');
 
 var basePath = "/dist";
@@ -108,4 +110,5 @@ app.use(function(err, req, res, next) {
 
 var httpServer = http.createServer(app);
 httpServer.listen(port);
+
 console.log("Initialisation on port: " + port);

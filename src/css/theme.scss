@@ -1,9 +1,10 @@
 @import "compass/css3";
+$min-width-website: 360px;
 html {
 	height: 100%;
 	/*overflow hidden prevents scroll on non scrollable pages in iOS*/
 	overflow: hidden;
-	min-width: 445px;
+	min-width: $min-width-website;
 }
 
 body {

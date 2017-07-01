@@ -11,7 +11,7 @@ $terminal-bar-red: #E31D13;
 $terminal-bar-green: #1CBA22;
 $terminal-bar-height: 18px;
 
-$min-width-website: 445px;
+$min-width-website: 360;
 $bottom-bar-height: 20px;
 $title-bar-height: 100px;
 $border-width: 3px;
@@ -243,12 +243,23 @@ pre.ascii-text {
 			display: inline-table;
 		}
 	}
-	@media screen and (max-width: 614px) {
+	@media screen and (min-width: 440px) and (max-width: 614px) {
 		.first-letter {
 			font-size: 8px;
 		}
 		.not-first-letter {
 			font-size: 5px;
+		}	
+		.ascii-space {
+			display: none;
+		}
+	}
+	@media screen and (max-width: 440px) {
+		.first-letter {
+			font-size: 7.5px;
+		}
+		.not-first-letter {
+			font-size: 4.5px;
 		}	
 		.ascii-space {
 			display: none;
@@ -278,7 +289,7 @@ pre.ascii-text {
 	}
 }
 
-@media screen and (max-width: 614px) {
+@media screen and (min-width: 440px) and (max-width: 614px) {
 	pre.ascii-text {
 		display: block;
 		&.extra {
@@ -290,6 +301,21 @@ pre.ascii-text {
 		}
 	}
 }
+
+@media screen and (max-width: 440px) {
+	pre.ascii-text {
+		display: block;
+		&.extra {
+			font-size: 8px;
+		}
+		.ascii-surname {
+			margin-left: 45px;
+			margin-top: -30px;
+		}
+	}
+}
+
+
 .notes {
 	height: $bottom-bar-height;
 	width: 100%;
@@ -298,8 +324,7 @@ pre.ascii-text {
 	color: $white;
 	font-family: $terminal-font;
 	background-color: $black-status;
-	/* original word-spacing: -5px;*/
-	word-spacing: -3px;
+	word-spacing: -5px;
 	cursor: default;
 
 	&.command-init {

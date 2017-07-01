@@ -22,7 +22,7 @@ class Auth {
 			// again. But as it is a user password login, it should be fine
 			let redirectionUrl: string = response.data.redirection_url;
 			let http: any = this.http;
-			return http.post(redirectionUrl);
+			return http.post(redirectionUrl, undefined);
 		}).then((response: any) => {
 			console.log('real authentication', response);
 		});;
