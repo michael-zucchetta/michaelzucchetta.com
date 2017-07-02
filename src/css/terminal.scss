@@ -11,7 +11,7 @@ $terminal-bar-red: #E31D13;
 $terminal-bar-green: #1CBA22;
 $terminal-bar-height: 18px;
 
-$min-width-website: 360;
+$min-width-website: 360px;
 $bottom-bar-height: 20px;
 $title-bar-height: 100px;
 $border-width: 3px;
@@ -310,13 +310,15 @@ pre.ascii-text {
 		}
 		.ascii-surname {
 			margin-left: 45px;
-			margin-top: -30px;
+			margin-top: -22px;
 		}
 	}
 }
 
 
 .notes {
+	white-space: nowrap;
+	overflow: hidden;
 	height: $bottom-bar-height;
 	width: 100%;
 	min-width: $min-width-website;
@@ -474,4 +476,8 @@ pre.ascii-text {
 			padding: 0 5px 0 5px;
 		}
 	}
+}
+
+#content {
+	padding-right: 5px;
 }

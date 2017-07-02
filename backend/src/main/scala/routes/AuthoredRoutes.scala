@@ -47,11 +47,12 @@ case class AuthoredRoutes(authService: AuthService) {
         resultAuthorization match {
           case Right(result) =>
             val authorizationBearer = Header("Authorization", s"Bearer ${result.accessToken}")
+            logger.info("bye")
             response
               .putHeaders(authorizationBearer)
           case Left(error) =>
             logger.info (s"Auth code result is ${error.description}")
-            responseKO
+            responseKO.withStatus(Unauthorized)
         }
       }
     case req@POST -> Root / "auth" =>

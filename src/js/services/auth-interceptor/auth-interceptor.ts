@@ -13,6 +13,11 @@ class AuthenticationInterceptor {
 		if (localStorage['token']) {
 			config.headers.Authorization = localStorage.token;
 		}
+		let authorizationHeader = config.headers['Authorization'];
+		if (authorizationHeader && authorizationHeader.indexOf('Basic') !== -1) {
+			console.log('Setting timeout');
+			config.timeout = 10000000;
+		}
 		return config;
 	}
 

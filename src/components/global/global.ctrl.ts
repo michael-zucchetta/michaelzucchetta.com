@@ -50,6 +50,7 @@ export default class GlobalCtrl {
 		this.title = document.querySelector('.title.terminal');
 		this.animation = document.querySelector('.website-content.terminal');
 		this.websiteContent = document.querySelector('.website-content');
+		websiteContent.style.height = `${window.innerHeight}px`;
 
 		this.BasicInfoDao.getLinks()
 			.then(links => this.myLinks = links);
@@ -183,8 +184,11 @@ export default class GlobalCtrl {
 		});
 		this.animation.style.display = 'none';
 		let websiteContainer: any = document.querySelector('.website-container');
+		// for short screens and blank space
+		websiteContainer.style.height = `${window.innerHeight}px`;
 		websiteContainer.style.visibility = 'visible';
 		this.websiteContent = document.querySelector('.website-container .website-content');
+		websiteContent.style.height = `${window.innerHeight}px`;
 		this.websiteContent.style.visibility = 'visible';
 		this.title.style.visibility = 'visible';
 		let animationContainer: any = document.querySelector('.animation-initial');

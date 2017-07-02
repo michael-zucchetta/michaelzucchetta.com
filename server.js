@@ -6,12 +6,15 @@ var express = require('express'),
 	mime = require('mime'),
 	compression = require('compression'),
 	httpRequest = require('request'),
-	bodyParser = require('body-parser'),
-	timeout = require('connect-timeout'); //express v4;
+	bodyParser = require('body-parser'); //express v4;
+
+function haltOnTimedout(req, res, next){
+  if (!req.timedout) next();
+}
 
 var app = express();
 app.use(compression());
-app.use(timeout(240000));
+app.use(haltOnTimedout);
 console.log(__dirname + '/dist');
 
 var basePath = "/dist";

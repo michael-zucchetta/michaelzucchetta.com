@@ -18,7 +18,7 @@ case class UsersDb(transactor: Transactor[Task])(implicit val dbStrategy: DbStra
 
   object sql {
     private def crypt(value: String) =
-      fr"""crypt($value, gen_salt('bf', 10))"""
+      fr"""crypt($value, gen_salt('bf', 15))"""
 
     def readUsers(): Query0[User] =
       sql"""
@@ -41,10 +41,10 @@ case class UsersDb(transactor: Transactor[Task])(implicit val dbStrategy: DbStra
               (${ac.userUuid}, ${ac.redirectUrl},""" ++ crypt(ac.authCode) ++
               fr""")""").update
 
-    def deleteAuthCode(authCode: String): Update0 =
+    def deleteAuthCode(userUuid: UUID): Update0 =
       sql"""
             delete from auth_codes
-            where auth_code = crypt(${authCode}, auth_code)
+            where user_uuid = $userUuid
         """.update
 
     def expireAuthCode(ac: UserAuthCode): Update0 =
@@ -104,24 +104,6 @@ case class UsersDb(transactor: Transactor[Task])(implicit val dbStrategy: DbStra
       }
     }
 
-    private def compareAndDeleteAuthCode(transactor: Transactor[Task], ac: UserAuthCode) = {
-      sql.readAuthCode(ac).list.transact(transactor).map { isCodeValidOpt =>
-        val isCodeValid = isCodeValidOpt.headOption.getOrElse(false)
-        if (isCodeValid) {
-          sql.deleteAuthCode(ac.authCode).run.transact(transactor).map(_ => true)
-        } else {
-          Task.now(false)
-        }
-      }
-    }
-
-    def isAuthCodeValid(ac: UserAuthCode) = {
-      for {
-        isCodeValidTask <- compareAndDeleteAuthCode(transactor, ac)
-        isCodeValid <- isCodeValidTask
-      } yield isCodeValid
-    }
-
     def authenticateUser(username: String, password: String) = {
       for {
         authenticationResultTask <- Task.start(sql.authenticateUser(username, password).unique.transact(transactor))
@@ -138,7 +120,9 @@ case class UsersDb(transactor: Transactor[Task])(implicit val dbStrategy: DbStra
 
     def deleteAuthCode(authCode: String) = {
       for {
-        resultTask <- Task.start(sql.deleteAuthCode(authCode).run.transact(transactor))
+        userTask <- Task.start(sql.getUserByAuthCode(authCode).unique.transact(transactor))
+        user <- userTask
+        resultTask <- Task.start(sql.deleteAuthCode(user.userUuid).run.transact(transactor))
         result <- resultTask
       } yield result
     }
@@ -169,9 +153,6 @@ case class UsersDb(transactor: Transactor[Task])(implicit val dbStrategy: DbStra
 
   def insertAuthCode(ac: UserAuthCode) =
     io.insertAuthCode(ac)
-
-  def compareAuthCode(ac: UserAuthCode) =
-    io.isAuthCodeValid(ac)
 
   def authenticateUser(username: String, password: String, redirectUrl: String) = {
     io.authenticateUser(username, password).flatMap {
