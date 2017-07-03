@@ -12,7 +12,6 @@ const pageOpts: mz.IComponentOptionsCss = {
 
 export default angular.module('page', ['ui.router', 
 	//'ui.tinymce', 
-	'ngQuill',
 	services])
 	.component('page', pageOpts)
 	.name;

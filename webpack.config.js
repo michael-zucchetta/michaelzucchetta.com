@@ -6,16 +6,15 @@ const vendor = ['angular', 'ui-router', 'angular-css', 'ng-file-upload', 'lodash
 module.exports = {
 	entry: {
 		app: './js/initialisation/main.ts',
+		app_admin: './admin/',
 		vendor: vendor,
-		vendor_auth: vendor.concat(
-			//'tinymce', 'angular-tinymce', 
-			'quill', 'ng-quill'), 
+		vendor_auth: ['quill', 'ng-quill'],
 	},
 	context: __dirname + '/src/',
 	devtool: '#inline-source-map',
 	output: {
 		path: __dirname + '/dist/',
-		filename: 'bundle.js',
+		filename: '[name].js',
 	},
 	externals: {
 	},

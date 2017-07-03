@@ -23,11 +23,23 @@ export default class GlobalCtrl {
 
 	private showWholeMenu: boolean;
 
+	private isAuthenticated: boolean = false;
+
 	constructor(private BasicInfoDao: mz.IBasicInfoDao, private DaoFacade: mz.IDaoFacade,
-			private $interval: ng.IIntervalService, private $timeout: ng.ITimeoutService, private $state: angular.ui.IStateService, private $location: ng.ILocationService, private $scope: any) {
+			private $interval: ng.IIntervalService, private $timeout: ng.ITimeoutService, private $state: angular.ui.IStateService, private $location: ng.ILocationService, private $scope: any, private $window: ng.IWindowService) {
 		this.myLinks = [];
 		this.menu = [];
 		this.$interval(() => this.getTodayDate(), 1000);
+		this.$scope.$on('userAuthenticated', () => {
+			console.log('authenticated event!');
+			this.isAuthenticated = true;
+		});
+		// tmp, to be put in something global
+                let token = this.$window.localStorage['token'];
+                console.log('OHIIII', token);
+                if (token) {
+                        this.isAuthenticated = true;
+                }
 	}
 
 	private findMenuEl(menu: mz.IMenuEl[], url: string): mz.IMenuEl {
@@ -50,8 +62,10 @@ export default class GlobalCtrl {
 		this.title = document.querySelector('.title.terminal');
 		this.animation = document.querySelector('.website-content.terminal');
 		this.websiteContent = document.querySelector('.website-content');
-		websiteContent.style.height = `${window.innerHeight}px`;
-
+		// 360 is the min width
+		if (window.innerWidth < 360) {
+			this.websiteContent.style.height = `${window.innerHeight}px`;
+		}
 		this.BasicInfoDao.getLinks()
 			.then(links => this.myLinks = links);
 
@@ -185,10 +199,12 @@ export default class GlobalCtrl {
 		this.animation.style.display = 'none';
 		let websiteContainer: any = document.querySelector('.website-container');
 		// for short screens and blank space
-		websiteContainer.style.height = `${window.innerHeight}px`;
+		if (window.innerHeight < 360) {
+			websiteContainer.style.height = `${window.innerHeight}px`;
+		}	
 		websiteContainer.style.visibility = 'visible';
 		this.websiteContent = document.querySelector('.website-container .website-content');
-		websiteContent.style.height = `${window.innerHeight}px`;
+		this.websiteContent.style.height = `${window.innerHeight}px`;
 		this.websiteContent.style.visibility = 'visible';
 		this.title.style.visibility = 'visible';
 		let animationContainer: any = document.querySelector('.animation-initial');
@@ -197,4 +213,4 @@ export default class GlobalCtrl {
 	}
 }
 
-GlobalCtrl.$inject = ['BasicInfoDao', 'DaoFacade', '$interval', '$timeout', '$state', '$location', '$scope'];
+GlobalCtrl.$inject = ['BasicInfoDao', 'DaoFacade', '$interval', '$timeout', '$state', '$location', '$scope', '$window'];

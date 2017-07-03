@@ -115,7 +115,20 @@
 			"url": "/page.html",
 			"component": "page"
 		}
+	},
+	{
+		"id": 9,
+		"name": "pageAdmin",
+		"title": "Page Admin",
+		"order": 1,
+		"parentId": null,
+		"active": true,
+		"definition": {
+			"url": "/page0adnub.html",
+			"component": "pageAdmin"
+		}
 	}
+
 
 ]
 

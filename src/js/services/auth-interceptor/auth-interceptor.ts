@@ -3,7 +3,7 @@ import mz from 'domains';
 
 class AuthenticationInterceptor {
 
-	constructor(private $q: ng.IQService, private $window: ng.IWindowService, private $location: ng.ILocationService) {
+	constructor(private $q: ng.IQService, private $window: ng.IWindowService, private $location: ng.ILocationService, private $rootScope: ng.IRootScopeService) {
 	}
 
 	public request = (config) => {
@@ -24,6 +24,7 @@ class AuthenticationInterceptor {
 	public response = (response: any) => {
 		if (response.headers && response.headers('Authorization')) {
 			console.log('storing');
+			this.$rootScope.$emit('userAuthenticated');
 			let localStorage: any = this.$window.localStorage;
 			localStorage.token = response.headers('Authorization');
 		}
@@ -42,10 +43,10 @@ class AuthenticationInterceptor {
 	}
 }
 
-let factory: Function = ($q: ng.IQService, $window: ng.IWindowService, $location: ng.ILocationService): mz.IAuthenticationInterceptor => {
-	return new AuthenticationInterceptor($q, $window, $location);
+let factory: Function = ($q: ng.IQService, $window: ng.IWindowService, $location: ng.ILocationService, $rootScope: ng.IRootScopeService): mz.IAuthenticationInterceptor => {
+	return new AuthenticationInterceptor($q, $window, $location, $rootScope);
 }
 
-factory.$inject = ['$q', '$window', '$location'];
+factory.$inject = ['$q', '$window', '$location', '$rootScope'];
 
 export default factory;
