@@ -124,7 +124,7 @@
 		"parentId": null,
 		"active": true,
 		"definition": {
-			"url": "/page0adnub.html",
+			"url": "/page-admin.html",
 			"component": "pageAdmin"
 		}
 	}

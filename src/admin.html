@@ -31,7 +31,7 @@
 			}
 		</script>
 	</head>
-	<body ng-controller="GlobalCtrl as $ctrl" class="hidden">
+	<body ng-controller="GlobalCtrl as $ctrl" class="hidden" ng-show="$ctrl.isAuthenticated">
 		<div class="container animation-initial">
 			<div class="website-content terminal active" style="visibility: hidden">
 				<div class="terminal-bar noselect">
@@ -200,8 +200,8 @@
 					</span>
 				</div>
 			</div>
-			<script type="text/javascript" src="vendor.js"></script>
-			<script type="text/javascript" src="app.js"></script>
+			<script type="text/javascript" src="vendor_admin.js"></script>
+			<script type="text/javascript" src="app_admin.js"></script>
 		</div>
 	</body>
 </html>

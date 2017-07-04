@@ -5,10 +5,10 @@ const CompressionPlugin = require("compression-webpack-plugin");
 const vendor = ['angular', 'ui-router', 'angular-css', 'ng-file-upload', 'lodash', 'jQuery'];
 module.exports = {
 	entry: {
-		app: './js/initialisation/main.ts',
-		app_admin: './admin/',
+		app: ['./js/initialisation/main.ts'],
+		app_admin: ['./js/initialisation/main.ts', './admin'],
 		vendor: vendor,
-		vendor_auth: ['quill', 'ng-quill'],
+		vendor_auth: vendor.concat(['quill', 'ng-quill']),
 	},
 	context: __dirname + '/src/',
 	devtool: '#inline-source-map',

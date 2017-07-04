@@ -4,7 +4,7 @@ class Auth {
 	private authPrefix: string = '/services/auth';
 	private loginEndpoint: string = `${this.authPrefix}/login`;
 	
-	constructor(private http: ng.IHttpService) {
+	constructor(private http: ng.IHttpService, private window: ng.IWindowService) {
 	}
 
 	public login(username: string, password: string): ng.IPromise<any> {
@@ -25,14 +25,18 @@ class Auth {
 			return http.post(redirectionUrl, undefined);
 		}).then((response: any) => {
 			console.log('real authentication', response);
-		});;
+			if (response.status === 200) {
+				console.log('redirecting');
+				this.window.location.href = '/admin.html#/home.html';
+			}
+		});
 	}
 }
 
-let authFactory: Function = (http: ng.IHttpService): mz.IAuth => {
-	return new Auth(http);
+let authFactory: Function = (http: ng.IHttpService, window: ng.IWindowService): mz.IAuth => {
+	return new Auth(http, window);
 };
 
-authFactory.$inject = ['$http'];
+authFactory.$inject = ['$http', '$window'];
 
 export default authFactory;
