@@ -6,6 +6,10 @@ export interface IComponentOptionsCss extends ng.IComponentOptions {
 
 }
 
+export interface IBlogDao {
+	insertNewPost(): ng.IPromise<any>;
+}
+
 export interface IClipboardEvent extends Event {
 	originalEvent: IClipboardEvent;
 

@@ -23,7 +23,6 @@ create type post_status as enum ('draft', 'published', 'deleted');
 
 create table blog_posts (
 	post_uuid uuid not null primary key,
-	author varchar(300) not null,
 	post_title varchar(300) not null,
 	post_text text not null,
 	post_date timestamp not null,

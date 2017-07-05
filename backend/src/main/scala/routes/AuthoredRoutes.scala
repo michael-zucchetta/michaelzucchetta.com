@@ -3,7 +3,6 @@ package routes
 import java.util.Base64
 import java.nio.charset.StandardCharsets
 
-import fs2.Strategy
 import io.circe.generic.extras.auto._
 import org.http4s._
 import org.http4s.util.CaseInsensitiveString
@@ -16,7 +15,6 @@ import scalaoauth2.provider.{ProtectedResource, ProtectedResourceRequest}
 
 case class AuthoredRoutes(authService: AuthService) {
   private[this] val logger = getLogger
-
 
   def routes(request: Request) = request match {
     case req@POST -> Root / "login" =>

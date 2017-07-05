@@ -1,7 +1,5 @@
 package dao
 
-import java.sql.Timestamp
-
 import config.DbStrategy
 import doobie.imports._
 import doobie.postgres.imports._
@@ -14,6 +12,7 @@ import org.log4s.getLogger
 
 case class BlogPostsDb(transactor: Transactor[Task])(implicit val dbStrategy: DbStrategy) {
   private[this] val logger = getLogger
+  implicit val strategy = dbStrategy.strategy
 
   object sql {
     val commentsParameters = fr"""(comment_uuid, author, comment_text, tracking_action_uuid, comment_date, post_uuid)"""
@@ -23,9 +22,9 @@ case class BlogPostsDb(transactor: Transactor[Task])(implicit val dbStrategy: Db
     def insertBlogPost(bp: BlogPost): Update0 =
       sql"""
           insert into blog_posts
-            (post_uuid, author, post_title, post_text, post_date, post_status)
+            (post_uuid, user_uuid, post_title, post_text, post_date, post_status)
               values
-            (${bp.postUuid}, ${bp.author}, ${bp.postTitle}, ${bp.postText}, ${bp.postDate}, 'draft') 
+            (${bp.postUuid}, ${bp.authorUuid}, ${bp.postTitle}, ${bp.postText}, ${bp.postDate}, 'draft')
          """.update
 
     def insertBlogComment(c: BlogPostComment): Update0 = 
@@ -39,7 +38,7 @@ case class BlogPostsDb(transactor: Transactor[Task])(implicit val dbStrategy: Db
       (fr"""
           update blog_posts
             set
-                author = ${bp.author}, post_title = ${bp.postTitle}, post_text = ${bp.postText}, post_date = ${bp.postDate}
+                user_uuid = ${bp.authorUuid}, post_title = ${bp.postTitle}, post_text = ${bp.postText}, post_date = ${bp.postDate}
               where post_uuid = ${bp.postUuid}
          """).update
 
@@ -58,6 +57,17 @@ case class BlogPostsDb(transactor: Transactor[Task])(implicit val dbStrategy: Db
   }
 
   object io {
-
+    def insertBlogPost(bp: BlogPost) = {
+      for {
+        insertTask <- Task.start(sql.insertBlogPost(bp).run.transact(transactor))
+        insertResult <- insertTask
+      } yield {
+        logger.info(s"Number of rows inserted are $insertResult")
+        insertResult
+      }
+    }
   }
+
+  def insertBlogPost(blogPost: BlogPost) =
+    io.insertBlogPost(blogPost)
 }

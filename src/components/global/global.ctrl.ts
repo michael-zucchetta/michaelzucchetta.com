@@ -204,7 +204,9 @@ export default class GlobalCtrl {
 		}	
 		websiteContainer.style.visibility = 'visible';
 		this.websiteContent = document.querySelector('.website-container .website-content');
-		this.websiteContent.style.height = `${window.innerHeight}px`;
+		if (window.innerHeight < 360) {
+			this.websiteContent.style.height = `${window.innerHeight}px`;
+		}
 		this.websiteContent.style.visibility = 'visible';
 		this.title.style.visibility = 'visible';
 		let animationContainer: any = document.querySelector('.animation-initial');
