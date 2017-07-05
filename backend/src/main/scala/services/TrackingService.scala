@@ -14,6 +14,6 @@ case class TrackingService(trackingDb: TrackingDb) {
       city = geoData.city,
       siteReferer = referer.map(_.value)
     )
-    trackingDb.io.writeTrackingAction(trackingAction)
+    trackingDb.writeTrackingAction(trackingAction)
   }
 }

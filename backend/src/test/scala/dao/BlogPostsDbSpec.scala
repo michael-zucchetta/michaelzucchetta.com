@@ -20,9 +20,11 @@ class BlogPostsDbSpec extends WordSpec with Matchers with QueryChecker {
 
   val blogPostsDb = WebConfig.blogPostsServiceStream.runLog.unsafeRun()(0).blogPostsDb
 
+  val blogPost = BlogPost(UUID.randomUUID(), "author", "title", "text", Instant.now(), Vector.empty[BlogPostComment])
+
   "BlogSpot insert blog post query " should {
     "compile" in {
-      check(blogPostsDb.sql.insertBlogPost(BlogPost(UUID.randomUUID(), "author", "title", "text", Instant.now(), Vector.empty[BlogPostComment])))
+      check(blogPostsDb.sql.insertBlogPost(blogPost))
     }
   }
 
@@ -31,6 +33,13 @@ class BlogPostsDbSpec extends WordSpec with Matchers with QueryChecker {
       check(blogPostsDb.sql.readLastBlogPosts)
     }
   }
+
+  "BlogSpot for updating a blog post query " should {
+    "compile" in {
+      check(blogPostsDb.sql.updateBlogPost(blogPost))
+    }
+  }
+
 
   "BlogSpot insert blog post comment query " should {
     "compile" in {

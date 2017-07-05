@@ -30,7 +30,7 @@ case class AuthHandler(usersDb: UsersDb) extends DataHandler[User] {
     )
   }
 
-  private[this] val clientsTask: Task[Vector[User]] = usersDb.io.getUsers()
+  private[this] val clientsTask: Task[Vector[User]] = usersDb.getUsers()
 /*    Vector(
     AuthData(
       "user_name",

@@ -35,6 +35,14 @@ case class BlogPostsDb(transactor: Transactor[Task])(implicit val dbStrategy: Db
             (${c.commentUuid}, ${c.author}, ${c.commentText}, ${c.trackingAction.trackingUuid}, ${c.commentDate}, ${c.postUuid})
          """).update
 
+    def updateBlogPost(bp: BlogPost): Update0 =
+      (fr"""
+          update blog_posts
+            set
+                author = ${bp.author}, post_title = ${bp.postTitle}, post_text = ${bp.postText}, post_date = ${bp.postDate}
+              where post_uuid = ${bp.postUuid}
+         """).update
+
     val blogParameters = fr"bp.post_uuid, bp.author, bp.post_title, bp.post_text, bp.post_date"
 
     def readLastBlogPosts(): Query0[BlogPostRaw] =
@@ -50,6 +58,6 @@ case class BlogPostsDb(transactor: Transactor[Task])(implicit val dbStrategy: Db
   }
 
   object io {
-  
+
   }
 }

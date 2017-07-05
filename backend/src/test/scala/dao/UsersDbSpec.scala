@@ -21,7 +21,7 @@ class UsersDbSpec extends WordSpec with Matchers with QueryChecker {
 
   "UsersDb " should {
     "compile delete auth code query" in {
-      check(usersDb.sql.deleteAuthCode(userAuthCode.authCode))
+      check(usersDb.sql.deleteAuthCode(userAuthCode.userUuid))
     }
   }
 
