@@ -1,3 +1,3 @@
 interface IBlogDao {
-	insertNewPost(): ng.IPromise<any>;
+	insertNewPost(postTitle: string, postText: string): ng.IPromise<any>;
 }

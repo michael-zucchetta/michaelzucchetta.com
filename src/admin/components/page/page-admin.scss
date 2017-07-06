@@ -1,8 +1,21 @@
 #quill-editor {
 	height: 100%;
+	
+	.input-title {
+		width: 100px;
+		margin-top: 5px;
+
+	}
+	
+	.editor {
+		margin-top: 5px;
+	}
+	
 	.save {
 		border: white 1px solid;
 		background: none;
 		color: white;
+		margin-top: 5px;
+		padding: 5px;
 	}
 }

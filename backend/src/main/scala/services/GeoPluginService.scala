@@ -26,7 +26,7 @@ case class GeoPluginService(geoPluginUrl: String, client: Client) {
 
     client.get[Either[Response, GeoData]](uri) {
       case Successful(response) =>
-        response.as(jsonOf[GeoData]).map(_.asRight[Response])
+        response.as(jsonOf[GeoData](GeoData.decodeGeoData)).map(_.asRight[Response])
       case default =>
         logger.error(s"Something went wrong while calling geo localization service ${default.toString()}")
         InternalServerError("Something went wrong").map(error => Left(error))

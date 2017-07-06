@@ -33,9 +33,10 @@ class AuthenticationInterceptor {
 
 	public responseError = (rejection, response) => {
 		console.log(rejection.status);
-		if (response.status === 401) {
+		if (rejection.status === 401) {
+			console.log('Redirecting');
 			this.$window.localStorage.removeItem('token');
-			this.$location.path('/');
+			this.$window.location.href = '/index.html#/home.html';
 			return;
 		}
 		// Otherwise, default behavior

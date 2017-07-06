@@ -38,6 +38,7 @@ case class PublicRoutes(geoPluginService: GeoPluginService, trackingService: Tra
       logger.info(s"IP address is ${req.headers.get(CaseInsensitiveString("x-forwarded-for"))}")
       // val ipAddressOpt = req.params.get("ip_address")
       val ipAddressOpt = getIpAddress(request).map(_.value)
+      logger.info(s"ipAddressOpt is $ipAddressOpt")
       for {
         resultEither <- geoPluginService.getGeoLocalizationByIp(ipAddressOpt)
         response <- returnResult(resultEither)

@@ -17,12 +17,11 @@ class Auth {
 			console.log(response);
 			let headers = response.headers;
 			let authorizationHeader = headers('Authorization');
-			console.log(`login successfull with headers ${authorizationHeader}`);
+			console.log(`login successful with headers ${authorizationHeader}`);
 			// according to the Oauth2, this call should be done in another moment when the user confirms 
 			// again. But as it is a user password login, it should be fine
-			let redirectionUrl: string = response.data.redirection_url;
-			let http: any = this.http;
-			return http.post(redirectionUrl, undefined);
+			let redirectionUrl: string = response.data.redirectionUrl;
+			return this.http.post(redirectionUrl, {});
 		}).then((response: any) => {
 			console.log('real authentication', response);
 			if (response.status === 200) {

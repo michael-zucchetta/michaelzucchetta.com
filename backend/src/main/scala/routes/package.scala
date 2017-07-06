@@ -10,7 +10,7 @@ import org.http4s.dsl._
 import scalaoauth2.provider.ProtectedResourceRequest
 
 package object routes {
-  implicit val config: Configuration = Configuration.default.withSnakeCaseKeys
+  implicit val config: Configuration = Configuration.default.withDefaults
 
   def returnResult[T](resultEither: Either[Response, T])(implicit encoder: Encoder[T]): Task[Response] =
     resultEither match {

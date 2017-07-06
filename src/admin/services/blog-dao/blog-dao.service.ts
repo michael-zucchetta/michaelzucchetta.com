@@ -6,18 +6,14 @@ export default class BlogDao implements mz.IBlogDao {
 
 	private insertPostEndpoint: string = `${this.endpoint}/new_post`
 
-	private postTitle: string;
-
-	private postText: string;
-
 	constructor(private http: ng.IHttpService) {
 	
 	}
 
-	public insertNewPost() {
+	public insertNewPost(postTitle: string, postText: string) {
 		const newPostRequest = {
-			postTitle: this.postTitle,
-			postText: this.postText
+			postTitle: postTitle,
+			postText: postText
 		};
 		return this.http.post(this.insertPostEndpoint, newPostRequest).then((response) => {
 			if (response.status) {

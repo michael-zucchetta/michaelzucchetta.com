@@ -39,7 +39,10 @@ export default class GlobalCtrl {
                 console.log('OHIIII', token);
                 if (token) {
                         this.isAuthenticated = true;
-                }
+		}
+		if (this.$window.location.href.indexOf('admin.html') !== -1 && !this.isAuthenticated) {
+			this.$window.location.href = '/index.html#/home.html';
+		}
 	}
 
 	private findMenuEl(menu: mz.IMenuEl[], url: string): mz.IMenuEl {

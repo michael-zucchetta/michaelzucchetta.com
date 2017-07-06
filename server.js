@@ -51,8 +51,9 @@ app.use(function(request, response) {
 			uri: serverRequest,
 			method: request.method,
 			headers: request.headers,
-		}, (error, resp, body) => {
+		}, (error, resp, body, status) => {
 			if (resp) {
+				console.log('status is', resp.statusCode);
 				// console.log('error', error, resp);
 				let headers = resp.headers;
 				Object.keys(headers).forEach((headerName) => {
@@ -66,8 +67,13 @@ app.use(function(request, response) {
 					} else {
 						return JSON.stringify(resp.body);
 					}
-				})()
-				response.write(body);
+				})();
+				response.status(resp.statusCode);
+				if (resp.statusCode !== 500) {
+					response.write(body);
+				} //else //{
+				//	response.write('');
+				//}
 				response.end();
 				return response;
 			}

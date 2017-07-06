@@ -58,6 +58,7 @@ case class BlogPostsDb(transactor: Transactor[Task])(implicit val dbStrategy: Db
 
   object io {
     def insertBlogPost(bp: BlogPost) = {
+      logger.info(s"query is ${sql.insertBlogPost(bp).sql}")
       for {
         insertTask <- Task.start(sql.insertBlogPost(bp).run.transact(transactor))
         insertResult <- insertTask

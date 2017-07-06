@@ -7,7 +7,7 @@ export interface IComponentOptionsCss extends ng.IComponentOptions {
 }
 
 export interface IBlogDao {
-	insertNewPost(): ng.IPromise<any>;
+	insertNewPost(postTitle: string, postText: string): ng.IPromise<any>;
 }
 
 export interface IClipboardEvent extends Event {
