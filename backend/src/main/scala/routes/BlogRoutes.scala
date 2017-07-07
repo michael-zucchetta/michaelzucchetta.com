@@ -24,8 +24,10 @@ class BlogRoutes(authService: AuthService, blogPostsService: BlogPostsService) {
           case Left(oauthError) =>
             logger.warn(s"Error on oath $oauthError")
             Ok("Unathorized").withStatus(Unauthorized)
-          case Right(numRowsInserted) =>
-            Ok("post inserted successfully")
+          case Right(numRowsInsertedTask) =>
+            numRowsInsertedTask.flatMap(_ =>
+              Ok("post inserted successfully")
+            )
         }
       } yield result
   }
