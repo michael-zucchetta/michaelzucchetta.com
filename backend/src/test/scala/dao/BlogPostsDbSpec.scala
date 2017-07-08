@@ -5,12 +5,11 @@ import java.util.UUID
 import doobie.scalatest.QueryChecker
 import doobie.util.iolite.IOLite
 import doobie.util.transactor.DriverManagerTransactor
-import fs2.Task
 import org.scalatest.{Matchers, WordSpec}
 import java.time.Instant
 
 import config.WebConfig
-import models.{BlogPost, BlogPostComment, TrackingAction}
+import models._
 
 class BlogPostsDbSpec extends WordSpec with Matchers with QueryChecker {
 
@@ -20,7 +19,7 @@ class BlogPostsDbSpec extends WordSpec with Matchers with QueryChecker {
 
   val blogPostsDb = WebConfig.blogPostsServiceStream.runLog.unsafeRun()(0).blogPostsDb
 
-  val blogPost = BlogPost(UUID.randomUUID(), "author", "title", "text", Instant.now(), Vector.empty[BlogPostComment])
+  val blogPost = BlogPost(UUID.randomUUID(), UUID.randomUUID(), "username", "title", "text", Instant.now(), Vector.empty[BlogPostComment], BlogPostStatus.DRAFT, BlogPostType.PAGE)
 
   "BlogSpot insert blog post query " should {
     "compile" in {

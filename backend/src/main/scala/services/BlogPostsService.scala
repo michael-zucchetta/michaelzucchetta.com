@@ -3,7 +3,7 @@ package services
 import java.util.UUID
 
 import dao.BlogPostsDb
-import models.{BlogPost, BlogPostRequest}
+import models.{BlogPost, BlogPostRequest, BlogPostType}
 import org.log4s.getLogger
 
 case class BlogPostsService(blogPostsDb: BlogPostsDb) {
@@ -15,7 +15,8 @@ case class BlogPostsService(blogPostsDb: BlogPostsDb) {
       postTitle = blogPostRequest.postTitle,
       postText = blogPostRequest.postText,
       authorUuid = userUuid,
-      username = username
+      username = username,
+      postType = blogPostRequest.postType.getOrElse(BlogPostType.BLOG_POST)
     )
     logger.info(s"Blog post being inserted is $blogPost")
     blogPostsDb.insertBlogPost(blogPost)

@@ -22,9 +22,9 @@ case class BlogPostsDb(transactor: Transactor[Task])(implicit val dbStrategy: Db
     def insertBlogPost(bp: BlogPost): Update0 =
       sql"""
           insert into blog_posts
-            (post_uuid, user_uuid, post_title, post_text, post_date, post_status)
+            (post_uuid, user_uuid, post_title, post_text, post_date, post_status, post_type)
               values
-            (${bp.postUuid}, ${bp.authorUuid}, ${bp.postTitle}, ${bp.postText}, ${bp.postDate}, 'draft')
+            (${bp.postUuid}, ${bp.authorUuid}, ${bp.postTitle}, ${bp.postText}, ${bp.postDate}, ${bp.postStatus}, ${bp.postType})
          """.update
 
     def insertBlogComment(c: BlogPostComment): Update0 = 
@@ -38,7 +38,7 @@ case class BlogPostsDb(transactor: Transactor[Task])(implicit val dbStrategy: Db
       (fr"""
           update blog_posts
             set
-                user_uuid = ${bp.authorUuid}, post_title = ${bp.postTitle}, post_text = ${bp.postText}, post_date = ${bp.postDate}
+                user_uuid = ${bp.authorUuid}, post_title = ${bp.postTitle}, post_text = ${bp.postText}, post_date = ${bp.postDate}, post_status = ${bp.postStatus}
               where post_uuid = ${bp.postUuid}
          """).update
 

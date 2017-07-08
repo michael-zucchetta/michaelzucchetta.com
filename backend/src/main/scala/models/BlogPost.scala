@@ -3,12 +3,29 @@ package models
 import java.util.UUID
 import java.time.Instant
 
+import models.BlogPostType.BlogPostType
+
+object BlogPostType extends Enumeration {
+  type BlogPostType = Value
+  val PAGE = Value("Page")
+  val BLOG_POST = Value("BlogPost")
+}
+
+object BlogPostStatus extends Enumeration {
+  type BlogPostStatus = Value
+  val DRAFT = Value("Draft")
+  val PUBLISHED = Value("Published")
+  val DELETED = Value("Deleted")
+}
+
 case class BlogPostRequest(
                             postUuid: Option[UUID],
                             postTitle: String,
-                            postText: String
+                            postText: String,
+                            postType: Option[BlogPostType]
                           )
-
+import BlogPostStatus._
+import BlogPostType._
 case class BlogPost(
                     postUuid: UUID = UUID.randomUUID(),
                     authorUuid: UUID,
@@ -17,7 +34,8 @@ case class BlogPost(
                     postText: String,
                     postDate: Instant = Instant.now(),
                     comments: Vector[BlogPostComment] = Vector.empty[BlogPostComment],
-                    postStatus: String = "draft"
+                    postStatus: BlogPostStatus = BlogPostStatus.DRAFT,
+                    postType: BlogPostType
                   )
 
 case class BlogPostComment(
