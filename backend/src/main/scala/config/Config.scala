@@ -1,12 +1,12 @@
 package config
 
 import com.typesafe.config.{ConfigFactory, Config => ConfigFile}
-import dao.{BlogPostsDb, TrackingDb, UsersDb}
+import dao.{BlogPostsDb, MenuDb, TrackingDb, UsersDb}
 import doobie.util.transactor.Transactor
 import fs2.{Strategy, Stream, Task}
 import org.http4s.client.Client
 import org.http4s.client.blaze.PooledHttp1Client
-import services.{AuthService, BlogPostsService, GeoPluginService, TrackingService}
+import services._
 
 
 case class DbStrategy(strategy: Strategy)
@@ -48,6 +48,10 @@ object WebConfig {
     Stream.eval(Task.delay(UsersDb(transactor)(dbStrategy)))
   }
 
+  private def menuDb(transactor: Transactor[Task], dbStrategy: DbStrategy) = {
+    Stream.eval(Task.delay(MenuDb(transactor)(dbStrategy)))
+  }
+
   val stream = for {
     config <- Stream.eval(Task.delay(ConfigFactory.load()))
     client <- httpClient()
@@ -60,9 +64,11 @@ object WebConfig {
     blogPostsService <- Stream.emit(BlogPostsService(blogPostsDb))
     usersDb <- usersDb(postgresTransactor, strategy)
     authService <- Stream.emit(AuthService(usersDb))
+    menuDb <- menuDb(postgresTransactor, strategy)
+    menuService <- Stream.emit(MenuService(menuDb))
   } yield {
-    (config, client, geoPluginClient, trackingService, blogPostsService, authService)
+    (config, client, geoPluginClient, trackingService, blogPostsService, authService, menuService)
   }
 
-  val (configStream, httpClientStream, geoPluginServiceStream, trackingServiceStream, blogPostsServiceStream, authServiceStream) = stream.unzip6
+  val (configStream, httpClientStream, geoPluginServiceStream, trackingServiceStream, blogPostsServiceStream, authServiceStream, menuServiceStream) = stream.unzip7
 }

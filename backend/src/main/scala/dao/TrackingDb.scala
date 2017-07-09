@@ -24,7 +24,7 @@ case class TrackingDb(transactor: Transactor[Task])(implicit val dbStrategy: DbS
 
   object io {
     def writeTrackingAction(ta: TrackingAction) = {
-      val connectionIo: ConnectionIO[Int] = sql.writeTrackingAction(ta).run.
+      val connectionIo: ConnectionIO[Int] = sql.writeTrackingAction(ta).run
       for {
         transaction <- Task.start(connectionIo.transact(transactor))(dbStrategy.strategy)
         rowsInserted <- transaction

@@ -85,10 +85,11 @@ export default class GlobalCtrl {
 		});
 
 		this.BasicInfoDao.getIP()
-			.then((ipData: any) => {
-			this.userIP = ipData.ip_address;
+		.then((ipData: any) => {
+			console.log('ipData', ipData);
+			this.userIP = ipData.ipAddress;
 			this.regionIP = ipData.region;
-			this.countryIP = ipData.country_name;
+			this.countryIP = ipData.countryName;
 		});
 		
 		let body: any = document.querySelector('body');

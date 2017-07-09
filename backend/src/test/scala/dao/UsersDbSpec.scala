@@ -7,7 +7,7 @@ import config.WebConfig
 import doobie.scalatest.QueryChecker
 import doobie.util.iolite.IOLite
 import doobie.util.transactor.DriverManagerTransactor
-import models.{BlogPost, BlogPostComment, UserAuthCode}
+import models.UserAuthCode
 import org.scalatest.{Matchers, WordSpec}
 
 class UsersDbSpec extends WordSpec with Matchers with QueryChecker {

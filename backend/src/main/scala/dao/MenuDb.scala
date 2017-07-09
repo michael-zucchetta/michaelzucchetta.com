@@ -7,8 +7,9 @@ import fs2.Task
 import models.MenuEntry
 import org.log4s.getLogger
 
-case class MenuDb(transactor: Transactor[Task])(implicit val dbStrategy: DbStrategy) {
+case class MenuDb(transactor: Transactor[Task])(implicit dbStrategy: DbStrategy) {
   private[this] val logger = getLogger
+  implicit val strategy = dbStrategy.strategy
 
   object sql {
 

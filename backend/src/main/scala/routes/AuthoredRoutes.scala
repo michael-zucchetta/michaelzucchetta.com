@@ -38,7 +38,6 @@ case class AuthoredRoutes(authService: AuthService) {
       for {
         response <- Ok("Ok")
         responseKO <- Ok("KO")
-        authenticationCode = req.params.get("authentication_code")
         resultAuthorization <- authService.authorizeAuthCode(request)
       } yield {
         logger.info("Authentication code check concluded")

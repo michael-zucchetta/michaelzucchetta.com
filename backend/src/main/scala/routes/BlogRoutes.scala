@@ -23,7 +23,7 @@ class BlogRoutes(authService: AuthService, blogPostsService: BlogPostsService) {
         result <- serviceResult match {
           case Left(oauthError) =>
             logger.warn(s"Error on oath $oauthError")
-            Ok("Unathorized").withStatus(Unauthorized)
+            Ok("Unauthorized").withStatus(Unauthorized)
           case Right(numRowsInsertedTask) =>
             numRowsInsertedTask.flatMap(_ =>
               Ok("post inserted successfully")

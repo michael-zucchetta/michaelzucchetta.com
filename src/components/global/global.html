@@ -153,8 +153,8 @@
 			<span class="green">DHCP: yes</span> | 
 			<span class="red">VPN: no</span> | 
 			<span class="green">W: yes</span> | 
-			<span class="green" ng-if="$ctrl.regionIP">W: {{ ::$ctrl.userIP }} (your region: {{ ::$ctrl.regionIP }})</span>
-			<span class="green" ng-if="!$ctrl.regionIP">W: {{ ::$ctrl.userIP }} (your country: {{ ::$ctrl.countryIP }})</span> | 
+			<span class="green" ng-if="$ctrl.regionIP && $ctrl.userIP">W: {{ ::$ctrl.userIP }} (your region: {{ ::$ctrl.regionIP }}) | </span>
+			<span class="green" ng-if="!$ctrl.regionIP && $ctrl.userIP && $ctrl.countryIP">W: {{ ::$ctrl.userIP }} (your country: {{ ::$ctrl.countryIP }}) | </span>
 			<span class="white">Michael Zucchetta</span> |
 			<span class="red" >michael.zucchetta@gmail.com</span> | 
 			<span class="green">Dublin, Ireland</span> | 

@@ -16,7 +16,7 @@ case class BlogPostsService(blogPostsDb: BlogPostsDb) {
       postText = blogPostRequest.postText,
       authorUuid = userUuid,
       username = username,
-      postType = blogPostRequest.postType.getOrElse(BlogPostType.BLOG_POST)
+      postType = BlogPostType.BLOG_POST
     )
     logger.info(s"Blog post being inserted is $blogPost")
     blogPostsDb.insertBlogPost(blogPost)

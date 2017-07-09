@@ -46,7 +46,7 @@ app.use(function(request, response) {
 		// TBD: list of endpoints available
 		let serverRequest = `http://localhost:9999/${request.url.replace(servicePath, '')}`;
 		// serverRequest.method = request.method;
-		console.log(`Request changed to ${serverRequest} ${Object.keys(request.body)} ${request.body && request.body.username}`);
+		console.log(`Request changed to ${serverRequest} ${Object.keys(request.body)} ${request.body }`);
 		let builtRequest = httpRequest({
 			uri: serverRequest,
 			method: request.method,
