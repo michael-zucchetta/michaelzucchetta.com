@@ -21,9 +21,9 @@ case class Menu(
                menuUuid: UUID,
                title: String,
                definition: ComponentMenu,
-               order: Int,
+               order: Short,
                active: Boolean,
                children: Option[Vector[Menu]],
                parent_uuid: Option[UUID],
-               pagePost: BlogPost
+               pagePost: Option[BlogPost]
                )

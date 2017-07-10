@@ -13,8 +13,4 @@ package object dao {
       } yield res1 + res2
     }
   }
-
-  // to fix
-  //def reduceA[F[_] : Applicative, A](n: Int, fa: F[A]): F[Vector[A]] =
-    //Vector.fill(n)(fa).sequence
 }
