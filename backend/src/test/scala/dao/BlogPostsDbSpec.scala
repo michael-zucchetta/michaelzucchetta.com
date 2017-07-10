@@ -8,6 +8,7 @@ import doobie.util.transactor.DriverManagerTransactor
 import org.scalatest.{Matchers, WordSpec}
 import java.time.Instant
 
+import cats.data.NonEmptyVector
 import config.WebConfig
 import models._
 
@@ -29,7 +30,7 @@ class BlogPostsDbSpec extends WordSpec with Matchers with QueryChecker {
 
   "BlogSpot read blog post query " should {
     "compile" in {
-      check(blogPostsDb.sql.readLastBlogPosts)
+      check(blogPostsDb.sql.readLastBlogPosts(NonEmptyVector(UUID.randomUUID())))
     }
   }
 

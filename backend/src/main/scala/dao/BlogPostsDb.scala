@@ -8,6 +8,7 @@ import fs2.Task
 import java.time.Instant
 import java.util.UUID
 
+import cats.data.NonEmptyVector
 import models.{BlogPost, BlogPostComment}
 import org.log4s.getLogger
 
@@ -45,7 +46,7 @@ case class BlogPostsDb(transactor: Transactor[Task])(implicit val dbStrategy: Db
 
     val blogParameters = fr"bp.post_uuid, bp.user_uuid, bp.post_title, bp.post_text, bp.post_date"
 
-    def readLastBlogPosts(blogPostUuidsOpt: Option[Vector[UUID]]): Query0[BlogPostRaw] =
+    def readBlogPosts(blogPostUuidsOpt: Option[NonEmptyVector[UUID]]): Query0[BlogPostRaw] =
       (fr"""
           select """ ++ blogParameters ++ fr""",
             array_agg(c.comment_uuid), array_agg(c.comment_text), array_agg(c.comment_date), array_agg(c.author), array_agg(c.post_uuid)
@@ -74,8 +75,25 @@ case class BlogPostsDb(transactor: Transactor[Task])(implicit val dbStrategy: Db
         insertResult
       }
     }
+
+    def readBlogPosts(blogPostUuidsOpt: Option[NonEmptyVector[UUID]]): Task[Vector[sql.BlogPostRaw]] = {
+      for {
+        readBlogPostsTask <- Task.start(sql.readBlogPosts(blogPostUuidsOpt).vector.transact(transactor))
+        readBlogPosts <- readBlogPostsTask
+      } yield readBlogPosts
+    }
   }
 
   def insertBlogPost(blogPost: BlogPost) =
     io.insertBlogPost(blogPost)
+
+  def readBlogPosts(blogPostUuidsOpt: Option[List[UUID]]) = {
+    val blogPostNonEmptyOpt = blogPostUuidsOpt.flatMap {
+      case blogPostUuidHead :: blogPostUuidTail =>
+        NonEmptyVector(blogPostUuidHead, blogPostUuidTail.toVector).some
+      case _ =>
+        None
+    }
+    io.readBlogPosts(blogPostNonEmptyOpt)
+  }
 }
