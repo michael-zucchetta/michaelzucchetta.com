@@ -30,7 +30,7 @@ class BlogPostsDbSpec extends WordSpec with Matchers with QueryChecker {
 
   "BlogSpot read blog post query " should {
     "compile" in {
-      check(blogPostsDb.sql.readLastBlogPosts(NonEmptyVector(UUID.randomUUID())))
+      check(blogPostsDb.sql.readBlogPosts(Some(NonEmptyVector(UUID.randomUUID(), Vector(UUID.randomUUID())))))
     }
   }
 

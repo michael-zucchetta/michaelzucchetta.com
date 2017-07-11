@@ -52,7 +52,7 @@ case class BlogPostsDb(transactor: Transactor[Task])(implicit val dbStrategy: Db
             array_agg(c.comment_uuid), array_agg(c.comment_text), array_agg(c.comment_date), array_agg(c.author), array_agg(c.post_uuid)
           from blog_posts bp inner join blog_post_comments c on bp.post_uuid = c.post_uuid
           where bp.post_status = 'published'""" ++
-            Fragments.andOpt(blogPostUuidsOpt.map(uuids => Fragments.in(fr"post_uuid", uuids))) ++
+            Fragments.andOpt(blogPostUuidsOpt.map(uuids => Fragments.in(fr"and bp.post_uuid", uuids))) ++
           fr"""group by """ ++ blogParameters ++ fr"""
           order by bp.post_date desc""" ++ {
               if (blogPostUuidsOpt.isEmpty) {

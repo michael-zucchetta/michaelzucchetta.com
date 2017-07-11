@@ -22,7 +22,7 @@ class TrackingServiceSpec extends WordSpec with MustMatchers with MockitoSugar w
   when(trackingDbMock.writeTrackingAction(any[TrackingAction])).thenReturn(Task.now(1))
   
   "TrackingService.trackAccessAction" must {
-    "must return task of 1" in {
+    "return Task[1]" in {
       whenReady(trackingService.trackAccessAction(trackingActionRequest, geoData, None).unsafeRunAsyncFuture()) { response =>
         response must be(1)
       }

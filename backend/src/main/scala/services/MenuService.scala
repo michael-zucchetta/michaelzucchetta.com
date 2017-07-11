@@ -12,12 +12,13 @@ case class MenuService(menuDb: MenuDb) {
       val (childrenEntries, singleEntries) = menuEntries.groupBy(_.parentUuid).partition { case (parentUuidOpt, _) =>
           parentUuidOpt.isDefined
       }
-      val filterUuids = childrenEntries.flatMap(_._1)
+      val filterUuids = childrenEntries.flatMap { case (parentUuidOpt, children) => children.map(_.menuUuid) ++ parentUuidOpt }
       val singleEntriesNoChildren = singleEntries.flatMap { case (_, entries) =>
           entries.filterNot(s => filterUuids.toVector.contains(s.menuUuid))
       }
+      println(s"FFF $filterUuids vs $singleEntriesNoChildren")
       val entriesWithChildren = childrenEntries.flatMap{ case (parentUuidOpt, children) =>
-        val parentOpt = parentUuidOpt.flatMap(parentUuid => menuEntries.find(_.parentUuid == parentUuid))
+        val parentOpt = parentUuidOpt.flatMap(parentUuid => menuEntries.find(_.menuUuid === parentUuid))
         parentOpt.map(parent => parent -> children)
       }.map { case (parent, childEntries) => {
         val children = childEntries.map(menuEntry =>
@@ -58,7 +59,7 @@ case class MenuService(menuDb: MenuDb) {
           None
         )
       }
-      entriesWithChildren ++ entriewsWithNoChildren
+      (entriesWithChildren.toVector ++ entriewsWithNoChildren).sortBy(_.order)
     }
   }
 }
