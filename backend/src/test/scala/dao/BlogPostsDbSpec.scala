@@ -22,26 +22,32 @@ class BlogPostsDbSpec extends WordSpec with Matchers with QueryChecker {
 
   val blogPost = BlogPost(UUID.randomUUID(), UUID.randomUUID(), "username", "title", "text", Instant.now(), Vector.empty[BlogPostComment], BlogPostStatus.DRAFT, BlogPostType.PAGE)
 
-  "BlogSpot insert blog post query " should {
+  "BlogPostsDb insert blog post query " should {
     "compile" in {
       check(blogPostsDb.sql.insertBlogPost(blogPost))
     }
   }
 
-  "BlogSpot read blog post query " should {
+  "BlogPostsDb read blog post query " should {
     "compile" in {
       check(blogPostsDb.sql.readBlogPosts(Some(NonEmptyVector(UUID.randomUUID(), Vector(UUID.randomUUID())))))
     }
   }
 
-  "BlogSpot for updating a blog post query " should {
+  "BlogPostsDb query for updating a blog post" should {
     "compile" in {
       check(blogPostsDb.sql.updateBlogPost(blogPost))
     }
   }
 
+  "BlogPostsDb query for reading a single post" should {
+    "compile" in {
+      check(blogPostsDb.sql.readPage(UUID.randomUUID()))
+    }
+  }
 
-  "BlogSpot insert blog post comment query " should {
+
+  "BlogPostsDb insert blog post comment query " should {
     "compile" in {
       val trackingAction = TrackingAction(UUID.randomUUID(), Instant.now(), "action", Some("referer"), Some("provenience"), "ipAddress", Some("country"), Some("city"))
       val blogPostComment = BlogPostComment(UUID.randomUUID(),Some("author"), "text", Instant.now(), trackingAction, UUID.randomUUID())

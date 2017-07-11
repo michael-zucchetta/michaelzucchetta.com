@@ -6,7 +6,7 @@ import dao.BlogPostsDb
 import models.{BlogPost, BlogPostRequest, BlogPostType}
 import org.log4s.getLogger
 
-case class BlogPostsService(blogPostsDb: BlogPostsDb) {
+case class PostsService(blogPostsDb: BlogPostsDb) {
   private[this] val logger = getLogger
 
   def insertBlogPost(blogPostRequest: BlogPostRequest, userUuid: UUID, username: String) = {
@@ -19,6 +19,13 @@ case class BlogPostsService(blogPostsDb: BlogPostsDb) {
       postType = BlogPostType.BLOG_POST
     )
     logger.info(s"Blog post being inserted is $blogPost")
+    /* TODO
+        should return timestamp and post uuid
+     */
     blogPostsDb.insertBlogPost(blogPost)
+  }
+
+  def readPage(postUuid: UUID) = {
+    blogPostsDb.readPage(postUuid)
   }
 }

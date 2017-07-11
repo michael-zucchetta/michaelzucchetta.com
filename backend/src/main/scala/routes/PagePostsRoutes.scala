@@ -1,15 +1,20 @@
 package routes
 
+import java.util.UUID
+
+import cats.implicits._
+import io.circe.syntax._
 import org.http4s.{HttpService, Request, Service}
 import org.http4s.dsl._
 import org.http4s.circe._
 import models._
 import org.log4s.getLogger
-import services.{AuthService, BlogPostsService}
+import services.{AuthService, PostsService}
 import io.circe.generic.extras.auto._
 import org.http4s.util.CaseInsensitiveString
+import scala.util.Try
 
-class BlogRoutes(authService: AuthService, blogPostsService: BlogPostsService) {
+class PagePostsRoutes(authService: AuthService, blogPostsService: PostsService) {
   private[this] val logger = getLogger
 
   def routes(request: Request) = request match {
@@ -30,6 +35,21 @@ class BlogRoutes(authService: AuthService, blogPostsService: BlogPostsService) {
             )
         }
       } yield result
+
+    case req@GET -> Root / "get_by_uuid" =>
+      val postUuidOpt = req.params.get("post_uuid")
+        .flatMap(uuidString => Try(UUID.fromString(uuidString)).toOption)
+      postUuidOpt match {
+        case Some(postUuid) =>
+          blogPostsService.readPage(postUuid).flatMap {
+            case Some(post) =>
+              Ok(post.asJson)
+            case None =>
+              NotFound("Post not found")
+          }
+        case None =>
+          BadRequest("Parameter not valid")
+      }
   }
 
   def websiteService: HttpService = Service {

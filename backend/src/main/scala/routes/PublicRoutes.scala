@@ -2,16 +2,17 @@ package routes
 
 import fs2.Task
 import io.circe.generic.extras.auto._
+import io.circe.syntax._
 import org.http4s._
 import org.http4s.circe._
 import org.http4s.dsl._
 import org.http4s.util.CaseInsensitiveString
 import org.log4s.getLogger
-import services.{GeoPluginService, TrackingService}
+import services.{GeoPluginService, MenuService, TrackingService}
 import models.TrackingActionRequest
 
 
-case class PublicRoutes(geoPluginService: GeoPluginService, trackingService: TrackingService) {
+case class PublicRoutes(geoPluginService: GeoPluginService, trackingService: TrackingService, menuService: MenuService) {
   private[this] val logger = getLogger
 
   private def getIpAddress(request: Request) = {
@@ -50,6 +51,11 @@ case class PublicRoutes(geoPluginService: GeoPluginService, trackingService: Tra
         geoDataEither <- geoPluginService.getGeoLocalizationByIp(ipAddressOpt)
         result <- Task.delay( geoDataEither.map( geoData => trackingService.trackAccessAction(trackingActionRequest, geoData, req.headers.get(CaseInsensitiveString("referer"))).unsafeRun() ) )
         response <- returnResult(result)
+      } yield response
+    case req@GET -> Root / "get_menu" =>
+      for {
+        menu <- menuService.getMenu()
+        response <- Ok(menu.asJson)
       } yield response
     case req =>
       logger.warn(s"route not found for $req")

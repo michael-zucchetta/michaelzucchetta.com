@@ -61,7 +61,7 @@ object WebConfig {
     trackingDb <- trackingDb(postgresTransactor, strategy)
     trackingService <- Stream.emit(TrackingService(trackingDb))
     blogPostsDb <- blogPostsDb(postgresTransactor, strategy)
-    blogPostsService <- Stream.emit(BlogPostsService(blogPostsDb))
+    blogPostsService <- Stream.emit(PostsService(blogPostsDb))
     usersDb <- usersDb(postgresTransactor, strategy)
     authService <- Stream.emit(AuthService(usersDb))
     menuDb <- menuDb(postgresTransactor, strategy)

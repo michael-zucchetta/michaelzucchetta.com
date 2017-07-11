@@ -9,7 +9,7 @@ import java.time.Instant
 import java.util.UUID
 
 import cats.data.NonEmptyVector
-import models.{BlogPost, BlogPostComment}
+import models.{BlogPost, BlogPostComment, BlogPostStatus, BlogPostType}
 import org.log4s.getLogger
 
 case class BlogPostsDb(transactor: Transactor[Task])(implicit val dbStrategy: DbStrategy) {
@@ -19,7 +19,7 @@ case class BlogPostsDb(transactor: Transactor[Task])(implicit val dbStrategy: Db
   object sql {
     val commentsParameters = fr"""(comment_uuid, author, comment_text, tracking_action_uuid, comment_date, post_uuid)"""
 
-    // timestamp gives problems so the type is a string
+    // vector of timestamps gives problems so the type is a string
     type BlogPostRaw = (UUID, UUID, String, String, Instant, Vector[UUID], Vector[String], Vector[String], Vector[Option[String]], Vector[UUID])
     def insertBlogPost(bp: BlogPost): Update0 =
       sql"""
@@ -62,6 +62,16 @@ case class BlogPostsDb(transactor: Transactor[Task])(implicit val dbStrategy: Db
               }
           }
         ).query[BlogPostRaw]
+
+    type BlogPostOnly = (UUID, UUID, String, String, Instant)
+    def readPage(postUuid: UUID): Query0[BlogPostOnly] = {
+      (
+        fr"""
+            select """ ++ blogParameters ++ fr"""
+            from blog_posts bp
+            where bp.post_uuid = $postUuid and page_type = ${BlogPostType.PAGE.toString}
+        """).query[BlogPostOnly]
+    }
   }
 
   object io {
@@ -82,6 +92,12 @@ case class BlogPostsDb(transactor: Transactor[Task])(implicit val dbStrategy: Db
         readBlogPosts <- readBlogPostsTask
       } yield readBlogPosts
     }
+
+    def readPage(postUuid: UUID) =
+      for {
+        postTask <- Task.start(sql.readPage(postUuid).option.transact(transactor))
+        postOpt <- postTask
+      } yield postOpt
   }
 
   def insertBlogPost(blogPost: BlogPost) =
@@ -96,4 +112,21 @@ case class BlogPostsDb(transactor: Transactor[Task])(implicit val dbStrategy: Db
     }
     io.readBlogPosts(blogPostNonEmptyOpt)
   }
+
+  def readPage(postUuid: UUID) =
+    io.readPage(postUuid).map(pageOpt =>
+      pageOpt.map { case (pageUuid, authorUuid, title, text, timestamp) =>
+        BlogPost(
+          pageUuid,
+          authorUuid,
+          "", // tmp
+          title,
+          text,
+          timestamp,
+          Vector.empty[BlogPostComment],
+          BlogPostStatus.PUBLISHED, // tmp
+          BlogPostType.PAGE
+        )
+      }
+    )
 }

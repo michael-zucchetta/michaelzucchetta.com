@@ -2,15 +2,15 @@
   import fs2.{Stream, Task}
   import org.http4s.server.blaze._
   import org.http4s.util.StreamApp
-  import routes.{AuthoredRoutes, BlogRoutes, PublicRoutes}
-  import services.{AuthService, BlogPostsService, GeoPluginService, TrackingService}
+  import routes.{AuthoredRoutes, PagePostsRoutes, PublicRoutes}
+  import services._
 
   object App extends StreamApp {
 
-    def httpServer(port: Int, geoPluginService: GeoPluginService, trackingService: TrackingService, blogPostsService: BlogPostsService, authService: AuthService) = {
-      val pubRoutes = new PublicRoutes(geoPluginService, trackingService)
+    def httpServer(port: Int, geoPluginService: GeoPluginService, trackingService: TrackingService, blogPostsService: PostsService, authService: AuthService, menuService: MenuService) = {
+      val pubRoutes = new PublicRoutes(geoPluginService, trackingService, menuService)
       val authRoutes = new AuthoredRoutes(authService)
-      val blogRoutes = new BlogRoutes(authService, blogPostsService)
+      val blogRoutes = new PagePostsRoutes(authService, blogPostsService)
       BlazeBuilder
         .bindHttp(port, "0.0.0.0")
         //.withSSL()
@@ -29,7 +29,8 @@
         trackingService <- WebConfig.trackingServiceStream
         authService <- WebConfig.authServiceStream
         blogPostsService <- WebConfig.blogPostsServiceStream
-        server <- httpServer(9999, geoPluginService, trackingService, blogPostsService, authService)
+        menuService <- WebConfig.menuServiceStream
+        server <- httpServer(9999, geoPluginService, trackingService, blogPostsService, authService, menuService)
       } yield server
     }
   }
