@@ -1,8 +1,9 @@
 package routes
 
 import fs2.Task
-import io.circe.generic.extras.auto._
+import io.circe.generic.extras.Configuration
 import io.circe.syntax._
+import io.circe.generic.extras.auto._
 import org.http4s._
 import org.http4s.circe._
 import org.http4s.dsl._
@@ -14,6 +15,7 @@ import models.TrackingActionRequest
 
 case class PublicRoutes(geoPluginService: GeoPluginService, trackingService: TrackingService, menuService: MenuService) {
   private[this] val logger = getLogger
+  implicit val config: Configuration = Configuration.default.withDefaults
 
   private def getIpAddress(request: Request) = {
     val ipHeaders = Vector("X-Forwarded-For",

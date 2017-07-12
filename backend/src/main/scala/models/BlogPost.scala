@@ -1,10 +1,10 @@
 package models
 
-import cats.implicits._
 import java.util.UUID
 import java.time.Instant
 
-import io.circe.Decoder
+import io.circe.Encoder
+import io.circe.generic.extras.auto._
 
 trait BlogPostType
 
@@ -89,6 +89,13 @@ case class BlogPost(
                     postType: BlogPostType
                   )
 
+object BlogPost {
+  implicit val encodeBlogPost: Encoder[BlogPost] =
+    Encoder.forProduct8("postUuid", "authorUuid", "username", "postTitle", "postText", "comments", "postStatus", "postType") { bp =>
+      (bp.postUuid.toString, bp.authorUuid.toString, bp.username, bp.postTitle, bp.postText, bp.comments, bp.postStatus.toString, bp.postType.toString)
+    }
+}
+
 case class BlogPostComment(
                     commentUuid: UUID = UUID.randomUUID(),
                     author: Option[String] = None,
@@ -97,3 +104,11 @@ case class BlogPostComment(
                     trackingAction: TrackingAction,
                     postUuid: UUID
                   )
+
+
+object BlogPostComment {
+  implicit val encodeBlogPost: Encoder[BlogPostComment] =
+    Encoder.forProduct5("commentUuid", "author", "commentText", "commentDate", "postUuid") { c =>
+      (c.commentUuid.toString, c.author.getOrElse(""), c.commentText, c.commentDate.toString, c.postUuid.toString)
+    }
+}

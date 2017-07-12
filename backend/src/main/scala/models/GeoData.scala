@@ -28,4 +28,5 @@ object GeoData {
     Encoder.forProduct5("ip_address", "city", "region", "country_code", "country_name", ) { geoData =>
       (geoData.ipAddress, geoData.city, geoData.region, geoData.countryCode, geoData.countryName)
     }*/
+
 }

@@ -2,7 +2,7 @@ package routes
 
 import java.util.UUID
 
-import cats.implicits._
+import io.circe.generic.extras.auto._
 import io.circe.syntax._
 import org.http4s.{HttpService, Request, Service}
 import org.http4s.dsl._
@@ -10,8 +10,8 @@ import org.http4s.circe._
 import models._
 import org.log4s.getLogger
 import services.{AuthService, PostsService}
-import io.circe.generic.extras.auto._
 import org.http4s.util.CaseInsensitiveString
+
 import scala.util.Try
 
 class PagePostsRoutes(authService: AuthService, blogPostsService: PostsService) {

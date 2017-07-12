@@ -16,7 +16,6 @@ case class MenuService(menuDb: MenuDb) {
       val singleEntriesNoChildren = singleEntries.flatMap { case (_, entries) =>
           entries.filterNot(s => filterUuids.toVector.contains(s.menuUuid))
       }
-      println(s"FFF $filterUuids vs $singleEntriesNoChildren")
       val entriesWithChildren = childrenEntries.flatMap{ case (parentUuidOpt, children) =>
         val parentOpt = parentUuidOpt.flatMap(parentUuid => menuEntries.find(_.menuUuid === parentUuid))
         parentOpt.map(parent => parent -> children)
@@ -61,5 +60,9 @@ case class MenuService(menuDb: MenuDb) {
       }
       (entriesWithChildren.toVector ++ entriewsWithNoChildren).sortBy(_.order)
     }
+  }
+
+  def blogBuilder() = {
+    
   }
 }

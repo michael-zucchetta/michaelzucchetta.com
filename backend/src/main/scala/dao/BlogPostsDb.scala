@@ -69,7 +69,7 @@ case class BlogPostsDb(transactor: Transactor[Task])(implicit val dbStrategy: Db
         fr"""
             select """ ++ blogParameters ++ fr"""
             from blog_posts bp
-            where bp.post_uuid = $postUuid and page_type = ${BlogPostType.PAGE.toString}
+            where bp.post_uuid = $postUuid and post_type = ${BlogPostType.PAGE.toString}
         """).query[BlogPostOnly]
     }
   }
@@ -82,7 +82,7 @@ case class BlogPostsDb(transactor: Transactor[Task])(implicit val dbStrategy: Db
         insertResult <- insertTask
       } yield {
         logger.info(s"Number of rows inserted are $insertResult")
-        insertResult
+        Map("postUuid" -> bp.postUuid, "postDate" -> bp.postDate)
       }
     }
 

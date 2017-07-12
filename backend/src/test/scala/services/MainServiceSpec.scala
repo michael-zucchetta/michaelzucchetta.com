@@ -25,6 +25,11 @@ class MainServiceSpec extends WordSpec with MustMatchers with MockitoSugar with 
     true,
     UUID.randomUUID().toString,
     None,
+    None,
+    None,
+    None,
+    None,
+    None,
     None
   )
   
@@ -36,6 +41,11 @@ class MainServiceSpec extends WordSpec with MustMatchers with MockitoSugar with 
     true,
     UUID.randomUUID().toString,
     Some(parentMenuEntry.menuUuid),
+    None,
+    None,
+    None,
+    None,
+    None,
     None
   )
 
@@ -47,6 +57,11 @@ class MainServiceSpec extends WordSpec with MustMatchers with MockitoSugar with 
     true,
     UUID.randomUUID().toString,
     Some(parentMenuEntry.menuUuid),
+    None,
+    None,
+    None,
+    None,
+    None,
     None
   )
 
@@ -58,6 +73,11 @@ class MainServiceSpec extends WordSpec with MustMatchers with MockitoSugar with 
     true,
     UUID.randomUUID().toString,
     Some(parentMenuEntry.menuUuid),
+    None,
+    None,
+    None,
+    None,
+    None,
     None
   )
 
@@ -125,6 +145,11 @@ class MainServiceSpec extends WordSpec with MustMatchers with MockitoSugar with 
     true,
     UUID.randomUUID().toString,
     None,
+    None,
+    None,
+    None,
+    None,
+    None,
     None
   )
 
@@ -149,6 +174,11 @@ class MainServiceSpec extends WordSpec with MustMatchers with MockitoSugar with 
     Random.nextInt().toShort,
     true,
     UUID.randomUUID().toString,
+    None,
+    None,
+    None,
+    None,
+    None,
     None,
     None
   )
