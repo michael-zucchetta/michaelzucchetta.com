@@ -1,7 +1,9 @@
 interface IMenuEl {
-	id: number;
+	menuUuid: number;
 
 	name: string;
+	
+	title: string;
 
 	status?: mz.IStatus;
 

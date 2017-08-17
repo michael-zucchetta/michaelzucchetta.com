@@ -21,7 +21,7 @@
 		"url": "/about-me.html",
 		"definition": {
 			"url": "/about-me.html",
-			"component": "aboutMe"
+			"component": "page"
 		}
 	},
 	{

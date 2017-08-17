@@ -10,12 +10,13 @@ export default class BlogDao implements mz.IBlogDao {
 	
 	}
 
-	public insertNewPost(postTitle: string, postText: string) {
+	public insertNewPost(postTitle: string, postText: string, postType: string, menuUuid: string) {
 		const newPostRequest = {
 			postTitle: postTitle,
 			postText: postText,
 			postUuid: null,
-			postType: 'BlogPost',
+			postType: postType,
+			menuUuid: menuUuid, 
 		};
 		return this.http.post(this.insertPostEndpoint, newPostRequest).then((response) => {
 			if (response.status !== 200) {

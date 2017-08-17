@@ -41,10 +41,10 @@ let RouteProvider: Function = ($stateProvider: angular.ui.IStateProvider,
 			_.each(menu, (menuItem: mz.IMenuEl) => {
 				if (menuItem.active) {
 					console.log('putting element in menu', menuItem);
-					$route.state(menuItem.name, menuItem.definition);
+					$route.state(menuItem.title.replace(/\ /g, '').toLowerCase(), menuItem.definition);
 				}
 			});
-			// $route.reload();
+			//$route.reload();
 		};
 
 		return $route;

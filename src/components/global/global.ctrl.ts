@@ -74,6 +74,7 @@ export default class GlobalCtrl {
 
 		this.DaoFacade.getMenu()
 			.then((menuEls: mz.IMenuEl[]) => {
+			console.log('MENU COMING', menuEls);	
 			this.menu = menuEls;
 			if (this.$location.url() === '') {
 				this.$state.go('home');

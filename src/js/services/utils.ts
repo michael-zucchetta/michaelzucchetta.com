@@ -5,15 +5,15 @@ export default class Utils {
 
 	public static addElementToMenu(menuCollector: mz.IMenuEl[], element: mz.IMenuEl): mz.IMenuEl[] {
 		if (element && !element.parentId) {
-			menuCollector[element.id] = angular.copy(element);
+			menuCollector[element.menuUuid] = angular.copy(element);
 		} else {
 			if (!menuCollector[element.parentId].children) {
 				menuCollector[element.parentId].children = [];
 			}
 			menuCollector[element.parentId].children.push(element);
 		}
-
-		return menuCollector;
+		console.log('menuCollector', menuCollector);
+		return  Object.keys(menuCollector).map((k) => menuCollector[k]);
 	}
 
 	public static initializeMenu(rawMenu: mz.IMenuEl[]): mz.IMenuEl[] {
