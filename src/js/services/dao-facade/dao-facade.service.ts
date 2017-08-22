@@ -13,7 +13,10 @@ class DaoFacade implements mz.IDaoFacade {
 
 	public getMenu(): ng.IPromise<mz.IMenuEl[]> {
 		return this.BasicInfoDao.getMenu()
-			.then((menu: any) => this.resolveMenu(menu));
+		.then((menu: any) => {
+			console.log('MENUAGAIN', menu);
+			return this.resolveMenu(menu);
+		});
 	}
 
 }

@@ -1,19 +1,21 @@
 interface IMenuEl {
-	menuUuid: number;
+	menuUuid: string;
 
 	name: string;
 	
-	title: string;
+	title?: string;
 
 	status?: mz.IStatus;
 
 	order: number;
 
-	parentId?: number;
+	parentUuid?: string;
 
 	active: boolean;
 
 	children?: IMenuEl[];
 
 	definition: any;
+
+	pagePost?: any;
 }

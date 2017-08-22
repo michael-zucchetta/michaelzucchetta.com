@@ -9,16 +9,16 @@ describe('Test Utils', () => {
 
 	beforeEach(() => {
 		menuItem1 = {
-			id: 1,
-			parentId: undefined,
+			menuUuid: '1',
+			parentUuid: undefined,
 			name: 'Menu Element 1',
 			active: true,
 			order: 1,
 			definition: 'test',
 		};
 		menuItem2 = {
-			id: 2,
-			parentId: 1,
+			menuUuid: '2',
+			parentUuid: '1',
 			name: 'Menu Element 2',
 			active: true,
 			order: 1,
@@ -47,8 +47,8 @@ describe('Test Utils', () => {
 	it('test initializeMenu', () => {
 		let rawMenu: mz.IMenuEl[] = [];
 		menuItem2 = {
-			id: 2,
-			parentId: 1,
+			menuUuid: '2',
+			parentUuid: '1',
 			name: 'Menu Element 2',
 			active: true,
 			order: 1,
@@ -58,8 +58,8 @@ describe('Test Utils', () => {
 		rawMenu.push(menuItem1);
 		rawMenu.push(menuItem2);
 		let compareMenu: mz.IMenuEl[] = [];
-		compareMenu[menuItem1.id] = angular.copy(menuItem1);
-		compareMenu[menuItem1.id].children = [menuItem2];
+		compareMenu[menuItem1.menuUuid] = angular.copy(menuItem1);
+		compareMenu[menuItem1.menuUuid].children = [menuItem2];
 		compareMenu.splice(0, 1);
 		const resultMenu: mz.IMenuEl[] = Utils.initializeMenu(rawMenu);
 		expect(resultMenu).toEqual(compareMenu);

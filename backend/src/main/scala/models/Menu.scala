@@ -30,6 +30,6 @@ case class Menu(
                order: Short,
                active: Boolean,
                children: Option[Vector[Menu]],
-               parent_uuid: Option[UUID],
+               parentUuid: Option[UUID],
                pagePost: Option[BlogPost]
                )

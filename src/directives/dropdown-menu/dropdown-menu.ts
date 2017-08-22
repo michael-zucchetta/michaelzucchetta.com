@@ -28,7 +28,6 @@ class DropdownMenuCtrl {
 
 	constructor(private $scope: any) {
 		this.$scope.$watch('menuEls.length', () => {
-			console.log('MENU ELS', this.$scope.menuEls);
 			angular.forEach(this.$scope.menuEls, (menuEl) => {
 				menuEl.showHideMenu = () => {
 					menuEl.subMenuVisible = !menuEl.subMenuVisible;

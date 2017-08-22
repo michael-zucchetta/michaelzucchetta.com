@@ -3,7 +3,8 @@ export class BasicInfoDao {
 
 	private linksEndpoint: string = 'js/mocks/links.json';
 
-	private menuEndpoint: string = '/services/pub/get_menu'; 
+	private menuEndpoint: string = 'js/mocks/menu_new.json';
+	//'/services/pub/get_menu'; 
 	//'js/mocks/menu.json';
 
 	// geoplugin.com

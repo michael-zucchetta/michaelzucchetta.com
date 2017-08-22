@@ -4,6 +4,9 @@ import services from 'js/services/index';
 import mz from 'domains';
 
 const pageOpts: mz.IComponentOptionsCss = {
+	bindings: {
+		postType: '@',
+	},
 	template: require('./page-admin.html'),
 	css: require('./page-admin.scss'),
 	controller: PageAdminCtrl,

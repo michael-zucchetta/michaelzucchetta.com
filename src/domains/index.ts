@@ -7,7 +7,7 @@ export interface IComponentOptionsCss extends ng.IComponentOptions {
 }
 
 export interface IBlogDao {
-	insertNewPost(postTitle: string, postText: string): ng.IPromise<any>;
+	insertNewPost(postTitle: string, postText: string, postType: string, menuUuid: string): ng.IPromise<any>;
 }
 
 export interface IClipboardEvent extends Event {
@@ -23,21 +23,25 @@ export interface IDaoFacade {
 }
 
 export interface IMenuEl {
-	id: number;
+	menuUuid: string;
 
 	name: string;
+	
+	title?: string;
 
 	status?: mz.IStatus;
 
 	order: number;
 
-	parentId?: number;
+	parentUuid?: string;
 
 	active: boolean;
 
 	children?: IMenuEl[];
 
 	definition: any;
+
+	pagePost?: any;
 }
 
 export interface IRGB {
