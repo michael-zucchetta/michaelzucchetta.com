@@ -10,7 +10,7 @@
 	<div class="menu-item" ng-repeat="item in menuEls">
 		<span class="arrow" ng-if="!item.subMenuVisible || !item.children">&#9658;</span>
 		<span class="arrow" ng-if="item.subMenuVisible && item.children">&#9660;</span>
-		<a class="menu-label" ui-sref="{{item.name}}" ng-if="item.active" ng-click="item.showHideMenu()">{{item.title}}</a>
+		<a class="menu-label" ui-sref="{{item.definition.name}}" ng-if="item.active" ng-click="item.showHideMenu()">{{item.title}}</a>
 		<span class="menu-label" ng-if="!item.active" ng-bind="item.title" ng-click="item.showHideMenu()"></span>
 		<div class="submenu-item"
        			ng-show="subItem.visible"
