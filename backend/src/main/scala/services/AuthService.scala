@@ -33,7 +33,7 @@ case class AuthService(usersDb: UsersDb) {
   def userAuthentication(request: AuthenticationRequest): Task[Either[Response, (String, UserAuthRedirection)]] = {
     for {
       authCodeResult <- usersDb.authenticateUser(request.username, request.password, baseRedirectUrl)
-      notFoundResp <- NotFound("Username or password are wrong")
+      notFoundResp <- BadRequest("Username or password are wrong")
       response = authCodeResult.left.map(_ => notFoundResp)
     } yield response.map(userAuthCode => userAuthCode.clientId -> UserAuthRedirection(userAuthCode.redirectUrl))
   }

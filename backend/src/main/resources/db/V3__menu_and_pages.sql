@@ -11,6 +11,6 @@ create table menu (
 
 grant select, insert, update, delete on menu to michaelzucchetta;
 
-insert into menu (menu_uuid, title, component_name, order_in_menu, active, url, parent_uuid, page_post) values ('e1ba125a-d64f-4af8-a2e2-df0546a530e7', 'Home', 'home', 1, true, 'home.html', null, null);
-insert into menu (menu_uuid, title, component_name, order_in_menu, active, url, parent_uuid, page_post) values ('a336d487-ee71-4bca-8536-c0c1c2f221ba', 'About Me', 'about-me', 2, true, 'about-me.html', null, null);
-insert into menu (menu_uuid, title, component_name, order_in_menu, active, url, parent_uuid, page_post) values ('4965713b-d9f6-4dd3-834a-9766d6994cd3', 'Blog', 'blog', 3, true, 'blog.html', null, null);
+insert into menu (menu_uuid, title, component_name, order_in_menu, active, url, parent_uuid, page_post) values ('e1ba125a-d64f-4af8-a2e2-df0546a530e7', 'Home', 'home', 1, true, '/home.html', null, null);
+insert into menu (menu_uuid, title, component_name, order_in_menu, active, url, parent_uuid, page_post) values ('a336d487-ee71-4bca-8536-c0c1c2f221ba', 'About Me', 'page', 2, true, '/about-me.html', null, null);
+insert into menu (menu_uuid, title, component_name, order_in_menu, active, url, parent_uuid, page_post) values ('4965713b-d9f6-4dd3-834a-9766d6994cd3', 'Blog', 'blog', 3, true, '/blog.html', null, null);

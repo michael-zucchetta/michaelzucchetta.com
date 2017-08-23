@@ -44,6 +44,16 @@ let RouteProvider: Function = ($stateProvider: angular.ui.IStateProvider,
 					$route.state(menuItem.title.replace(/\ /g, '').toLowerCase(), menuItem.definition);
 				}
 			});
+			// Manual setting of hidden ones
+			$route.state('login', {
+				url: '/login.html',
+				component: 'login',
+			});
+			// need to handle the page component so that in logged version it's possible to insert/edit
+			$route.state('admin', {
+				url: '/page-admin.html',
+				component: 'pageAdmin',
+			});
 			//$route.reload();
 		};
 
