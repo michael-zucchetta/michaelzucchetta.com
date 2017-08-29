@@ -1,14 +1,7 @@
 feafafae
 
-<form method="post">
-	<textarea ui-tinymce="$ctrl.tinymceOptions" ng-model="tinymceModel"></textarea>
-</form>
 <div id="quill-editor"> 
- <ng-quill-editor ng-model="title" placeholder="override default placeholder" on-editor-created="editorCreated(editor)" on-content-changed="contentChanged(editor, html, text)" on-selection-changed="selectionChanged(editor, range, oldRange, source)"></ng-quill-editor>
+	<page-admin post-type="page" ng-if="$ctrl.isAuthenticated"></page-admin>
 </div>
-<div ng-bind="$ctrl.isAuthenticated">aUFIAJEIJAFIAJEFIAEJF</div>
-<div ng-if="$ctrl.isAuthenticated"> AUTHENTICATED</div>
-<link rel="stylesheet" href="//cdn.quilljs.com/1.1.5/quill.snow.css">
-<link rel="stylesheet" href="//cdn.quilljs.com/1.1.5/quill.bubble.css">
 
 

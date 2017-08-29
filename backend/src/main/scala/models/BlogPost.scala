@@ -73,7 +73,9 @@ object BlogPostStatus {
 case class BlogPostRequest(
                             postUuid: Option[UUID],
                             postTitle: String,
-                            postText: String
+                            postText: String,
+                            postType: String = BlogPostType.BLOG_POST.toString,
+                            menuUuid: Option[UUID] = None // In case it is associated to a page and it's not a blog post
                            )
 
 

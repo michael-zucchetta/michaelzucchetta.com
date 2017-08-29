@@ -6,7 +6,7 @@ enablePlugins(JavaAppPackaging)
 
 inThisBuild(
   List(
-    scalaVersion := "2.12.2",
+    scalaVersion := "2.12.3",
     organization := "com.michaelzucchetta",
     scalacOptions ++= Seq(
       "-deprecation",
