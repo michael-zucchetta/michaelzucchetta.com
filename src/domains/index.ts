@@ -7,7 +7,7 @@ export interface IComponentOptionsCss extends ng.IComponentOptions {
 }
 
 export interface IBlogDao {
-	insertNewPost(postTitle: string, postText: string, postType: string, menuUuid: string): ng.IPromise<any>;
+	insertNewPost(postTitle: string, postText: string, postType: string, menuUuid: string, postPublished: boolean): ng.IPromise<any>;
 }
 
 export interface IClipboardEvent extends Event {
@@ -109,6 +109,11 @@ export interface IImageUtilities {
 	calculateVal(val: number, opacity: number): string;
 
 	fromRgbToHex(point: mz.IRGB): string;
+}
+
+export interface IPosts {
+
+	getPostByUuid(postUuid: string): ng.IPromise<any>;
 }
 
 export interface IRestProxy {

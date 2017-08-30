@@ -6,15 +6,15 @@ import java.time.Instant
 import io.circe.Encoder
 import io.circe.generic.extras.auto._
 
-trait BlogPostType
+trait PostType
 
-object BlogPostType {
+object PostType {
 
   case object PAGE extends EnumVal
 
   case object BLOG_POST extends EnumVal
 
-  sealed trait EnumVal extends BlogPostType {
+  sealed trait EnumVal extends PostType {
     override def toString: String = {
       this match {
         case PAGE => "page"
@@ -23,7 +23,7 @@ object BlogPostType {
     }
   }
 
-  def fromString(string: String): BlogPostType = {
+  def fromString(string: String): PostType = {
     string match {
       case "page" =>
         PAGE
@@ -35,9 +35,9 @@ object BlogPostType {
   }
 }
 
-trait BlogPostStatus
+trait PostStatus
 
-object BlogPostStatus {
+object PostStatus {
 
   case object DRAFT extends EnumVal
 
@@ -45,7 +45,7 @@ object BlogPostStatus {
 
   case object DELETED extends EnumVal
 
-  sealed trait EnumVal extends BlogPostStatus {
+  sealed trait EnumVal extends PostStatus {
     override def toString: String = {
       this match {
         case DRAFT => "draft"
@@ -55,7 +55,7 @@ object BlogPostStatus {
     }
   }
 
-  def fromString(string: String): BlogPostStatus = {
+  def fromString(string: String): PostStatus = {
     string match {
       case "draft" =>
         DRAFT
@@ -70,29 +70,30 @@ object BlogPostStatus {
 
 }
 
-case class BlogPostRequest(
-                            postUuid: Option[UUID],
-                            postTitle: String,
-                            postText: String,
-                            postType: String = BlogPostType.BLOG_POST.toString,
-                            menuUuid: Option[UUID] = None // In case it is associated to a page and it's not a blog post
-                           )
+case class PostRequest(
+                        postUuid: Option[UUID],
+                        postTitle: String,
+                        postText: String,
+                        postType: String = PostType.BLOG_POST.toString,
+                        postPublished: Boolean = false,
+                        menuUuid: Option[UUID] = None // In case it is associated to a page and it's not a blog post
+                      )
 
 
-case class BlogPost(
-                    postUuid: UUID = UUID.randomUUID(),
-                    authorUuid: UUID,
-                    username: String,
-                    postTitle: String,
-                    postText: String,
-                    postDate: Instant = Instant.now(),
-                    comments: Vector[BlogPostComment] = Vector.empty[BlogPostComment],
-                    postStatus: BlogPostStatus = BlogPostStatus.DRAFT,
-                    postType: BlogPostType
-                  )
+case class Post(
+                 postUuid: UUID = UUID.randomUUID(),
+                 authorUuid: UUID,
+                 username: String,
+                 postTitle: String,
+                 postText: String,
+                 postDate: Instant = Instant.now(),
+                 comments: Vector[BlogPostComment] = Vector.empty[BlogPostComment],
+                 postStatus: PostStatus = PostStatus.DRAFT,
+                 postType: PostType
+               )
 
-object BlogPost {
-  implicit val encodeBlogPost: Encoder[BlogPost] =
+object Post {
+  implicit val encodeBlogPost: Encoder[Post] =
     Encoder.forProduct8("postUuid", "authorUuid", "username", "postTitle", "postText", "comments", "postStatus", "postType") { bp =>
       (bp.postUuid.toString, bp.authorUuid.toString, bp.username, bp.postTitle, bp.postText, bp.comments, bp.postStatus.toString, bp.postType.toString)
     }

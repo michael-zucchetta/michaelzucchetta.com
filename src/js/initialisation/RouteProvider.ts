@@ -40,7 +40,11 @@ let RouteProvider: Function = ($stateProvider: angular.ui.IStateProvider,
 		$route.setRouteDinamically = (menu: mz.IMenuEl[]): void => {
 			_.each(menu, (menuItem: mz.IMenuEl) => {
 				if (menuItem.active) {
-					console.log('putting element in menu', menuItem);
+					console.log('putting element in menu', menuItem.definition);
+					menuItem.definition.params = {
+						menuUuid: menuItem.menuUuid
+					};
+					console.log('putting element in menu', menuItem.definition);
 					$route.state(menuItem.title.replace(/\ /g, '').toLowerCase(), menuItem.definition);
 				}
 			});

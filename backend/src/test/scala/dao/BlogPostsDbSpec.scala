@@ -18,13 +18,13 @@ class BlogPostsDbSpec extends WordSpec with Matchers with QueryChecker {
     "org.postgresql.Driver", "jdbc:postgresql:michaelzucchetta", "michaelzucchetta", ""
   )
 
-  val blogPostsDb = WebConfig.blogPostsServiceStream.runLog.unsafeRun()(0).blogPostsDb
+  val blogPostsDb = WebConfig.blogPostsServiceStream.runLog.unsafeRun()(0).postsDb
 
-  val blogPost = BlogPost(UUID.randomUUID(), UUID.randomUUID(), "username", "title", "text", Instant.now(), Vector.empty[BlogPostComment], BlogPostStatus.DRAFT, BlogPostType.PAGE)
+  val blogPost = Post(UUID.randomUUID(), UUID.randomUUID(), "username", "title", "text", Instant.now(), Vector.empty[BlogPostComment], PostStatus.DRAFT, PostType.PAGE)
 
   "BlogPostsDb insert blog post query " should {
     "compile" in {
-      check(blogPostsDb.sql.insertBlogPost(blogPost))
+      check(blogPostsDb.sql.insertPost(blogPost))
     }
   }
 

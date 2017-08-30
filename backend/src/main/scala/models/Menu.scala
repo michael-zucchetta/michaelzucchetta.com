@@ -3,7 +3,7 @@ package models
 import java.time.Instant
 import java.util.UUID
 
-import models.BlogPost
+import models.Post
 
 case class MenuEntry(
                       menuUuid: UUID,
@@ -31,5 +31,5 @@ case class Menu(
                active: Boolean,
                children: Option[Vector[Menu]],
                parentUuid: Option[UUID],
-               pagePost: Option[BlogPost]
+               pagePost: Option[Post]
                )

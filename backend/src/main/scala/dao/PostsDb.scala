@@ -9,10 +9,10 @@ import java.time.Instant
 import java.util.UUID
 
 import cats.data.NonEmptyVector
-import models.{BlogPost, BlogPostComment, BlogPostStatus, BlogPostType}
+import models.{Post, BlogPostComment, PostStatus, PostType}
 import org.log4s.getLogger
 
-case class BlogPostsDb(transactor: Transactor[Task])(implicit val dbStrategy: DbStrategy) {
+case class PostsDb(transactor: Transactor[Task])(implicit val dbStrategy: DbStrategy) {
   private[this] val logger = getLogger
   implicit val strategy = dbStrategy.strategy
 
@@ -20,8 +20,8 @@ case class BlogPostsDb(transactor: Transactor[Task])(implicit val dbStrategy: Db
     val commentsParameters = fr"""(comment_uuid, author, comment_text, tracking_action_uuid, comment_date, post_uuid)"""
 
     // vector of timestamps gives problems so the type is a string
-    type BlogPostRaw = (UUID, UUID, String, String, Instant, Vector[UUID], Vector[String], Vector[String], Vector[Option[String]], Vector[UUID])
-    def insertBlogPost(bp: BlogPost): Update0 =
+    type PostRaw = (UUID, UUID, String, String, Instant, Vector[UUID], Vector[String], Vector[String], Vector[Option[String]], Vector[UUID])
+    def insertPost(bp: Post): Update0 =
       sql"""
           insert into blog_posts
             (post_uuid, user_uuid, post_title, post_text, post_date, post_status, post_type)
@@ -36,7 +36,7 @@ case class BlogPostsDb(transactor: Transactor[Task])(implicit val dbStrategy: Db
             (${c.commentUuid}, ${c.author}, ${c.commentText}, ${c.trackingAction.trackingUuid}, ${c.commentDate}, ${c.postUuid})
          """).update
 
-    def updateBlogPost(bp: BlogPost): Update0 =
+    def updateBlogPost(bp: Post): Update0 =
       (fr"""
           update blog_posts
             set
@@ -46,7 +46,7 @@ case class BlogPostsDb(transactor: Transactor[Task])(implicit val dbStrategy: Db
 
     val blogParameters = fr"bp.post_uuid, bp.user_uuid, bp.post_title, bp.post_text, bp.post_date"
 
-    def readBlogPosts(blogPostUuidsOpt: Option[NonEmptyVector[UUID]]): Query0[BlogPostRaw] =
+    def readBlogPosts(blogPostUuidsOpt: Option[NonEmptyVector[UUID]]): Query0[PostRaw] =
       (fr"""
           select """ ++ blogParameters ++ fr""",
             array_agg(c.comment_uuid), array_agg(c.comment_text), array_agg(c.comment_date), array_agg(c.author), array_agg(c.post_uuid)
@@ -61,7 +61,7 @@ case class BlogPostsDb(transactor: Transactor[Task])(implicit val dbStrategy: Db
                 fr""
               }
           }
-        ).query[BlogPostRaw]
+        ).query[PostRaw]
 
     type BlogPostOnly = (UUID, UUID, String, String, Instant)
     def readPage(postUuid: UUID): Query0[BlogPostOnly] = {
@@ -69,16 +69,28 @@ case class BlogPostsDb(transactor: Transactor[Task])(implicit val dbStrategy: Db
         fr"""
             select """ ++ blogParameters ++ fr"""
             from blog_posts bp
-            where bp.post_uuid = $postUuid and post_type = ${BlogPostType.PAGE.toString}
+            where bp.post_uuid = $postUuid and post_type = ${PostType.PAGE.toString}
         """).query[BlogPostOnly]
     }
+
+    def updateMenuWithPost(postUuid: UUID, menuUuid: UUID): Update0 =
+      sql"""
+            update menu set page_post = $postUuid where menu_uuid = $menuUuid
+        """.update
+
   }
 
   object io {
-    def insertBlogPost(bp: BlogPost) = {
-      logger.info(s"query is ${sql.insertBlogPost(bp).sql}")
+    def insertPost(bp: Post, menuUuidOpt: Option[UUID]) = {
+      val query = menuUuidOpt match {
+        case Some(menuUuid) =>
+          sql.insertPost(bp).run.combine(sql.updateMenuWithPost(bp.postUuid, menuUuid).run)
+        case _ =>
+          sql.insertPost(bp).run
+      }
+      logger.info(s"query is ${sql.insertPost(bp).sql}")
       for {
-        insertTask <- Task.start(sql.insertBlogPost(bp).run.transact(transactor))
+        insertTask <- Task.start(query.transact(transactor))
         insertResult <- insertTask
       } yield {
         logger.info(s"Number of rows inserted are $insertResult")
@@ -86,7 +98,7 @@ case class BlogPostsDb(transactor: Transactor[Task])(implicit val dbStrategy: Db
       }
     }
 
-    def readBlogPosts(blogPostUuidsOpt: Option[NonEmptyVector[UUID]]): Task[Vector[sql.BlogPostRaw]] = {
+    def readBlogPosts(blogPostUuidsOpt: Option[NonEmptyVector[UUID]]): Task[Vector[sql.PostRaw]] = {
       for {
         readBlogPostsTask <- Task.start(sql.readBlogPosts(blogPostUuidsOpt).vector.transact(transactor))
         readBlogPosts <- readBlogPostsTask
@@ -100,8 +112,9 @@ case class BlogPostsDb(transactor: Transactor[Task])(implicit val dbStrategy: Db
       } yield postOpt
   }
 
-  def insertBlogPost(blogPost: BlogPost) =
-    io.insertBlogPost(blogPost)
+  def insertPost(blogPost: Post, menuUuidOpt: Option[UUID]) = {
+    io.insertPost(blogPost, menuUuidOpt)
+  }
 
   def readBlogPosts(blogPostUuidsOpt: Option[List[UUID]]) = {
     val blogPostNonEmptyOpt = blogPostUuidsOpt.flatMap {
@@ -116,7 +129,7 @@ case class BlogPostsDb(transactor: Transactor[Task])(implicit val dbStrategy: Db
   def readPage(postUuid: UUID) =
     io.readPage(postUuid).map(pageOpt =>
       pageOpt.map { case (pageUuid, authorUuid, title, text, timestamp) =>
-        BlogPost(
+        Post(
           pageUuid,
           authorUuid,
           "", // tmp
@@ -124,8 +137,8 @@ case class BlogPostsDb(transactor: Transactor[Task])(implicit val dbStrategy: Db
           text,
           timestamp,
           Vector.empty[BlogPostComment],
-          BlogPostStatus.PUBLISHED, // tmp
-          BlogPostType.PAGE
+          PostStatus.PUBLISHED, // tmp
+          PostType.PAGE
         )
       }
     )

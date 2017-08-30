@@ -14,7 +14,7 @@ import org.http4s.util.CaseInsensitiveString
 
 import scala.util.Try
 
-class PagePostsRoutes(authService: AuthService, blogPostsService: PostsService) {
+class PagePostsRoutes(authService: AuthService, postsService: PostsService) {
   private[this] val logger = getLogger
 
   def routes(request: Request) = request match {
@@ -22,9 +22,9 @@ class PagePostsRoutes(authService: AuthService, blogPostsService: PostsService) 
       // temporary
       for {
         oauthResult <- authService.isAuthenticated(fromHttp4sToProtectedRequest(req))
-        blogPostRequest <- request.as(jsonOf[BlogPostRequest])
-        _ = logger.info(s"Inserting blog post with request $blogPostRequest")
-        serviceResult = oauthResult.map(s => blogPostsService.insertBlogPost(blogPostRequest, s.user.userUuid, s.user.username))
+        postRequest <- request.as(jsonOf[PostRequest])
+        _ = logger.info(s"Inserting blog post with request $postRequest")
+        serviceResult = oauthResult.map(s => postsService.insertPost(postRequest, s.user.userUuid, s.user.username))
         result <- serviceResult match {
           case Left(oauthError) =>
             logger.warn(s"Error on oath $oauthError")
@@ -41,7 +41,7 @@ class PagePostsRoutes(authService: AuthService, blogPostsService: PostsService) 
         .flatMap(uuidString => Try(UUID.fromString(uuidString)).toOption)
       postUuidOpt match {
         case Some(postUuid) =>
-          blogPostsService.readPage(postUuid).flatMap {
+          postsService.readPage(postUuid).flatMap {
             case Some(post) =>
               Ok(post.asJson)
             case None =>

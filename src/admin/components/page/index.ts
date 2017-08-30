@@ -5,7 +5,7 @@ import mz from 'domains';
 
 const pageOpts: mz.IComponentOptionsCss = {
 	bindings: {
-		postType: '@',
+		pageType: '@',
 	},
 	template: require('./page-admin.html'),
 	css: require('./page-admin.scss'),

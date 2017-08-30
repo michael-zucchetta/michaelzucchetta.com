@@ -2,30 +2,36 @@ package services
 
 import java.util.UUID
 
-import dao.BlogPostsDb
-import models.{BlogPost, BlogPostRequest, BlogPostType}
+import dao.PostsDb
+import models.{Post, PostRequest, PostStatus, PostType}
 import org.log4s.getLogger
 
-case class PostsService(blogPostsDb: BlogPostsDb) {
+case class PostsService(postsDb: PostsDb) {
   private[this] val logger = getLogger
 
-  def insertBlogPost(blogPostRequest: BlogPostRequest, userUuid: UUID, username: String) = {
-    val blogPost = BlogPost(
-      postUuid = blogPostRequest.postUuid.getOrElse(UUID.randomUUID()),
-      postTitle = blogPostRequest.postTitle,
-      postText = blogPostRequest.postText,
+  def insertPost(postRequest: PostRequest, userUuid: UUID, username: String) = {
+    val postStatus = if (postRequest.postPublished) {
+      PostStatus.PUBLISHED
+    } else {
+      PostStatus.DRAFT
+    }
+    val post = Post(
+      postUuid = postRequest.postUuid.getOrElse(UUID.randomUUID()),
+      postTitle = postRequest.postTitle,
+      postText = postRequest.postText,
       authorUuid = userUuid,
       username = username,
-      postType = BlogPostType.fromString(blogPostRequest.postType)
+      postType = PostType.fromString(postRequest.postType),
+      postStatus = postStatus
     )
-    logger.info(s"Blog post being inserted is $blogPost")
+    logger.info(s"Blog post being inserted is $post")
     /* TODO
         should return timestamp and post uuid
      */
-    blogPostsDb.insertBlogPost(blogPost)
+    postsDb.insertPost(post, postRequest.menuUuid)
   }
 
   def readPage(postUuid: UUID) = {
-    blogPostsDb.readPage(postUuid)
+    postsDb.readPage(postUuid)
   }
 }

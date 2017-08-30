@@ -1,7 +1,7 @@
 package config
 
 import com.typesafe.config.{ConfigFactory, Config => ConfigFile}
-import dao.{BlogPostsDb, MenuDb, TrackingDb, UsersDb}
+import dao.{PostsDb, MenuDb, TrackingDb, UsersDb}
 import doobie.util.transactor.Transactor
 import fs2.{Strategy, Stream, Task}
 import org.http4s.client.Client
@@ -41,7 +41,7 @@ object WebConfig {
   }
 
   private def blogPostsDb(transactor: Transactor[Task], dbStrategy: DbStrategy) = {
-    Stream.eval(Task.delay(BlogPostsDb(transactor)(dbStrategy)))
+    Stream.eval(Task.delay(PostsDb(transactor)(dbStrategy)))
   }
 
   private def usersDb(transactor: Transactor[Task], dbStrategy: DbStrategy) = {
