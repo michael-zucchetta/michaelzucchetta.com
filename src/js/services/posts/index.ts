@@ -1,6 +1,6 @@
-import BasicInfoDao from './basic-info-dao.service';
+import PostsDao from './posts.service';
 import RestProxy from '../rest-proxy';
 
-export default angular.module('basic-info-dao', [RestProxy])
-	.service('BasicInfoDao', BasicInfoDao)
+export default angular.module('posts', [RestProxy])
+	.service('PostsDao', PostsDao)
 	.name;

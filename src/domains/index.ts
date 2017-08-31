@@ -51,7 +51,15 @@ export interface IMenuEl {
 
 	definition: IDefinition;
 
-	pagePost?: any;
+	postUuid?: any;
+}
+
+export interface IPost {
+	postUuid: string;
+
+        postTitle: string;
+
+        postText: string;
 }
 
 export interface IRGB {
@@ -121,7 +129,7 @@ export interface IImageUtilities {
 	fromRgbToHex(point: mz.IRGB): string;
 }
 
-export interface IPosts {
+export interface IPostsDao {
 
 	getPostByUuid(postUuid: string): ng.IPromise<any>;
 }

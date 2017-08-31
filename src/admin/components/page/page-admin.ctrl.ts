@@ -6,13 +6,11 @@ export default class PageAdminCtrl {
 
 	private isAuthenticated: boolean = false;
 
-	private postTitle: string;
-
-	private postText: string;
-
 	private menuUuid: string;
 
 	private pageType: string;
+
+	private post: mz.IPost;
 
 	private postPublished: boolean = true;
 
@@ -21,13 +19,15 @@ export default class PageAdminCtrl {
 		console.log(this.$stateParams);
 		this.menuUuid = this.$stateParams.menuUuid;
 		this.pageType = this.$scope.pageType;
+		this.post = this.$scope.post;
 		console.log("Window service", this.$window);
 	}
 
 	savePost() {
 		console.log('Saving post', this.pageType);
-		if (this.postTitle && this.postText) { 
-			this.BlogDao.insertNewPost(this.postTitle, this.postText, this.pageType, this.menuUuid, this.postPublished);
+		if (this.post.postTitle && this.post.postText) { 
+			// change parameters
+			this.BlogDao.insertNewPost(this.post.postTitle, this.post.postText, this.pageType, this.menuUuid, this.postPublished);
 		}
 	}
 

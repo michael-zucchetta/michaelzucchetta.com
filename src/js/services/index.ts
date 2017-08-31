@@ -7,7 +7,8 @@ import BasicInfoDao from './basic-info-dao';
 import Auth from './auth';
 import ImageUtilities from './image-utilities';
 import AuthInterceptor from './auth-interceptor';
+import PostsDao from './posts';
 
 export default angular.module(Constants.SERVICE_MODULE, ['ui.router', DaoFacade,
-				BasicInfoDao, FileUtilities, Session, ImageUtilities, RestProxy, Auth, AuthInterceptor])
+				BasicInfoDao, FileUtilities, Session, ImageUtilities, RestProxy, Auth, AuthInterceptor, PostsDao])
 	.name;

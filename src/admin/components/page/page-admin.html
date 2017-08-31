@@ -1,8 +1,8 @@
 <div id="quill-editor"> 
 	<form ng-submit="$ctrl.savePost()">
-	<div class="input-title">Title <input type="text" ng-model="$ctrl.postTitle"/></div>
+	<div class="input-title">Title <input type="text" ng-model="$ctrl.page.postTitle"/></div>
 	<div>
-		<ng-quill-editor class="editor" ng-model="$ctrl.postText" placeholder="override default placeholder" on-editor-created="editorCreated(editor)" on-content-changed="contentChanged(editor, html, text)" on-selection-changed="selectionChanged(editor, range, oldRange, source)"></ng-quill-editor>
+		<ng-quill-editor class="editor" ng-model="$ctrl.page.postText" placeholder="override default placeholder" on-editor-created="editorCreated(editor)" on-content-changed="contentChanged(editor, html, text)" on-selection-changed="selectionChanged(editor, range, oldRange, source)"></ng-quill-editor>
 	</div>
 	<div> Save as published? <input type="checkbox" ng-model="$ctrl.postPublished"/></div>
 	<div><input type="submit" class="save" value="Save"/></div>

@@ -69,7 +69,7 @@ case class PostsDb(transactor: Transactor[Task])(implicit val dbStrategy: DbStra
         fr"""
             select """ ++ blogParameters ++ fr"""
             from blog_posts bp
-            where bp.post_uuid = $postUuid and post_type = ${PostType.PAGE.toString}
+            where bp.post_uuid = $postUuid and post_type = ${PostType.PAGE.toString}::post_type
         """).query[BlogPostOnly]
     }
 

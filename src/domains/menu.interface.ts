@@ -17,5 +17,5 @@ interface IMenuEl {
 
 	definition: IDefinition;
 
-	pagePost?: any;
+	postUuid?: any;
 }

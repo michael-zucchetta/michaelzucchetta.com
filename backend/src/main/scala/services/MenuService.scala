@@ -1,8 +1,11 @@
 package services
 
+import java.time.Instant
+import java.util.UUID
+
 import cats.implicits._
 import dao.MenuDb
-import models.{Menu, ComponentMenu}
+import models._
 
 case class MenuService(menuDb: MenuDb) {
   def getMenu() = {
@@ -45,18 +48,19 @@ case class MenuService(menuDb: MenuDb) {
         )
       }}
 
-      val entriewsWithNoChildren = singleEntriesNoChildren.map { menuEntry =>
-        Menu(
-          menuEntry.menuUuid,
-          menuEntry.title,
-          ComponentMenu(menuEntry.url, menuEntry.componentName),
-          menuEntry.order,
-          menuEntry.active,
-          None,
-          None,
-          // to be changed
-          None
-        )
+      val entriewsWithNoChildren = singleEntriesNoChildren.map { menuEntry => {
+          Menu(
+            menuEntry.menuUuid,
+            menuEntry.title,
+            ComponentMenu(menuEntry.url, menuEntry.componentName),
+            menuEntry.order,
+            menuEntry.active,
+            None,
+            None,
+            // to be changed
+            menuEntry.pagePost
+          )
+        }
       }
       (entriesWithChildren.toVector ++ entriewsWithNoChildren).sortBy(_.order)
     }

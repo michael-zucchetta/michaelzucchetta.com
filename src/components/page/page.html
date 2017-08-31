@@ -1,7 +1,11 @@
 feafafae
 
 <div id="quill-editor"> 
-	<page-admin page-type="page" ng-if="$ctrl.isAuthenticated"></page-admin>
+	<page-admin page-type="page" post="post" ng-if="$ctrl.isAuthenticated"></page-admin>
+	<div ng-if="!$ctrl.isAuthenticated">
+		<div class="page-title" ng-bind="$ctrl.post.postTitle"></div>
+		<div class="page-description" ng-bind-html="$ctrl.post.postText"></div>
+	</div>
 </div>
 
 

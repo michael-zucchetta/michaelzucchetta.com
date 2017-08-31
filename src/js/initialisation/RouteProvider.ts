@@ -42,7 +42,8 @@ let RouteProvider: Function = ($stateProvider: angular.ui.IStateProvider,
 				if (menuItem.active) {
 					console.log('putting element in menu', menuItem.definition);
 					menuItem.definition.params = {
-						menuUuid: menuItem.menuUuid
+						menuUuid: menuItem.menuUuid,
+						postUuid: menuItem.postUuid,
 					};
 					console.log('putting element in menu', menuItem.definition);
 					$route.state(menuItem.title.replace(/\ /g, '').toLowerCase(), menuItem.definition);

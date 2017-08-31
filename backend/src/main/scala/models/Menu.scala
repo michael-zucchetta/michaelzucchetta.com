@@ -24,12 +24,12 @@ case class MenuEntry(
 case class ComponentMenu(url: String, component: String)
 
 case class Menu(
-               menuUuid: UUID,
-               title: String,
-               definition: ComponentMenu,
-               order: Short,
-               active: Boolean,
-               children: Option[Vector[Menu]],
-               parentUuid: Option[UUID],
-               pagePost: Option[Post]
+                 menuUuid: UUID,
+                 title: String,
+                 definition: ComponentMenu,
+                 order: Short,
+                 active: Boolean,
+                 children: Option[Vector[Menu]],
+                 parentUuid: Option[UUID],
+                 postUuid: Option[UUID]
                )
