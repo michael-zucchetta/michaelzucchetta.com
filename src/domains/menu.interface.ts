@@ -15,7 +15,7 @@ interface IMenuEl {
 
 	children?: IMenuEl[];
 
-	definition: any;
+	definition: IDefinition;
 
 	pagePost?: any;
 }

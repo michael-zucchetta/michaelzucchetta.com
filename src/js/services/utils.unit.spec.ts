@@ -14,7 +14,11 @@ describe('Test Utils', () => {
 			name: 'Menu Element 1',
 			active: true,
 			order: 1,
-			definition: 'test',
+			definition: {
+				name: 'name',
+				url: 'url',
+				component: 'component',
+			},
 		};
 		menuItem2 = {
 			menuUuid: '2',
@@ -22,7 +26,11 @@ describe('Test Utils', () => {
 			name: 'Menu Element 2',
 			active: true,
 			order: 1,
-			definition: 'test',
+			definition: {
+				name: 'name',
+				url: 'url',
+				component: 'component',
+			},
 		};
 	});
 
@@ -52,7 +60,11 @@ describe('Test Utils', () => {
 			name: 'Menu Element 2',
 			active: true,
 			order: 1,
-			definition: 'test',
+			definition: {
+				name: 'name',
+				url: 'url',
+				component: 'component',
+			},
 			children: undefined,
 		};
 		rawMenu.push(menuItem1);

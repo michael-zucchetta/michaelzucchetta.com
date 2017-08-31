@@ -22,6 +22,16 @@ export interface IDaoFacade {
 	getMenu(): ng.IPromise<mz.IMenuEl[]>;
 }
 
+export interface IDefinition {
+	name: string;
+
+	params?: any;
+
+	url: string;
+
+	component: string;
+}
+
 export interface IMenuEl {
 	menuUuid: string;
 
@@ -39,7 +49,7 @@ export interface IMenuEl {
 
 	children?: IMenuEl[];
 
-	definition: any;
+	definition: IDefinition;
 
 	pagePost?: any;
 }
