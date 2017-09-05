@@ -2,7 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const CompressionPlugin = require("compression-webpack-plugin");
 
-const vendor = ['angular', 'ui-router', 'angular-css', 'ng-file-upload', 'lodash', 'jQuery'];
+const vendor = ['angular', 'angular-sanitize', 'ui-router', 'angular-css', 'ng-file-upload', 'lodash', 'jQuery'];
 module.exports = {
 	entry: {
 		app: ['./js/initialisation/main.ts'],
@@ -25,6 +25,7 @@ module.exports = {
 		],
 		alias: {
 			'angular': __dirname + '/lib/angular/angular.min',
+			'angular-sanitize': __dirname + '/lib/angular-sanitize/angular-sanitize.min',
 			'angular-tinymce': __dirname + '/lib/angular-ui-tinymce/dist/tinymce.min',
 			'tinymce': __dirname + '/lib/tinymce/tinymce.min',
 			'angular-mocks': __dirname + '/lib/angular-mocks/angular-mocks',

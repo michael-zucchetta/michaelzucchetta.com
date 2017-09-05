@@ -12,6 +12,7 @@ let module: ng.IModule = angular.module(Constants.MAIN_MODULE,
 				[Constants.ROUTE_PROVIDER,
 					'angularCSS',
 					'ngFileUpload',
+					'ngSanitize',
 					services,
 					components,
 					directives

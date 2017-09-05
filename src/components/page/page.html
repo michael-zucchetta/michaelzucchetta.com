@@ -1,8 +1,7 @@
-feafafae
-
-<div id="quill-editor"> 
-	<page-admin page-type="page" post="post" ng-if="$ctrl.isAuthenticated"></page-admin>
-	<div ng-if="!$ctrl.isAuthenticated">
+<span>{{$ctrl.post | json}}</span>
+<div id="quill-post-container"> 
+	<page-admin page-type="page" post="$ctrl.post" ng-if="$ctrl.isAuthenticated"></page-admin>
+	<div ng-show="!$ctrl.isAuthenticated">
 		<div class="page-title" ng-bind="$ctrl.post.postTitle"></div>
 		<div class="page-description" ng-bind-html="$ctrl.post.postText"></div>
 	</div>

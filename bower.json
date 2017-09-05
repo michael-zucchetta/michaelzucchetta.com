@@ -4,6 +4,7 @@
 	"devDependencies": {
 		"jquery": "*",
 		"angularjs": "1.6.4",
+		"angular-sanitize": "1.6.4",
 		"angular-mocks": "1.6.4",
 		"angular-ui-router": "1.0.0-alpha.5",
 		"angular-route": "1.6.4",

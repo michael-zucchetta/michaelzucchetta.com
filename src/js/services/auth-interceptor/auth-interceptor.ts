@@ -10,10 +10,16 @@ class AuthenticationInterceptor {
 		console.log(config.headers);
 		config.headers = config.headers || {};
 		let localStorage: any = this.$window.localStorage;
+		console.log('EHI', localStorage);
+		console.log('EHI2', localStorage['token']);
 		if (localStorage['token']) {
+			console.log("DIO BON");
 			config.headers.Authorization = localStorage.token;
+		} else {
+			delete config.headers.Authorization;
 		}
 		let authorizationHeader = config.headers['Authorization'];
+		console.log('authorizationHeader', authorizationHeader, localStorage, config.headers);
 		if (authorizationHeader && authorizationHeader.indexOf('Basic') !== -1) {
 			console.log('Setting timeout');
 			config.timeout = 10000000;
@@ -27,7 +33,7 @@ class AuthenticationInterceptor {
 			this.$rootScope.$emit('userAuthenticated');
 			let localStorage: any = this.$window.localStorage;
 			localStorage.token = response.headers('Authorization');
-		}
+		} 
 		return response;
 	}
 

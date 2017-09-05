@@ -11,15 +11,14 @@ export default class PageAdminCtrl {
 	private pageType: string;
 
 	private post: mz.IPost;
-
+	
 	private postPublished: boolean = true;
 
-	constructor(private $scope: any, private $window: ng.IWindowService, private BlogDao: mz.IBlogDao, private $stateParams: any) {
-		this.$scope = $scope;
+	constructor(private $window: ng.IWindowService, private BlogDao: mz.IBlogDao, private $stateParams: any, private $timeout: ng.ITimeoutService, private $sce: ng.ISCEService) {
 		console.log(this.$stateParams);
 		this.menuUuid = this.$stateParams.menuUuid;
-		this.pageType = this.$scope.pageType;
-		this.post = this.$scope.post;
+		console.log(this.pageType);
+		// this.$timeout(() => this.post = this.$scope.post, 0);
 		console.log("Window service", this.$window);
 	}
 
@@ -36,4 +35,4 @@ export default class PageAdminCtrl {
 	}
 }
 
-PageAdminCtrl.$inject = ['$scope', '$window', 'BlogDao', '$stateParams']
+PageAdminCtrl.$inject = ['$window', 'BlogDao', '$stateParams', '$timeout', '$sce'];

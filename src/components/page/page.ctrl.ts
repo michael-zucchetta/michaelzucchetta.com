@@ -6,7 +6,7 @@ export default class PageCtrl {
 
 	private post: any;
 
-	constructor(private $scope: any, private $window: ng.IWindowService, private PostsDao: mz.IPostsDao, private $stateParams: any, private $timeout: ng.ITimeoutService, private $sce: ng.ISceService) {
+	constructor(private $scope: any, private $window: ng.IWindowService, private PostsDao: mz.IPostsDao, private $stateParams: any, private $timeout: ng.ITimeoutService, private $sce: ng.ISCEService) {
 		this.post = {};
 		let post = this.post;
 		// tmp, to be put in something global
@@ -16,12 +16,11 @@ export default class PageCtrl {
 			this.isAuthenticated = true;
 		}
 		if (this.$stateParams.postUuid) {
-				this.PostsDao.getPostByUuid(this.$stateParams.postUuid).then((postResponse: mz.IPost) => {
-					console.info('POST ARRIVED', post);
-                                	post.postUuid = postResponse.postUuid;
-                                	post.postTitle = postResponse.postTitle;
-					post.postText = $sce.trustAsHtml(postResponse.postText);
-				})
+			this.PostsDao.getPostByUuid(this.$stateParams.postUuid).then((postResponse: mz.IPost) => {
+				this.post.postUuid = postResponse.postUuid;
+				this.post.postTitle = postResponse.postTitle;
+				this.post.postText = $sce.trustAsHtml(postResponse.postText);
+			});
 		}
 	}
 }
