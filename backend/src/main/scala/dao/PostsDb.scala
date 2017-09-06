@@ -36,7 +36,7 @@ case class PostsDb(transactor: Transactor[Task])(implicit val dbStrategy: DbStra
             (${c.commentUuid}, ${c.author}, ${c.commentText}, ${c.trackingAction.trackingUuid}, ${c.commentDate}, ${c.postUuid})
          """).update
 
-    def updateBlogPost(bp: Post): Update0 =
+    def updatePost(bp: Post): Update0 =
       (fr"""
           update blog_posts
             set
@@ -94,7 +94,24 @@ case class PostsDb(transactor: Transactor[Task])(implicit val dbStrategy: DbStra
         insertResult <- insertTask
       } yield {
         logger.info(s"Number of rows inserted are $insertResult")
-        Map("postUuid" -> bp.postUuid, "postDate" -> bp.postDate)
+        Map("postUuid" -> bp.postUuid.toString, "postDate" -> bp.postDate.toString)
+      }
+    }
+
+    def updatePost(bp: Post, menuUuidOpt: Option[UUID]) = {
+      val query = menuUuidOpt match {
+        case Some(menuUuid) =>
+          sql.updatePost(bp).run.combine(sql.updateMenuWithPost(bp.postUuid, menuUuid).run)
+        case _ =>
+          sql.updatePost(bp).run
+      }
+      logger.info(s"query is ${sql.updatePost(bp).sql}")
+      for {
+        updateTask <- Task.start(query.transact(transactor))
+        updateResult <- updateTask
+      } yield {
+        logger.info(s"Number of rows inserted are $updateResult")
+        Map("postUuid" -> bp.postUuid.toString, "postDate" -> bp.postDate.toString)
       }
     }
 
@@ -114,6 +131,10 @@ case class PostsDb(transactor: Transactor[Task])(implicit val dbStrategy: DbStra
 
   def insertPost(blogPost: Post, menuUuidOpt: Option[UUID]) = {
     io.insertPost(blogPost, menuUuidOpt)
+  }
+
+  def updatePost(blogPost: Post, menuUuidOpt: Option[UUID]) = {
+    io.updatePost(blogPost, menuUuidOpt)
   }
 
   def readBlogPosts(blogPostUuidsOpt: Option[List[UUID]]) = {

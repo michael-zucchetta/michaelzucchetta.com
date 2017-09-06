@@ -19,7 +19,8 @@ export default class PageCtrl {
 			this.PostsDao.getPostByUuid(this.$stateParams.postUuid).then((postResponse: mz.IPost) => {
 				this.post.postUuid = postResponse.postUuid;
 				this.post.postTitle = postResponse.postTitle;
-				this.post.postText = $sce.trustAsHtml(postResponse.postText);
+				this.post.postText = postResponse.postText;
+				this.post.postTextDisplay = $sce.trustAsHtml(postResponse.postText);
 			});
 		}
 	}

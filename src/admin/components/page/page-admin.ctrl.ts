@@ -14,11 +14,11 @@ export default class PageAdminCtrl {
 	
 	private postPublished: boolean = true;
 
-	constructor(private $window: ng.IWindowService, private BlogDao: mz.IBlogDao, private $stateParams: any, private $timeout: ng.ITimeoutService, private $sce: ng.ISCEService) {
+	constructor(private $window: ng.IWindowService, private BlogDao: mz.IBlogDao, private $stateParams: any, private $timeout: ng.ITimeoutService, private $sce: ng.ISCEService, private $state: any) {
 		console.log(this.$stateParams);
 		this.menuUuid = this.$stateParams.menuUuid;
+		// this.post.postUuid = this.$stateParams.postUuid;
 		console.log(this.pageType);
-		// this.$timeout(() => this.post = this.$scope.post, 0);
 		console.log("Window service", this.$window);
 	}
 
@@ -26,7 +26,11 @@ export default class PageAdminCtrl {
 		console.log('Saving post', this.pageType);
 		if (this.post.postTitle && this.post.postText) { 
 			// change parameters
-			this.BlogDao.insertNewPost(this.post.postTitle, this.post.postText, this.pageType, this.menuUuid, this.postPublished);
+			this.BlogDao.upsertPost(this.post, this.pageType, this.menuUuid, this.postPublished).then((result) => {
+				console.log('post saved successfully', result);
+				this.post.postUuid = result.postUuid;
+				this.$state.reload();
+			});
 		}
 	}
 
@@ -35,4 +39,4 @@ export default class PageAdminCtrl {
 	}
 }
 
-PageAdminCtrl.$inject = ['$window', 'BlogDao', '$stateParams', '$timeout', '$sce'];
+PageAdminCtrl.$inject = ['$window', 'BlogDao', '$stateParams', '$timeout', '$sce', '$state'];

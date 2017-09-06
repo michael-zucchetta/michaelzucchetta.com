@@ -3,7 +3,7 @@
 	<page-admin page-type="page" post="$ctrl.post" ng-if="$ctrl.isAuthenticated"></page-admin>
 	<div ng-show="!$ctrl.isAuthenticated">
 		<div class="page-title" ng-bind="$ctrl.post.postTitle"></div>
-		<div class="page-description" ng-bind-html="$ctrl.post.postText"></div>
+		<div class="page-description" ng-bind-html="$ctrl.post.postTextDisplay"></div>
 	</div>
 </div>
 

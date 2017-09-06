@@ -7,7 +7,7 @@ export interface IComponentOptionsCss extends ng.IComponentOptions {
 }
 
 export interface IBlogDao {
-	insertNewPost(postTitle: string, postText: string, postType: string, menuUuid: string, postPublished: boolean): ng.IPromise<any>;
+	upsertPost(post: IPost, postType: string, menuUuid: string, postPublished: boolean): ng.IPromise<any>;
 }
 
 export interface IClipboardEvent extends Event {

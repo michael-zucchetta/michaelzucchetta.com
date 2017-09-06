@@ -18,20 +18,20 @@ class PagePostsRoutes(authService: AuthService, postsService: PostsService) {
   private[this] val logger = getLogger
 
   def routes(request: Request) = request match {
-    case req@POST -> Root / "new_post" =>
+    case req@POST -> Root / "upsert_post" =>
       // temporary
       for {
         oauthResult <- authService.isAuthenticated(fromHttp4sToProtectedRequest(req))
         postRequest <- request.as(jsonOf[PostRequest])
         _ = logger.info(s"Inserting blog post with request $postRequest")
-        serviceResult = oauthResult.map(s => postsService.insertPost(postRequest, s.user.userUuid, s.user.username))
+        serviceResult = oauthResult.map(s => postsService.upsertPost(postRequest, s.user.userUuid, s.user.username))
         result <- serviceResult match {
           case Left(oauthError) =>
             logger.warn(s"Error on oath $oauthError")
             Ok("Unauthorized").withStatus(Unauthorized)
-          case Right(numRowsInsertedTask) =>
-            numRowsInsertedTask.flatMap(_ =>
-              Ok("post inserted successfully")
+          case Right(dataResp) =>
+            dataResp.flatMap(data =>
+              Ok(data.asJson)
             )
         }
       } yield result
