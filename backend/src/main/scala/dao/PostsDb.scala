@@ -122,7 +122,7 @@ case class PostsDb(transactor: Transactor[Task])(implicit val dbStrategy: DbStra
       } yield readBlogPosts
     }
 
-    def readPage(postUuid: UUID) =
+    def readPost(postUuid: UUID) =
       for {
         postTask <- Task.start(sql.readPage(postUuid).option.transact(transactor))
         postOpt <- postTask
@@ -147,8 +147,8 @@ case class PostsDb(transactor: Transactor[Task])(implicit val dbStrategy: DbStra
     io.readBlogPosts(blogPostNonEmptyOpt)
   }
 
-  def readPage(postUuid: UUID) =
-    io.readPage(postUuid).map(pageOpt =>
+  def readPagePost(postUuid: UUID) =
+    io.readPost(postUuid).map(pageOpt =>
       pageOpt.map { case (pageUuid, authorUuid, title, text, timestamp) =>
         Post(
           pageUuid,

@@ -41,6 +41,10 @@ case class PostsService(postsDb: PostsDb) {
   }
 
   def readPage(postUuid: UUID) = {
-    postsDb.readPage(postUuid)
+    postsDb.readPagePost(postUuid)
+  }
+
+  def readBlogPosts() = {
+    postsDb.readBlogPosts()
   }
 }

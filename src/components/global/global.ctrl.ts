@@ -26,7 +26,7 @@ export default class GlobalCtrl {
 	private isAuthenticated: boolean = false;
 
 	constructor(private BasicInfoDao: mz.IBasicInfoDao, private DaoFacade: mz.IDaoFacade,
-			private $interval: ng.IIntervalService, private $timeout: ng.ITimeoutService, private $state: angular.ui.IStateService, private $location: ng.ILocationService, private $scope: any, private $window: ng.IWindowService) {
+			private $interval: ng.IIntervalService, private $timeout: ng.ITimeoutService, private $state: angular.ui.IStateService, private $location: ng.ILocationService, private $scope: any, private $window: ng.IWindowService, private Auth: maz.IAuth) {
 		this.myLinks = [];
 		this.menu = [];
 		this.$interval(() => this.getTodayDate(), 1000);
@@ -38,7 +38,11 @@ export default class GlobalCtrl {
                 let token = this.$window.localStorage['token'];
                 console.log('OHIIII', token);
                 if (token) {
-                        this.isAuthenticated = true;
+			this.Auth.isAuthenticated().then((resp) => {
+				console.log("IS IT AUTHENTICATED?", resp);
+				this.isAuthenticated = true;
+				return resp;
+			});
 		}
 		if (this.$window.location.href.indexOf('admin.html') !== -1 && !this.isAuthenticated) {
 			this.$window.location.href = '/index.html#/home.html';
@@ -220,4 +224,4 @@ export default class GlobalCtrl {
 	}
 }
 
-GlobalCtrl.$inject = ['BasicInfoDao', 'DaoFacade', '$interval', '$timeout', '$state', '$location', '$scope', '$window'];
+GlobalCtrl.$inject = ['BasicInfoDao', 'DaoFacade', '$interval', '$timeout', '$state', '$location', '$scope', '$window', 'Auth'];

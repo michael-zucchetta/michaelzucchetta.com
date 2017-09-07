@@ -5,6 +5,7 @@ import animateText from './animate-text';
 import hexRgbConverter from './hex-rgb-converter';
 import login from './login';
 import page from './page';
+import blog from './blog';
 
 export default angular.module('components', [
 	global,
@@ -13,5 +14,6 @@ export default angular.module('components', [
 	animateText,
 	login,
 	page,
-	hexRgbConverter])
+	hexRgbConverter,
+	blog])
 	.name;

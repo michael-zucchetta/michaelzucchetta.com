@@ -2,9 +2,14 @@ import mz from 'domains';
 
 class Auth {
 	private authPrefix: string = '/services/auth';
+	private isAuthenticatedEndpoint: string = `${this.authPrefix}/is_authenticated`;
 	private loginEndpoint: string = `${this.authPrefix}/login`;
 	
 	constructor(private http: ng.IHttpService, private window: ng.IWindowService) {
+	}
+
+	public isAuthenticated(): ng.IPromise<any> {
+		return this.http.post(this.isAuthenticatedEndpoint); 
 	}
 
 	public login(username: string, password: string): ng.IPromise<any> {

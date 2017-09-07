@@ -98,6 +98,7 @@ export interface IAuthenticationInterceptor {
 
 export interface IAuth {
 	login(username: string, password: string): ng.IPromise<any>;
+	isAuthenticated(): ng.promise<any>;
 }
 
 export interface IBasicInfoDao {

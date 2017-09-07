@@ -11,7 +11,6 @@ class AuthenticationInterceptor {
 		config.headers = config.headers || {};
 		let localStorage: any = this.$window.localStorage;
 		console.log('EHI', localStorage);
-		console.log('EHI2', localStorage['token']);
 		if (localStorage['token']) {
 			console.log("DIO BON");
 			config.headers.Authorization = localStorage.token;

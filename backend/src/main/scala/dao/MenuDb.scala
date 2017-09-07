@@ -23,7 +23,7 @@ case class MenuDb(transactor: Transactor[Task])(implicit dbStrategy: DbStrategy)
       """.query[MenuEntry]
   }
 
-  object io {
+  object io { 
     def getMenu() = {
       for {
         menuTask <- Task.start(sql.getMenu().vector.transact(transactor))

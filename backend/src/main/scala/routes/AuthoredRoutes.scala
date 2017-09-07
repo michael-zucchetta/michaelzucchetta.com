@@ -52,17 +52,23 @@ case class AuthoredRoutes(authService: AuthService) {
             responseKO.withStatus(Unauthorized)
         }
       }
-    case req@POST -> Root / "auth" =>
+    case req@POST -> Root / "is_authenticated" =>
       // will use http4s authedservice
       val headers = request.headers.toVector.map(header => header.name.toString() -> Seq(header.value)).toMap
 
       val protectedResourceRequest = new ProtectedResourceRequest(headers, req.multiParams)
       for {
-        response <- Ok("hola")
+        responseOK <- Ok("hola")
+        responseKO <- Ok("Token Expired").withStatus(Unauthorized)
         result <- authService.isAuthenticated(protectedResourceRequest)
       } yield {
-        logger.info(s"Token error: ${result.left.map(_.description)}")
-        response
+        result match {
+          case Left(authError) =>
+            logger.info(s"Token error: ${authError.description}")
+            responseKO
+          case Right(result) =>
+            responseOK
+        }
       }
     case req =>
       logger.warn(s"route not found for $req")
